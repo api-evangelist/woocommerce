@@ -1,0 +1,964 @@
+asyncapi: 2.6.0
+info:
+  title: WooCommerce Webhook Events
+  description: >-
+    The WooCommerce webhook system delivers real-time HTTP POST event
+    notifications to a subscriber-configured endpoint URL whenever specific
+    store events occur. Supported topics cover create, update, delete, and
+    restore actions for orders, products, customers, and coupons, as well as
+    custom action-based topics mapped to any WordPress or WooCommerce action
+    hook. Webhook payloads are JSON-encoded and mirror the corresponding REST
+    API v3 response for the affected resource. Each delivery includes a set of
+    X-WC-Webhook-* headers for identification and an HMAC-SHA256 signature
+    generated from the payload using the webhook's configured secret key.
+    WooCommerce automatically disables a webhook after five consecutive
+    delivery failures.
+  version: 'v3'
+  contact:
+    name: WooCommerce Developer Support
+    url: https://developer.woocommerce.com/docs/best-practices/urls-and-routing/webhooks/
+  termsOfService: https://woocommerce.com/terms-conditions/
+externalDocs:
+  description: WooCommerce Webhooks Documentation
+  url: https://woocommerce.com/document/webhooks/
+servers:
+  woocommerce:
+    url: 'https://{store-domain}'
+    protocol: https
+    description: >-
+      WooCommerce sends webhook notifications as HTTP POST requests from the
+      merchant's WordPress installation. The subscriber's registered delivery
+      URL must be a publicly accessible HTTPS endpoint. Webhooks are configured
+      in WooCommerce admin under Settings > Advanced > Webhooks or via the REST
+      API /wc/v3/webhooks endpoints.
+    variables:
+      store-domain:
+        description: The domain of the WooCommerce store (e.g. example.com).
+    security:
+      - hmacSignature: []
+channels:
+  /webhook:
+    description: >-
+      The endpoint on the subscriber's server that receives webhook event
+      notifications from WooCommerce. WooCommerce sends HTTP POST requests with
+      JSON-encoded payloads and a set of X-WC-Webhook-* headers. The receiver
+      should verify the X-WC-Webhook-Signature header by computing an
+      HMAC-SHA256 hash of the raw request body using the configured webhook
+      secret key and comparing the base64-encoded result to the header value
+      before processing the payload. Return a 2xx HTTP response to acknowledge
+      receipt; any non-2xx or timeout response is treated as a failure.
+    publish:
+      operationId: receiveWebhookEvent
+      summary: Receive a WooCommerce webhook event notification
+      description: >-
+        WooCommerce delivers this message to the subscriber's registered
+        delivery URL each time a subscribed store event occurs. The message
+        type is determined by the X-WC-Webhook-Topic header (e.g.
+        order.created). Verify the HMAC-SHA256 signature before processing.
+      message:
+        oneOf:
+          - $ref: '#/components/messages/OrderCreated'
+          - $ref: '#/components/messages/OrderUpdated'
+          - $ref: '#/components/messages/OrderDeleted'
+          - $ref: '#/components/messages/OrderRestored'
+          - $ref: '#/components/messages/ProductCreated'
+          - $ref: '#/components/messages/ProductUpdated'
+          - $ref: '#/components/messages/ProductDeleted'
+          - $ref: '#/components/messages/ProductRestored'
+          - $ref: '#/components/messages/CustomerCreated'
+          - $ref: '#/components/messages/CustomerUpdated'
+          - $ref: '#/components/messages/CustomerDeleted'
+          - $ref: '#/components/messages/CouponCreated'
+          - $ref: '#/components/messages/CouponUpdated'
+          - $ref: '#/components/messages/CouponDeleted'
+          - $ref: '#/components/messages/CouponRestored'
+          - $ref: '#/components/messages/CustomAction'
+components:
+  securitySchemes:
+    hmacSignature:
+      type: httpApiKey
+      name: X-WC-Webhook-Signature
+      in: header
+      description: >-
+        Base64-encoded HMAC-SHA256 signature of the raw JSON request body.
+        The signature is generated using the webhook's configured secret key.
+        Subscribers must compute HMAC-SHA256(secret, raw_body), base64-encode
+        the result, and compare it to this header value to verify the
+        notification originated from WooCommerce and has not been tampered with.
+  messages:
+    OrderCreated:
+      name: OrderCreated
+      title: Order Created
+      summary: Triggered when a new order is placed in the store.
+      description: >-
+        WooCommerce delivers this event when a new order is created, regardless
+        of whether the order was placed by a customer, created via the admin, or
+        submitted through the REST API. The payload mirrors the REST API v3
+        order resource.
+      headers:
+        type: object
+        properties:
+          X-WC-Webhook-Topic:
+            type: string
+            description: The webhook topic identifier.
+            const: order.created
+          X-WC-Webhook-Resource:
+            type: string
+            description: The resource type.
+            const: order
+          X-WC-Webhook-Event:
+            type: string
+            description: The event action.
+            const: created
+          X-WC-Webhook-Signature:
+            type: string
+            description: Base64-encoded HMAC-SHA256 payload signature.
+          X-WC-Webhook-ID:
+            type: string
+            description: The webhook's numeric post ID.
+          X-WC-Webhook-Delivery-ID:
+            type: string
+            description: Unique delivery log identifier.
+      payload:
+        $ref: '#/components/schemas/OrderPayload'
+    OrderUpdated:
+      name: OrderUpdated
+      title: Order Updated
+      summary: Triggered when an existing order is modified.
+      description: >-
+        Delivered when any order property changes including status transitions,
+        address updates, payment information, and line item modifications. The
+        payload mirrors the REST API v3 order resource.
+      headers:
+        type: object
+        properties:
+          X-WC-Webhook-Topic:
+            type: string
+            description: The webhook topic identifier.
+            const: order.updated
+          X-WC-Webhook-Resource:
+            type: string
+            description: The resource type.
+            const: order
+          X-WC-Webhook-Event:
+            type: string
+            description: The event action.
+            const: updated
+          X-WC-Webhook-Signature:
+            type: string
+            description: Base64-encoded HMAC-SHA256 payload signature.
+          X-WC-Webhook-ID:
+            type: string
+            description: Webhook numeric post ID.
+          X-WC-Webhook-Delivery-ID:
+            type: string
+            description: Unique delivery log identifier.
+      payload:
+        $ref: '#/components/schemas/OrderPayload'
+    OrderDeleted:
+      name: OrderDeleted
+      title: Order Deleted
+      summary: Triggered when an order is moved to the trash.
+      description: >-
+        Delivered when an order is trashed from the WooCommerce admin or deleted
+        via the REST API. The payload mirrors the REST API v3 order resource at
+        the time of deletion.
+      headers:
+        type: object
+        properties:
+          X-WC-Webhook-Topic:
+            type: string
+            description: The webhook topic identifier.
+            const: order.deleted
+          X-WC-Webhook-Resource:
+            type: string
+            description: The resource type.
+            const: order
+          X-WC-Webhook-Event:
+            type: string
+            description: The event action.
+            const: deleted
+          X-WC-Webhook-Signature:
+            type: string
+            description: Base64-encoded HMAC-SHA256 payload signature.
+          X-WC-Webhook-ID:
+            type: string
+            description: Webhook numeric post ID.
+          X-WC-Webhook-Delivery-ID:
+            type: string
+            description: Unique delivery log identifier.
+      payload:
+        $ref: '#/components/schemas/OrderPayload'
+    OrderRestored:
+      name: OrderRestored
+      title: Order Restored
+      summary: Triggered when an order is recovered from the trash.
+      description: >-
+        Delivered when a previously trashed order is restored. The payload
+        mirrors the REST API v3 order resource.
+      headers:
+        type: object
+        properties:
+          X-WC-Webhook-Topic:
+            type: string
+            description: The webhook topic identifier.
+            const: order.restored
+          X-WC-Webhook-Resource:
+            type: string
+            description: The resource type.
+            const: order
+          X-WC-Webhook-Event:
+            type: string
+            description: The event action.
+            const: restored
+          X-WC-Webhook-Signature:
+            type: string
+            description: Base64-encoded HMAC-SHA256 payload signature.
+          X-WC-Webhook-ID:
+            type: string
+            description: Webhook numeric post ID.
+          X-WC-Webhook-Delivery-ID:
+            type: string
+            description: Unique delivery log identifier.
+      payload:
+        $ref: '#/components/schemas/OrderPayload'
+    ProductCreated:
+      name: ProductCreated
+      title: Product Created
+      summary: Triggered when a new product is published or saved in the store.
+      description: >-
+        Delivered when a new product is created via the WooCommerce admin, REST
+        API, or import. The payload mirrors the REST API v3 product resource.
+      headers:
+        type: object
+        properties:
+          X-WC-Webhook-Topic:
+            type: string
+            description: The webhook topic identifier.
+            const: product.created
+          X-WC-Webhook-Resource:
+            type: string
+            description: The resource type.
+            const: product
+          X-WC-Webhook-Event:
+            type: string
+            description: The event action.
+            const: created
+          X-WC-Webhook-Signature:
+            type: string
+            description: Base64-encoded HMAC-SHA256 payload signature.
+          X-WC-Webhook-ID:
+            type: string
+            description: Webhook numeric post ID.
+          X-WC-Webhook-Delivery-ID:
+            type: string
+            description: Unique delivery log identifier.
+      payload:
+        $ref: '#/components/schemas/ProductPayload'
+    ProductUpdated:
+      name: ProductUpdated
+      title: Product Updated
+      summary: Triggered when an existing product is modified.
+      description: >-
+        Delivered when any product property changes including price, stock,
+        description, images, categories, or status. The payload mirrors the
+        REST API v3 product resource.
+      headers:
+        type: object
+        properties:
+          X-WC-Webhook-Topic:
+            type: string
+            description: The webhook topic identifier.
+            const: product.updated
+          X-WC-Webhook-Resource:
+            type: string
+            description: The resource type.
+            const: product
+          X-WC-Webhook-Event:
+            type: string
+            description: The event action.
+            const: updated
+          X-WC-Webhook-Signature:
+            type: string
+            description: Base64-encoded HMAC-SHA256 payload signature.
+          X-WC-Webhook-ID:
+            type: string
+            description: Webhook numeric post ID.
+          X-WC-Webhook-Delivery-ID:
+            type: string
+            description: Unique delivery log identifier.
+      payload:
+        $ref: '#/components/schemas/ProductPayload'
+    ProductDeleted:
+      name: ProductDeleted
+      title: Product Deleted
+      summary: Triggered when a product is moved to the trash.
+      description: >-
+        Delivered when a product is trashed. The payload mirrors the REST API
+        v3 product resource at the time of deletion.
+      headers:
+        type: object
+        properties:
+          X-WC-Webhook-Topic:
+            type: string
+            description: The webhook topic identifier.
+            const: product.deleted
+          X-WC-Webhook-Resource:
+            type: string
+            description: The resource type.
+            const: product
+          X-WC-Webhook-Event:
+            type: string
+            description: The event action.
+            const: deleted
+          X-WC-Webhook-Signature:
+            type: string
+            description: Base64-encoded HMAC-SHA256 payload signature.
+          X-WC-Webhook-ID:
+            type: string
+            description: Webhook numeric post ID.
+          X-WC-Webhook-Delivery-ID:
+            type: string
+            description: Unique delivery log identifier.
+      payload:
+        $ref: '#/components/schemas/ProductPayload'
+    ProductRestored:
+      name: ProductRestored
+      title: Product Restored
+      summary: Triggered when a product is recovered from the trash.
+      description: >-
+        Delivered when a previously trashed product is restored. The payload
+        mirrors the REST API v3 product resource.
+      headers:
+        type: object
+        properties:
+          X-WC-Webhook-Topic:
+            type: string
+            description: The webhook topic identifier.
+            const: product.restored
+          X-WC-Webhook-Resource:
+            type: string
+            description: The resource type.
+            const: product
+          X-WC-Webhook-Event:
+            type: string
+            description: The event action.
+            const: restored
+          X-WC-Webhook-Signature:
+            type: string
+            description: Base64-encoded HMAC-SHA256 payload signature.
+          X-WC-Webhook-ID:
+            type: string
+            description: Webhook numeric post ID.
+          X-WC-Webhook-Delivery-ID:
+            type: string
+            description: Unique delivery log identifier.
+      payload:
+        $ref: '#/components/schemas/ProductPayload'
+    CustomerCreated:
+      name: CustomerCreated
+      title: Customer Created
+      summary: Triggered when a new customer account is registered.
+      description: >-
+        Delivered when a new WordPress user with the customer role is created,
+        whether via storefront registration, checkout account creation, admin
+        creation, or REST API. The payload mirrors the REST API v3 customer
+        resource.
+      headers:
+        type: object
+        properties:
+          X-WC-Webhook-Topic:
+            type: string
+            description: The webhook topic identifier.
+            const: customer.created
+          X-WC-Webhook-Resource:
+            type: string
+            description: The resource type.
+            const: customer
+          X-WC-Webhook-Event:
+            type: string
+            description: The event action.
+            const: created
+          X-WC-Webhook-Signature:
+            type: string
+            description: Base64-encoded HMAC-SHA256 payload signature.
+          X-WC-Webhook-ID:
+            type: string
+            description: Webhook numeric post ID.
+          X-WC-Webhook-Delivery-ID:
+            type: string
+            description: Unique delivery log identifier.
+      payload:
+        $ref: '#/components/schemas/CustomerPayload'
+    CustomerUpdated:
+      name: CustomerUpdated
+      title: Customer Updated
+      summary: Triggered when a customer account is modified.
+      description: >-
+        Delivered when customer profile data changes including billing/shipping
+        addresses, email address, password, or custom meta fields. The payload
+        mirrors the REST API v3 customer resource.
+      headers:
+        type: object
+        properties:
+          X-WC-Webhook-Topic:
+            type: string
+            description: The webhook topic identifier.
+            const: customer.updated
+          X-WC-Webhook-Resource:
+            type: string
+            description: The resource type.
+            const: customer
+          X-WC-Webhook-Event:
+            type: string
+            description: The event action.
+            const: updated
+          X-WC-Webhook-Signature:
+            type: string
+            description: Base64-encoded HMAC-SHA256 payload signature.
+          X-WC-Webhook-ID:
+            type: string
+            description: Webhook numeric post ID.
+          X-WC-Webhook-Delivery-ID:
+            type: string
+            description: Unique delivery log identifier.
+      payload:
+        $ref: '#/components/schemas/CustomerPayload'
+    CustomerDeleted:
+      name: CustomerDeleted
+      title: Customer Deleted
+      summary: Triggered when a customer account is deleted.
+      description: >-
+        Delivered when a customer's WordPress user account is permanently
+        deleted. The payload mirrors the REST API v3 customer resource at the
+        time of deletion.
+      headers:
+        type: object
+        properties:
+          X-WC-Webhook-Topic:
+            type: string
+            description: The webhook topic identifier.
+            const: customer.deleted
+          X-WC-Webhook-Resource:
+            type: string
+            description: The resource type.
+            const: customer
+          X-WC-Webhook-Event:
+            type: string
+            description: The event action.
+            const: deleted
+          X-WC-Webhook-Signature:
+            type: string
+            description: Base64-encoded HMAC-SHA256 payload signature.
+          X-WC-Webhook-ID:
+            type: string
+            description: Webhook numeric post ID.
+          X-WC-Webhook-Delivery-ID:
+            type: string
+            description: Unique delivery log identifier.
+      payload:
+        $ref: '#/components/schemas/CustomerPayload'
+    CouponCreated:
+      name: CouponCreated
+      title: Coupon Created
+      summary: Triggered when a new coupon is created.
+      description: >-
+        Delivered when a new discount coupon is saved. The payload mirrors the
+        REST API v3 coupon resource.
+      headers:
+        type: object
+        properties:
+          X-WC-Webhook-Topic:
+            type: string
+            description: The webhook topic identifier.
+            const: coupon.created
+          X-WC-Webhook-Resource:
+            type: string
+            description: The resource type.
+            const: coupon
+          X-WC-Webhook-Event:
+            type: string
+            description: The event action.
+            const: created
+          X-WC-Webhook-Signature:
+            type: string
+            description: Base64-encoded HMAC-SHA256 payload signature.
+          X-WC-Webhook-ID:
+            type: string
+            description: Webhook numeric post ID.
+          X-WC-Webhook-Delivery-ID:
+            type: string
+            description: Unique delivery log identifier.
+      payload:
+        $ref: '#/components/schemas/CouponPayload'
+    CouponUpdated:
+      name: CouponUpdated
+      title: Coupon Updated
+      summary: Triggered when a coupon is modified.
+      description: >-
+        Delivered when a coupon's properties change including amount, expiry,
+        usage limits, or restriction settings. The payload mirrors the REST API
+        v3 coupon resource.
+      headers:
+        type: object
+        properties:
+          X-WC-Webhook-Topic:
+            type: string
+            description: The webhook topic identifier.
+            const: coupon.updated
+          X-WC-Webhook-Resource:
+            type: string
+            description: The resource type.
+            const: coupon
+          X-WC-Webhook-Event:
+            type: string
+            description: The event action.
+            const: updated
+          X-WC-Webhook-Signature:
+            type: string
+            description: Base64-encoded HMAC-SHA256 payload signature.
+          X-WC-Webhook-ID:
+            type: string
+            description: Webhook numeric post ID.
+          X-WC-Webhook-Delivery-ID:
+            type: string
+            description: Unique delivery log identifier.
+      payload:
+        $ref: '#/components/schemas/CouponPayload'
+    CouponDeleted:
+      name: CouponDeleted
+      title: Coupon Deleted
+      summary: Triggered when a coupon is moved to the trash.
+      description: >-
+        Delivered when a coupon is trashed. The payload mirrors the REST API
+        v3 coupon resource at the time of deletion.
+      headers:
+        type: object
+        properties:
+          X-WC-Webhook-Topic:
+            type: string
+            description: The webhook topic identifier.
+            const: coupon.deleted
+          X-WC-Webhook-Resource:
+            type: string
+            description: The resource type.
+            const: coupon
+          X-WC-Webhook-Event:
+            type: string
+            description: The event action.
+            const: deleted
+          X-WC-Webhook-Signature:
+            type: string
+            description: Base64-encoded HMAC-SHA256 payload signature.
+          X-WC-Webhook-ID:
+            type: string
+            description: Webhook numeric post ID.
+          X-WC-Webhook-Delivery-ID:
+            type: string
+            description: Unique delivery log identifier.
+      payload:
+        $ref: '#/components/schemas/CouponPayload'
+    CouponRestored:
+      name: CouponRestored
+      title: Coupon Restored
+      summary: Triggered when a coupon is recovered from the trash.
+      description: >-
+        Delivered when a previously trashed coupon is restored to active status.
+        The payload mirrors the REST API v3 coupon resource.
+      headers:
+        type: object
+        properties:
+          X-WC-Webhook-Topic:
+            type: string
+            description: The webhook topic identifier.
+            const: coupon.restored
+          X-WC-Webhook-Resource:
+            type: string
+            description: The resource type.
+            const: coupon
+          X-WC-Webhook-Event:
+            type: string
+            description: The event action.
+            const: restored
+          X-WC-Webhook-Signature:
+            type: string
+            description: Base64-encoded HMAC-SHA256 payload signature.
+          X-WC-Webhook-ID:
+            type: string
+            description: Webhook numeric post ID.
+          X-WC-Webhook-Delivery-ID:
+            type: string
+            description: Unique delivery log identifier.
+      payload:
+        $ref: '#/components/schemas/CouponPayload'
+    CustomAction:
+      name: CustomAction
+      title: Custom Action
+      summary: Triggered by a custom WordPress or WooCommerce action hook.
+      description: >-
+        Delivered when the specified WordPress/WooCommerce action hook fires.
+        The topic is prefixed with action. (e.g. action.woocommerce_add_to_cart).
+        The payload for custom action webhooks is the array of arguments passed
+        to the hook. Custom action topics are configured in the WooCommerce
+        admin or via the REST API webhook resource.
+      headers:
+        type: object
+        properties:
+          X-WC-Webhook-Topic:
+            type: string
+            description: >-
+              The full custom topic name in the format action.{hook_name}
+              (e.g. action.woocommerce_add_to_cart).
+            pattern: '^action\..+'
+          X-WC-Webhook-Resource:
+            type: string
+            description: Set to action for custom action topics.
+            const: action
+          X-WC-Webhook-Event:
+            type: string
+            description: The action hook name without the action. prefix.
+          X-WC-Webhook-Signature:
+            type: string
+            description: Base64-encoded HMAC-SHA256 payload signature.
+          X-WC-Webhook-ID:
+            type: string
+            description: Webhook numeric post ID.
+          X-WC-Webhook-Delivery-ID:
+            type: string
+            description: Unique delivery log identifier.
+      payload:
+        type: object
+        description: >-
+          The hook arguments array serialized as a JSON object. Structure varies
+          by the specific action hook.
+        additionalProperties: true
+  schemas:
+    Address:
+      type: object
+      description: Billing or shipping address.
+      properties:
+        first_name:
+          type: string
+          description: First name.
+        last_name:
+          type: string
+          description: Last name.
+        company:
+          type: string
+          description: Company name.
+        address_1:
+          type: string
+          description: Address line 1.
+        address_2:
+          type: string
+          description: Address line 2.
+        city:
+          type: string
+          description: City.
+        state:
+          type: string
+          description: State code.
+        postcode:
+          type: string
+          description: Postal code.
+        country:
+          type: string
+          description: ISO 3166-1 alpha-2 country code.
+        email:
+          type: string
+          description: Email address (billing).
+        phone:
+          type: string
+          description: Phone number (billing).
+    MetaData:
+      type: object
+      description: Custom metadata key-value entry.
+      properties:
+        id:
+          type: integer
+          description: Metadata ID.
+        key:
+          type: string
+          description: Metadata key.
+        value:
+          type: string
+          description: Metadata value.
+    OrderPayload:
+      type: object
+      description: >-
+        Order webhook payload mirroring the WooCommerce REST API v3 order
+        resource.
+      properties:
+        id:
+          type: integer
+          description: Order unique identifier.
+        parent_id:
+          type: integer
+          description: Parent order ID.
+        number:
+          type: string
+          description: Order number displayed to customers.
+        order_key:
+          type: string
+          description: Order key for ownership verification.
+        status:
+          type: string
+          description: >-
+            Order status (pending, processing, on-hold, completed, cancelled,
+            refunded, failed).
+        currency:
+          type: string
+          description: ISO 4217 currency code.
+        date_created:
+          type: string
+          description: Date the order was created (ISO8601).
+        date_modified:
+          type: string
+          description: Date the order was last modified (ISO8601).
+        discount_total:
+          type: string
+          description: Total discount as a decimal string.
+        shipping_total:
+          type: string
+          description: Total shipping cost as a decimal string.
+        total:
+          type: string
+          description: Grand total as a decimal string.
+        total_tax:
+          type: string
+          description: Total tax as a decimal string.
+        customer_id:
+          type: integer
+          description: Customer ID (0 for guest orders).
+        customer_note:
+          type: string
+          description: Note from the customer.
+        billing:
+          $ref: '#/components/schemas/Address'
+        shipping:
+          $ref: '#/components/schemas/Address'
+        payment_method:
+          type: string
+          description: Payment method ID.
+        payment_method_title:
+          type: string
+          description: Human-readable payment method name.
+        transaction_id:
+          type: string
+          description: Payment gateway transaction ID.
+        line_items:
+          type: array
+          description: Products purchased in the order.
+          items:
+            type: object
+            properties:
+              id:
+                type: integer
+                description: Line item ID.
+              name:
+                type: string
+                description: Product name.
+              product_id:
+                type: integer
+                description: Product ID.
+              variation_id:
+                type: integer
+                description: Variation ID.
+              quantity:
+                type: integer
+                description: Quantity.
+              subtotal:
+                type: string
+                description: Line subtotal.
+              total:
+                type: string
+                description: Line total.
+              sku:
+                type: string
+                description: Product SKU.
+        meta_data:
+          type: array
+          description: Custom metadata.
+          items:
+            $ref: '#/components/schemas/MetaData'
+    ProductPayload:
+      type: object
+      description: >-
+        Product webhook payload mirroring the WooCommerce REST API v3 product
+        resource.
+      properties:
+        id:
+          type: integer
+          description: Product unique identifier.
+        name:
+          type: string
+          description: Product name.
+        slug:
+          type: string
+          description: Product slug.
+        type:
+          type: string
+          description: Product type (simple, variable, grouped, external).
+        status:
+          type: string
+          description: Product status.
+        featured:
+          type: boolean
+          description: Whether the product is featured.
+        description:
+          type: string
+          description: Product description.
+        sku:
+          type: string
+          description: Product SKU.
+        price:
+          type: string
+          description: Current price.
+        regular_price:
+          type: string
+          description: Regular price.
+        sale_price:
+          type: string
+          description: Sale price.
+        on_sale:
+          type: boolean
+          description: Whether on sale.
+        stock_status:
+          type: string
+          description: Stock status.
+        stock_quantity:
+          type: integer
+          description: Stock quantity.
+          nullable: true
+        categories:
+          type: array
+          description: Assigned categories.
+          items:
+            type: object
+            properties:
+              id:
+                type: integer
+              name:
+                type: string
+              slug:
+                type: string
+        date_created:
+          type: string
+          description: Date created (ISO8601).
+        date_modified:
+          type: string
+          description: Date modified (ISO8601).
+        meta_data:
+          type: array
+          description: Custom metadata.
+          items:
+            $ref: '#/components/schemas/MetaData'
+    CustomerPayload:
+      type: object
+      description: >-
+        Customer webhook payload mirroring the WooCommerce REST API v3 customer
+        resource.
+      properties:
+        id:
+          type: integer
+          description: Customer unique identifier.
+        date_created:
+          type: string
+          description: Date account was created (ISO8601).
+        date_modified:
+          type: string
+          description: Date account was last modified (ISO8601).
+        email:
+          type: string
+          description: Customer email address.
+        first_name:
+          type: string
+          description: First name.
+        last_name:
+          type: string
+          description: Last name.
+        role:
+          type: string
+          description: WordPress user role.
+        username:
+          type: string
+          description: WordPress username.
+        billing:
+          $ref: '#/components/schemas/Address'
+        shipping:
+          $ref: '#/components/schemas/Address'
+        is_paying_customer:
+          type: boolean
+          description: Whether the customer has completed at least one order.
+        orders_count:
+          type: integer
+          description: Total number of orders.
+        total_spent:
+          type: string
+          description: Total amount spent.
+        meta_data:
+          type: array
+          description: Custom metadata.
+          items:
+            $ref: '#/components/schemas/MetaData'
+    CouponPayload:
+      type: object
+      description: >-
+        Coupon webhook payload mirroring the WooCommerce REST API v3 coupon
+        resource.
+      properties:
+        id:
+          type: integer
+          description: Coupon unique identifier.
+        code:
+          type: string
+          description: Coupon code.
+        amount:
+          type: string
+          description: Discount amount.
+        discount_type:
+          type: string
+          description: Discount type (percent, fixed_cart, fixed_product).
+        description:
+          type: string
+          description: Admin description.
+        date_expires:
+          type: string
+          description: Expiry date (ISO8601).
+          nullable: true
+        usage_count:
+          type: integer
+          description: Number of times used.
+        individual_use:
+          type: boolean
+          description: Whether usable alone.
+        product_ids:
+          type: array
+          description: Applicable product IDs.
+          items:
+            type: integer
+        usage_limit:
+          type: integer
+          description: Total usage limit.
+          nullable: true
+        usage_limit_per_user:
+          type: integer
+          description: Per-customer usage limit.
+          nullable: true
+        minimum_amount:
+          type: string
+          description: Minimum order amount.
+        maximum_amount:
+          type: string
+          description: Maximum order amount.
+        date_created:
+          type: string
+          description: Date created (ISO8601).
+        date_modified:
+          type: string
+          description: Date modified (ISO8601).
+        meta_data:
+          type: array
+          description: Custom metadata.
+          items:
+            $ref: '#/components/schemas/MetaData'

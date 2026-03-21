@@ -1,0 +1,465 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://developer.woocommerce.com/schemas/product.json",
+  "title": "WooCommerce Product",
+  "description": "A WooCommerce store product. Products can be simple, variable, grouped, or external/affiliate types. Variable products contain variations with their own pricing and stock. Prices are returned as decimal strings. All date fields use ISO8601 format.",
+  "type": "object",
+  "required": ["id", "name", "type", "status"],
+  "properties": {
+    "id": {
+      "type": "integer",
+      "description": "Product unique identifier assigned by WooCommerce."
+    },
+    "name": {
+      "type": "string",
+      "description": "Product name displayed in the catalog and on product pages.",
+      "minLength": 1
+    },
+    "slug": {
+      "type": "string",
+      "description": "URL-friendly product identifier used in the product permalink."
+    },
+    "permalink": {
+      "type": "string",
+      "format": "uri",
+      "description": "Full URL to the product page on the storefront."
+    },
+    "date_created": {
+      "type": "string",
+      "format": "date-time",
+      "description": "Date the product was created in site timezone (ISO8601)."
+    },
+    "date_created_gmt": {
+      "type": "string",
+      "format": "date-time",
+      "description": "Date the product was created in UTC (ISO8601)."
+    },
+    "date_modified": {
+      "type": "string",
+      "format": "date-time",
+      "description": "Date the product was last modified in site timezone."
+    },
+    "date_modified_gmt": {
+      "type": "string",
+      "format": "date-time",
+      "description": "Date the product was last modified in UTC."
+    },
+    "type": {
+      "type": "string",
+      "description": "Product type determining how it behaves at checkout.",
+      "enum": ["simple", "grouped", "external", "variable"]
+    },
+    "status": {
+      "type": "string",
+      "description": "Publication status of the product.",
+      "enum": ["draft", "pending", "private", "publish"]
+    },
+    "featured": {
+      "type": "boolean",
+      "description": "Whether the product is marked as featured in the catalog."
+    },
+    "catalog_visibility": {
+      "type": "string",
+      "description": "Visibility in the store catalog and search results.",
+      "enum": ["visible", "catalog", "search", "hidden"]
+    },
+    "description": {
+      "type": "string",
+      "description": "Full product description. May contain HTML."
+    },
+    "short_description": {
+      "type": "string",
+      "description": "Short product description shown in catalog listings. May contain HTML."
+    },
+    "sku": {
+      "type": "string",
+      "description": "Stock-keeping unit identifier. Must be unique across all products and variations."
+    },
+    "price": {
+      "type": "string",
+      "description": "Current product price (either regular or sale price) as a decimal string.",
+      "pattern": "^\\d+\\.\\d{2}$"
+    },
+    "regular_price": {
+      "type": "string",
+      "description": "Regular (non-sale) product price as a decimal string.",
+      "pattern": "^\\d*\\.?\\d*$"
+    },
+    "sale_price": {
+      "type": "string",
+      "description": "Sale price as a decimal string. Empty string when not on sale."
+    },
+    "date_on_sale_from": {
+      "type": ["string", "null"],
+      "format": "date-time",
+      "description": "Date the sale price becomes active. Null if not scheduled."
+    },
+    "date_on_sale_to": {
+      "type": ["string", "null"],
+      "format": "date-time",
+      "description": "Date the sale price ends. Null if not scheduled."
+    },
+    "on_sale": {
+      "type": "boolean",
+      "description": "Whether the product is currently selling at the sale price."
+    },
+    "purchasable": {
+      "type": "boolean",
+      "description": "Whether the product can be added to the cart and purchased."
+    },
+    "total_sales": {
+      "type": "integer",
+      "description": "Total number of units sold across all time."
+    },
+    "virtual": {
+      "type": "boolean",
+      "description": "Whether the product is virtual and does not require shipping."
+    },
+    "downloadable": {
+      "type": "boolean",
+      "description": "Whether the product is downloadable and grants file access after purchase."
+    },
+    "downloads": {
+      "type": "array",
+      "description": "Downloadable files associated with a downloadable product.",
+      "items": {
+        "$ref": "#/$defs/Download"
+      }
+    },
+    "download_limit": {
+      "type": "integer",
+      "description": "Number of times a customer may download the file. -1 for unlimited.",
+      "minimum": -1
+    },
+    "download_expiry": {
+      "type": "integer",
+      "description": "Number of days before the download link expires. -1 for unlimited.",
+      "minimum": -1
+    },
+    "external_url": {
+      "type": "string",
+      "format": "uri",
+      "description": "URL for external/affiliate products where the purchase is completed."
+    },
+    "button_text": {
+      "type": "string",
+      "description": "Add-to-cart button label for external products."
+    },
+    "tax_status": {
+      "type": "string",
+      "description": "Tax status of the product.",
+      "enum": ["taxable", "shipping", "none"]
+    },
+    "tax_class": {
+      "type": "string",
+      "description": "Tax class slug applied to this product. Empty for standard rate."
+    },
+    "manage_stock": {
+      "type": "boolean",
+      "description": "Whether stock quantity management is enabled for this product."
+    },
+    "stock_quantity": {
+      "type": ["integer", "null"],
+      "description": "Current stock quantity. Null when manage_stock is false."
+    },
+    "backorders": {
+      "type": "string",
+      "description": "Whether backorders are allowed when stock runs out.",
+      "enum": ["no", "notify", "yes"]
+    },
+    "backorders_allowed": {
+      "type": "boolean",
+      "description": "Whether backorders are currently permitted."
+    },
+    "backordered": {
+      "type": "boolean",
+      "description": "Whether the product is currently on backorder."
+    },
+    "low_stock_amount": {
+      "type": ["integer", "null"],
+      "description": "Quantity threshold at which a low stock notice is triggered."
+    },
+    "sold_individually": {
+      "type": "boolean",
+      "description": "Whether only one unit can be purchased per order."
+    },
+    "weight": {
+      "type": "string",
+      "description": "Product weight as a string in the store's configured weight unit."
+    },
+    "dimensions": {
+      "$ref": "#/$defs/Dimensions",
+      "description": "Product physical dimensions."
+    },
+    "shipping_required": {
+      "type": "boolean",
+      "description": "Whether the product requires physical shipping."
+    },
+    "shipping_taxable": {
+      "type": "boolean",
+      "description": "Whether shipping charges on this product are taxable."
+    },
+    "shipping_class": {
+      "type": "string",
+      "description": "Shipping class slug assigned to this product."
+    },
+    "shipping_class_id": {
+      "type": "integer",
+      "description": "ID of the shipping class assigned to this product."
+    },
+    "reviews_allowed": {
+      "type": "boolean",
+      "description": "Whether customer reviews are enabled for this product."
+    },
+    "average_rating": {
+      "type": "string",
+      "description": "Average customer review rating as a decimal string (e.g. 4.50)."
+    },
+    "rating_count": {
+      "type": "integer",
+      "description": "Total number of ratings received."
+    },
+    "upsell_ids": {
+      "type": "array",
+      "description": "Product IDs shown as upsells on this product's page.",
+      "items": {
+        "type": "integer",
+        "description": "Product ID."
+      }
+    },
+    "cross_sell_ids": {
+      "type": "array",
+      "description": "Product IDs shown as cross-sells in the cart.",
+      "items": {
+        "type": "integer",
+        "description": "Product ID."
+      }
+    },
+    "parent_id": {
+      "type": "integer",
+      "description": "Parent product ID for product variations."
+    },
+    "purchase_note": {
+      "type": "string",
+      "description": "Optional note sent to the customer after purchase."
+    },
+    "categories": {
+      "type": "array",
+      "description": "Product categories this product is assigned to.",
+      "items": {
+        "$ref": "#/$defs/TermRef"
+      }
+    },
+    "tags": {
+      "type": "array",
+      "description": "Product tags assigned to this product.",
+      "items": {
+        "$ref": "#/$defs/TermRef"
+      }
+    },
+    "images": {
+      "type": "array",
+      "description": "Images associated with the product. First image is the featured image.",
+      "items": {
+        "$ref": "#/$defs/Image"
+      }
+    },
+    "attributes": {
+      "type": "array",
+      "description": "Product attributes. For variable products, used to define available variations.",
+      "items": {
+        "$ref": "#/$defs/ProductAttribute"
+      }
+    },
+    "default_attributes": {
+      "type": "array",
+      "description": "Default attribute values pre-selected on the variable product page.",
+      "items": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer",
+            "description": "Attribute ID."
+          },
+          "name": {
+            "type": "string",
+            "description": "Attribute name."
+          },
+          "option": {
+            "type": "string",
+            "description": "Default option value."
+          }
+        }
+      }
+    },
+    "variations": {
+      "type": "array",
+      "description": "IDs of product variations for variable products.",
+      "items": {
+        "type": "integer",
+        "description": "Variation ID."
+      }
+    },
+    "grouped_products": {
+      "type": "array",
+      "description": "IDs of products included in a grouped product.",
+      "items": {
+        "type": "integer",
+        "description": "Child product ID."
+      }
+    },
+    "menu_order": {
+      "type": "integer",
+      "description": "Sort order position for the product in catalog listings."
+    },
+    "meta_data": {
+      "type": "array",
+      "description": "Custom metadata key-value pairs attached to the product.",
+      "items": {
+        "$ref": "#/$defs/MetaData"
+      }
+    }
+  },
+  "$defs": {
+    "Dimensions": {
+      "type": "object",
+      "description": "Physical dimensions of a product in the store's configured dimension unit.",
+      "properties": {
+        "length": {
+          "type": "string",
+          "description": "Product length."
+        },
+        "width": {
+          "type": "string",
+          "description": "Product width."
+        },
+        "height": {
+          "type": "string",
+          "description": "Product height."
+        }
+      }
+    },
+    "Image": {
+      "type": "object",
+      "description": "An image attachment associated with a product.",
+      "properties": {
+        "id": {
+          "type": "integer",
+          "description": "WordPress media attachment ID."
+        },
+        "date_created": {
+          "type": "string",
+          "format": "date-time",
+          "description": "Date the image was uploaded."
+        },
+        "date_modified": {
+          "type": "string",
+          "format": "date-time",
+          "description": "Date the image was last modified."
+        },
+        "src": {
+          "type": "string",
+          "format": "uri",
+          "description": "Full-size image URL."
+        },
+        "name": {
+          "type": "string",
+          "description": "Image file name."
+        },
+        "alt": {
+          "type": "string",
+          "description": "Image alternative text for accessibility."
+        }
+      }
+    },
+    "ProductAttribute": {
+      "type": "object",
+      "description": "A product attribute with its available options.",
+      "properties": {
+        "id": {
+          "type": "integer",
+          "description": "Global attribute ID. 0 for custom (non-taxonomy) attributes."
+        },
+        "name": {
+          "type": "string",
+          "description": "Attribute label displayed to customers."
+        },
+        "position": {
+          "type": "integer",
+          "description": "Display order position of the attribute on the product page."
+        },
+        "visible": {
+          "type": "boolean",
+          "description": "Whether the attribute is visible on the product page."
+        },
+        "variation": {
+          "type": "boolean",
+          "description": "Whether this attribute is used to define product variations."
+        },
+        "options": {
+          "type": "array",
+          "description": "Available option values for this attribute.",
+          "items": {
+            "type": "string",
+            "description": "Option value."
+          }
+        }
+      }
+    },
+    "TermRef": {
+      "type": "object",
+      "description": "A reference to a taxonomy term (category or tag).",
+      "properties": {
+        "id": {
+          "type": "integer",
+          "description": "Term ID."
+        },
+        "name": {
+          "type": "string",
+          "description": "Term display name."
+        },
+        "slug": {
+          "type": "string",
+          "description": "URL-friendly term slug."
+        }
+      }
+    },
+    "Download": {
+      "type": "object",
+      "description": "A downloadable file associated with a digital product.",
+      "properties": {
+        "id": {
+          "type": "string",
+          "description": "Download file unique identifier (UUID)."
+        },
+        "name": {
+          "type": "string",
+          "description": "Display name of the download file."
+        },
+        "file": {
+          "type": "string",
+          "format": "uri",
+          "description": "URL or path of the downloadable file."
+        }
+      }
+    },
+    "MetaData": {
+      "type": "object",
+      "description": "A custom metadata key-value entry.",
+      "required": ["key"],
+      "properties": {
+        "id": {
+          "type": "integer",
+          "description": "Metadata entry unique identifier."
+        },
+        "key": {
+          "type": "string",
+          "description": "Metadata key name."
+        },
+        "value": {
+          "description": "Metadata value. Type varies by key."
+        }
+      }
+    }
+  }
+}

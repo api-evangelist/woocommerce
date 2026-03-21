@@ -1,0 +1,140 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://developer.woocommerce.com/schemas/webhook.json",
+  "title": "WooCommerce Webhook",
+  "description": "A WooCommerce webhook configuration that subscribes to store events and delivers HTTP POST notifications to a registered URL. Webhooks are triggered by create, update, delete, and restore actions on orders, products, customers, and coupons, as well as custom WordPress action hooks. Delivery includes JSON payloads and HMAC-SHA256 signature headers for payload verification.",
+  "type": "object",
+  "required": ["id", "topic", "delivery_url", "status"],
+  "properties": {
+    "id": {
+      "type": "integer",
+      "description": "Webhook unique identifier assigned by WooCommerce."
+    },
+    "name": {
+      "type": "string",
+      "description": "Friendly name for the webhook shown in the WooCommerce admin."
+    },
+    "status": {
+      "type": "string",
+      "description": "Current status of the webhook. Active webhooks receive event deliveries. Disabled webhooks were turned off manually. Paused webhooks were automatically disabled after five consecutive delivery failures.",
+      "enum": ["active", "paused", "disabled"]
+    },
+    "topic": {
+      "type": "string",
+      "description": "The event topic that triggers this webhook. Standard topics follow the pattern {resource}.{event} (e.g. order.created). Custom topics use the pattern action.{hook_name}.",
+      "examples": [
+        "order.created",
+        "order.updated",
+        "order.deleted",
+        "order.restored",
+        "product.created",
+        "product.updated",
+        "product.deleted",
+        "product.restored",
+        "customer.created",
+        "customer.updated",
+        "customer.deleted",
+        "coupon.created",
+        "coupon.updated",
+        "coupon.deleted",
+        "coupon.restored",
+        "action.woocommerce_add_to_cart"
+      ]
+    },
+    "resource": {
+      "type": "string",
+      "description": "The resource type associated with the topic (e.g. order, product, customer, coupon, action)."
+    },
+    "event": {
+      "type": "string",
+      "description": "The event action associated with the topic (e.g. created, updated, deleted, restored)."
+    },
+    "hooks": {
+      "type": "array",
+      "description": "WordPress action hooks that trigger this webhook delivery.",
+      "items": {
+        "type": "string",
+        "description": "Action hook name."
+      }
+    },
+    "delivery_url": {
+      "type": "string",
+      "format": "uri",
+      "description": "HTTPS URL that receives the webhook HTTP POST payload. Must be publicly accessible."
+    },
+    "secret": {
+      "type": "string",
+      "description": "Secret key used to generate the HMAC-SHA256 payload signature. Write-only field; not returned in GET responses.",
+      "writeOnly": true
+    },
+    "date_created": {
+      "type": "string",
+      "format": "date-time",
+      "description": "Date the webhook was created in site timezone (ISO8601)."
+    },
+    "date_created_gmt": {
+      "type": "string",
+      "format": "date-time",
+      "description": "Date the webhook was created in UTC (ISO8601)."
+    },
+    "date_modified": {
+      "type": "string",
+      "format": "date-time",
+      "description": "Date the webhook was last modified in site timezone."
+    },
+    "date_modified_gmt": {
+      "type": "string",
+      "format": "date-time",
+      "description": "Date the webhook was last modified in UTC."
+    }
+  },
+  "$defs": {
+    "WebhookDeliveryHeaders": {
+      "type": "object",
+      "description": "HTTP headers included in every WooCommerce webhook delivery request.",
+      "required": [
+        "X-WC-Webhook-Topic",
+        "X-WC-Webhook-Resource",
+        "X-WC-Webhook-Event",
+        "X-WC-Webhook-Signature",
+        "X-WC-Webhook-ID",
+        "X-WC-Webhook-Delivery-ID"
+      ],
+      "properties": {
+        "X-WC-Webhook-Topic": {
+          "type": "string",
+          "description": "Full topic of the webhook event (e.g. order.created)."
+        },
+        "X-WC-Webhook-Resource": {
+          "type": "string",
+          "description": "Resource type of the event (e.g. order, product, customer, coupon, action)."
+        },
+        "X-WC-Webhook-Event": {
+          "type": "string",
+          "description": "Event action that triggered the webhook (e.g. created, updated, deleted, restored)."
+        },
+        "X-WC-Webhook-Signature": {
+          "type": "string",
+          "description": "Base64-encoded HMAC-SHA256 hash of the raw JSON request body, generated using the webhook's configured secret key. Receivers must verify this value to confirm the payload originated from WooCommerce."
+        },
+        "X-WC-Webhook-ID": {
+          "type": "string",
+          "description": "Numeric ID of the webhook configuration that triggered this delivery."
+        },
+        "X-WC-Webhook-Delivery-ID": {
+          "type": "string",
+          "description": "Unique identifier for this specific delivery attempt in the delivery log."
+        },
+        "Content-Type": {
+          "type": "string",
+          "description": "MIME type of the payload. Always application/json.",
+          "const": "application/json"
+        },
+        "User-Agent": {
+          "type": "string",
+          "description": "User agent string identifying the WooCommerce instance sending the request."
+        }
+      }
+    }
+  }
+}

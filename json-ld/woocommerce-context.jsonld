@@ -1,0 +1,392 @@
+{
+  "@context": {
+    "@version": 1.1,
+    "wc": "https://developer.woocommerce.com/schemas/",
+    "schema": "https://schema.org/",
+    "xsd": "http://www.w3.org/2001/XMLSchema#",
+    "dcterms": "http://purl.org/dc/terms/",
+    "gr": "http://purl.org/goodrelations/v1#",
+
+    "Product": {
+      "@id": "schema:Product",
+      "@context": {
+        "id": "schema:identifier",
+        "name": "schema:name",
+        "slug": "wc:slug",
+        "permalink": {
+          "@id": "schema:url",
+          "@type": "@id"
+        },
+        "description": "schema:description",
+        "short_description": "schema:disambiguatingDescription",
+        "sku": "schema:sku",
+        "price": {
+          "@id": "gr:hasCurrencyValue",
+          "@type": "xsd:decimal"
+        },
+        "regular_price": {
+          "@id": "gr:hasCurrencyValue",
+          "@type": "xsd:decimal"
+        },
+        "sale_price": {
+          "@id": "wc:salePrice",
+          "@type": "xsd:decimal"
+        },
+        "on_sale": {
+          "@id": "wc:onSale",
+          "@type": "xsd:boolean"
+        },
+        "type": "wc:productType",
+        "status": "schema:creativeWorkStatus",
+        "featured": {
+          "@id": "wc:featured",
+          "@type": "xsd:boolean"
+        },
+        "virtual": {
+          "@id": "wc:virtual",
+          "@type": "xsd:boolean"
+        },
+        "downloadable": {
+          "@id": "wc:downloadable",
+          "@type": "xsd:boolean"
+        },
+        "manage_stock": {
+          "@id": "wc:manageStock",
+          "@type": "xsd:boolean"
+        },
+        "stock_quantity": {
+          "@id": "gr:quantityProductOrService",
+          "@type": "xsd:integer"
+        },
+        "stock_status": "wc:stockStatus",
+        "weight": {
+          "@id": "schema:weight",
+          "@type": "xsd:string"
+        },
+        "average_rating": {
+          "@id": "schema:ratingValue",
+          "@type": "xsd:decimal"
+        },
+        "rating_count": {
+          "@id": "schema:reviewCount",
+          "@type": "xsd:integer"
+        },
+        "total_sales": {
+          "@id": "wc:totalSales",
+          "@type": "xsd:integer"
+        },
+        "date_created": {
+          "@id": "dcterms:created",
+          "@type": "xsd:dateTime"
+        },
+        "date_modified": {
+          "@id": "dcterms:modified",
+          "@type": "xsd:dateTime"
+        },
+        "categories": {
+          "@id": "schema:category",
+          "@container": "@set"
+        },
+        "tags": {
+          "@id": "schema:keywords",
+          "@container": "@set"
+        },
+        "images": {
+          "@id": "schema:image",
+          "@container": "@set"
+        },
+        "attributes": {
+          "@id": "wc:attribute",
+          "@container": "@set"
+        },
+        "variations": {
+          "@id": "schema:hasVariant",
+          "@container": "@set"
+        },
+        "meta_data": {
+          "@id": "wc:metaData",
+          "@container": "@set"
+        }
+      }
+    },
+
+    "Order": {
+      "@id": "schema:Order",
+      "@context": {
+        "id": "schema:identifier",
+        "number": "schema:orderNumber",
+        "order_key": "wc:orderKey",
+        "status": "schema:orderStatus",
+        "currency": {
+          "@id": "schema:priceCurrency"
+        },
+        "total": {
+          "@id": "schema:price",
+          "@type": "xsd:decimal"
+        },
+        "discount_total": {
+          "@id": "wc:discountTotal",
+          "@type": "xsd:decimal"
+        },
+        "shipping_total": {
+          "@id": "wc:shippingTotal",
+          "@type": "xsd:decimal"
+        },
+        "total_tax": {
+          "@id": "wc:totalTax",
+          "@type": "xsd:decimal"
+        },
+        "customer_id": {
+          "@id": "schema:customer",
+          "@type": "@id"
+        },
+        "customer_note": "schema:description",
+        "payment_method": {
+          "@id": "schema:paymentMethod"
+        },
+        "payment_method_title": {
+          "@id": "schema:paymentMethodId"
+        },
+        "transaction_id": "wc:transactionId",
+        "billing": {
+          "@id": "schema:billingAddress",
+          "@type": "schema:PostalAddress"
+        },
+        "shipping": {
+          "@id": "schema:deliveryAddress",
+          "@type": "schema:PostalAddress"
+        },
+        "line_items": {
+          "@id": "schema:orderedItem",
+          "@container": "@set"
+        },
+        "coupon_lines": {
+          "@id": "schema:discount",
+          "@container": "@set"
+        },
+        "date_created": {
+          "@id": "schema:orderDate",
+          "@type": "xsd:dateTime"
+        },
+        "date_modified": {
+          "@id": "dcterms:modified",
+          "@type": "xsd:dateTime"
+        },
+        "date_completed": {
+          "@id": "wc:dateCompleted",
+          "@type": "xsd:dateTime"
+        },
+        "date_paid": {
+          "@id": "schema:paymentDueDate",
+          "@type": "xsd:dateTime"
+        },
+        "meta_data": {
+          "@id": "wc:metaData",
+          "@container": "@set"
+        }
+      }
+    },
+
+    "Customer": {
+      "@id": "schema:Person",
+      "@context": {
+        "id": "schema:identifier",
+        "email": "schema:email",
+        "first_name": "schema:givenName",
+        "last_name": "schema:familyName",
+        "username": "schema:alternateName",
+        "role": "wc:userRole",
+        "billing": {
+          "@id": "schema:address",
+          "@type": "schema:PostalAddress"
+        },
+        "shipping": {
+          "@id": "wc:shippingAddress",
+          "@type": "schema:PostalAddress"
+        },
+        "is_paying_customer": {
+          "@id": "wc:isPayingCustomer",
+          "@type": "xsd:boolean"
+        },
+        "orders_count": {
+          "@id": "wc:ordersCount",
+          "@type": "xsd:integer"
+        },
+        "total_spent": {
+          "@id": "wc:totalSpent",
+          "@type": "xsd:decimal"
+        },
+        "avatar_url": {
+          "@id": "schema:image",
+          "@type": "@id"
+        },
+        "date_created": {
+          "@id": "schema:dateCreated",
+          "@type": "xsd:dateTime"
+        },
+        "date_modified": {
+          "@id": "dcterms:modified",
+          "@type": "xsd:dateTime"
+        },
+        "meta_data": {
+          "@id": "wc:metaData",
+          "@container": "@set"
+        }
+      }
+    },
+
+    "Coupon": {
+      "@id": "schema:Offer",
+      "@context": {
+        "id": "schema:identifier",
+        "code": "schema:serialNumber",
+        "amount": {
+          "@id": "wc:discountAmount",
+          "@type": "xsd:decimal"
+        },
+        "discount_type": "wc:discountType",
+        "description": "schema:description",
+        "date_expires": {
+          "@id": "schema:validThrough",
+          "@type": "xsd:dateTime"
+        },
+        "usage_count": {
+          "@id": "wc:usageCount",
+          "@type": "xsd:integer"
+        },
+        "usage_limit": {
+          "@id": "wc:usageLimit",
+          "@type": "xsd:integer"
+        },
+        "usage_limit_per_user": {
+          "@id": "wc:usageLimitPerUser",
+          "@type": "xsd:integer"
+        },
+        "individual_use": {
+          "@id": "wc:individualUse",
+          "@type": "xsd:boolean"
+        },
+        "product_ids": {
+          "@id": "schema:itemOffered",
+          "@container": "@set"
+        },
+        "minimum_amount": {
+          "@id": "schema:minPrice",
+          "@type": "xsd:decimal"
+        },
+        "maximum_amount": {
+          "@id": "schema:maxPrice",
+          "@type": "xsd:decimal"
+        },
+        "date_created": {
+          "@id": "dcterms:created",
+          "@type": "xsd:dateTime"
+        },
+        "date_modified": {
+          "@id": "dcterms:modified",
+          "@type": "xsd:dateTime"
+        },
+        "meta_data": {
+          "@id": "wc:metaData",
+          "@container": "@set"
+        }
+      }
+    },
+
+    "Webhook": {
+      "@id": "wc:Webhook",
+      "@context": {
+        "id": "schema:identifier",
+        "name": "schema:name",
+        "status": "schema:status",
+        "topic": "wc:webhookTopic",
+        "resource": "wc:webhookResource",
+        "event": "wc:webhookEvent",
+        "delivery_url": {
+          "@id": "wc:deliveryUrl",
+          "@type": "@id"
+        },
+        "date_created": {
+          "@id": "dcterms:created",
+          "@type": "xsd:dateTime"
+        },
+        "date_modified": {
+          "@id": "dcterms:modified",
+          "@type": "xsd:dateTime"
+        }
+      }
+    },
+
+    "PostalAddress": {
+      "@id": "schema:PostalAddress",
+      "@context": {
+        "first_name": "schema:givenName",
+        "last_name": "schema:familyName",
+        "company": "schema:legalName",
+        "address_1": "schema:streetAddress",
+        "address_2": "wc:streetAddress2",
+        "city": "schema:addressLocality",
+        "state": "schema:addressRegion",
+        "postcode": "schema:postalCode",
+        "country": "schema:addressCountry",
+        "email": "schema:email",
+        "phone": "schema:telephone"
+      }
+    },
+
+    "ProductCategory": {
+      "@id": "schema:Thing",
+      "@context": {
+        "id": "schema:identifier",
+        "name": "schema:name",
+        "slug": "wc:slug",
+        "description": "schema:description",
+        "parent": {
+          "@id": "schema:isPartOf",
+          "@type": "@id"
+        },
+        "image": {
+          "@id": "schema:image",
+          "@type": "@id"
+        },
+        "count": {
+          "@id": "wc:productCount",
+          "@type": "xsd:integer"
+        }
+      }
+    },
+
+    "LineItem": {
+      "@id": "schema:OrderItem",
+      "@context": {
+        "id": "schema:identifier",
+        "name": "schema:name",
+        "product_id": {
+          "@id": "schema:orderedItem",
+          "@type": "@id"
+        },
+        "variation_id": {
+          "@id": "wc:variationId",
+          "@type": "@id"
+        },
+        "quantity": {
+          "@id": "schema:orderQuantity",
+          "@type": "xsd:integer"
+        },
+        "subtotal": {
+          "@id": "wc:subtotal",
+          "@type": "xsd:decimal"
+        },
+        "total": {
+          "@id": "schema:price",
+          "@type": "xsd:decimal"
+        },
+        "sku": "schema:sku",
+        "price": {
+          "@id": "gr:hasCurrencyValue",
+          "@type": "xsd:decimal"
+        }
+      }
+    }
+  }
+}
