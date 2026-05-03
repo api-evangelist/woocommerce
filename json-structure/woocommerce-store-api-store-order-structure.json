@@ -1,0 +1,191 @@
+{
+  "$schema": "https://json-structure.org/meta/core/v0/#",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/woocommerce/refs/heads/main/json-structure/woocommerce-store-api-store-order-structure.json",
+  "name": "StoreOrder",
+  "description": "A customer order retrieved via the Store API.",
+  "type": "object",
+  "properties": {
+    "id": {
+      "type": "int32",
+      "description": "Order unique identifier.",
+      "example": 1
+    },
+    "number": {
+      "type": "string",
+      "description": "Human-readable order number.",
+      "example": "string-value"
+    },
+    "status": {
+      "type": "string",
+      "description": "Order status.",
+      "example": "active"
+    },
+    "date_created": {
+      "type": "datetime",
+      "description": "Date the order was created.",
+      "example": "2026-05-03T14:30:00Z"
+    },
+    "total": {
+      "type": "string",
+      "description": "Order grand total.",
+      "example": "string-value"
+    },
+    "billing": {
+      "type": "object",
+      "description": "A customer billing or shipping address in the Store API context.",
+      "properties": {
+        "first_name": {
+          "type": "string",
+          "description": "First name.",
+          "example": "Example Name"
+        },
+        "last_name": {
+          "type": "string",
+          "description": "Last name.",
+          "example": "Example Name"
+        },
+        "company": {
+          "type": "string",
+          "description": "Company name.",
+          "example": "string-value"
+        },
+        "address_1": {
+          "type": "string",
+          "description": "Address line 1.",
+          "example": "string-value"
+        },
+        "address_2": {
+          "type": "string",
+          "description": "Address line 2.",
+          "example": "string-value"
+        },
+        "city": {
+          "type": "string",
+          "description": "City.",
+          "example": "string-value"
+        },
+        "state": {
+          "type": "string",
+          "description": "State or province code.",
+          "example": "string-value"
+        },
+        "postcode": {
+          "type": "string",
+          "description": "Postal code.",
+          "example": "string-value"
+        },
+        "country": {
+          "type": "string",
+          "description": "ISO 3166-1 alpha-2 country code.",
+          "example": "string-value"
+        },
+        "email": {
+          "type": "string",
+          "format": "email",
+          "description": "Email address (billing only).",
+          "example": "user@example.com"
+        },
+        "phone": {
+          "type": "string",
+          "description": "Phone number.",
+          "example": "string-value"
+        }
+      }
+    },
+    "shipping": {
+      "type": "object",
+      "description": "A customer billing or shipping address in the Store API context.",
+      "properties": {
+        "first_name": {
+          "type": "string",
+          "description": "First name.",
+          "example": "Example Name"
+        },
+        "last_name": {
+          "type": "string",
+          "description": "Last name.",
+          "example": "Example Name"
+        },
+        "company": {
+          "type": "string",
+          "description": "Company name.",
+          "example": "string-value"
+        },
+        "address_1": {
+          "type": "string",
+          "description": "Address line 1.",
+          "example": "string-value"
+        },
+        "address_2": {
+          "type": "string",
+          "description": "Address line 2.",
+          "example": "string-value"
+        },
+        "city": {
+          "type": "string",
+          "description": "City.",
+          "example": "string-value"
+        },
+        "state": {
+          "type": "string",
+          "description": "State or province code.",
+          "example": "string-value"
+        },
+        "postcode": {
+          "type": "string",
+          "description": "Postal code.",
+          "example": "string-value"
+        },
+        "country": {
+          "type": "string",
+          "description": "ISO 3166-1 alpha-2 country code.",
+          "example": "string-value"
+        },
+        "email": {
+          "type": "string",
+          "format": "email",
+          "description": "Email address (billing only).",
+          "example": "user@example.com"
+        },
+        "phone": {
+          "type": "string",
+          "description": "Phone number.",
+          "example": "string-value"
+        }
+      }
+    },
+    "items": {
+      "type": "array",
+      "description": "Items in the order.",
+      "items": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "int32",
+            "description": "Line item ID."
+          },
+          "name": {
+            "type": "string",
+            "description": "Product name."
+          },
+          "quantity": {
+            "type": "int32",
+            "description": "Quantity ordered."
+          },
+          "total": {
+            "type": "string",
+            "description": "Line item total."
+          }
+        }
+      },
+      "example": [
+        {
+          "id": 1,
+          "name": "Example Name",
+          "quantity": 1,
+          "total": "string-value"
+        }
+      ]
+    }
+  }
+}

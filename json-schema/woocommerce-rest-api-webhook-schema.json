@@ -1,0 +1,62 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/woocommerce/refs/heads/main/json-schema/woocommerce-rest-api-webhook-schema.json",
+  "title": "Webhook",
+  "description": "A WooCommerce webhook configuration.",
+  "type": "object",
+  "properties": {
+    "id": {
+      "type": "integer",
+      "description": "Webhook unique identifier.",
+      "example": 1
+    },
+    "name": {
+      "type": "string",
+      "description": "Friendly name for the webhook.",
+      "example": "Example Name"
+    },
+    "status": {
+      "type": "string",
+      "description": "Webhook status. Options: active, paused, disabled.",
+      "enum": [
+        "active",
+        "paused",
+        "disabled"
+      ],
+      "example": "active"
+    },
+    "topic": {
+      "type": "string",
+      "description": "Webhook topic that determines which events trigger the webhook (e.g. order.created, product.updated).",
+      "example": "string-value"
+    },
+    "resource": {
+      "type": "string",
+      "description": "Resource type associated with the topic (e.g. order, product).",
+      "example": "string-value"
+    },
+    "event": {
+      "type": "string",
+      "description": "Event action associated with the topic (e.g. created, updated).",
+      "example": "string-value"
+    },
+    "delivery_url": {
+      "type": "string",
+      "format": "uri",
+      "description": "URL that receives the webhook HTTP POST payload.",
+      "example": "https://example.com/path"
+    },
+    "date_created": {
+      "type": "string",
+      "format": "date-time",
+      "description": "Date the webhook was created.",
+      "example": "2026-05-03T14:30:00Z"
+    },
+    "date_modified": {
+      "type": "string",
+      "format": "date-time",
+      "description": "Date the webhook was last modified.",
+      "example": "2026-05-03T14:30:00Z"
+    }
+  }
+}

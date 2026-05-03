@@ -1,0 +1,29 @@
+{
+  "$schema": "https://json-structure.org/meta/core/v0/#",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/woocommerce/refs/heads/main/json-structure/woocommerce-rest-api-product-image-structure.json",
+  "name": "ProductImage",
+  "description": "An image associated with a product.",
+  "type": "object",
+  "properties": {
+    "id": {
+      "type": "int32",
+      "description": "Image unique identifier.",
+      "example": 1
+    },
+    "src": {
+      "type": "uri",
+      "description": "Image URL.",
+      "example": "https://example.com/path"
+    },
+    "name": {
+      "type": "string",
+      "description": "Image name.",
+      "example": "Example Name"
+    },
+    "alt": {
+      "type": "string",
+      "description": "Image alternative text.",
+      "example": "string-value"
+    }
+  }
+}

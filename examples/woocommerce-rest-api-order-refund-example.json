@@ -1,0 +1,13 @@
+{
+  "id": 1,
+  "date_created": "2026-05-03T14:30:00Z",
+  "amount": "string-value",
+  "reason": "string-value",
+  "refunded_by": 1,
+  "line_items": [
+    "string-value"
+  ],
+  "meta_data": [
+    "string-value"
+  ]
+}

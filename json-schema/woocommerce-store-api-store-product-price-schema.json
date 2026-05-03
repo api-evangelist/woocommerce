@@ -1,0 +1,73 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/woocommerce/refs/heads/main/json-schema/woocommerce-store-api-store-product-price-schema.json",
+  "title": "StoreProductPrice",
+  "description": "Formatted price information for a product or variation.",
+  "type": "object",
+  "properties": {
+    "price": {
+      "type": "string",
+      "description": "Current price as a formatted string with currency symbol.",
+      "example": "string-value"
+    },
+    "regular_price": {
+      "type": "string",
+      "description": "Regular price as a formatted string.",
+      "example": "string-value"
+    },
+    "sale_price": {
+      "type": "string",
+      "description": "Sale price as a formatted string (empty when not on sale).",
+      "example": "string-value"
+    },
+    "price_range": {
+      "type": "object",
+      "description": "Price range for variable products.",
+      "nullable": true,
+      "properties": {
+        "min_amount": {
+          "type": "string",
+          "description": "Minimum variation price."
+        },
+        "max_amount": {
+          "type": "string",
+          "description": "Maximum variation price."
+        }
+      },
+      "example": {
+        "min_amount": "string-value",
+        "max_amount": "string-value"
+      }
+    },
+    "currency_code": {
+      "type": "string",
+      "description": "ISO 4217 currency code.",
+      "example": "string-value"
+    },
+    "currency_symbol": {
+      "type": "string",
+      "description": "Currency symbol.",
+      "example": "string-value"
+    },
+    "currency_decimal_separator": {
+      "type": "string",
+      "description": "Decimal separator character.",
+      "example": "string-value"
+    },
+    "currency_thousand_separator": {
+      "type": "string",
+      "description": "Thousands separator character.",
+      "example": "string-value"
+    },
+    "currency_prefix": {
+      "type": "string",
+      "description": "Currency prefix (e.g. $).",
+      "example": "string-value"
+    },
+    "currency_suffix": {
+      "type": "string",
+      "description": "Currency suffix.",
+      "example": "string-value"
+    }
+  }
+}

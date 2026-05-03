@@ -1,0 +1,196 @@
+{
+  "$schema": "https://json-structure.org/meta/core/v0/#",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/woocommerce/refs/heads/main/json-structure/woocommerce-store-api-cart-item-structure.json",
+  "name": "CartItem",
+  "description": "A product item in the cart.",
+  "type": "object",
+  "properties": {
+    "key": {
+      "type": "string",
+      "description": "Unique cart item key.",
+      "example": "string-value"
+    },
+    "id": {
+      "type": "int32",
+      "description": "Product ID.",
+      "example": 1
+    },
+    "quantity": {
+      "type": "int32",
+      "description": "Quantity in cart.",
+      "example": 1
+    },
+    "variation_id": {
+      "type": "int32",
+      "description": "Variation ID (0 for simple products).",
+      "example": 1
+    },
+    "item_data": {
+      "type": "array",
+      "description": "Custom item data (e.g. variation attributes).",
+      "items": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string",
+            "description": "Data field name."
+          },
+          "value": {
+            "type": "string",
+            "description": "Data field value."
+          },
+          "display": {
+            "type": "string",
+            "description": "Formatted display value."
+          }
+        }
+      },
+      "example": [
+        {
+          "name": "Example Name",
+          "value": "string-value",
+          "display": "string-value"
+        }
+      ]
+    },
+    "prices": {
+      "type": "object",
+      "description": "Formatted price information for a product or variation.",
+      "properties": {
+        "price": {
+          "type": "string",
+          "description": "Current price as a formatted string with currency symbol.",
+          "example": "string-value"
+        },
+        "regular_price": {
+          "type": "string",
+          "description": "Regular price as a formatted string.",
+          "example": "string-value"
+        },
+        "sale_price": {
+          "type": "string",
+          "description": "Sale price as a formatted string (empty when not on sale).",
+          "example": "string-value"
+        },
+        "price_range": {
+          "type": "object",
+          "description": "Price range for variable products.",
+          "nullable": true,
+          "properties": {
+            "min_amount": {
+              "type": "string",
+              "description": "Minimum variation price."
+            },
+            "max_amount": {
+              "type": "string",
+              "description": "Maximum variation price."
+            }
+          },
+          "example": {
+            "min_amount": "string-value",
+            "max_amount": "string-value"
+          }
+        },
+        "currency_code": {
+          "type": "string",
+          "description": "ISO 4217 currency code.",
+          "example": "string-value"
+        },
+        "currency_symbol": {
+          "type": "string",
+          "description": "Currency symbol.",
+          "example": "string-value"
+        },
+        "currency_decimal_separator": {
+          "type": "string",
+          "description": "Decimal separator character.",
+          "example": "string-value"
+        },
+        "currency_thousand_separator": {
+          "type": "string",
+          "description": "Thousands separator character.",
+          "example": "string-value"
+        },
+        "currency_prefix": {
+          "type": "string",
+          "description": "Currency prefix (e.g. $).",
+          "example": "string-value"
+        },
+        "currency_suffix": {
+          "type": "string",
+          "description": "Currency suffix.",
+          "example": "string-value"
+        }
+      }
+    },
+    "name": {
+      "type": "string",
+      "description": "Product name at time of cart addition.",
+      "example": "Example Name"
+    },
+    "short_description": {
+      "type": "string",
+      "description": "Product short description.",
+      "example": "A sample description"
+    },
+    "images": {
+      "type": "array",
+      "description": "Product images.",
+      "items": {
+        "type": "object",
+        "description": "Product image with thumbnail variants.",
+        "properties": {
+          "id": {
+            "type": "int32",
+            "description": "Image attachment ID.",
+            "example": 1
+          },
+          "src": {
+            "type": "uri",
+            "description": "Full-size image URL.",
+            "example": "https://example.com/path"
+          },
+          "thumbnail": {
+            "type": "uri",
+            "description": "Thumbnail image URL.",
+            "example": "https://example.com/path"
+          },
+          "srcset": {
+            "type": "string",
+            "description": "Responsive image srcset attribute value.",
+            "example": "string-value"
+          },
+          "sizes": {
+            "type": "string",
+            "description": "Responsive image sizes attribute value.",
+            "example": "string-value"
+          },
+          "name": {
+            "type": "string",
+            "description": "Image file name.",
+            "example": "Example Name"
+          },
+          "alt": {
+            "type": "string",
+            "description": "Image alternative text.",
+            "example": "string-value"
+          }
+        }
+      },
+      "example": [
+        "string-value"
+      ]
+    },
+    "low_stock_remaining": {
+      "type": "int32",
+      "description": "Low stock quantity threshold remaining.",
+      "nullable": true,
+      "example": 1
+    },
+    "sold_individually": {
+      "type": "boolean",
+      "description": "Whether the product can only be purchased once per order.",
+      "example": true
+    }
+  }
+}

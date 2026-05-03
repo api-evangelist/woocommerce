@@ -1,0 +1,146 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/woocommerce/refs/heads/main/json-schema/woocommerce-rest-api-order-refund-schema.json",
+  "title": "OrderRefund",
+  "description": "A refund associated with an order.",
+  "type": "object",
+  "properties": {
+    "id": {
+      "type": "integer",
+      "description": "Refund unique identifier.",
+      "example": 1
+    },
+    "date_created": {
+      "type": "string",
+      "format": "date-time",
+      "description": "Date the refund was created.",
+      "example": "2026-05-03T14:30:00Z"
+    },
+    "amount": {
+      "type": "string",
+      "description": "Refund amount as a decimal string.",
+      "example": "string-value"
+    },
+    "reason": {
+      "type": "string",
+      "description": "Reason for the refund.",
+      "example": "string-value"
+    },
+    "refunded_by": {
+      "type": "integer",
+      "description": "User ID of the person who issued the refund.",
+      "example": 1
+    },
+    "line_items": {
+      "type": "array",
+      "description": "Line items included in the refund.",
+      "items": {
+        "type": "object",
+        "description": "A product line item within an order.",
+        "properties": {
+          "id": {
+            "type": "integer",
+            "description": "Line item unique identifier.",
+            "example": 1
+          },
+          "name": {
+            "type": "string",
+            "description": "Product name at time of purchase.",
+            "example": "Example Name"
+          },
+          "product_id": {
+            "type": "integer",
+            "description": "Product ID.",
+            "example": 1
+          },
+          "variation_id": {
+            "type": "integer",
+            "description": "Variation ID (0 if not a variation).",
+            "example": 1
+          },
+          "quantity": {
+            "type": "integer",
+            "description": "Quantity ordered.",
+            "example": 1
+          },
+          "tax_class": {
+            "type": "string",
+            "description": "Tax class used for this line item.",
+            "example": "string-value"
+          },
+          "subtotal": {
+            "type": "string",
+            "description": "Line subtotal (before discounts) as a decimal string.",
+            "example": "string-value"
+          },
+          "subtotal_tax": {
+            "type": "string",
+            "description": "Line subtotal tax as a decimal string.",
+            "example": "string-value"
+          },
+          "total": {
+            "type": "string",
+            "description": "Line total (after discounts) as a decimal string.",
+            "example": "string-value"
+          },
+          "total_tax": {
+            "type": "string",
+            "description": "Line total tax as a decimal string.",
+            "example": "string-value"
+          },
+          "sku": {
+            "type": "string",
+            "description": "Product SKU.",
+            "example": "string-value"
+          },
+          "price": {
+            "type": "number",
+            "description": "Product price at time of purchase.",
+            "example": 10.5
+          },
+          "meta_data": {
+            "type": "array",
+            "description": "Metadata for the line item (e.g. variation attributes).",
+            "items": {
+              "$ref": "#/components/schemas/MetaData"
+            },
+            "example": [
+              "string-value"
+            ]
+          }
+        }
+      },
+      "example": [
+        "string-value"
+      ]
+    },
+    "meta_data": {
+      "type": "array",
+      "description": "Custom metadata.",
+      "items": {
+        "type": "object",
+        "description": "Custom metadata key-value entry.",
+        "properties": {
+          "id": {
+            "type": "integer",
+            "description": "Metadata unique identifier.",
+            "example": 1
+          },
+          "key": {
+            "type": "string",
+            "description": "Metadata key.",
+            "example": "string-value"
+          },
+          "value": {
+            "type": "string",
+            "description": "Metadata value.",
+            "example": "string-value"
+          }
+        }
+      },
+      "example": [
+        "string-value"
+      ]
+    }
+  }
+}

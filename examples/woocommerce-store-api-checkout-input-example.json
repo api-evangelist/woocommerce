@@ -1,0 +1,37 @@
+{
+  "billing_address": {
+    "first_name": "Example Name",
+    "last_name": "Example Name",
+    "company": "string-value",
+    "address_1": "string-value",
+    "address_2": "string-value",
+    "city": "string-value",
+    "state": "string-value",
+    "postcode": "string-value",
+    "country": "string-value",
+    "email": "user@example.com",
+    "phone": "string-value"
+  },
+  "shipping_address": {
+    "first_name": "Example Name",
+    "last_name": "Example Name",
+    "company": "string-value",
+    "address_1": "string-value",
+    "address_2": "string-value",
+    "city": "string-value",
+    "state": "string-value",
+    "postcode": "string-value",
+    "country": "string-value",
+    "email": "user@example.com",
+    "phone": "string-value"
+  },
+  "customer_note": "string-value",
+  "create_account": true,
+  "payment_method": "string-value",
+  "payment_data": [
+    {
+      "key": "string-value",
+      "value": "string-value"
+    }
+  ]
+}

@@ -1,0 +1,72 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/woocommerce/refs/heads/main/json-schema/woocommerce-store-api-store-brand-schema.json",
+  "title": "StoreBrand",
+  "description": "A product brand.",
+  "type": "object",
+  "properties": {
+    "id": {
+      "type": "integer",
+      "description": "Brand unique identifier.",
+      "example": 1
+    },
+    "name": {
+      "type": "string",
+      "description": "Brand display name.",
+      "example": "Example Name"
+    },
+    "slug": {
+      "type": "string",
+      "description": "URL-friendly brand slug.",
+      "example": "string-value"
+    },
+    "description": {
+      "type": "string",
+      "description": "Brand description.",
+      "example": "A sample description"
+    },
+    "image": {
+      "type": "object",
+      "description": "Product image with thumbnail variants.",
+      "properties": {
+        "id": {
+          "type": "integer",
+          "description": "Image attachment ID.",
+          "example": 1
+        },
+        "src": {
+          "type": "string",
+          "format": "uri",
+          "description": "Full-size image URL.",
+          "example": "https://example.com/path"
+        },
+        "thumbnail": {
+          "type": "string",
+          "format": "uri",
+          "description": "Thumbnail image URL.",
+          "example": "https://example.com/path"
+        },
+        "srcset": {
+          "type": "string",
+          "description": "Responsive image srcset attribute value.",
+          "example": "string-value"
+        },
+        "sizes": {
+          "type": "string",
+          "description": "Responsive image sizes attribute value.",
+          "example": "string-value"
+        },
+        "name": {
+          "type": "string",
+          "description": "Image file name.",
+          "example": "Example Name"
+        },
+        "alt": {
+          "type": "string",
+          "description": "Image alternative text.",
+          "example": "string-value"
+        }
+      }
+    }
+  }
+}

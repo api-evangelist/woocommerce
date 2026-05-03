@@ -1,0 +1,113 @@
+{
+  "@context": {
+    "@version": 1.1,
+    "woo": "https://woocommerce.dev/schema/",
+    "schema": "https://schema.org/",
+    "dcterms": "http://purl.org/dc/terms/",
+    "xsd": "http://www.w3.org/2001/XMLSchema#",
+    "CustomerDownload": "woo:CustomerDownload",
+    "downloadId": {
+      "@id": "woo:download_id",
+      "@type": "xsd:string"
+    },
+    "downloadUrl": {
+      "@id": "woo:download_url",
+      "@type": "@id"
+    },
+    "productId": {
+      "@id": "woo:product_id",
+      "@type": "xsd:integer"
+    },
+    "productName": {
+      "@id": "woo:product_name",
+      "@type": "xsd:string"
+    },
+    "downloadName": {
+      "@id": "woo:download_name",
+      "@type": "xsd:string"
+    },
+    "orderId": {
+      "@id": "woo:order_id",
+      "@type": "xsd:integer"
+    },
+    "orderKey": {
+      "@id": "woo:order_key",
+      "@type": "xsd:string"
+    },
+    "downloadsRemaining": {
+      "@id": "woo:downloads_remaining",
+      "@type": "xsd:string"
+    },
+    "accessExpires": {
+      "@id": "woo:access_expires",
+      "@type": "xsd:dateTime"
+    },
+    "file": {
+      "@id": "woo:file",
+      "@type": "@id"
+    },
+    "name": "schema:name",
+    "CustomerInput": "woo:CustomerInput",
+    "email": "schema:email",
+    "firstName": {
+      "@id": "woo:first_name",
+      "@type": "xsd:string"
+    },
+    "lastName": {
+      "@id": "woo:last_name",
+      "@type": "xsd:string"
+    },
+    "username": {
+      "@id": "woo:username",
+      "@type": "xsd:string"
+    },
+    "password": {
+      "@id": "woo:password",
+      "@type": "xsd:string"
+    },
+    "billing": {
+      "@id": "woo:billing",
+      "@type": "@id"
+    },
+    "company": {
+      "@id": "woo:company",
+      "@type": "xsd:string"
+    },
+    "address1": {
+      "@id": "woo:address_1",
+      "@type": "xsd:string"
+    },
+    "address2": {
+      "@id": "woo:address_2",
+      "@type": "xsd:string"
+    },
+    "city": {
+      "@id": "woo:city",
+      "@type": "xsd:string"
+    },
+    "state": {
+      "@id": "woo:state",
+      "@type": "xsd:string"
+    },
+    "postcode": {
+      "@id": "woo:postcode",
+      "@type": "xsd:string"
+    },
+    "country": {
+      "@id": "woo:country",
+      "@type": "xsd:string"
+    },
+    "phone": {
+      "@id": "woo:phone",
+      "@type": "xsd:string"
+    },
+    "shipping": {
+      "@id": "woo:shipping",
+      "@type": "@id"
+    },
+    "metaData": {
+      "@id": "woo:meta_data",
+      "@container": "@set"
+    }
+  }
+}

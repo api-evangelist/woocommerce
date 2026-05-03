@@ -1,0 +1,88 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/woocommerce/refs/heads/main/json-schema/woocommerce-store-api-store-product-category-schema.json",
+  "title": "StoreProductCategory",
+  "description": "A product category for storefront display.",
+  "type": "object",
+  "properties": {
+    "id": {
+      "type": "integer",
+      "description": "Category unique identifier.",
+      "example": 1
+    },
+    "name": {
+      "type": "string",
+      "description": "Category display name.",
+      "example": "Example Name"
+    },
+    "slug": {
+      "type": "string",
+      "description": "URL-friendly category slug.",
+      "example": "string-value"
+    },
+    "description": {
+      "type": "string",
+      "description": "Category description.",
+      "example": "A sample description"
+    },
+    "parent": {
+      "type": "integer",
+      "description": "Parent category ID (0 for root categories).",
+      "example": 1
+    },
+    "count": {
+      "type": "integer",
+      "description": "Number of products in this category.",
+      "example": 1
+    },
+    "link": {
+      "type": "string",
+      "format": "uri",
+      "description": "Category archive URL.",
+      "example": "https://example.com/path"
+    },
+    "image": {
+      "type": "object",
+      "description": "Product image with thumbnail variants.",
+      "properties": {
+        "id": {
+          "type": "integer",
+          "description": "Image attachment ID.",
+          "example": 1
+        },
+        "src": {
+          "type": "string",
+          "format": "uri",
+          "description": "Full-size image URL.",
+          "example": "https://example.com/path"
+        },
+        "thumbnail": {
+          "type": "string",
+          "format": "uri",
+          "description": "Thumbnail image URL.",
+          "example": "https://example.com/path"
+        },
+        "srcset": {
+          "type": "string",
+          "description": "Responsive image srcset attribute value.",
+          "example": "string-value"
+        },
+        "sizes": {
+          "type": "string",
+          "description": "Responsive image sizes attribute value.",
+          "example": "string-value"
+        },
+        "name": {
+          "type": "string",
+          "description": "Image file name.",
+          "example": "Example Name"
+        },
+        "alt": {
+          "type": "string",
+          "description": "Image alternative text.",
+          "example": "string-value"
+        }
+      }
+    }
+  }
+}

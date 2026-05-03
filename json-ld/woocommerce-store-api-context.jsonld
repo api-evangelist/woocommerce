@@ -1,0 +1,160 @@
+{
+  "@context": {
+    "@version": 1.1,
+    "woo": "https://woocommerce.dev/schema/",
+    "schema": "https://schema.org/",
+    "dcterms": "http://purl.org/dc/terms/",
+    "xsd": "http://www.w3.org/2001/XMLSchema#",
+    "Cart": "woo:Cart",
+    "items": {
+      "@id": "woo:items",
+      "@container": "@set"
+    },
+    "coupons": {
+      "@id": "woo:coupons",
+      "@container": "@set"
+    },
+    "fees": {
+      "@id": "woo:fees",
+      "@container": "@set"
+    },
+    "totals": {
+      "@id": "woo:totals",
+      "@type": "@id"
+    },
+    "totalItems": {
+      "@id": "woo:total_items",
+      "@type": "xsd:string"
+    },
+    "totalItemsTax": {
+      "@id": "woo:total_items_tax",
+      "@type": "xsd:string"
+    },
+    "totalFees": {
+      "@id": "woo:total_fees",
+      "@type": "xsd:string"
+    },
+    "totalFeesTax": {
+      "@id": "woo:total_fees_tax",
+      "@type": "xsd:string"
+    },
+    "totalDiscount": {
+      "@id": "woo:total_discount",
+      "@type": "xsd:string"
+    },
+    "totalDiscountTax": {
+      "@id": "woo:total_discount_tax",
+      "@type": "xsd:string"
+    },
+    "totalShipping": {
+      "@id": "woo:total_shipping",
+      "@type": "xsd:string"
+    },
+    "totalShippingTax": {
+      "@id": "woo:total_shipping_tax",
+      "@type": "xsd:string"
+    },
+    "totalPrice": {
+      "@id": "woo:total_price",
+      "@type": "xsd:string"
+    },
+    "totalTax": {
+      "@id": "woo:total_tax",
+      "@type": "xsd:string"
+    },
+    "taxLines": {
+      "@id": "woo:tax_lines",
+      "@container": "@set"
+    },
+    "shippingRates": {
+      "@id": "woo:shipping_rates",
+      "@container": "@set"
+    },
+    "billingAddress": {
+      "@id": "woo:billing_address",
+      "@type": "@id"
+    },
+    "firstName": {
+      "@id": "woo:first_name",
+      "@type": "xsd:string"
+    },
+    "lastName": {
+      "@id": "woo:last_name",
+      "@type": "xsd:string"
+    },
+    "company": {
+      "@id": "woo:company",
+      "@type": "xsd:string"
+    },
+    "address1": {
+      "@id": "woo:address_1",
+      "@type": "xsd:string"
+    },
+    "address2": {
+      "@id": "woo:address_2",
+      "@type": "xsd:string"
+    },
+    "city": {
+      "@id": "woo:city",
+      "@type": "xsd:string"
+    },
+    "state": {
+      "@id": "woo:state",
+      "@type": "xsd:string"
+    },
+    "postcode": {
+      "@id": "woo:postcode",
+      "@type": "xsd:string"
+    },
+    "country": {
+      "@id": "woo:country",
+      "@type": "xsd:string"
+    },
+    "email": "schema:email",
+    "phone": {
+      "@id": "woo:phone",
+      "@type": "xsd:string"
+    },
+    "shippingAddress": {
+      "@id": "woo:shipping_address",
+      "@type": "@id"
+    },
+    "hasCalculatedShipping": {
+      "@id": "woo:has_calculated_shipping",
+      "@type": "xsd:boolean"
+    },
+    "needsPayment": {
+      "@id": "woo:needs_payment",
+      "@type": "xsd:boolean"
+    },
+    "needsShipping": {
+      "@id": "woo:needs_shipping",
+      "@type": "xsd:boolean"
+    },
+    "itemsCount": {
+      "@id": "woo:items_count",
+      "@type": "xsd:integer"
+    },
+    "itemsWeight": {
+      "@id": "woo:items_weight",
+      "@type": "xsd:decimal"
+    },
+    "crossSells": {
+      "@id": "woo:cross_sells",
+      "@container": "@set"
+    },
+    "errors": {
+      "@id": "woo:errors",
+      "@container": "@set"
+    },
+    "Checkout": "woo:Checkout",
+    "orderId": {
+      "@id": "woo:order_id",
+      "@type": "xsd:integer"
+    },
+    "paymentMethods": {
+      "@id": "woo:payment_methods",
+      "@container": "@set"
+    }
+  }
+}

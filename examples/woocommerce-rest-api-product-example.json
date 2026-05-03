@@ -1,0 +1,54 @@
+{
+  "id": 1,
+  "name": "Example Name",
+  "slug": "string-value",
+  "permalink": "https://example.com/path",
+  "type": "simple",
+  "status": "draft",
+  "featured": true,
+  "description": "A sample description",
+  "short_description": "A sample description",
+  "sku": "string-value",
+  "price": "string-value",
+  "regular_price": "string-value",
+  "sale_price": "string-value",
+  "on_sale": true,
+  "purchasable": true,
+  "total_sales": 1,
+  "virtual": true,
+  "downloadable": true,
+  "manage_stock": true,
+  "stock_quantity": 1,
+  "stock_status": "instock",
+  "weight": "string-value",
+  "dimensions": {
+    "length": "string-value",
+    "width": "string-value",
+    "height": "string-value"
+  },
+  "categories": [
+    {
+      "id": 1,
+      "name": "Example Name",
+      "slug": "string-value"
+    }
+  ],
+  "tags": [
+    {
+      "id": 1,
+      "name": "Example Name",
+      "slug": "string-value"
+    }
+  ],
+  "images": [
+    "string-value"
+  ],
+  "attributes": [
+    "string-value"
+  ],
+  "date_created": "2026-05-03T14:30:00Z",
+  "date_modified": "2026-05-03T14:30:00Z",
+  "meta_data": [
+    "string-value"
+  ]
+}

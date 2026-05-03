@@ -1,0 +1,39 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/woocommerce/refs/heads/main/json-schema/woocommerce-store-api-store-product-attribute-schema.json",
+  "title": "StoreProductAttribute",
+  "description": "A global product attribute for filtering and variation selection.",
+  "type": "object",
+  "properties": {
+    "id": {
+      "type": "integer",
+      "description": "Attribute unique identifier.",
+      "example": 1
+    },
+    "name": {
+      "type": "string",
+      "description": "Attribute label.",
+      "example": "Example Name"
+    },
+    "taxonomy": {
+      "type": "string",
+      "description": "Attribute taxonomy slug (e.g. pa_color).",
+      "example": "string-value"
+    },
+    "has_archives": {
+      "type": "boolean",
+      "description": "Whether the attribute has archive pages.",
+      "example": true
+    },
+    "order": {
+      "type": "string",
+      "description": "How terms in this attribute are ordered (menu_order, name, name_num, id).",
+      "example": "string-value"
+    },
+    "count": {
+      "type": "integer",
+      "description": "Number of terms in this attribute.",
+      "example": 1
+    }
+  }
+}

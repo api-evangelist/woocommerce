@@ -1,0 +1,206 @@
+naftiko: "1.0.0-alpha1"
+
+info:
+  label: "WooCommerce Headless Commerce"
+  description: >-
+    Headless commerce capability combining the public WooCommerce Store API with
+    authenticated REST API operations for building custom frontends. Used by
+    frontend developers and headless architects building React, Vue, or custom
+    storefronts with Woo as the commerce backend.
+  tags:
+    - Cart
+    - Checkout
+    - eCommerce
+    - Frontend
+    - Headless
+    - WooCommerce
+  created: "2026-05-03"
+  modified: "2026-05-03"
+
+binds:
+  - namespace: env
+    keys:
+      WOOCOMMERCE_CONSUMER_KEY: WOOCOMMERCE_CONSUMER_KEY
+      WOOCOMMERCE_CONSUMER_SECRET: WOOCOMMERCE_CONSUMER_SECRET
+
+capability:
+  consumes:
+    - import: woo-store
+      location: ./shared/store-api.yaml
+    - import: woo-rest
+      location: ./shared/rest-api.yaml
+
+  exposes:
+    - type: rest
+      port: 8081
+      namespace: woo-headless-api
+      description: "Unified REST API for headless WooCommerce storefronts."
+      resources:
+        - path: /v1/catalog/products
+          name: catalog-products
+          description: "Public product catalog for the storefront."
+          operations:
+            - method: GET
+              name: browse-products
+              description: "Browse the public product catalog."
+              call: "woo-store.list-store-products"
+              with:
+                search: "rest.search"
+                category: "rest.category"
+                on_sale: "rest.on_sale"
+                min_price: "rest.min_price"
+                max_price: "rest.max_price"
+              outputParameters:
+                - type: array
+                  mapping: "$."
+
+        - path: /v1/catalog/categories
+          name: catalog-categories
+          description: "Product categories for navigation."
+          operations:
+            - method: GET
+              name: list-categories
+              description: "List product categories."
+              call: "woo-store.list-categories"
+              outputParameters:
+                - type: array
+                  mapping: "$."
+
+        - path: /v1/cart
+          name: cart
+          description: "Shopper cart management."
+          operations:
+            - method: GET
+              name: view-cart
+              description: "View current cart."
+              call: "woo-store.get-cart"
+              outputParameters:
+                - type: object
+                  mapping: "$."
+            - method: POST
+              name: add-to-cart
+              description: "Add product to cart."
+              call: "woo-store.add-to-cart"
+              outputParameters:
+                - type: object
+                  mapping: "$."
+
+        - path: /v1/checkout
+          name: checkout
+          description: "Checkout process."
+          operations:
+            - method: POST
+              name: submit-checkout
+              description: "Submit checkout and place order."
+              call: "woo-store.submit-checkout"
+              outputParameters:
+                - type: object
+                  mapping: "$."
+
+        - path: /v1/products
+          name: products-admin
+          description: "Product catalog management (admin)."
+          operations:
+            - method: GET
+              name: list-products-admin
+              description: "List all products including drafts."
+              call: "woo-rest.list-products"
+              with:
+                status: "rest.status"
+              outputParameters:
+                - type: array
+                  mapping: "$."
+
+    - type: mcp
+      port: 9091
+      namespace: woo-headless-mcp
+      transport: http
+      description: "MCP server for AI-assisted headless WooCommerce storefront building."
+      tools:
+        - name: browse-catalog
+          description: "Browse the public WooCommerce product catalog for storefront display."
+          hints:
+            readOnly: true
+          call: "woo-store.list-store-products"
+          with:
+            search: "tools.search"
+            category: "tools.category"
+            on_sale: "tools.on_sale"
+            min_price: "tools.min_price"
+            max_price: "tools.max_price"
+          outputParameters:
+            - type: array
+              mapping: "$."
+
+        - name: get-product-for-display
+          description: "Get full product details for storefront product page rendering."
+          hints:
+            readOnly: true
+          call: "woo-store.get-store-product"
+          with:
+            id: "tools.id"
+          outputParameters:
+            - type: object
+              mapping: "$."
+
+        - name: list-categories-for-nav
+          description: "List product categories for building storefront navigation menus."
+          hints:
+            readOnly: true
+          call: "woo-store.list-categories"
+          outputParameters:
+            - type: array
+              mapping: "$."
+
+        - name: view-current-cart
+          description: "View the current shopper's cart for display in the cart drawer/page."
+          hints:
+            readOnly: true
+          call: "woo-store.get-cart"
+          outputParameters:
+            - type: object
+              mapping: "$."
+
+        - name: add-item-to-cart
+          description: "Add a product to the shopper's cart during product browsing."
+          hints:
+            readOnly: false
+          call: "woo-store.add-to-cart"
+          with:
+            id: "tools.product_id"
+            quantity: "tools.quantity"
+          outputParameters:
+            - type: object
+              mapping: "$."
+
+        - name: remove-from-cart
+          description: "Remove an item from the shopper's cart."
+          hints:
+            readOnly: false
+            destructive: false
+          call: "woo-store.remove-cart-item"
+          with:
+            key: "tools.cart_item_key"
+          outputParameters:
+            - type: object
+              mapping: "$."
+
+        - name: place-order
+          description: "Submit checkout details and place a WooCommerce order."
+          hints:
+            readOnly: false
+          call: "woo-store.submit-checkout"
+          outputParameters:
+            - type: object
+              mapping: "$."
+
+        - name: list-all-products-admin
+          description: "List all products including drafts for admin/build-time rendering."
+          hints:
+            readOnly: true
+          call: "woo-rest.list-products"
+          with:
+            status: "tools.status"
+          outputParameters:
+            - type: array
+              mapping: "$."

@@ -1,0 +1,54 @@
+{
+  "@context": {
+    "@version": 1.1,
+    "woo": "https://woocommerce.dev/schema/",
+    "schema": "https://schema.org/",
+    "dcterms": "http://purl.org/dc/terms/",
+    "xsd": "http://www.w3.org/2001/XMLSchema#",
+    "SalesReport": "woo:SalesReport",
+    "totalSales": {
+      "@id": "woo:total_sales",
+      "@type": "xsd:string"
+    },
+    "netRevenue": {
+      "@id": "woo:net_revenue",
+      "@type": "xsd:string"
+    },
+    "averageSales": {
+      "@id": "woo:average_sales",
+      "@type": "xsd:string"
+    },
+    "totalOrders": {
+      "@id": "woo:total_orders",
+      "@type": "xsd:integer"
+    },
+    "totalItems": {
+      "@id": "woo:total_items",
+      "@type": "xsd:integer"
+    },
+    "totalTax": {
+      "@id": "woo:total_tax",
+      "@type": "xsd:string"
+    },
+    "totalShipping": {
+      "@id": "woo:total_shipping",
+      "@type": "xsd:string"
+    },
+    "totalRefunds": {
+      "@id": "woo:total_refunds",
+      "@type": "xsd:decimal"
+    },
+    "totalDiscount": {
+      "@id": "woo:total_discount",
+      "@type": "xsd:decimal"
+    },
+    "totalsGroupedBy": {
+      "@id": "woo:totals_grouped_by",
+      "@type": "xsd:string"
+    },
+    "totals": {
+      "@id": "woo:totals",
+      "@type": "@id"
+    }
+  }
+}

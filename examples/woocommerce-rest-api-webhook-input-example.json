@@ -1,0 +1,7 @@
+{
+  "name": "Example Name",
+  "status": "active",
+  "topic": "string-value",
+  "delivery_url": "https://example.com/path",
+  "secret": "string-value"
+}

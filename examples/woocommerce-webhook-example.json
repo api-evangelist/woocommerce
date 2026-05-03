@@ -1,0 +1,17 @@
+{
+  "id": 562,
+  "name": "Example Name",
+  "status": "active",
+  "topic": "string-value",
+  "resource": "string-value",
+  "event": "string-value",
+  "hooks": [
+    "string-value"
+  ],
+  "delivery_url": "https://example.com/path",
+  "secret": "string-value",
+  "date_created": "2026-05-03T14:30:00Z",
+  "date_created_gmt": "2026-05-03T14:30:00Z",
+  "date_modified": "2026-05-03T14:30:00Z",
+  "date_modified_gmt": "2026-05-03T14:30:00Z"
+}

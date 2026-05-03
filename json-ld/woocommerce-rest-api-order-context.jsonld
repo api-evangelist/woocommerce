@@ -1,0 +1,114 @@
+{
+  "@context": {
+    "@version": 1.1,
+    "woo": "https://woocommerce.dev/schema/",
+    "schema": "https://schema.org/",
+    "dcterms": "http://purl.org/dc/terms/",
+    "xsd": "http://www.w3.org/2001/XMLSchema#",
+    "OrderInput": "woo:OrderInput",
+    "status": {
+      "@id": "woo:status",
+      "@type": "xsd:string"
+    },
+    "customerId": {
+      "@id": "woo:customer_id",
+      "@type": "xsd:integer"
+    },
+    "customerNote": {
+      "@id": "woo:customer_note",
+      "@type": "xsd:boolean"
+    },
+    "billing": {
+      "@id": "woo:billing",
+      "@type": "@id"
+    },
+    "firstName": {
+      "@id": "woo:first_name",
+      "@type": "xsd:string"
+    },
+    "lastName": {
+      "@id": "woo:last_name",
+      "@type": "xsd:string"
+    },
+    "company": {
+      "@id": "woo:company",
+      "@type": "xsd:string"
+    },
+    "address1": {
+      "@id": "woo:address_1",
+      "@type": "xsd:string"
+    },
+    "address2": {
+      "@id": "woo:address_2",
+      "@type": "xsd:string"
+    },
+    "city": {
+      "@id": "woo:city",
+      "@type": "xsd:string"
+    },
+    "state": {
+      "@id": "woo:state",
+      "@type": "xsd:string"
+    },
+    "postcode": {
+      "@id": "woo:postcode",
+      "@type": "xsd:string"
+    },
+    "country": {
+      "@id": "woo:country",
+      "@type": "xsd:string"
+    },
+    "email": "schema:email",
+    "phone": {
+      "@id": "woo:phone",
+      "@type": "xsd:string"
+    },
+    "shipping": {
+      "@id": "woo:shipping",
+      "@type": "@id"
+    },
+    "paymentMethod": {
+      "@id": "woo:payment_method",
+      "@type": "xsd:string"
+    },
+    "paymentMethodTitle": {
+      "@id": "woo:payment_method_title",
+      "@type": "xsd:string"
+    },
+    "lineItems": {
+      "@id": "woo:line_items",
+      "@container": "@set"
+    },
+    "metaData": {
+      "@id": "woo:meta_data",
+      "@container": "@set"
+    },
+    "OrderNote": "woo:OrderNote",
+    "id": {
+      "@id": "woo:id",
+      "@type": "xsd:integer"
+    },
+    "dateCreated": "schema:dateCreated",
+    "note": {
+      "@id": "woo:note",
+      "@type": "xsd:string"
+    },
+    "addedByUser": {
+      "@id": "woo:added_by_user",
+      "@type": "xsd:boolean"
+    },
+    "OrderRefund": "woo:OrderRefund",
+    "amount": {
+      "@id": "woo:amount",
+      "@type": "xsd:string"
+    },
+    "reason": {
+      "@id": "woo:reason",
+      "@type": "xsd:string"
+    },
+    "refundedBy": {
+      "@id": "woo:refunded_by",
+      "@type": "xsd:integer"
+    }
+  }
+}

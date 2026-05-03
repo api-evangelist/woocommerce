@@ -1,0 +1,75 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/woocommerce/refs/heads/main/json-schema/woocommerce-store-api-add-cart-item-input-schema.json",
+  "title": "AddCartItemInput",
+  "description": "Input for adding an item to the cart.",
+  "type": "object",
+  "properties": {
+    "id": {
+      "type": "integer",
+      "description": "Product ID to add.",
+      "example": 1
+    },
+    "quantity": {
+      "type": "integer",
+      "description": "Quantity to add.",
+      "minimum": 1,
+      "example": 1
+    },
+    "variation_id": {
+      "type": "integer",
+      "description": "Variation ID for variable products.",
+      "example": 1
+    },
+    "variation": {
+      "type": "array",
+      "description": "Attribute key-value pairs for the variation.",
+      "items": {
+        "type": "object",
+        "properties": {
+          "attribute": {
+            "type": "string",
+            "description": "Attribute name."
+          },
+          "value": {
+            "type": "string",
+            "description": "Selected attribute value."
+          }
+        }
+      },
+      "example": [
+        {
+          "attribute": "string-value",
+          "value": "string-value"
+        }
+      ]
+    },
+    "item_data": {
+      "type": "array",
+      "description": "Additional custom item data.",
+      "items": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string",
+            "description": "Data key name."
+          },
+          "value": {
+            "type": "string",
+            "description": "Data value."
+          }
+        }
+      },
+      "example": [
+        {
+          "name": "Example Name",
+          "value": "string-value"
+        }
+      ]
+    }
+  },
+  "required": [
+    "id",
+    "quantity"
+  ]
+}

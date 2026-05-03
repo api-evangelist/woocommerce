@@ -1,0 +1,13 @@
+{
+  "id": 1,
+  "country": "string-value",
+  "state": "string-value",
+  "postcode": "string-value",
+  "city": "string-value",
+  "rate": "string-value",
+  "name": "Example Name",
+  "priority": 1,
+  "compound": true,
+  "shipping": true,
+  "class": "string-value"
+}

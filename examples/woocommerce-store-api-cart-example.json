@@ -1,0 +1,81 @@
+{
+  "items": [
+    "string-value"
+  ],
+  "coupons": [
+    {
+      "code": "string-value",
+      "discount_type": "standard",
+      "totals": {}
+    }
+  ],
+  "fees": [
+    {
+      "id": "500123",
+      "name": "Example Name",
+      "totals": {}
+    }
+  ],
+  "totals": {
+    "total_items": "string-value",
+    "total_items_tax": "string-value",
+    "total_fees": "string-value",
+    "total_fees_tax": "string-value",
+    "total_discount": "string-value",
+    "total_discount_tax": "string-value",
+    "total_shipping": "string-value",
+    "total_shipping_tax": "string-value",
+    "total_price": "string-value",
+    "total_tax": "string-value",
+    "tax_lines": [
+      {
+        "name": "Example Name",
+        "price": "string-value",
+        "rate": "string-value"
+      }
+    ]
+  },
+  "shipping_rates": [
+    "string-value"
+  ],
+  "billing_address": {
+    "first_name": "Example Name",
+    "last_name": "Example Name",
+    "company": "string-value",
+    "address_1": "string-value",
+    "address_2": "string-value",
+    "city": "string-value",
+    "state": "string-value",
+    "postcode": "string-value",
+    "country": "string-value",
+    "email": "user@example.com",
+    "phone": "string-value"
+  },
+  "shipping_address": {
+    "first_name": "Example Name",
+    "last_name": "Example Name",
+    "company": "string-value",
+    "address_1": "string-value",
+    "address_2": "string-value",
+    "city": "string-value",
+    "state": "string-value",
+    "postcode": "string-value",
+    "country": "string-value",
+    "email": "user@example.com",
+    "phone": "string-value"
+  },
+  "has_calculated_shipping": true,
+  "needs_payment": true,
+  "needs_shipping": true,
+  "items_count": 1,
+  "items_weight": 10.5,
+  "cross_sells": [
+    "string-value"
+  ],
+  "errors": [
+    {
+      "code": "string-value",
+      "message": "string-value"
+    }
+  ]
+}

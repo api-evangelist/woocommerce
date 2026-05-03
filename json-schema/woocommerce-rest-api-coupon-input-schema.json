@@ -1,0 +1,113 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/woocommerce/refs/heads/main/json-schema/woocommerce-rest-api-coupon-input-schema.json",
+  "title": "CouponInput",
+  "description": "Input for creating or updating a coupon.",
+  "type": "object",
+  "properties": {
+    "code": {
+      "type": "string",
+      "description": "Coupon code (required for create).",
+      "example": "string-value"
+    },
+    "amount": {
+      "type": "string",
+      "description": "Discount amount as a decimal string.",
+      "example": "string-value"
+    },
+    "discount_type": {
+      "type": "string",
+      "description": "Discount type.",
+      "enum": [
+        "percent",
+        "fixed_cart",
+        "fixed_product"
+      ],
+      "example": "percent"
+    },
+    "description": {
+      "type": "string",
+      "description": "Admin description.",
+      "example": "A sample description"
+    },
+    "date_expires": {
+      "type": "string",
+      "format": "date-time",
+      "description": "Expiry date.",
+      "example": "2026-05-03T14:30:00Z"
+    },
+    "individual_use": {
+      "type": "boolean",
+      "description": "Whether usable alone.",
+      "example": true
+    },
+    "product_ids": {
+      "type": "array",
+      "description": "Applicable product IDs.",
+      "items": {
+        "type": "integer"
+      },
+      "example": [
+        1
+      ]
+    },
+    "excluded_product_ids": {
+      "type": "array",
+      "description": "Excluded product IDs.",
+      "items": {
+        "type": "integer"
+      },
+      "example": [
+        1
+      ]
+    },
+    "usage_limit": {
+      "type": "integer",
+      "description": "Total usage limit.",
+      "example": 1
+    },
+    "usage_limit_per_user": {
+      "type": "integer",
+      "description": "Per-customer usage limit.",
+      "example": 1
+    },
+    "minimum_amount": {
+      "type": "string",
+      "description": "Minimum order amount.",
+      "example": "string-value"
+    },
+    "maximum_amount": {
+      "type": "string",
+      "description": "Maximum order amount.",
+      "example": "string-value"
+    },
+    "meta_data": {
+      "type": "array",
+      "description": "Custom metadata.",
+      "items": {
+        "type": "object",
+        "description": "Custom metadata key-value entry.",
+        "properties": {
+          "id": {
+            "type": "integer",
+            "description": "Metadata unique identifier.",
+            "example": 1
+          },
+          "key": {
+            "type": "string",
+            "description": "Metadata key.",
+            "example": "string-value"
+          },
+          "value": {
+            "type": "string",
+            "description": "Metadata value.",
+            "example": "string-value"
+          }
+        }
+      },
+      "example": [
+        "string-value"
+      ]
+    }
+  }
+}

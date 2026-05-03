@@ -1,0 +1,44 @@
+{
+  "$schema": "https://json-structure.org/meta/core/v0/#",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/woocommerce/refs/heads/main/json-structure/woocommerce-rest-api-product-attribute-structure.json",
+  "name": "ProductAttribute",
+  "description": "A product attribute with option values.",
+  "type": "object",
+  "properties": {
+    "id": {
+      "type": "int32",
+      "description": "Attribute ID (0 for custom attributes).",
+      "example": 1
+    },
+    "name": {
+      "type": "string",
+      "description": "Attribute name.",
+      "example": "Example Name"
+    },
+    "position": {
+      "type": "int32",
+      "description": "Attribute position in the product.",
+      "example": 1
+    },
+    "visible": {
+      "type": "boolean",
+      "description": "Whether the attribute is visible on the product page.",
+      "example": true
+    },
+    "variation": {
+      "type": "boolean",
+      "description": "Whether the attribute is used to define variations.",
+      "example": true
+    },
+    "options": {
+      "type": "array",
+      "description": "List of available options (terms) for this attribute.",
+      "items": {
+        "type": "string"
+      },
+      "example": [
+        "string-value"
+      ]
+    }
+  }
+}

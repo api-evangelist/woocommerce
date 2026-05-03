@@ -1,0 +1,11 @@
+{
+  "create": [
+    "string-value"
+  ],
+  "update": [
+    "string-value"
+  ],
+  "delete": [
+    1
+  ]
+}

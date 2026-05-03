@@ -1,0 +1,110 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/woocommerce/refs/heads/main/json-schema/woocommerce-rest-api-product-variation-input-schema.json",
+  "title": "ProductVariationInput",
+  "description": "Input for creating or updating a product variation.",
+  "type": "object",
+  "properties": {
+    "sku": {
+      "type": "string",
+      "description": "SKU for this variation.",
+      "example": "string-value"
+    },
+    "regular_price": {
+      "type": "string",
+      "description": "Regular price.",
+      "example": "string-value"
+    },
+    "sale_price": {
+      "type": "string",
+      "description": "Sale price.",
+      "example": "string-value"
+    },
+    "status": {
+      "type": "string",
+      "description": "Variation status.",
+      "enum": [
+        "draft",
+        "pending",
+        "private",
+        "publish"
+      ],
+      "example": "draft"
+    },
+    "manage_stock": {
+      "type": "boolean",
+      "description": "Whether to enable stock management.",
+      "example": true
+    },
+    "stock_quantity": {
+      "type": "integer",
+      "description": "Stock quantity.",
+      "example": 1
+    },
+    "stock_status": {
+      "type": "string",
+      "description": "Stock status.",
+      "enum": [
+        "instock",
+        "outofstock",
+        "onbackorder"
+      ],
+      "example": "instock"
+    },
+    "image": {
+      "type": "object",
+      "description": "An image associated with a product.",
+      "properties": {
+        "id": {
+          "type": "integer",
+          "description": "Image unique identifier.",
+          "example": 1
+        },
+        "src": {
+          "type": "string",
+          "format": "uri",
+          "description": "Image URL.",
+          "example": "https://example.com/path"
+        },
+        "name": {
+          "type": "string",
+          "description": "Image name.",
+          "example": "Example Name"
+        },
+        "alt": {
+          "type": "string",
+          "description": "Image alternative text.",
+          "example": "string-value"
+        }
+      }
+    },
+    "attributes": {
+      "type": "array",
+      "description": "Attribute options for this variation.",
+      "items": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer",
+            "description": "Attribute ID."
+          },
+          "name": {
+            "type": "string",
+            "description": "Attribute name."
+          },
+          "option": {
+            "type": "string",
+            "description": "Selected option value."
+          }
+        }
+      },
+      "example": [
+        {
+          "id": 1,
+          "name": "Example Name",
+          "option": "string-value"
+        }
+      ]
+    }
+  }
+}

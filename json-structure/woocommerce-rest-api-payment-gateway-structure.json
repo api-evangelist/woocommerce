@@ -1,0 +1,60 @@
+{
+  "$schema": "https://json-structure.org/meta/core/v0/#",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/woocommerce/refs/heads/main/json-structure/woocommerce-rest-api-payment-gateway-structure.json",
+  "name": "PaymentGateway",
+  "description": "A payment gateway installed in the WooCommerce store.",
+  "type": "object",
+  "properties": {
+    "id": {
+      "type": "string",
+      "description": "Payment gateway unique string identifier (e.g. stripe, paypal).",
+      "example": "500123"
+    },
+    "title": {
+      "type": "string",
+      "description": "Gateway display name shown to customers at checkout.",
+      "example": "Example Name"
+    },
+    "description": {
+      "type": "string",
+      "description": "Gateway description shown at checkout.",
+      "example": "A sample description"
+    },
+    "order": {
+      "type": "int32",
+      "description": "Gateway display order at checkout.",
+      "example": 1
+    },
+    "enabled": {
+      "type": "boolean",
+      "description": "Whether the gateway is active and available at checkout.",
+      "example": true
+    },
+    "method_title": {
+      "type": "string",
+      "description": "Admin label for the gateway.",
+      "example": "Example Name"
+    },
+    "method_description": {
+      "type": "string",
+      "description": "Admin description of the gateway.",
+      "example": "A sample description"
+    },
+    "method_supports": {
+      "type": "array",
+      "description": "Features supported by this gateway (e.g. products, refunds, subscriptions).",
+      "items": {
+        "type": "string"
+      },
+      "example": [
+        "string-value"
+      ]
+    },
+    "settings": {
+      "type": "object",
+      "description": "Gateway settings as a key-value map. Each setting has id, label, description, type, value, and tip properties.",
+      "additionalProperties": true,
+      "example": {}
+    }
+  }
+}

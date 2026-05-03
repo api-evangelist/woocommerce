@@ -1,0 +1,166 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/woocommerce/refs/heads/main/json-schema/woocommerce-store-api-checkout-schema.json",
+  "title": "Checkout",
+  "description": "Current checkout state.",
+  "type": "object",
+  "properties": {
+    "order_id": {
+      "type": "integer",
+      "description": "Pending order ID if one exists.",
+      "example": 1
+    },
+    "billing_address": {
+      "type": "object",
+      "description": "A customer billing or shipping address in the Store API context.",
+      "properties": {
+        "first_name": {
+          "type": "string",
+          "description": "First name.",
+          "example": "Example Name"
+        },
+        "last_name": {
+          "type": "string",
+          "description": "Last name.",
+          "example": "Example Name"
+        },
+        "company": {
+          "type": "string",
+          "description": "Company name.",
+          "example": "string-value"
+        },
+        "address_1": {
+          "type": "string",
+          "description": "Address line 1.",
+          "example": "string-value"
+        },
+        "address_2": {
+          "type": "string",
+          "description": "Address line 2.",
+          "example": "string-value"
+        },
+        "city": {
+          "type": "string",
+          "description": "City.",
+          "example": "string-value"
+        },
+        "state": {
+          "type": "string",
+          "description": "State or province code.",
+          "example": "string-value"
+        },
+        "postcode": {
+          "type": "string",
+          "description": "Postal code.",
+          "example": "string-value"
+        },
+        "country": {
+          "type": "string",
+          "description": "ISO 3166-1 alpha-2 country code.",
+          "example": "string-value"
+        },
+        "email": {
+          "type": "string",
+          "format": "email",
+          "description": "Email address (billing only).",
+          "example": "user@example.com"
+        },
+        "phone": {
+          "type": "string",
+          "description": "Phone number.",
+          "example": "string-value"
+        }
+      }
+    },
+    "shipping_address": {
+      "type": "object",
+      "description": "A customer billing or shipping address in the Store API context.",
+      "properties": {
+        "first_name": {
+          "type": "string",
+          "description": "First name.",
+          "example": "Example Name"
+        },
+        "last_name": {
+          "type": "string",
+          "description": "Last name.",
+          "example": "Example Name"
+        },
+        "company": {
+          "type": "string",
+          "description": "Company name.",
+          "example": "string-value"
+        },
+        "address_1": {
+          "type": "string",
+          "description": "Address line 1.",
+          "example": "string-value"
+        },
+        "address_2": {
+          "type": "string",
+          "description": "Address line 2.",
+          "example": "string-value"
+        },
+        "city": {
+          "type": "string",
+          "description": "City.",
+          "example": "string-value"
+        },
+        "state": {
+          "type": "string",
+          "description": "State or province code.",
+          "example": "string-value"
+        },
+        "postcode": {
+          "type": "string",
+          "description": "Postal code.",
+          "example": "string-value"
+        },
+        "country": {
+          "type": "string",
+          "description": "ISO 3166-1 alpha-2 country code.",
+          "example": "string-value"
+        },
+        "email": {
+          "type": "string",
+          "format": "email",
+          "description": "Email address (billing only).",
+          "example": "user@example.com"
+        },
+        "phone": {
+          "type": "string",
+          "description": "Phone number.",
+          "example": "string-value"
+        }
+      }
+    },
+    "payment_methods": {
+      "type": "array",
+      "description": "Available payment methods at checkout.",
+      "items": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "description": "Payment method ID."
+          },
+          "title": {
+            "type": "string",
+            "description": "Payment method display title."
+          },
+          "description": {
+            "type": "string",
+            "description": "Payment method description shown at checkout."
+          }
+        }
+      },
+      "example": [
+        {
+          "id": "500123",
+          "title": "Example Name",
+          "description": "A sample description"
+        }
+      ]
+    }
+  }
+}

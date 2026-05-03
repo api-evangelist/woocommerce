@@ -1,0 +1,13 @@
+{
+  "total_sales": "string-value",
+  "net_revenue": "string-value",
+  "average_sales": "string-value",
+  "total_orders": 1,
+  "total_items": 1,
+  "total_tax": "string-value",
+  "total_shipping": "string-value",
+  "total_refunds": 10.5,
+  "total_discount": 10.5,
+  "totals_grouped_by": "string-value",
+  "totals": {}
+}

@@ -1,0 +1,7 @@
+{
+  "id": 1,
+  "date_created": "2026-05-03T14:30:00Z",
+  "note": "string-value",
+  "customer_note": true,
+  "added_by_user": true
+}

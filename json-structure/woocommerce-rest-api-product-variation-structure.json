@@ -1,0 +1,153 @@
+{
+  "$schema": "https://json-structure.org/meta/core/v0/#",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/woocommerce/refs/heads/main/json-structure/woocommerce-rest-api-product-variation-structure.json",
+  "name": "ProductVariation",
+  "description": "A variation of a variable product with its own pricing and stock.",
+  "type": "object",
+  "properties": {
+    "id": {
+      "type": "int32",
+      "description": "Variation unique identifier.",
+      "example": 1
+    },
+    "sku": {
+      "type": "string",
+      "description": "Stock-keeping unit for this variation.",
+      "example": "string-value"
+    },
+    "price": {
+      "type": "string",
+      "description": "Current price as a decimal string.",
+      "example": "string-value"
+    },
+    "regular_price": {
+      "type": "string",
+      "description": "Regular price as a decimal string.",
+      "example": "string-value"
+    },
+    "sale_price": {
+      "type": "string",
+      "description": "Sale price as a decimal string.",
+      "example": "string-value"
+    },
+    "on_sale": {
+      "type": "boolean",
+      "description": "Whether the variation is on sale.",
+      "example": true
+    },
+    "status": {
+      "type": "string",
+      "description": "Variation status.",
+      "enum": [
+        "draft",
+        "pending",
+        "private",
+        "publish"
+      ],
+      "example": "draft"
+    },
+    "manage_stock": {
+      "type": "boolean",
+      "description": "Whether stock is managed for this variation.",
+      "example": true
+    },
+    "stock_quantity": {
+      "type": "int32",
+      "description": "Stock quantity for this variation.",
+      "nullable": true,
+      "example": 1
+    },
+    "stock_status": {
+      "type": "string",
+      "description": "Stock status.",
+      "enum": [
+        "instock",
+        "outofstock",
+        "onbackorder"
+      ],
+      "example": "instock"
+    },
+    "image": {
+      "type": "object",
+      "description": "An image associated with a product.",
+      "properties": {
+        "id": {
+          "type": "int32",
+          "description": "Image unique identifier.",
+          "example": 1
+        },
+        "src": {
+          "type": "uri",
+          "description": "Image URL.",
+          "example": "https://example.com/path"
+        },
+        "name": {
+          "type": "string",
+          "description": "Image name.",
+          "example": "Example Name"
+        },
+        "alt": {
+          "type": "string",
+          "description": "Image alternative text.",
+          "example": "string-value"
+        }
+      }
+    },
+    "attributes": {
+      "type": "array",
+      "description": "Specific attribute values that define this variation.",
+      "items": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "int32",
+            "description": "Attribute ID."
+          },
+          "name": {
+            "type": "string",
+            "description": "Attribute name."
+          },
+          "option": {
+            "type": "string",
+            "description": "Selected option value for this variation."
+          }
+        }
+      },
+      "example": [
+        {
+          "id": 1,
+          "name": "Example Name",
+          "option": "string-value"
+        }
+      ]
+    },
+    "meta_data": {
+      "type": "array",
+      "description": "Custom metadata for this variation.",
+      "items": {
+        "type": "object",
+        "description": "Custom metadata key-value entry.",
+        "properties": {
+          "id": {
+            "type": "int32",
+            "description": "Metadata unique identifier.",
+            "example": 1
+          },
+          "key": {
+            "type": "string",
+            "description": "Metadata key.",
+            "example": "string-value"
+          },
+          "value": {
+            "type": "string",
+            "description": "Metadata value.",
+            "example": "string-value"
+          }
+        }
+      },
+      "example": [
+        "string-value"
+      ]
+    }
+  }
+}

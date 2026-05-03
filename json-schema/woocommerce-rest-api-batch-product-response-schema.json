@@ -1,0 +1,798 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/woocommerce/refs/heads/main/json-schema/woocommerce-rest-api-batch-product-response-schema.json",
+  "title": "BatchProductResponse",
+  "description": "Response from a batch product operation.",
+  "type": "object",
+  "properties": {
+    "create": {
+      "type": "array",
+      "description": "Created products.",
+      "items": {
+        "type": "object",
+        "description": "A WooCommerce product in the store catalog.",
+        "properties": {
+          "id": {
+            "type": "integer",
+            "description": "Product unique identifier.",
+            "example": 1
+          },
+          "name": {
+            "type": "string",
+            "description": "Product name.",
+            "example": "Example Name"
+          },
+          "slug": {
+            "type": "string",
+            "description": "URL-friendly product identifier.",
+            "example": "string-value"
+          },
+          "permalink": {
+            "type": "string",
+            "format": "uri",
+            "description": "Product URL on the storefront.",
+            "example": "https://example.com/path"
+          },
+          "type": {
+            "type": "string",
+            "description": "Product type. Options: simple, grouped, external, variable.",
+            "enum": [
+              "simple",
+              "grouped",
+              "external",
+              "variable"
+            ],
+            "example": "simple"
+          },
+          "status": {
+            "type": "string",
+            "description": "Product status. Options: draft, pending, private, publish.",
+            "enum": [
+              "draft",
+              "pending",
+              "private",
+              "publish"
+            ],
+            "example": "draft"
+          },
+          "featured": {
+            "type": "boolean",
+            "description": "Whether the product is featured.",
+            "example": true
+          },
+          "description": {
+            "type": "string",
+            "description": "Full product description (HTML allowed).",
+            "example": "A sample description"
+          },
+          "short_description": {
+            "type": "string",
+            "description": "Short product description (HTML allowed).",
+            "example": "A sample description"
+          },
+          "sku": {
+            "type": "string",
+            "description": "Stock-keeping unit identifier.",
+            "example": "string-value"
+          },
+          "price": {
+            "type": "string",
+            "description": "Current product price as a decimal string.",
+            "example": "string-value"
+          },
+          "regular_price": {
+            "type": "string",
+            "description": "Regular product price as a decimal string.",
+            "example": "string-value"
+          },
+          "sale_price": {
+            "type": "string",
+            "description": "Sale price as a decimal string. Empty string when not on sale.",
+            "example": "string-value"
+          },
+          "on_sale": {
+            "type": "boolean",
+            "description": "Whether the product is on sale.",
+            "example": true
+          },
+          "purchasable": {
+            "type": "boolean",
+            "description": "Whether the product can be bought.",
+            "example": true
+          },
+          "total_sales": {
+            "type": "integer",
+            "description": "Total number of sales for the product.",
+            "example": 1
+          },
+          "virtual": {
+            "type": "boolean",
+            "description": "Whether the product is virtual (no shipping required).",
+            "example": true
+          },
+          "downloadable": {
+            "type": "boolean",
+            "description": "Whether the product is downloadable.",
+            "example": true
+          },
+          "manage_stock": {
+            "type": "boolean",
+            "description": "Whether stock management is enabled for this product.",
+            "example": true
+          },
+          "stock_quantity": {
+            "type": "integer",
+            "description": "Stock quantity when manage_stock is true.",
+            "nullable": true,
+            "example": 1
+          },
+          "stock_status": {
+            "type": "string",
+            "description": "Stock status. Options: instock, outofstock, onbackorder.",
+            "enum": [
+              "instock",
+              "outofstock",
+              "onbackorder"
+            ],
+            "example": "instock"
+          },
+          "weight": {
+            "type": "string",
+            "description": "Product weight as a string in the store weight unit.",
+            "example": "string-value"
+          },
+          "dimensions": {
+            "type": "object",
+            "description": "Product dimensions.",
+            "properties": {
+              "length": {
+                "type": "string",
+                "description": "Product length."
+              },
+              "width": {
+                "type": "string",
+                "description": "Product width."
+              },
+              "height": {
+                "type": "string",
+                "description": "Product height."
+              }
+            },
+            "example": {
+              "length": "string-value",
+              "width": "string-value",
+              "height": "string-value"
+            }
+          },
+          "categories": {
+            "type": "array",
+            "description": "Categories assigned to the product.",
+            "items": {
+              "type": "object",
+              "properties": {
+                "id": {
+                  "type": "integer",
+                  "description": "Category ID."
+                },
+                "name": {
+                  "type": "string",
+                  "description": "Category name."
+                },
+                "slug": {
+                  "type": "string",
+                  "description": "Category slug."
+                }
+              }
+            },
+            "example": [
+              {
+                "id": 1,
+                "name": "Example Name",
+                "slug": "string-value"
+              }
+            ]
+          },
+          "tags": {
+            "type": "array",
+            "description": "Tags assigned to the product.",
+            "items": {
+              "type": "object",
+              "properties": {
+                "id": {
+                  "type": "integer",
+                  "description": "Tag ID."
+                },
+                "name": {
+                  "type": "string",
+                  "description": "Tag name."
+                },
+                "slug": {
+                  "type": "string",
+                  "description": "Tag slug."
+                }
+              }
+            },
+            "example": [
+              {
+                "id": 1,
+                "name": "Example Name",
+                "slug": "string-value"
+              }
+            ]
+          },
+          "images": {
+            "type": "array",
+            "description": "Images associated with the product.",
+            "items": {
+              "$ref": "#/components/schemas/ProductImage"
+            },
+            "example": [
+              "string-value"
+            ]
+          },
+          "attributes": {
+            "type": "array",
+            "description": "Product attributes for variable products.",
+            "items": {
+              "$ref": "#/components/schemas/ProductAttribute"
+            },
+            "example": [
+              "string-value"
+            ]
+          },
+          "date_created": {
+            "type": "string",
+            "format": "date-time",
+            "description": "Date the product was created, in the site timezone.",
+            "example": "2026-05-03T14:30:00Z"
+          },
+          "date_modified": {
+            "type": "string",
+            "format": "date-time",
+            "description": "Date the product was last modified, in the site timezone.",
+            "example": "2026-05-03T14:30:00Z"
+          },
+          "meta_data": {
+            "type": "array",
+            "description": "Custom metadata attached to the product.",
+            "items": {
+              "$ref": "#/components/schemas/MetaData"
+            },
+            "example": [
+              "string-value"
+            ]
+          }
+        }
+      },
+      "example": [
+        "string-value"
+      ]
+    },
+    "update": {
+      "type": "array",
+      "description": "Updated products.",
+      "items": {
+        "type": "object",
+        "description": "A WooCommerce product in the store catalog.",
+        "properties": {
+          "id": {
+            "type": "integer",
+            "description": "Product unique identifier.",
+            "example": 1
+          },
+          "name": {
+            "type": "string",
+            "description": "Product name.",
+            "example": "Example Name"
+          },
+          "slug": {
+            "type": "string",
+            "description": "URL-friendly product identifier.",
+            "example": "string-value"
+          },
+          "permalink": {
+            "type": "string",
+            "format": "uri",
+            "description": "Product URL on the storefront.",
+            "example": "https://example.com/path"
+          },
+          "type": {
+            "type": "string",
+            "description": "Product type. Options: simple, grouped, external, variable.",
+            "enum": [
+              "simple",
+              "grouped",
+              "external",
+              "variable"
+            ],
+            "example": "simple"
+          },
+          "status": {
+            "type": "string",
+            "description": "Product status. Options: draft, pending, private, publish.",
+            "enum": [
+              "draft",
+              "pending",
+              "private",
+              "publish"
+            ],
+            "example": "draft"
+          },
+          "featured": {
+            "type": "boolean",
+            "description": "Whether the product is featured.",
+            "example": true
+          },
+          "description": {
+            "type": "string",
+            "description": "Full product description (HTML allowed).",
+            "example": "A sample description"
+          },
+          "short_description": {
+            "type": "string",
+            "description": "Short product description (HTML allowed).",
+            "example": "A sample description"
+          },
+          "sku": {
+            "type": "string",
+            "description": "Stock-keeping unit identifier.",
+            "example": "string-value"
+          },
+          "price": {
+            "type": "string",
+            "description": "Current product price as a decimal string.",
+            "example": "string-value"
+          },
+          "regular_price": {
+            "type": "string",
+            "description": "Regular product price as a decimal string.",
+            "example": "string-value"
+          },
+          "sale_price": {
+            "type": "string",
+            "description": "Sale price as a decimal string. Empty string when not on sale.",
+            "example": "string-value"
+          },
+          "on_sale": {
+            "type": "boolean",
+            "description": "Whether the product is on sale.",
+            "example": true
+          },
+          "purchasable": {
+            "type": "boolean",
+            "description": "Whether the product can be bought.",
+            "example": true
+          },
+          "total_sales": {
+            "type": "integer",
+            "description": "Total number of sales for the product.",
+            "example": 1
+          },
+          "virtual": {
+            "type": "boolean",
+            "description": "Whether the product is virtual (no shipping required).",
+            "example": true
+          },
+          "downloadable": {
+            "type": "boolean",
+            "description": "Whether the product is downloadable.",
+            "example": true
+          },
+          "manage_stock": {
+            "type": "boolean",
+            "description": "Whether stock management is enabled for this product.",
+            "example": true
+          },
+          "stock_quantity": {
+            "type": "integer",
+            "description": "Stock quantity when manage_stock is true.",
+            "nullable": true,
+            "example": 1
+          },
+          "stock_status": {
+            "type": "string",
+            "description": "Stock status. Options: instock, outofstock, onbackorder.",
+            "enum": [
+              "instock",
+              "outofstock",
+              "onbackorder"
+            ],
+            "example": "instock"
+          },
+          "weight": {
+            "type": "string",
+            "description": "Product weight as a string in the store weight unit.",
+            "example": "string-value"
+          },
+          "dimensions": {
+            "type": "object",
+            "description": "Product dimensions.",
+            "properties": {
+              "length": {
+                "type": "string",
+                "description": "Product length."
+              },
+              "width": {
+                "type": "string",
+                "description": "Product width."
+              },
+              "height": {
+                "type": "string",
+                "description": "Product height."
+              }
+            },
+            "example": {
+              "length": "string-value",
+              "width": "string-value",
+              "height": "string-value"
+            }
+          },
+          "categories": {
+            "type": "array",
+            "description": "Categories assigned to the product.",
+            "items": {
+              "type": "object",
+              "properties": {
+                "id": {
+                  "type": "integer",
+                  "description": "Category ID."
+                },
+                "name": {
+                  "type": "string",
+                  "description": "Category name."
+                },
+                "slug": {
+                  "type": "string",
+                  "description": "Category slug."
+                }
+              }
+            },
+            "example": [
+              {
+                "id": 1,
+                "name": "Example Name",
+                "slug": "string-value"
+              }
+            ]
+          },
+          "tags": {
+            "type": "array",
+            "description": "Tags assigned to the product.",
+            "items": {
+              "type": "object",
+              "properties": {
+                "id": {
+                  "type": "integer",
+                  "description": "Tag ID."
+                },
+                "name": {
+                  "type": "string",
+                  "description": "Tag name."
+                },
+                "slug": {
+                  "type": "string",
+                  "description": "Tag slug."
+                }
+              }
+            },
+            "example": [
+              {
+                "id": 1,
+                "name": "Example Name",
+                "slug": "string-value"
+              }
+            ]
+          },
+          "images": {
+            "type": "array",
+            "description": "Images associated with the product.",
+            "items": {
+              "$ref": "#/components/schemas/ProductImage"
+            },
+            "example": [
+              "string-value"
+            ]
+          },
+          "attributes": {
+            "type": "array",
+            "description": "Product attributes for variable products.",
+            "items": {
+              "$ref": "#/components/schemas/ProductAttribute"
+            },
+            "example": [
+              "string-value"
+            ]
+          },
+          "date_created": {
+            "type": "string",
+            "format": "date-time",
+            "description": "Date the product was created, in the site timezone.",
+            "example": "2026-05-03T14:30:00Z"
+          },
+          "date_modified": {
+            "type": "string",
+            "format": "date-time",
+            "description": "Date the product was last modified, in the site timezone.",
+            "example": "2026-05-03T14:30:00Z"
+          },
+          "meta_data": {
+            "type": "array",
+            "description": "Custom metadata attached to the product.",
+            "items": {
+              "$ref": "#/components/schemas/MetaData"
+            },
+            "example": [
+              "string-value"
+            ]
+          }
+        }
+      },
+      "example": [
+        "string-value"
+      ]
+    },
+    "delete": {
+      "type": "array",
+      "description": "Deleted products.",
+      "items": {
+        "type": "object",
+        "description": "A WooCommerce product in the store catalog.",
+        "properties": {
+          "id": {
+            "type": "integer",
+            "description": "Product unique identifier.",
+            "example": 1
+          },
+          "name": {
+            "type": "string",
+            "description": "Product name.",
+            "example": "Example Name"
+          },
+          "slug": {
+            "type": "string",
+            "description": "URL-friendly product identifier.",
+            "example": "string-value"
+          },
+          "permalink": {
+            "type": "string",
+            "format": "uri",
+            "description": "Product URL on the storefront.",
+            "example": "https://example.com/path"
+          },
+          "type": {
+            "type": "string",
+            "description": "Product type. Options: simple, grouped, external, variable.",
+            "enum": [
+              "simple",
+              "grouped",
+              "external",
+              "variable"
+            ],
+            "example": "simple"
+          },
+          "status": {
+            "type": "string",
+            "description": "Product status. Options: draft, pending, private, publish.",
+            "enum": [
+              "draft",
+              "pending",
+              "private",
+              "publish"
+            ],
+            "example": "draft"
+          },
+          "featured": {
+            "type": "boolean",
+            "description": "Whether the product is featured.",
+            "example": true
+          },
+          "description": {
+            "type": "string",
+            "description": "Full product description (HTML allowed).",
+            "example": "A sample description"
+          },
+          "short_description": {
+            "type": "string",
+            "description": "Short product description (HTML allowed).",
+            "example": "A sample description"
+          },
+          "sku": {
+            "type": "string",
+            "description": "Stock-keeping unit identifier.",
+            "example": "string-value"
+          },
+          "price": {
+            "type": "string",
+            "description": "Current product price as a decimal string.",
+            "example": "string-value"
+          },
+          "regular_price": {
+            "type": "string",
+            "description": "Regular product price as a decimal string.",
+            "example": "string-value"
+          },
+          "sale_price": {
+            "type": "string",
+            "description": "Sale price as a decimal string. Empty string when not on sale.",
+            "example": "string-value"
+          },
+          "on_sale": {
+            "type": "boolean",
+            "description": "Whether the product is on sale.",
+            "example": true
+          },
+          "purchasable": {
+            "type": "boolean",
+            "description": "Whether the product can be bought.",
+            "example": true
+          },
+          "total_sales": {
+            "type": "integer",
+            "description": "Total number of sales for the product.",
+            "example": 1
+          },
+          "virtual": {
+            "type": "boolean",
+            "description": "Whether the product is virtual (no shipping required).",
+            "example": true
+          },
+          "downloadable": {
+            "type": "boolean",
+            "description": "Whether the product is downloadable.",
+            "example": true
+          },
+          "manage_stock": {
+            "type": "boolean",
+            "description": "Whether stock management is enabled for this product.",
+            "example": true
+          },
+          "stock_quantity": {
+            "type": "integer",
+            "description": "Stock quantity when manage_stock is true.",
+            "nullable": true,
+            "example": 1
+          },
+          "stock_status": {
+            "type": "string",
+            "description": "Stock status. Options: instock, outofstock, onbackorder.",
+            "enum": [
+              "instock",
+              "outofstock",
+              "onbackorder"
+            ],
+            "example": "instock"
+          },
+          "weight": {
+            "type": "string",
+            "description": "Product weight as a string in the store weight unit.",
+            "example": "string-value"
+          },
+          "dimensions": {
+            "type": "object",
+            "description": "Product dimensions.",
+            "properties": {
+              "length": {
+                "type": "string",
+                "description": "Product length."
+              },
+              "width": {
+                "type": "string",
+                "description": "Product width."
+              },
+              "height": {
+                "type": "string",
+                "description": "Product height."
+              }
+            },
+            "example": {
+              "length": "string-value",
+              "width": "string-value",
+              "height": "string-value"
+            }
+          },
+          "categories": {
+            "type": "array",
+            "description": "Categories assigned to the product.",
+            "items": {
+              "type": "object",
+              "properties": {
+                "id": {
+                  "type": "integer",
+                  "description": "Category ID."
+                },
+                "name": {
+                  "type": "string",
+                  "description": "Category name."
+                },
+                "slug": {
+                  "type": "string",
+                  "description": "Category slug."
+                }
+              }
+            },
+            "example": [
+              {
+                "id": 1,
+                "name": "Example Name",
+                "slug": "string-value"
+              }
+            ]
+          },
+          "tags": {
+            "type": "array",
+            "description": "Tags assigned to the product.",
+            "items": {
+              "type": "object",
+              "properties": {
+                "id": {
+                  "type": "integer",
+                  "description": "Tag ID."
+                },
+                "name": {
+                  "type": "string",
+                  "description": "Tag name."
+                },
+                "slug": {
+                  "type": "string",
+                  "description": "Tag slug."
+                }
+              }
+            },
+            "example": [
+              {
+                "id": 1,
+                "name": "Example Name",
+                "slug": "string-value"
+              }
+            ]
+          },
+          "images": {
+            "type": "array",
+            "description": "Images associated with the product.",
+            "items": {
+              "$ref": "#/components/schemas/ProductImage"
+            },
+            "example": [
+              "string-value"
+            ]
+          },
+          "attributes": {
+            "type": "array",
+            "description": "Product attributes for variable products.",
+            "items": {
+              "$ref": "#/components/schemas/ProductAttribute"
+            },
+            "example": [
+              "string-value"
+            ]
+          },
+          "date_created": {
+            "type": "string",
+            "format": "date-time",
+            "description": "Date the product was created, in the site timezone.",
+            "example": "2026-05-03T14:30:00Z"
+          },
+          "date_modified": {
+            "type": "string",
+            "format": "date-time",
+            "description": "Date the product was last modified, in the site timezone.",
+            "example": "2026-05-03T14:30:00Z"
+          },
+          "meta_data": {
+            "type": "array",
+            "description": "Custom metadata attached to the product.",
+            "items": {
+              "$ref": "#/components/schemas/MetaData"
+            },
+            "example": [
+              "string-value"
+            ]
+          }
+        }
+      },
+      "example": [
+        "string-value"
+      ]
+    }
+  }
+}

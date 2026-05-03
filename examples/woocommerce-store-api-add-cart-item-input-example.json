@@ -1,0 +1,17 @@
+{
+  "id": 1,
+  "quantity": 1,
+  "variation_id": 1,
+  "variation": [
+    {
+      "attribute": "string-value",
+      "value": "string-value"
+    }
+  ],
+  "item_data": [
+    {
+      "name": "Example Name",
+      "value": "string-value"
+    }
+  ]
+}

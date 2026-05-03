@@ -1,0 +1,30 @@
+{
+  "@context": {
+    "@version": 1.1,
+    "woo": "https://woocommerce.dev/schema/",
+    "schema": "https://schema.org/",
+    "dcterms": "http://purl.org/dc/terms/",
+    "xsd": "http://www.w3.org/2001/XMLSchema#",
+    "OrderRefundInput": "woo:OrderRefundInput",
+    "amount": {
+      "@id": "woo:amount",
+      "@type": "xsd:string"
+    },
+    "reason": {
+      "@id": "woo:reason",
+      "@type": "xsd:string"
+    },
+    "refundedBy": {
+      "@id": "woo:refunded_by",
+      "@type": "xsd:integer"
+    },
+    "apiRefund": {
+      "@id": "woo:api_refund",
+      "@type": "xsd:boolean"
+    },
+    "lineItems": {
+      "@id": "woo:line_items",
+      "@container": "@set"
+    }
+  }
+}

@@ -1,0 +1,144 @@
+{
+  "@context": {
+    "@version": 1.1,
+    "woo": "https://woocommerce.dev/schema/",
+    "schema": "https://schema.org/",
+    "dcterms": "http://purl.org/dc/terms/",
+    "xsd": "http://www.w3.org/2001/XMLSchema#",
+    "CartItem": "woo:CartItem",
+    "key": {
+      "@id": "woo:key",
+      "@type": "xsd:string"
+    },
+    "id": {
+      "@id": "woo:id",
+      "@type": "xsd:integer"
+    },
+    "quantity": {
+      "@id": "woo:quantity",
+      "@type": "xsd:integer"
+    },
+    "variationId": {
+      "@id": "woo:variation_id",
+      "@type": "xsd:integer"
+    },
+    "itemData": {
+      "@id": "woo:item_data",
+      "@container": "@set"
+    },
+    "prices": {
+      "@id": "woo:prices",
+      "@type": "@id"
+    },
+    "price": {
+      "@id": "woo:price",
+      "@type": "xsd:string"
+    },
+    "regularPrice": {
+      "@id": "woo:regular_price",
+      "@type": "xsd:string"
+    },
+    "salePrice": {
+      "@id": "woo:sale_price",
+      "@type": "xsd:string"
+    },
+    "priceRange": {
+      "@id": "woo:price_range",
+      "@type": "@id"
+    },
+    "minAmount": {
+      "@id": "woo:min_amount",
+      "@type": "xsd:string"
+    },
+    "maxAmount": {
+      "@id": "woo:max_amount",
+      "@type": "xsd:string"
+    },
+    "currencyCode": {
+      "@id": "woo:currency_code",
+      "@type": "xsd:string"
+    },
+    "currencySymbol": {
+      "@id": "woo:currency_symbol",
+      "@type": "xsd:string"
+    },
+    "currencyDecimalSeparator": {
+      "@id": "woo:currency_decimal_separator",
+      "@type": "xsd:string"
+    },
+    "currencyThousandSeparator": {
+      "@id": "woo:currency_thousand_separator",
+      "@type": "xsd:string"
+    },
+    "currencyPrefix": {
+      "@id": "woo:currency_prefix",
+      "@type": "xsd:string"
+    },
+    "currencySuffix": {
+      "@id": "woo:currency_suffix",
+      "@type": "xsd:string"
+    },
+    "name": "schema:name",
+    "shortDescription": {
+      "@id": "woo:short_description",
+      "@type": "xsd:string"
+    },
+    "images": {
+      "@id": "woo:images",
+      "@container": "@set"
+    },
+    "lowStockRemaining": {
+      "@id": "woo:low_stock_remaining",
+      "@type": "xsd:integer"
+    },
+    "soldIndividually": {
+      "@id": "woo:sold_individually",
+      "@type": "xsd:boolean"
+    },
+    "CartTotals": "woo:CartTotals",
+    "totalItems": {
+      "@id": "woo:total_items",
+      "@type": "xsd:string"
+    },
+    "totalItemsTax": {
+      "@id": "woo:total_items_tax",
+      "@type": "xsd:string"
+    },
+    "totalFees": {
+      "@id": "woo:total_fees",
+      "@type": "xsd:string"
+    },
+    "totalFeesTax": {
+      "@id": "woo:total_fees_tax",
+      "@type": "xsd:string"
+    },
+    "totalDiscount": {
+      "@id": "woo:total_discount",
+      "@type": "xsd:string"
+    },
+    "totalDiscountTax": {
+      "@id": "woo:total_discount_tax",
+      "@type": "xsd:string"
+    },
+    "totalShipping": {
+      "@id": "woo:total_shipping",
+      "@type": "xsd:string"
+    },
+    "totalShippingTax": {
+      "@id": "woo:total_shipping_tax",
+      "@type": "xsd:string"
+    },
+    "totalPrice": {
+      "@id": "woo:total_price",
+      "@type": "xsd:string"
+    },
+    "totalTax": {
+      "@id": "woo:total_tax",
+      "@type": "xsd:string"
+    },
+    "taxLines": {
+      "@id": "woo:tax_lines",
+      "@container": "@set"
+    }
+  }
+}

@@ -1,0 +1,35 @@
+{
+  "key": "string-value",
+  "id": 1,
+  "quantity": 1,
+  "variation_id": 1,
+  "item_data": [
+    {
+      "name": "Example Name",
+      "value": "string-value",
+      "display": "string-value"
+    }
+  ],
+  "prices": {
+    "price": "string-value",
+    "regular_price": "string-value",
+    "sale_price": "string-value",
+    "price_range": {
+      "min_amount": "string-value",
+      "max_amount": "string-value"
+    },
+    "currency_code": "string-value",
+    "currency_symbol": "string-value",
+    "currency_decimal_separator": "string-value",
+    "currency_thousand_separator": "string-value",
+    "currency_prefix": "string-value",
+    "currency_suffix": "string-value"
+  },
+  "name": "Example Name",
+  "short_description": "A sample description",
+  "images": [
+    "string-value"
+  ],
+  "low_stock_remaining": 1,
+  "sold_individually": true
+}

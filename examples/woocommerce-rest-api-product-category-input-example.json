@@ -1,0 +1,7 @@
+{
+  "name": "Example Name",
+  "slug": "string-value",
+  "parent": 1,
+  "description": "A sample description",
+  "display": "default"
+}

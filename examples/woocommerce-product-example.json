@@ -1,0 +1,89 @@
+{
+  "id": 246,
+  "name": "Example Name",
+  "slug": "string-value",
+  "permalink": "https://example.com/path",
+  "date_created": "2026-05-03T14:30:00Z",
+  "date_created_gmt": "2026-05-03T14:30:00Z",
+  "date_modified": "2026-05-03T14:30:00Z",
+  "date_modified_gmt": "2026-05-03T14:30:00Z",
+  "type": "simple",
+  "status": "draft",
+  "featured": false,
+  "catalog_visibility": "visible",
+  "description": "A sample description.",
+  "short_description": "A sample description.",
+  "sku": "SKU-001",
+  "price": "29.99",
+  "regular_price": "29.99",
+  "sale_price": "29.99",
+  "date_on_sale_from": "2026-05-03T14:30:00Z",
+  "date_on_sale_to": "2026-05-03T14:30:00Z",
+  "on_sale": true,
+  "purchasable": true,
+  "total_sales": 281,
+  "virtual": false,
+  "downloadable": true,
+  "downloads": [
+    "string-value"
+  ],
+  "download_limit": 798,
+  "download_expiry": 57,
+  "external_url": "https://example.com/path",
+  "button_text": "string-value",
+  "tax_status": "taxable",
+  "tax_class": "string-value",
+  "manage_stock": true,
+  "stock_quantity": 356,
+  "backorders": "no",
+  "backorders_allowed": true,
+  "backordered": false,
+  "low_stock_amount": 6,
+  "sold_individually": true,
+  "weight": "string-value",
+  "dimensions": {},
+  "shipping_required": true,
+  "shipping_taxable": false,
+  "shipping_class": "string-value",
+  "shipping_class_id": 91,
+  "reviews_allowed": false,
+  "average_rating": "string-value",
+  "rating_count": 189,
+  "upsell_ids": [
+    267
+  ],
+  "cross_sell_ids": [
+    8
+  ],
+  "parent_id": 545,
+  "purchase_note": "string-value",
+  "categories": [
+    "string-value"
+  ],
+  "tags": [
+    "string-value"
+  ],
+  "images": [
+    "string-value"
+  ],
+  "attributes": [
+    "string-value"
+  ],
+  "default_attributes": [
+    {
+      "id": 972,
+      "name": "Example Name",
+      "option": "string-value"
+    }
+  ],
+  "variations": [
+    564
+  ],
+  "grouped_products": [
+    923
+  ],
+  "menu_order": 467,
+  "meta_data": [
+    "string-value"
+  ]
+}

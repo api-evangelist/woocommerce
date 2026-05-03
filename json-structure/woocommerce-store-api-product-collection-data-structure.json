@@ -1,0 +1,74 @@
+{
+  "$schema": "https://json-structure.org/meta/core/v0/#",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/woocommerce/refs/heads/main/json-structure/woocommerce-store-api-product-collection-data-structure.json",
+  "name": "ProductCollectionData",
+  "description": "Aggregate data about a filtered product collection.",
+  "type": "object",
+  "properties": {
+    "price_range": {
+      "type": "object",
+      "description": "Minimum and maximum prices in the collection.",
+      "nullable": true,
+      "properties": {
+        "min_price": {
+          "type": "string",
+          "description": "Minimum product price."
+        },
+        "max_price": {
+          "type": "string",
+          "description": "Maximum product price."
+        }
+      },
+      "example": {
+        "min_price": "string-value",
+        "max_price": "string-value"
+      }
+    },
+    "attribute_counts": {
+      "type": "array",
+      "description": "Term counts for requested attributes.",
+      "items": {
+        "type": "object",
+        "properties": {
+          "term": {
+            "type": "int32",
+            "description": "Term ID."
+          },
+          "count": {
+            "type": "int32",
+            "description": "Number of products with this term."
+          }
+        }
+      },
+      "example": [
+        {
+          "term": 1,
+          "count": 1
+        }
+      ]
+    },
+    "rating_counts": {
+      "type": "array",
+      "description": "Product counts by star rating.",
+      "items": {
+        "type": "object",
+        "properties": {
+          "rating": {
+            "type": "int32",
+            "description": "Star rating value."
+          },
+          "count": {
+            "type": "int32",
+            "description": "Number of products with this rating."
+          }
+        }
+      },
+      "example": [
+        {
+          "rating": 1,
+          "count": 1
+        }
+      ]
+    }
+  }
+}

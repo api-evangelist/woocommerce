@@ -1,0 +1,16 @@
+{
+  "id": 1,
+  "name": "Example Name",
+  "slug": "string-value",
+  "parent": 1,
+  "description": "A sample description",
+  "display": "string-value",
+  "image": {
+    "id": 1,
+    "src": "https://example.com/path",
+    "name": "Example Name",
+    "alt": "string-value"
+  },
+  "menu_order": 1,
+  "count": 1
+}

@@ -1,0 +1,276 @@
+naftiko: "1.0.0-alpha1"
+
+info:
+  label: "WooCommerce Store Management"
+  description: >-
+    Unified store management capability combining the WooCommerce REST API and Store API
+    for complete eCommerce operations. Used by store administrators and operations teams
+    to manage products, process orders, manage customers, and run sales reports.
+    Combines backend admin operations with frontend storefront browsing.
+  tags:
+    - eCommerce
+    - Operations
+    - Orders
+    - Products
+    - Store Management
+    - WooCommerce
+  created: "2026-05-03"
+  modified: "2026-05-03"
+
+binds:
+  - namespace: env
+    keys:
+      WOOCOMMERCE_CONSUMER_KEY: WOOCOMMERCE_CONSUMER_KEY
+      WOOCOMMERCE_CONSUMER_SECRET: WOOCOMMERCE_CONSUMER_SECRET
+
+capability:
+  consumes:
+    - import: woo-rest
+      location: ./shared/rest-api.yaml
+    - import: woo-store
+      location: ./shared/store-api.yaml
+
+  exposes:
+    - type: rest
+      port: 8080
+      namespace: woo-management-api
+      description: "Unified REST API for complete WooCommerce store management."
+      resources:
+        - path: /v1/products
+          name: products
+          description: "Full product catalog management."
+          operations:
+            - method: GET
+              name: list-products
+              description: "List all products with filtering."
+              call: "woo-rest.list-products"
+              with:
+                page: "rest.page"
+                per_page: "rest.per_page"
+                status: "rest.status"
+                search: "rest.search"
+              outputParameters:
+                - type: array
+                  mapping: "$."
+            - method: POST
+              name: create-product
+              description: "Create a new product."
+              call: "woo-rest.create-product"
+              outputParameters:
+                - type: object
+                  mapping: "$."
+
+        - path: /v1/orders
+          name: orders
+          description: "Order lifecycle management."
+          operations:
+            - method: GET
+              name: list-orders
+              description: "List orders with filtering by status and customer."
+              call: "woo-rest.list-orders"
+              with:
+                page: "rest.page"
+                status: "rest.status"
+                customer: "rest.customer"
+              outputParameters:
+                - type: array
+                  mapping: "$."
+            - method: POST
+              name: create-order
+              description: "Create a new order."
+              call: "woo-rest.create-order"
+              outputParameters:
+                - type: object
+                  mapping: "$."
+
+        - path: /v1/customers
+          name: customers
+          description: "Customer management."
+          operations:
+            - method: GET
+              name: list-customers
+              description: "List customers."
+              call: "woo-rest.list-customers"
+              with:
+                search: "rest.search"
+              outputParameters:
+                - type: array
+                  mapping: "$."
+
+        - path: /v1/storefront/products
+          name: storefront-products
+          description: "Public storefront product browsing."
+          operations:
+            - method: GET
+              name: browse-products
+              description: "Browse storefront products."
+              call: "woo-store.list-store-products"
+              with:
+                search: "rest.search"
+                category: "rest.category"
+              outputParameters:
+                - type: array
+                  mapping: "$."
+
+        - path: /v1/reports/sales
+          name: reports
+          description: "Sales reports and analytics."
+          operations:
+            - method: GET
+              name: get-sales-report
+              description: "Get sales report for a period."
+              call: "woo-rest.get-sales-report"
+              with:
+                period: "rest.period"
+              outputParameters:
+                - type: object
+                  mapping: "$."
+
+    - type: mcp
+      port: 9090
+      namespace: woo-management-mcp
+      transport: http
+      description: "MCP server for AI-assisted WooCommerce store management."
+      tools:
+        - name: list-products
+          description: "List WooCommerce products with optional filtering by status, category, or keyword."
+          hints:
+            readOnly: true
+          call: "woo-rest.list-products"
+          with:
+            page: "tools.page"
+            per_page: "tools.per_page"
+            status: "tools.status"
+            search: "tools.search"
+          outputParameters:
+            - type: array
+              mapping: "$."
+
+        - name: get-product
+          description: "Get detailed information about a specific WooCommerce product."
+          hints:
+            readOnly: true
+          call: "woo-rest.get-product"
+          with:
+            id: "tools.id"
+          outputParameters:
+            - type: object
+              mapping: "$."
+
+        - name: create-product
+          description: "Create a new WooCommerce product with pricing and inventory details."
+          hints:
+            readOnly: false
+          call: "woo-rest.create-product"
+          outputParameters:
+            - type: object
+              mapping: "$."
+
+        - name: update-product
+          description: "Update a WooCommerce product's details, pricing, or status."
+          hints:
+            readOnly: false
+            idempotent: true
+          call: "woo-rest.update-product"
+          with:
+            id: "tools.id"
+          outputParameters:
+            - type: object
+              mapping: "$."
+
+        - name: list-orders
+          description: "List WooCommerce orders filtered by status, customer, or date range."
+          hints:
+            readOnly: true
+          call: "woo-rest.list-orders"
+          with:
+            page: "tools.page"
+            per_page: "tools.per_page"
+            status: "tools.status"
+            customer: "tools.customer"
+          outputParameters:
+            - type: array
+              mapping: "$."
+
+        - name: get-order
+          description: "Get complete details of a specific WooCommerce order including items and billing."
+          hints:
+            readOnly: true
+          call: "woo-rest.get-order"
+          with:
+            id: "tools.id"
+          outputParameters:
+            - type: object
+              mapping: "$."
+
+        - name: update-order-status
+          description: "Update the status of a WooCommerce order (e.g., processing, completed, refunded)."
+          hints:
+            readOnly: false
+            idempotent: true
+          call: "woo-rest.update-order"
+          with:
+            id: "tools.id"
+          outputParameters:
+            - type: object
+              mapping: "$."
+
+        - name: list-customers
+          description: "List WooCommerce customers, optionally searching by name or email."
+          hints:
+            readOnly: true
+          call: "woo-rest.list-customers"
+          with:
+            search: "tools.search"
+            page: "tools.page"
+          outputParameters:
+            - type: array
+              mapping: "$."
+
+        - name: get-customer
+          description: "Get a specific customer's profile and order history."
+          hints:
+            readOnly: true
+          call: "woo-rest.get-customer"
+          with:
+            id: "tools.id"
+          outputParameters:
+            - type: object
+              mapping: "$."
+
+        - name: get-sales-report
+          description: "Get WooCommerce sales analytics for a time period."
+          hints:
+            readOnly: true
+          call: "woo-rest.get-sales-report"
+          with:
+            period: "tools.period"
+            date_min: "tools.date_min"
+            date_max: "tools.date_max"
+          outputParameters:
+            - type: object
+              mapping: "$."
+
+        - name: browse-storefront-products
+          description: "Browse the public WooCommerce storefront product catalog."
+          hints:
+            readOnly: true
+          call: "woo-store.list-store-products"
+          with:
+            search: "tools.search"
+            category: "tools.category"
+            on_sale: "tools.on_sale"
+          outputParameters:
+            - type: array
+              mapping: "$."
+
+        - name: list-coupons
+          description: "List WooCommerce discount coupons."
+          hints:
+            readOnly: true
+          call: "woo-rest.list-coupons"
+          with:
+            search: "tools.search"
+          outputParameters:
+            - type: array
+              mapping: "$."

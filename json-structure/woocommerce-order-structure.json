@@ -1,0 +1,524 @@
+{
+  "$schema": "https://json-structure.org/meta/core/v0/#",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/woocommerce/refs/heads/main/json-structure/woocommerce-order-structure.json",
+  "name": "WooCommerce Order",
+  "description": "A WooCommerce customer order created via the storefront, checkout API, or REST API. Orders track the complete lifecycle of a purchase from cart submission through payment, fulfillment, and optional refunds. Monetary amounts are represented as decimal strings with two decimal places.",
+  "type": "object",
+  "required": [
+    "id",
+    "status",
+    "currency",
+    "total",
+    "line_items"
+  ],
+  "properties": {
+    "id": {
+      "type": "int32",
+      "description": "Order unique identifier assigned by WooCommerce."
+    },
+    "parent_id": {
+      "type": "int32",
+      "description": "Parent order ID. Used for refund orders and child orders."
+    },
+    "number": {
+      "type": "string",
+      "description": "Order number displayed to customers on confirmation pages and emails."
+    },
+    "order_key": {
+      "type": "string",
+      "description": "Unique key used to verify order ownership in public-facing URLs."
+    },
+    "created_via": {
+      "type": "string",
+      "description": "How the order was created (e.g. checkout, rest-api, admin)."
+    },
+    "version": {
+      "type": "string",
+      "description": "WooCommerce version when the order was created."
+    },
+    "status": {
+      "type": "string",
+      "description": "Current order status.",
+      "enum": [
+        "pending",
+        "processing",
+        "on-hold",
+        "completed",
+        "cancelled",
+        "refunded",
+        "failed",
+        "trash"
+      ]
+    },
+    "currency": {
+      "type": "string",
+      "description": "ISO 4217 currency code used for the order (e.g. USD, GBP, EUR).",
+      "pattern": "^[A-Z]{3}$"
+    },
+    "date_created": {
+      "type": "datetime",
+      "description": "Date the order was created in site timezone (ISO8601 format)."
+    },
+    "date_created_gmt": {
+      "type": "datetime",
+      "description": "Date the order was created in UTC (ISO8601 format)."
+    },
+    "date_modified": {
+      "type": "datetime",
+      "description": "Date the order was last modified in site timezone."
+    },
+    "date_modified_gmt": {
+      "type": "datetime",
+      "description": "Date the order was last modified in UTC."
+    },
+    "date_completed": {
+      "type": "datetime",
+      "description": "Date the order was marked as completed. Null if not completed."
+    },
+    "date_paid": {
+      "type": "datetime",
+      "description": "Date the order was paid. Null if not paid."
+    },
+    "discount_total": {
+      "type": "string",
+      "description": "Total discount amount applied by coupons, as a decimal string.",
+      "pattern": "^\\d+\\.\\d{2}$"
+    },
+    "discount_tax": {
+      "type": "string",
+      "description": "Tax amount on discounts as a decimal string.",
+      "pattern": "^\\d+\\.\\d{2}$"
+    },
+    "shipping_total": {
+      "type": "string",
+      "description": "Total shipping cost as a decimal string.",
+      "pattern": "^\\d+\\.\\d{2}$"
+    },
+    "shipping_tax": {
+      "type": "string",
+      "description": "Tax on shipping cost as a decimal string.",
+      "pattern": "^\\d+\\.\\d{2}$"
+    },
+    "cart_tax": {
+      "type": "string",
+      "description": "Total cart item taxes before shipping as a decimal string.",
+      "pattern": "^\\d+\\.\\d{2}$"
+    },
+    "total": {
+      "type": "string",
+      "description": "Grand total including taxes and shipping as a decimal string.",
+      "pattern": "^\\d+\\.\\d{2}$"
+    },
+    "total_tax": {
+      "type": "string",
+      "description": "Total tax amount as a decimal string.",
+      "pattern": "^\\d+\\.\\d{2}$"
+    },
+    "prices_include_tax": {
+      "type": "boolean",
+      "description": "Whether the store's product prices include tax."
+    },
+    "customer_id": {
+      "type": "int32",
+      "description": "Customer ID associated with this order. 0 for guest orders."
+    },
+    "customer_ip_address": {
+      "type": "string",
+      "description": "Customer IP address at time of order placement."
+    },
+    "customer_user_agent": {
+      "type": "string",
+      "description": "Customer browser user agent string at time of order placement."
+    },
+    "customer_note": {
+      "type": "string",
+      "description": "Note entered by the customer at checkout."
+    },
+    "billing": {
+      "$ref": "#/$defs/Address",
+      "description": "Billing address for the order."
+    },
+    "shipping": {
+      "$ref": "#/$defs/Address",
+      "description": "Shipping address for the order."
+    },
+    "payment_method": {
+      "type": "string",
+      "description": "Payment method ID (e.g. stripe, paypal, bacs)."
+    },
+    "payment_method_title": {
+      "type": "string",
+      "description": "Human-readable payment method name shown to the customer."
+    },
+    "transaction_id": {
+      "type": "string",
+      "description": "Unique transaction ID from the payment gateway."
+    },
+    "payment_url": {
+      "type": "uri",
+      "description": "URL for the customer to complete pending payment."
+    },
+    "line_items": {
+      "type": "array",
+      "description": "Products purchased in this order.",
+      "items": {
+        "$ref": "#/$defs/LineItem"
+      }
+    },
+    "tax_lines": {
+      "type": "array",
+      "description": "Tax lines applied to the order.",
+      "items": {
+        "$ref": "#/$defs/TaxLine"
+      }
+    },
+    "shipping_lines": {
+      "type": "array",
+      "description": "Shipping methods applied to the order.",
+      "items": {
+        "$ref": "#/$defs/ShippingLine"
+      }
+    },
+    "fee_lines": {
+      "type": "array",
+      "description": "Extra fees applied to the order.",
+      "items": {
+        "$ref": "#/$defs/FeeLine"
+      }
+    },
+    "coupon_lines": {
+      "type": "array",
+      "description": "Coupons applied to the order.",
+      "items": {
+        "$ref": "#/$defs/CouponLine"
+      }
+    },
+    "refunds": {
+      "type": "array",
+      "description": "Refunds associated with this order.",
+      "items": {
+        "$ref": "#/$defs/OrderRefundSummary"
+      }
+    },
+    "meta_data": {
+      "type": "array",
+      "description": "Custom metadata key-value pairs attached to the order.",
+      "items": {
+        "$ref": "#/$defs/MetaData"
+      }
+    }
+  },
+  "definitions": {
+    "Address": {
+      "name": "Address",
+      "type": "object",
+      "description": "A postal address used for billing or shipping.",
+      "properties": {
+        "first_name": {
+          "type": "string",
+          "description": "First name."
+        },
+        "last_name": {
+          "type": "string",
+          "description": "Last name."
+        },
+        "company": {
+          "type": "string",
+          "description": "Company name."
+        },
+        "address_1": {
+          "type": "string",
+          "description": "Street address line 1."
+        },
+        "address_2": {
+          "type": "string",
+          "description": "Street address line 2."
+        },
+        "city": {
+          "type": "string",
+          "description": "City or town name."
+        },
+        "state": {
+          "type": "string",
+          "description": "State, province, or region code."
+        },
+        "postcode": {
+          "type": "string",
+          "description": "Postal or ZIP code."
+        },
+        "country": {
+          "type": "string",
+          "description": "ISO 3166-1 alpha-2 country code.",
+          "pattern": "^[A-Z]{2}$"
+        },
+        "email": {
+          "type": "string",
+          "format": "email",
+          "description": "Email address (billing address only)."
+        },
+        "phone": {
+          "type": "string",
+          "description": "Phone number (billing address only)."
+        }
+      }
+    },
+    "MetaData": {
+      "name": "MetaData",
+      "type": "object",
+      "description": "A custom metadata key-value entry.",
+      "required": [
+        "key"
+      ],
+      "properties": {
+        "id": {
+          "type": "int32",
+          "description": "Metadata entry unique identifier."
+        },
+        "key": {
+          "type": "string",
+          "description": "Metadata key name."
+        },
+        "value": {
+          "description": "Metadata value. May be a string, number, or object depending on the key."
+        }
+      }
+    },
+    "LineItem": {
+      "name": "LineItem",
+      "type": "object",
+      "description": "A product purchased as part of an order.",
+      "properties": {
+        "id": {
+          "type": "int32",
+          "description": "Line item unique identifier."
+        },
+        "name": {
+          "type": "string",
+          "description": "Product name at the time of purchase."
+        },
+        "product_id": {
+          "type": "int32",
+          "description": "ID of the parent product."
+        },
+        "variation_id": {
+          "type": "int32",
+          "description": "ID of the product variation. 0 for simple products."
+        },
+        "quantity": {
+          "type": "int32",
+          "description": "Quantity ordered.",
+          "minimum": 1
+        },
+        "tax_class": {
+          "type": "string",
+          "description": "Tax class slug applied to this line item."
+        },
+        "subtotal": {
+          "type": "string",
+          "description": "Line item subtotal before discounts as a decimal string."
+        },
+        "subtotal_tax": {
+          "type": "string",
+          "description": "Subtotal tax as a decimal string."
+        },
+        "total": {
+          "type": "string",
+          "description": "Line item total after discounts as a decimal string."
+        },
+        "total_tax": {
+          "type": "string",
+          "description": "Total tax for the line item as a decimal string."
+        },
+        "taxes": {
+          "type": "array",
+          "description": "Tax breakdown per rate for this line item.",
+          "items": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "int32",
+                "description": "Tax rate ID."
+              },
+              "total": {
+                "type": "string",
+                "description": "Tax amount for this rate."
+              },
+              "subtotal": {
+                "type": "string",
+                "description": "Subtotal tax for this rate."
+              }
+            }
+          }
+        },
+        "sku": {
+          "type": "string",
+          "description": "Product SKU at time of purchase."
+        },
+        "price": {
+          "type": "double",
+          "description": "Unit price of the product at time of purchase."
+        },
+        "meta_data": {
+          "type": "array",
+          "description": "Custom metadata for the line item (e.g. selected variation attributes).",
+          "items": {
+            "$ref": "#/$defs/MetaData"
+          }
+        }
+      }
+    },
+    "TaxLine": {
+      "name": "TaxLine",
+      "type": "object",
+      "description": "A tax rate line applied to the order.",
+      "properties": {
+        "id": {
+          "type": "int32",
+          "description": "Tax line unique identifier."
+        },
+        "rate_code": {
+          "type": "string",
+          "description": "Tax rate code slug."
+        },
+        "rate_id": {
+          "type": "int32",
+          "description": "Tax rate ID."
+        },
+        "label": {
+          "type": "string",
+          "description": "Tax rate display label."
+        },
+        "compound": {
+          "type": "boolean",
+          "description": "Whether this is a compound tax rate."
+        },
+        "tax_total": {
+          "type": "string",
+          "description": "Tax amount on cart items for this rate."
+        },
+        "shipping_tax_total": {
+          "type": "string",
+          "description": "Tax amount on shipping for this rate."
+        }
+      }
+    },
+    "ShippingLine": {
+      "name": "ShippingLine",
+      "type": "object",
+      "description": "A shipping method applied to the order.",
+      "properties": {
+        "id": {
+          "type": "int32",
+          "description": "Shipping line unique identifier."
+        },
+        "method_title": {
+          "type": "string",
+          "description": "Shipping method display name."
+        },
+        "method_id": {
+          "type": "string",
+          "description": "Shipping method ID slug."
+        },
+        "total": {
+          "type": "string",
+          "description": "Shipping cost as a decimal string."
+        },
+        "total_tax": {
+          "type": "string",
+          "description": "Shipping tax as a decimal string."
+        },
+        "meta_data": {
+          "type": "array",
+          "description": "Shipping line metadata.",
+          "items": {
+            "$ref": "#/$defs/MetaData"
+          }
+        }
+      }
+    },
+    "FeeLine": {
+      "name": "FeeLine",
+      "type": "object",
+      "description": "An additional fee applied to the order.",
+      "properties": {
+        "id": {
+          "type": "int32",
+          "description": "Fee line unique identifier."
+        },
+        "name": {
+          "type": "string",
+          "description": "Fee display name."
+        },
+        "tax_class": {
+          "type": "string",
+          "description": "Tax class applied to this fee."
+        },
+        "tax_status": {
+          "type": "string",
+          "description": "Whether the fee is taxable. Options: taxable, none.",
+          "enum": [
+            "taxable",
+            "none"
+          ]
+        },
+        "total": {
+          "type": "string",
+          "description": "Fee amount as a decimal string."
+        },
+        "total_tax": {
+          "type": "string",
+          "description": "Tax on the fee as a decimal string."
+        }
+      }
+    },
+    "CouponLine": {
+      "name": "CouponLine",
+      "type": "object",
+      "description": "A coupon applied to the order.",
+      "properties": {
+        "id": {
+          "type": "int32",
+          "description": "Coupon line unique identifier."
+        },
+        "code": {
+          "type": "string",
+          "description": "Coupon code used."
+        },
+        "discount": {
+          "type": "string",
+          "description": "Discount amount applied by this coupon."
+        },
+        "discount_tax": {
+          "type": "string",
+          "description": "Tax amount on the discount."
+        },
+        "meta_data": {
+          "type": "array",
+          "description": "Coupon line metadata.",
+          "items": {
+            "$ref": "#/$defs/MetaData"
+          }
+        }
+      }
+    },
+    "OrderRefundSummary": {
+      "name": "OrderRefundSummary",
+      "type": "object",
+      "description": "A summary of a refund associated with the order.",
+      "properties": {
+        "id": {
+          "type": "int32",
+          "description": "Refund unique identifier."
+        },
+        "reason": {
+          "type": "string",
+          "description": "Reason for the refund."
+        },
+        "total": {
+          "type": "string",
+          "description": "Refund amount as a negative decimal string."
+        }
+      }
+    }
+  }
+}

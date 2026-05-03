@@ -1,0 +1,126 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/woocommerce/refs/heads/main/json-schema/woocommerce-rest-api-system-status-schema.json",
+  "title": "SystemStatus",
+  "description": "WooCommerce store system status and environment information.",
+  "type": "object",
+  "properties": {
+    "environment": {
+      "type": "object",
+      "description": "Server environment details including PHP version, memory, and URLs.",
+      "properties": {
+        "home_url": {
+          "type": "string",
+          "format": "uri",
+          "description": "WordPress home URL."
+        },
+        "site_url": {
+          "type": "string",
+          "format": "uri",
+          "description": "WordPress site URL."
+        },
+        "wc_version": {
+          "type": "string",
+          "description": "Installed WooCommerce version."
+        },
+        "wp_version": {
+          "type": "string",
+          "description": "Installed WordPress version."
+        },
+        "php_version": {
+          "type": "string",
+          "description": "PHP version."
+        },
+        "php_memory_limit": {
+          "type": "string",
+          "description": "PHP memory limit."
+        },
+        "php_max_upload_size": {
+          "type": "string",
+          "description": "PHP maximum file upload size."
+        },
+        "mysql_version": {
+          "type": "string",
+          "description": "MySQL or MariaDB version."
+        },
+        "log_directory_writable": {
+          "type": "boolean",
+          "description": "Whether the WooCommerce log directory is writable."
+        }
+      },
+      "example": {
+        "home_url": "https://example.com/path",
+        "site_url": "https://example.com/path",
+        "wc_version": "string-value",
+        "wp_version": "string-value",
+        "php_version": "string-value",
+        "php_memory_limit": "string-value",
+        "php_max_upload_size": "string-value",
+        "mysql_version": "string-value",
+        "log_directory_writable": true
+      }
+    },
+    "active_plugins": {
+      "type": "array",
+      "description": "List of active WordPress plugins.",
+      "items": {
+        "type": "object",
+        "properties": {
+          "plugin": {
+            "type": "string",
+            "description": "Plugin file path."
+          },
+          "name": {
+            "type": "string",
+            "description": "Plugin display name."
+          },
+          "version": {
+            "type": "string",
+            "description": "Plugin version."
+          },
+          "author_name": {
+            "type": "string",
+            "description": "Plugin author."
+          }
+        }
+      },
+      "example": [
+        {
+          "plugin": "string-value",
+          "name": "Example Name",
+          "version": "string-value",
+          "author_name": "Example Name"
+        }
+      ]
+    },
+    "theme": {
+      "type": "object",
+      "description": "Active WordPress theme details.",
+      "properties": {
+        "name": {
+          "type": "string",
+          "description": "Theme name."
+        },
+        "version": {
+          "type": "string",
+          "description": "Theme version."
+        },
+        "author_url": {
+          "type": "string",
+          "format": "uri",
+          "description": "Theme author URL."
+        },
+        "is_child_theme": {
+          "type": "boolean",
+          "description": "Whether the active theme is a child theme."
+        }
+      },
+      "example": {
+        "name": "Example Name",
+        "version": "string-value",
+        "author_url": "https://example.com/path",
+        "is_child_theme": true
+      }
+    }
+  }
+}

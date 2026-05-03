@@ -1,0 +1,18 @@
+{
+  "price_range": {
+    "min_price": "string-value",
+    "max_price": "string-value"
+  },
+  "attribute_counts": [
+    {
+      "term": 1,
+      "count": 1
+    }
+  ],
+  "rating_counts": [
+    {
+      "rating": 1,
+      "count": 1
+    }
+  ]
+}

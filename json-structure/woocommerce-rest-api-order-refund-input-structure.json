@@ -1,0 +1,113 @@
+{
+  "$schema": "https://json-structure.org/meta/core/v0/#",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/woocommerce/refs/heads/main/json-structure/woocommerce-rest-api-order-refund-input-structure.json",
+  "name": "OrderRefundInput",
+  "description": "Input for creating an order refund.",
+  "type": "object",
+  "properties": {
+    "amount": {
+      "type": "string",
+      "description": "Refund amount as a decimal string.",
+      "example": "string-value"
+    },
+    "reason": {
+      "type": "string",
+      "description": "Reason for the refund.",
+      "example": "string-value"
+    },
+    "refunded_by": {
+      "type": "int32",
+      "description": "User ID issuing the refund.",
+      "example": 1
+    },
+    "api_refund": {
+      "type": "boolean",
+      "description": "Whether to attempt an automatic payment gateway refund.",
+      "default": true,
+      "example": true
+    },
+    "line_items": {
+      "type": "array",
+      "description": "Line items to refund with quantities and amounts.",
+      "items": {
+        "type": "object",
+        "description": "A product line item within an order.",
+        "properties": {
+          "id": {
+            "type": "int32",
+            "description": "Line item unique identifier.",
+            "example": 1
+          },
+          "name": {
+            "type": "string",
+            "description": "Product name at time of purchase.",
+            "example": "Example Name"
+          },
+          "product_id": {
+            "type": "int32",
+            "description": "Product ID.",
+            "example": 1
+          },
+          "variation_id": {
+            "type": "int32",
+            "description": "Variation ID (0 if not a variation).",
+            "example": 1
+          },
+          "quantity": {
+            "type": "int32",
+            "description": "Quantity ordered.",
+            "example": 1
+          },
+          "tax_class": {
+            "type": "string",
+            "description": "Tax class used for this line item.",
+            "example": "string-value"
+          },
+          "subtotal": {
+            "type": "string",
+            "description": "Line subtotal (before discounts) as a decimal string.",
+            "example": "string-value"
+          },
+          "subtotal_tax": {
+            "type": "string",
+            "description": "Line subtotal tax as a decimal string.",
+            "example": "string-value"
+          },
+          "total": {
+            "type": "string",
+            "description": "Line total (after discounts) as a decimal string.",
+            "example": "string-value"
+          },
+          "total_tax": {
+            "type": "string",
+            "description": "Line total tax as a decimal string.",
+            "example": "string-value"
+          },
+          "sku": {
+            "type": "string",
+            "description": "Product SKU.",
+            "example": "string-value"
+          },
+          "price": {
+            "type": "double",
+            "description": "Product price at time of purchase.",
+            "example": 10.5
+          },
+          "meta_data": {
+            "type": "array",
+            "description": "Metadata for the line item (e.g. variation attributes).",
+            "items": {
+              "$ref": "#/components/schemas/MetaData"
+            },
+            "example": [
+              "string-value"
+            ]
+          }
+        }
+      },
+      "example": [
+        "string-value"
+      ]
+    }
+  }
+}

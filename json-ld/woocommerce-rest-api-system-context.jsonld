@@ -1,0 +1,68 @@
+{
+  "@context": {
+    "@version": 1.1,
+    "woo": "https://woocommerce.dev/schema/",
+    "schema": "https://schema.org/",
+    "dcterms": "http://purl.org/dc/terms/",
+    "xsd": "http://www.w3.org/2001/XMLSchema#",
+    "SystemStatus": "woo:SystemStatus",
+    "environment": {
+      "@id": "woo:environment",
+      "@type": "@id"
+    },
+    "homeUrl": {
+      "@id": "woo:home_url",
+      "@type": "@id"
+    },
+    "siteUrl": {
+      "@id": "woo:site_url",
+      "@type": "@id"
+    },
+    "wcVersion": {
+      "@id": "woo:wc_version",
+      "@type": "xsd:string"
+    },
+    "wpVersion": {
+      "@id": "woo:wp_version",
+      "@type": "xsd:string"
+    },
+    "phpVersion": {
+      "@id": "woo:php_version",
+      "@type": "xsd:string"
+    },
+    "phpMemoryLimit": {
+      "@id": "woo:php_memory_limit",
+      "@type": "xsd:string"
+    },
+    "phpMaxUploadSize": {
+      "@id": "woo:php_max_upload_size",
+      "@type": "xsd:string"
+    },
+    "mysqlVersion": {
+      "@id": "woo:mysql_version",
+      "@type": "xsd:string"
+    },
+    "logDirectoryWritable": {
+      "@id": "woo:log_directory_writable",
+      "@type": "xsd:boolean"
+    },
+    "activePlugins": {
+      "@id": "woo:active_plugins",
+      "@container": "@set"
+    },
+    "theme": {
+      "@id": "woo:theme",
+      "@type": "@id"
+    },
+    "name": "schema:name",
+    "version": "schema:version",
+    "authorUrl": {
+      "@id": "woo:author_url",
+      "@type": "@id"
+    },
+    "isChildTheme": {
+      "@id": "woo:is_child_theme",
+      "@type": "xsd:boolean"
+    }
+  }
+}

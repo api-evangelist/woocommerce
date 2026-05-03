@@ -1,0 +1,22 @@
+{
+  "sku": "string-value",
+  "regular_price": "string-value",
+  "sale_price": "string-value",
+  "status": "draft",
+  "manage_stock": true,
+  "stock_quantity": 1,
+  "stock_status": "instock",
+  "image": {
+    "id": 1,
+    "src": "https://example.com/path",
+    "name": "Example Name",
+    "alt": "string-value"
+  },
+  "attributes": [
+    {
+      "id": 1,
+      "name": "Example Name",
+      "option": "string-value"
+    }
+  ]
+}

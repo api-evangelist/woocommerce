@@ -1,0 +1,328 @@
+vocabulary: "1.0.0"
+
+info:
+  provider: "WooCommerce"
+  description: >-
+    Unified vocabulary taxonomy for the WooCommerce API suite, mapping
+    eCommerce resources, store management operations, and headless commerce
+    workflows across the REST API and Store API.
+  created: "2026-05-03"
+  modified: "2026-05-03"
+
+operational:
+  apis:
+    - namespace: woo-rest
+      name: WooCommerce REST API
+      version: "v3"
+      baseUrl: https://example.com/wp-json/wc/v3
+      status: active
+    - namespace: woo-store
+      name: WooCommerce Store API
+      version: "v1"
+      baseUrl: https://example.com/wp-json/wc/store/v1
+      status: active
+
+  resources:
+    - name: products
+      apis: [woo-rest, woo-store]
+      actions: [list, get, create, update, delete]
+      description: Store products with variations, categories, attributes, and pricing.
+    - name: orders
+      apis: [woo-rest]
+      actions: [list, get, create, update]
+      description: Customer orders with line items, billing, and fulfillment status.
+    - name: customers
+      apis: [woo-rest]
+      actions: [list, get, create, update]
+      description: Registered customer accounts with addresses and order history.
+    - name: coupons
+      apis: [woo-rest]
+      actions: [list, get, create, update, delete]
+      description: Discount coupon codes with usage restrictions and expiry.
+    - name: cart
+      apis: [woo-store]
+      actions: [get, add, remove, update]
+      description: Active shopper cart session with items, coupons, and shipping rates.
+    - name: checkout
+      apis: [woo-store]
+      actions: [submit]
+      description: Checkout process resulting in a placed order.
+    - name: reports
+      apis: [woo-rest]
+      actions: [get]
+      description: Sales analytics reports and totals.
+    - name: webhooks
+      apis: [woo-rest]
+      actions: [list, create, delete]
+      description: Event-driven notification webhooks for store events.
+    - name: categories
+      apis: [woo-rest, woo-store]
+      actions: [list, get]
+      description: Product categories for navigation and filtering.
+    - name: tax-rates
+      apis: [woo-rest]
+      actions: [list, create, delete]
+      description: Tax rates and classes for order calculations.
+    - name: shipping-zones
+      apis: [woo-rest]
+      actions: [list, get, create]
+      description: Shipping zones, methods, and rates.
+    - name: payment-gateways
+      apis: [woo-rest]
+      actions: [list, get, update]
+      description: Payment gateway configurations.
+
+  actions:
+    - name: list
+      description: Retrieve a paginated collection of resources
+      httpMethod: GET
+      pattern: read
+    - name: get
+      description: Retrieve a single resource by ID
+      httpMethod: GET
+      pattern: read
+    - name: create
+      description: Create a new resource
+      httpMethod: POST
+      pattern: write
+    - name: update
+      description: Update an existing resource
+      httpMethod: PUT
+      pattern: write
+    - name: delete
+      description: Delete a resource
+      httpMethod: DELETE
+      pattern: destructive
+    - name: submit
+      description: Submit checkout to place an order
+      httpMethod: POST
+      pattern: write
+    - name: add
+      description: Add an item to the cart
+      httpMethod: POST
+      pattern: write
+    - name: remove
+      description: Remove an item from the cart
+      httpMethod: DELETE
+      pattern: destructive
+    - name: batch
+      description: Batch create, update, or delete multiple resources
+      httpMethod: POST
+      pattern: write
+
+  schemas:
+    core:
+      - name: Product
+        api: woo-rest
+        keyProperties: [id, name, type, status, price, stock_status, categories]
+      - name: Order
+        api: woo-rest
+        keyProperties: [id, status, billing, line_items, payment_method, total]
+      - name: Customer
+        api: woo-rest
+        keyProperties: [id, email, first_name, last_name, billing, shipping]
+      - name: Coupon
+        api: woo-rest
+        keyProperties: [id, code, discount_type, amount, usage_count]
+    storefront:
+      - name: StoreProduct
+        api: woo-store
+        keyProperties: [id, name, price_html, on_sale, categories, images]
+      - name: Cart
+        api: woo-store
+        keyProperties: [items, totals, coupons, shipping_rates]
+      - name: Checkout
+        api: woo-store
+        keyProperties: [billing_address, shipping_address, payment_method]
+    analytics:
+      - name: SalesReport
+        api: woo-rest
+        keyProperties: [total_sales, net_sales, orders, items, customers]
+
+  parameters:
+    pagination:
+      - name: page
+        description: Page number for paginated results
+      - name: per_page
+        description: Number of items per page (default 10)
+    identifiers:
+      - name: id
+        description: Numeric resource ID
+      - name: slug
+        description: URL-friendly resource identifier
+    filters:
+      - name: status
+        description: Filter by resource status (e.g., pending, processing, completed)
+      - name: category
+        description: Filter products by category
+      - name: customer
+        description: Filter orders by customer ID
+      - name: after
+        description: Filter resources created after a date (ISO 8601)
+      - name: before
+        description: Filter resources created before a date (ISO 8601)
+      - name: search
+        description: Full-text search term
+    reports:
+      - name: period
+        description: Report period shortcut (week, month, last_month, year)
+      - name: date_min
+        description: Report start date
+      - name: date_max
+        description: Report end date
+
+  enums:
+    order_status:
+      - pending
+      - processing
+      - on-hold
+      - completed
+      - cancelled
+      - refunded
+      - failed
+    product_type:
+      - simple
+      - grouped
+      - external
+      - variable
+    product_status:
+      - draft
+      - pending
+      - private
+      - publish
+    stock_status:
+      - instock
+      - outofstock
+      - onbackorder
+    discount_type:
+      - percent
+      - fixed_cart
+      - fixed_product
+    report_period:
+      - week
+      - month
+      - last_month
+      - year
+
+  authentication:
+    schemes:
+      - name: HTTP Basic Auth (HTTPS)
+        type: basic
+        description: Consumer Key as username, Consumer Secret as password over HTTPS
+        apis: [woo-rest]
+      - name: OAuth 1.0a
+        type: oauth1
+        description: One-legged OAuth 1.0a with HMAC-SHA1 for plain HTTP
+        apis: [woo-rest]
+      - name: Nonce Header
+        type: apikey
+        placement: header
+        description: Nonce token from cart response for Store API write operations
+        apis: [woo-store]
+
+capability:
+  workflows:
+    - name: Store Management
+      file: capabilities/store-management.yaml
+      description: Complete store management combining REST API and Store API
+      apisUsed: [woo-rest, woo-store]
+      toolCount: 13
+      personas: [Store Administrator, Operations Manager]
+    - name: Headless Commerce
+      file: capabilities/headless-commerce.yaml
+      description: Headless storefront capability with public Store API and admin REST API
+      apisUsed: [woo-store, woo-rest]
+      toolCount: 8
+      personas: [Frontend Developer, Headless Architect]
+
+  personas:
+    - id: store-administrator
+      name: Store Administrator
+      description: Managing product catalog, orders, customers, and store configuration
+      workflows: [Store Management]
+    - id: operations-manager
+      name: Operations Manager
+      description: Processing orders, managing fulfillment, and reviewing sales analytics
+      workflows: [Store Management]
+    - id: frontend-developer
+      name: Frontend Developer
+      description: Building custom storefronts using WooCommerce as a headless backend
+      workflows: [Headless Commerce]
+    - id: headless-architect
+      name: Headless Architect
+      description: Designing headless commerce architecture with WooCommerce APIs
+      workflows: [Headless Commerce]
+
+  domains:
+    - name: Product Catalog
+      resources: [products, categories]
+      workflows: [Store Management, Headless Commerce]
+    - name: Order Management
+      resources: [orders]
+      workflows: [Store Management]
+    - name: Customer Management
+      resources: [customers]
+      workflows: [Store Management]
+    - name: Shopping Experience
+      resources: [cart, checkout]
+      workflows: [Headless Commerce]
+    - name: Promotions
+      resources: [coupons]
+      workflows: [Store Management]
+    - name: Analytics
+      resources: [reports]
+      workflows: [Store Management]
+
+  namespaces:
+    consumed:
+      - woo-rest
+      - woo-store
+    rest_exposed:
+      - name: woo-management-api
+        port: 8080
+      - name: woo-headless-api
+        port: 8081
+    mcp_exposed:
+      - name: woo-management-mcp
+        port: 9090
+      - name: woo-headless-mcp
+        port: 9091
+
+  binds:
+    - name: WOOCOMMERCE_CONSUMER_KEY
+      description: WooCommerce consumer key for REST API authentication
+      workflows: [Store Management, Headless Commerce]
+    - name: WOOCOMMERCE_CONSUMER_SECRET
+      description: WooCommerce consumer secret for REST API authentication
+      workflows: [Store Management, Headless Commerce]
+
+crossReference:
+  - resource: products
+    operations: [list-products, get-product, create-product, update-product, delete-product,
+                 list-store-products, get-store-product]
+    workflows: [Store Management, Headless Commerce]
+    personas: [Store Administrator, Frontend Developer]
+  - resource: orders
+    operations: [list-orders, get-order, create-order, update-order]
+    workflows: [Store Management]
+    personas: [Store Administrator, Operations Manager]
+  - resource: customers
+    operations: [list-customers, get-customer, create-customer]
+    workflows: [Store Management]
+    personas: [Store Administrator, Operations Manager]
+  - resource: cart
+    operations: [get-cart, add-to-cart, remove-cart-item]
+    workflows: [Headless Commerce]
+    personas: [Frontend Developer]
+  - resource: checkout
+    operations: [submit-checkout]
+    workflows: [Headless Commerce]
+    personas: [Frontend Developer]
+  - resource: reports
+    operations: [get-sales-report]
+    workflows: [Store Management]
+    personas: [Operations Manager, Store Administrator]
+  - resource: coupons
+    operations: [list-coupons, create-coupon]
+    workflows: [Store Management]
+    personas: [Store Administrator]

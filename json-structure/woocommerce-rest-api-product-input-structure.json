@@ -1,0 +1,246 @@
+{
+  "$schema": "https://json-structure.org/meta/core/v0/#",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/woocommerce/refs/heads/main/json-structure/woocommerce-rest-api-product-input-structure.json",
+  "name": "ProductInput",
+  "description": "Input payload for creating or updating a product.",
+  "type": "object",
+  "properties": {
+    "name": {
+      "type": "string",
+      "description": "Product name.",
+      "example": "Example Name"
+    },
+    "type": {
+      "type": "string",
+      "description": "Product type.",
+      "enum": [
+        "simple",
+        "grouped",
+        "external",
+        "variable"
+      ],
+      "example": "simple"
+    },
+    "status": {
+      "type": "string",
+      "description": "Product publication status.",
+      "enum": [
+        "draft",
+        "pending",
+        "private",
+        "publish"
+      ],
+      "example": "draft"
+    },
+    "featured": {
+      "type": "boolean",
+      "description": "Whether the product is featured.",
+      "example": true
+    },
+    "description": {
+      "type": "string",
+      "description": "Full product description.",
+      "example": "A sample description"
+    },
+    "short_description": {
+      "type": "string",
+      "description": "Short product description.",
+      "example": "A sample description"
+    },
+    "sku": {
+      "type": "string",
+      "description": "Stock-keeping unit identifier.",
+      "example": "string-value"
+    },
+    "regular_price": {
+      "type": "string",
+      "description": "Regular price as a decimal string.",
+      "example": "string-value"
+    },
+    "sale_price": {
+      "type": "string",
+      "description": "Sale price as a decimal string.",
+      "example": "string-value"
+    },
+    "virtual": {
+      "type": "boolean",
+      "description": "Whether the product is virtual.",
+      "example": true
+    },
+    "downloadable": {
+      "type": "boolean",
+      "description": "Whether the product is downloadable.",
+      "example": true
+    },
+    "manage_stock": {
+      "type": "boolean",
+      "description": "Whether to enable stock management.",
+      "example": true
+    },
+    "stock_quantity": {
+      "type": "int32",
+      "description": "Stock quantity.",
+      "example": 1
+    },
+    "stock_status": {
+      "type": "string",
+      "description": "Stock status.",
+      "enum": [
+        "instock",
+        "outofstock",
+        "onbackorder"
+      ],
+      "example": "instock"
+    },
+    "weight": {
+      "type": "string",
+      "description": "Product weight.",
+      "example": "string-value"
+    },
+    "categories": {
+      "type": "array",
+      "description": "Categories to assign to the product.",
+      "items": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "int32",
+            "description": "Category ID."
+          }
+        }
+      },
+      "example": [
+        {
+          "id": 1
+        }
+      ]
+    },
+    "tags": {
+      "type": "array",
+      "description": "Tags to assign to the product.",
+      "items": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "int32",
+            "description": "Tag ID."
+          }
+        }
+      },
+      "example": [
+        {
+          "id": 1
+        }
+      ]
+    },
+    "images": {
+      "type": "array",
+      "description": "Images to attach.",
+      "items": {
+        "type": "object",
+        "description": "An image associated with a product.",
+        "properties": {
+          "id": {
+            "type": "int32",
+            "description": "Image unique identifier.",
+            "example": 1
+          },
+          "src": {
+            "type": "uri",
+            "description": "Image URL.",
+            "example": "https://example.com/path"
+          },
+          "name": {
+            "type": "string",
+            "description": "Image name.",
+            "example": "Example Name"
+          },
+          "alt": {
+            "type": "string",
+            "description": "Image alternative text.",
+            "example": "string-value"
+          }
+        }
+      },
+      "example": [
+        "string-value"
+      ]
+    },
+    "attributes": {
+      "type": "array",
+      "description": "Product attributes.",
+      "items": {
+        "type": "object",
+        "description": "A product attribute with option values.",
+        "properties": {
+          "id": {
+            "type": "int32",
+            "description": "Attribute ID (0 for custom attributes).",
+            "example": 1
+          },
+          "name": {
+            "type": "string",
+            "description": "Attribute name.",
+            "example": "Example Name"
+          },
+          "position": {
+            "type": "int32",
+            "description": "Attribute position in the product.",
+            "example": 1
+          },
+          "visible": {
+            "type": "boolean",
+            "description": "Whether the attribute is visible on the product page.",
+            "example": true
+          },
+          "variation": {
+            "type": "boolean",
+            "description": "Whether the attribute is used to define variations.",
+            "example": true
+          },
+          "options": {
+            "type": "array",
+            "description": "List of available options (terms) for this attribute.",
+            "items": {
+              "type": "string"
+            },
+            "example": [
+              "string-value"
+            ]
+          }
+        }
+      },
+      "example": [
+        "string-value"
+      ]
+    },
+    "meta_data": {
+      "type": "array",
+      "description": "Custom metadata.",
+      "items": {
+        "type": "object",
+        "description": "Custom metadata key-value entry.",
+        "properties": {
+          "id": {
+            "type": "int32",
+            "description": "Metadata unique identifier.",
+            "example": 1
+          },
+          "key": {
+            "type": "string",
+            "description": "Metadata key.",
+            "example": "string-value"
+          },
+          "value": {
+            "type": "string",
+            "description": "Metadata value.",
+            "example": "string-value"
+          }
+        }
+      },
+      "example": [
+        "string-value"
+      ]
+    }
+  }
+}

@@ -1,0 +1,73 @@
+{
+  "$schema": "https://json-structure.org/meta/core/v0/#",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/woocommerce/refs/heads/main/json-structure/woocommerce-rest-api-customer-download-structure.json",
+  "name": "CustomerDownload",
+  "description": "A downloadable file accessible to a customer.",
+  "type": "object",
+  "properties": {
+    "download_id": {
+      "type": "string",
+      "description": "Download unique identifier.",
+      "example": "500123"
+    },
+    "download_url": {
+      "type": "uri",
+      "description": "URL where the customer can download the file.",
+      "example": "https://example.com/path"
+    },
+    "product_id": {
+      "type": "int32",
+      "description": "Product ID associated with this download.",
+      "example": 1
+    },
+    "product_name": {
+      "type": "string",
+      "description": "Product name at time of purchase.",
+      "example": "Example Name"
+    },
+    "download_name": {
+      "type": "string",
+      "description": "Name of the downloadable file.",
+      "example": "Example Name"
+    },
+    "order_id": {
+      "type": "int32",
+      "description": "Order ID for this download.",
+      "example": 1
+    },
+    "order_key": {
+      "type": "string",
+      "description": "Order key for verification.",
+      "example": "string-value"
+    },
+    "downloads_remaining": {
+      "type": "string",
+      "description": "Number of downloads remaining (empty string for unlimited).",
+      "example": "string-value"
+    },
+    "access_expires": {
+      "type": "datetime",
+      "description": "Date and time when download access expires.",
+      "nullable": true,
+      "example": "2026-05-03T14:30:00Z"
+    },
+    "file": {
+      "type": "object",
+      "description": "File information.",
+      "properties": {
+        "name": {
+          "type": "string",
+          "description": "File name."
+        },
+        "file": {
+          "type": "uri",
+          "description": "File URL."
+        }
+      },
+      "example": {
+        "name": "Example Name",
+        "file": "https://example.com/path"
+      }
+    }
+  }
+}

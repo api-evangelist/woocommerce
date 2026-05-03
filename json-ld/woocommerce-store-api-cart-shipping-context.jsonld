@@ -1,0 +1,51 @@
+{
+  "@context": {
+    "@version": 1.1,
+    "woo": "https://woocommerce.dev/schema/",
+    "schema": "https://schema.org/",
+    "dcterms": "http://purl.org/dc/terms/",
+    "xsd": "http://www.w3.org/2001/XMLSchema#",
+    "CartShippingRate": "woo:CartShippingRate",
+    "packageId": {
+      "@id": "woo:package_id",
+      "@type": "xsd:integer"
+    },
+    "name": "schema:name",
+    "destination": {
+      "@id": "woo:destination",
+      "@type": "@id"
+    },
+    "address1": {
+      "@id": "woo:address_1",
+      "@type": "xsd:string"
+    },
+    "address2": {
+      "@id": "woo:address_2",
+      "@type": "xsd:string"
+    },
+    "city": {
+      "@id": "woo:city",
+      "@type": "xsd:string"
+    },
+    "state": {
+      "@id": "woo:state",
+      "@type": "xsd:string"
+    },
+    "postcode": {
+      "@id": "woo:postcode",
+      "@type": "xsd:string"
+    },
+    "country": {
+      "@id": "woo:country",
+      "@type": "xsd:string"
+    },
+    "items": {
+      "@id": "woo:items",
+      "@container": "@set"
+    },
+    "shippingRates": {
+      "@id": "woo:shipping_rates",
+      "@container": "@set"
+    }
+  }
+}

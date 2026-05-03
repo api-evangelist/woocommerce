@@ -1,0 +1,15 @@
+{
+  "download_id": "500123",
+  "download_url": "https://example.com/path",
+  "product_id": 1,
+  "product_name": "Example Name",
+  "download_name": "Example Name",
+  "order_id": 1,
+  "order_key": "string-value",
+  "downloads_remaining": "string-value",
+  "access_expires": "2026-05-03T14:30:00Z",
+  "file": {
+    "name": "Example Name",
+    "file": "https://example.com/path"
+  }
+}

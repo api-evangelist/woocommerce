@@ -1,0 +1,39 @@
+{
+  "$schema": "https://json-structure.org/meta/core/v0/#",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/woocommerce/refs/heads/main/json-structure/woocommerce-rest-api-webhook-input-structure.json",
+  "name": "WebhookInput",
+  "description": "Input for creating or updating a webhook.",
+  "type": "object",
+  "properties": {
+    "name": {
+      "type": "string",
+      "description": "Friendly webhook name.",
+      "example": "Example Name"
+    },
+    "status": {
+      "type": "string",
+      "description": "Webhook status.",
+      "enum": [
+        "active",
+        "paused",
+        "disabled"
+      ],
+      "example": "active"
+    },
+    "topic": {
+      "type": "string",
+      "description": "Event topic that triggers the webhook (e.g. order.created).",
+      "example": "string-value"
+    },
+    "delivery_url": {
+      "type": "uri",
+      "description": "URL to receive POST notifications.",
+      "example": "https://example.com/path"
+    },
+    "secret": {
+      "type": "string",
+      "description": "Secret key used to generate the HMAC-SHA256 payload signature included in the X-WC-Webhook-Signature header.",
+      "example": "string-value"
+    }
+  }
+}

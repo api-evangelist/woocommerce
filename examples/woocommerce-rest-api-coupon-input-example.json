@@ -1,0 +1,21 @@
+{
+  "code": "string-value",
+  "amount": "string-value",
+  "discount_type": "percent",
+  "description": "A sample description",
+  "date_expires": "2026-05-03T14:30:00Z",
+  "individual_use": true,
+  "product_ids": [
+    1
+  ],
+  "excluded_product_ids": [
+    1
+  ],
+  "usage_limit": 1,
+  "usage_limit_per_user": 1,
+  "minimum_amount": "string-value",
+  "maximum_amount": "string-value",
+  "meta_data": [
+    "string-value"
+  ]
+}

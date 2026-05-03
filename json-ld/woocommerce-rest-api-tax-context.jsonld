@@ -1,0 +1,51 @@
+{
+  "@context": {
+    "@version": 1.1,
+    "woo": "https://woocommerce.dev/schema/",
+    "schema": "https://schema.org/",
+    "dcterms": "http://purl.org/dc/terms/",
+    "xsd": "http://www.w3.org/2001/XMLSchema#",
+    "TaxRate": "woo:TaxRate",
+    "id": {
+      "@id": "woo:id",
+      "@type": "xsd:integer"
+    },
+    "country": {
+      "@id": "woo:country",
+      "@type": "xsd:string"
+    },
+    "state": {
+      "@id": "woo:state",
+      "@type": "xsd:string"
+    },
+    "postcode": {
+      "@id": "woo:postcode",
+      "@type": "xsd:string"
+    },
+    "city": {
+      "@id": "woo:city",
+      "@type": "xsd:string"
+    },
+    "rate": {
+      "@id": "woo:rate",
+      "@type": "xsd:string"
+    },
+    "name": "schema:name",
+    "priority": {
+      "@id": "woo:priority",
+      "@type": "xsd:integer"
+    },
+    "compound": {
+      "@id": "woo:compound",
+      "@type": "xsd:boolean"
+    },
+    "shipping": {
+      "@id": "woo:shipping",
+      "@type": "xsd:boolean"
+    },
+    "class": {
+      "@id": "woo:class",
+      "@type": "xsd:string"
+    }
+  }
+}

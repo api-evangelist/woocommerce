@@ -1,0 +1,32 @@
+{
+  "package_id": 1,
+  "name": "Example Name",
+  "destination": {
+    "address_1": "string-value",
+    "address_2": "string-value",
+    "city": "string-value",
+    "state": "string-value",
+    "postcode": "string-value",
+    "country": "string-value"
+  },
+  "items": [
+    {
+      "key": "string-value",
+      "name": "Example Name",
+      "quantity": 1
+    }
+  ],
+  "shipping_rates": [
+    {
+      "rate_id": "500123",
+      "name": "Example Name",
+      "description": "A sample description",
+      "price": "string-value",
+      "taxes": "string-value",
+      "selected": true,
+      "meta_data": [
+        {}
+      ]
+    }
+  ]
+}

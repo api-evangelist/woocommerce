@@ -1,0 +1,24 @@
+{
+  "$schema": "https://json-structure.org/meta/core/v0/#",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/woocommerce/refs/heads/main/json-structure/woocommerce-rest-api-shipping-zone-structure.json",
+  "name": "ShippingZone",
+  "description": "A shipping zone defining geographic regions with specific shipping methods.",
+  "type": "object",
+  "properties": {
+    "id": {
+      "type": "int32",
+      "description": "Shipping zone unique identifier.",
+      "example": 1
+    },
+    "name": {
+      "type": "string",
+      "description": "Shipping zone display name.",
+      "example": "Example Name"
+    },
+    "order": {
+      "type": "int32",
+      "description": "Shipping zone display order.",
+      "example": 1
+    }
+  }
+}

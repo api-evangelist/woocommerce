@@ -1,0 +1,40 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/woocommerce/refs/heads/main/json-schema/woocommerce-store-api-store-product-tag-schema.json",
+  "title": "StoreProductTag",
+  "description": "A product tag used for labeling and filtering.",
+  "type": "object",
+  "properties": {
+    "id": {
+      "type": "integer",
+      "description": "Tag unique identifier.",
+      "example": 1
+    },
+    "name": {
+      "type": "string",
+      "description": "Tag display name.",
+      "example": "Example Name"
+    },
+    "slug": {
+      "type": "string",
+      "description": "URL-friendly tag slug.",
+      "example": "string-value"
+    },
+    "description": {
+      "type": "string",
+      "description": "Tag description.",
+      "example": "A sample description"
+    },
+    "count": {
+      "type": "integer",
+      "description": "Number of products with this tag.",
+      "example": 1
+    },
+    "link": {
+      "type": "string",
+      "format": "uri",
+      "description": "Tag archive URL.",
+      "example": "https://example.com/path"
+    }
+  }
+}

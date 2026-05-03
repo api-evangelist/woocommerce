@@ -1,0 +1,369 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/woocommerce/refs/heads/main/json-schema/woocommerce-store-api-store-product-schema.json",
+  "title": "StoreProduct",
+  "description": "A store product returned by the public Store API.",
+  "type": "object",
+  "properties": {
+    "id": {
+      "type": "integer",
+      "description": "Product unique identifier.",
+      "example": 1
+    },
+    "name": {
+      "type": "string",
+      "description": "Product name.",
+      "example": "Example Name"
+    },
+    "slug": {
+      "type": "string",
+      "description": "URL-friendly product slug.",
+      "example": "string-value"
+    },
+    "parent": {
+      "type": "integer",
+      "description": "Parent product ID for variations.",
+      "example": 1
+    },
+    "type": {
+      "type": "string",
+      "description": "Product type (simple, variable, grouped, external).",
+      "example": "standard"
+    },
+    "variation": {
+      "type": "string",
+      "description": "Variation description for variation-type products.",
+      "example": "string-value"
+    },
+    "permalink": {
+      "type": "string",
+      "format": "uri",
+      "description": "Full URL to the product page.",
+      "example": "https://example.com/path"
+    },
+    "sku": {
+      "type": "string",
+      "description": "Product SKU.",
+      "example": "string-value"
+    },
+    "short_description": {
+      "type": "string",
+      "description": "Short product description (HTML).",
+      "example": "A sample description"
+    },
+    "description": {
+      "type": "string",
+      "description": "Full product description (HTML).",
+      "example": "A sample description"
+    },
+    "on_sale": {
+      "type": "boolean",
+      "description": "Whether the product is on sale.",
+      "example": true
+    },
+    "prices": {
+      "type": "object",
+      "description": "Formatted price information for a product or variation.",
+      "properties": {
+        "price": {
+          "type": "string",
+          "description": "Current price as a formatted string with currency symbol.",
+          "example": "string-value"
+        },
+        "regular_price": {
+          "type": "string",
+          "description": "Regular price as a formatted string.",
+          "example": "string-value"
+        },
+        "sale_price": {
+          "type": "string",
+          "description": "Sale price as a formatted string (empty when not on sale).",
+          "example": "string-value"
+        },
+        "price_range": {
+          "type": "object",
+          "description": "Price range for variable products.",
+          "nullable": true,
+          "properties": {
+            "min_amount": {
+              "type": "string",
+              "description": "Minimum variation price."
+            },
+            "max_amount": {
+              "type": "string",
+              "description": "Maximum variation price."
+            }
+          },
+          "example": {
+            "min_amount": "string-value",
+            "max_amount": "string-value"
+          }
+        },
+        "currency_code": {
+          "type": "string",
+          "description": "ISO 4217 currency code.",
+          "example": "string-value"
+        },
+        "currency_symbol": {
+          "type": "string",
+          "description": "Currency symbol.",
+          "example": "string-value"
+        },
+        "currency_decimal_separator": {
+          "type": "string",
+          "description": "Decimal separator character.",
+          "example": "string-value"
+        },
+        "currency_thousand_separator": {
+          "type": "string",
+          "description": "Thousands separator character.",
+          "example": "string-value"
+        },
+        "currency_prefix": {
+          "type": "string",
+          "description": "Currency prefix (e.g. $).",
+          "example": "string-value"
+        },
+        "currency_suffix": {
+          "type": "string",
+          "description": "Currency suffix.",
+          "example": "string-value"
+        }
+      }
+    },
+    "purchasable": {
+      "type": "boolean",
+      "description": "Whether the product can be purchased.",
+      "example": true
+    },
+    "images": {
+      "type": "array",
+      "description": "Product images.",
+      "items": {
+        "type": "object",
+        "description": "Product image with thumbnail variants.",
+        "properties": {
+          "id": {
+            "type": "integer",
+            "description": "Image attachment ID.",
+            "example": 1
+          },
+          "src": {
+            "type": "string",
+            "format": "uri",
+            "description": "Full-size image URL.",
+            "example": "https://example.com/path"
+          },
+          "thumbnail": {
+            "type": "string",
+            "format": "uri",
+            "description": "Thumbnail image URL.",
+            "example": "https://example.com/path"
+          },
+          "srcset": {
+            "type": "string",
+            "description": "Responsive image srcset attribute value.",
+            "example": "string-value"
+          },
+          "sizes": {
+            "type": "string",
+            "description": "Responsive image sizes attribute value.",
+            "example": "string-value"
+          },
+          "name": {
+            "type": "string",
+            "description": "Image file name.",
+            "example": "Example Name"
+          },
+          "alt": {
+            "type": "string",
+            "description": "Image alternative text.",
+            "example": "string-value"
+          }
+        }
+      },
+      "example": [
+        "string-value"
+      ]
+    },
+    "categories": {
+      "type": "array",
+      "description": "Categories assigned to the product.",
+      "items": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer",
+            "description": "Category ID."
+          },
+          "name": {
+            "type": "string",
+            "description": "Category name."
+          },
+          "slug": {
+            "type": "string",
+            "description": "Category slug."
+          },
+          "link": {
+            "type": "string",
+            "format": "uri",
+            "description": "Category archive URL."
+          }
+        }
+      },
+      "example": [
+        {
+          "id": 1,
+          "name": "Example Name",
+          "slug": "string-value",
+          "link": "https://example.com/path"
+        }
+      ]
+    },
+    "tags": {
+      "type": "array",
+      "description": "Tags assigned to the product.",
+      "items": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer",
+            "description": "Tag ID."
+          },
+          "name": {
+            "type": "string",
+            "description": "Tag name."
+          },
+          "slug": {
+            "type": "string",
+            "description": "Tag slug."
+          },
+          "link": {
+            "type": "string",
+            "format": "uri",
+            "description": "Tag archive URL."
+          }
+        }
+      },
+      "example": [
+        {
+          "id": 1,
+          "name": "Example Name",
+          "slug": "string-value",
+          "link": "https://example.com/path"
+        }
+      ]
+    },
+    "attributes": {
+      "type": "array",
+      "description": "Product attributes.",
+      "items": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer",
+            "description": "Attribute ID."
+          },
+          "name": {
+            "type": "string",
+            "description": "Attribute name."
+          },
+          "taxonomy": {
+            "type": "string",
+            "description": "Attribute taxonomy slug."
+          },
+          "has_variations": {
+            "type": "boolean",
+            "description": "Whether this attribute is used for variations."
+          },
+          "terms": {
+            "type": "array",
+            "description": "Attribute terms.",
+            "items": {
+              "type": "object",
+              "properties": {
+                "id": {
+                  "type": "integer",
+                  "description": "Term ID."
+                },
+                "name": {
+                  "type": "string",
+                  "description": "Term name."
+                },
+                "slug": {
+                  "type": "string",
+                  "description": "Term slug."
+                }
+              }
+            }
+          }
+        }
+      },
+      "example": [
+        {
+          "id": 1,
+          "name": "Example Name",
+          "taxonomy": "string-value",
+          "has_variations": true,
+          "terms": [
+            {
+              "id": {},
+              "name": {},
+              "slug": {}
+            }
+          ]
+        }
+      ]
+    },
+    "average_rating": {
+      "type": "string",
+      "description": "Average product rating as a decimal string.",
+      "example": "string-value"
+    },
+    "review_count": {
+      "type": "integer",
+      "description": "Number of approved reviews.",
+      "example": 1
+    },
+    "is_in_stock": {
+      "type": "boolean",
+      "description": "Whether the product is in stock.",
+      "example": true
+    },
+    "low_stock_remaining": {
+      "type": "integer",
+      "description": "Remaining stock quantity when low stock notice is applicable.",
+      "nullable": true,
+      "example": 1
+    },
+    "sold_individually": {
+      "type": "boolean",
+      "description": "Whether the product must be bought individually.",
+      "example": true
+    },
+    "add_to_cart": {
+      "type": "object",
+      "description": "Add-to-cart action details.",
+      "properties": {
+        "text": {
+          "type": "string",
+          "description": "Button label text."
+        },
+        "description": {
+          "type": "string",
+          "description": "Accessible button description."
+        },
+        "url": {
+          "type": "string",
+          "format": "uri",
+          "description": "Add-to-cart URL for non-AJAX contexts."
+        }
+      },
+      "example": {
+        "text": "string-value",
+        "description": "A sample description",
+        "url": "https://example.com/path"
+      }
+    }
+  }
+}

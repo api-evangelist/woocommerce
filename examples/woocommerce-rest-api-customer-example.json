@@ -1,0 +1,43 @@
+{
+  "id": 1,
+  "date_created": "2026-05-03T14:30:00Z",
+  "date_modified": "2026-05-03T14:30:00Z",
+  "email": "user@example.com",
+  "first_name": "Example Name",
+  "last_name": "Example Name",
+  "role": "string-value",
+  "username": "Example Name",
+  "billing": {
+    "first_name": "Example Name",
+    "last_name": "Example Name",
+    "company": "string-value",
+    "address_1": "string-value",
+    "address_2": "string-value",
+    "city": "string-value",
+    "state": "string-value",
+    "postcode": "string-value",
+    "country": "string-value",
+    "email": "user@example.com",
+    "phone": "string-value"
+  },
+  "shipping": {
+    "first_name": "Example Name",
+    "last_name": "Example Name",
+    "company": "string-value",
+    "address_1": "string-value",
+    "address_2": "string-value",
+    "city": "string-value",
+    "state": "string-value",
+    "postcode": "string-value",
+    "country": "string-value",
+    "email": "user@example.com",
+    "phone": "string-value"
+  },
+  "is_paying_customer": true,
+  "orders_count": 1,
+  "total_spent": "string-value",
+  "avatar_url": "https://example.com/path",
+  "meta_data": [
+    "string-value"
+  ]
+}

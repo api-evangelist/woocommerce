@@ -1,0 +1,24 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/woocommerce/refs/heads/main/json-schema/woocommerce-rest-api-meta-data-schema.json",
+  "title": "MetaData",
+  "description": "Custom metadata key-value entry.",
+  "type": "object",
+  "properties": {
+    "id": {
+      "type": "integer",
+      "description": "Metadata unique identifier.",
+      "example": 1
+    },
+    "key": {
+      "type": "string",
+      "description": "Metadata key.",
+      "example": "string-value"
+    },
+    "value": {
+      "type": "string",
+      "description": "Metadata value.",
+      "example": "string-value"
+    }
+  }
+}

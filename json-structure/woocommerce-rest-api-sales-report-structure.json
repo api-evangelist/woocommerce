@@ -1,0 +1,65 @@
+{
+  "$schema": "https://json-structure.org/meta/core/v0/#",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/woocommerce/refs/heads/main/json-structure/woocommerce-rest-api-sales-report-structure.json",
+  "name": "SalesReport",
+  "description": "Aggregated sales report data for a time period.",
+  "type": "object",
+  "properties": {
+    "total_sales": {
+      "type": "string",
+      "description": "Total gross sales for the period.",
+      "example": "string-value"
+    },
+    "net_revenue": {
+      "type": "string",
+      "description": "Net revenue (gross sales minus refunds).",
+      "example": "string-value"
+    },
+    "average_sales": {
+      "type": "string",
+      "description": "Average daily sales for the period.",
+      "example": "string-value"
+    },
+    "total_orders": {
+      "type": "int32",
+      "description": "Total number of orders in the period.",
+      "example": 1
+    },
+    "total_items": {
+      "type": "int32",
+      "description": "Total number of items sold.",
+      "example": 1
+    },
+    "total_tax": {
+      "type": "string",
+      "description": "Total tax collected.",
+      "example": "string-value"
+    },
+    "total_shipping": {
+      "type": "string",
+      "description": "Total shipping revenue.",
+      "example": "string-value"
+    },
+    "total_refunds": {
+      "type": "double",
+      "description": "Total refund amount.",
+      "example": 10.5
+    },
+    "total_discount": {
+      "type": "double",
+      "description": "Total discount amount.",
+      "example": 10.5
+    },
+    "totals_grouped_by": {
+      "type": "string",
+      "description": "Grouping interval for totals_by_date (day, week, month, year).",
+      "example": "string-value"
+    },
+    "totals": {
+      "type": "object",
+      "description": "Sales totals grouped by the totals_grouped_by interval.",
+      "additionalProperties": true,
+      "example": {}
+    }
+  }
+}

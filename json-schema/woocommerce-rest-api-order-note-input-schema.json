@@ -1,0 +1,29 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/woocommerce/refs/heads/main/json-schema/woocommerce-rest-api-order-note-input-schema.json",
+  "title": "OrderNoteInput",
+  "description": "Input for creating an order note.",
+  "type": "object",
+  "properties": {
+    "note": {
+      "type": "string",
+      "description": "Note content.",
+      "example": "string-value"
+    },
+    "customer_note": {
+      "type": "boolean",
+      "description": "Whether to display this note to the customer.",
+      "default": false,
+      "example": true
+    },
+    "added_by_user": {
+      "type": "boolean",
+      "description": "Whether to mark note as added by a user.",
+      "default": false,
+      "example": true
+    }
+  },
+  "required": [
+    "note"
+  ]
+}

@@ -1,0 +1,108 @@
+{
+  "@context": {
+    "@version": 1.1,
+    "woo": "https://woocommerce.dev/schema/",
+    "schema": "https://schema.org/",
+    "dcterms": "http://purl.org/dc/terms/",
+    "xsd": "http://www.w3.org/2001/XMLSchema#",
+    "CheckoutInput": "woo:CheckoutInput",
+    "billingAddress": {
+      "@id": "woo:billing_address",
+      "@type": "@id"
+    },
+    "firstName": {
+      "@id": "woo:first_name",
+      "@type": "xsd:string"
+    },
+    "lastName": {
+      "@id": "woo:last_name",
+      "@type": "xsd:string"
+    },
+    "company": {
+      "@id": "woo:company",
+      "@type": "xsd:string"
+    },
+    "address1": {
+      "@id": "woo:address_1",
+      "@type": "xsd:string"
+    },
+    "address2": {
+      "@id": "woo:address_2",
+      "@type": "xsd:string"
+    },
+    "city": {
+      "@id": "woo:city",
+      "@type": "xsd:string"
+    },
+    "state": {
+      "@id": "woo:state",
+      "@type": "xsd:string"
+    },
+    "postcode": {
+      "@id": "woo:postcode",
+      "@type": "xsd:string"
+    },
+    "country": {
+      "@id": "woo:country",
+      "@type": "xsd:string"
+    },
+    "email": "schema:email",
+    "phone": {
+      "@id": "woo:phone",
+      "@type": "xsd:string"
+    },
+    "shippingAddress": {
+      "@id": "woo:shipping_address",
+      "@type": "@id"
+    },
+    "customerNote": {
+      "@id": "woo:customer_note",
+      "@type": "xsd:string"
+    },
+    "createAccount": {
+      "@id": "woo:create_account",
+      "@type": "xsd:boolean"
+    },
+    "paymentMethod": {
+      "@id": "woo:payment_method",
+      "@type": "xsd:string"
+    },
+    "paymentData": {
+      "@id": "woo:payment_data",
+      "@container": "@set"
+    },
+    "CheckoutOrder": "woo:CheckoutOrder",
+    "id": {
+      "@id": "woo:id",
+      "@type": "xsd:integer"
+    },
+    "status": {
+      "@id": "woo:status",
+      "@type": "xsd:string"
+    },
+    "orderKey": {
+      "@id": "woo:order_key",
+      "@type": "xsd:string"
+    },
+    "orderNumber": {
+      "@id": "woo:order_number",
+      "@type": "xsd:string"
+    },
+    "paymentResult": {
+      "@id": "woo:payment_result",
+      "@type": "@id"
+    },
+    "paymentStatus": {
+      "@id": "woo:payment_status",
+      "@type": "xsd:string"
+    },
+    "paymentDetails": {
+      "@id": "woo:payment_details",
+      "@container": "@set"
+    },
+    "redirectUrl": {
+      "@id": "woo:redirect_url",
+      "@type": "@id"
+    }
+  }
+}

@@ -1,0 +1,35 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/woocommerce/refs/heads/main/json-schema/woocommerce-rest-api-order-note-schema.json",
+  "title": "OrderNote",
+  "description": "A note attached to an order.",
+  "type": "object",
+  "properties": {
+    "id": {
+      "type": "integer",
+      "description": "Note unique identifier.",
+      "example": 1
+    },
+    "date_created": {
+      "type": "string",
+      "format": "date-time",
+      "description": "Date the note was created.",
+      "example": "2026-05-03T14:30:00Z"
+    },
+    "note": {
+      "type": "string",
+      "description": "Note text content.",
+      "example": "string-value"
+    },
+    "customer_note": {
+      "type": "boolean",
+      "description": "Whether this note is visible to the customer.",
+      "example": true
+    },
+    "added_by_user": {
+      "type": "boolean",
+      "description": "Whether the note was added by a store user (vs system).",
+      "example": true
+    }
+  }
+}

@@ -1,0 +1,138 @@
+{
+  "$schema": "https://json-structure.org/meta/core/v0/#",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/woocommerce/refs/heads/main/json-structure/woocommerce-store-api-cart-shipping-rate-structure.json",
+  "name": "CartShippingRate",
+  "description": "A shipping rate option available for the cart.",
+  "type": "object",
+  "properties": {
+    "package_id": {
+      "type": "int32",
+      "description": "Shipping package index.",
+      "example": 1
+    },
+    "name": {
+      "type": "string",
+      "description": "Shipping package name.",
+      "example": "Example Name"
+    },
+    "destination": {
+      "type": "object",
+      "description": "Shipping destination address.",
+      "properties": {
+        "address_1": {
+          "type": "string",
+          "description": "Address line 1."
+        },
+        "address_2": {
+          "type": "string",
+          "description": "Address line 2."
+        },
+        "city": {
+          "type": "string",
+          "description": "City."
+        },
+        "state": {
+          "type": "string",
+          "description": "State code."
+        },
+        "postcode": {
+          "type": "string",
+          "description": "Postcode."
+        },
+        "country": {
+          "type": "string",
+          "description": "Country code."
+        }
+      },
+      "example": {
+        "address_1": "string-value",
+        "address_2": "string-value",
+        "city": "string-value",
+        "state": "string-value",
+        "postcode": "string-value",
+        "country": "string-value"
+      }
+    },
+    "items": {
+      "type": "array",
+      "description": "Cart items in this shipping package.",
+      "items": {
+        "type": "object",
+        "properties": {
+          "key": {
+            "type": "string",
+            "description": "Cart item key."
+          },
+          "name": {
+            "type": "string",
+            "description": "Product name."
+          },
+          "quantity": {
+            "type": "int32",
+            "description": "Item quantity."
+          }
+        }
+      },
+      "example": [
+        {
+          "key": "string-value",
+          "name": "Example Name",
+          "quantity": 1
+        }
+      ]
+    },
+    "shipping_rates": {
+      "type": "array",
+      "description": "Available shipping rates for this package.",
+      "items": {
+        "type": "object",
+        "properties": {
+          "rate_id": {
+            "type": "string",
+            "description": "Shipping rate unique ID."
+          },
+          "name": {
+            "type": "string",
+            "description": "Shipping rate display name."
+          },
+          "description": {
+            "type": "string",
+            "description": "Shipping rate description."
+          },
+          "price": {
+            "type": "string",
+            "description": "Shipping cost as a decimal string."
+          },
+          "taxes": {
+            "type": "string",
+            "description": "Shipping tax as a decimal string."
+          },
+          "selected": {
+            "type": "boolean",
+            "description": "Whether this rate is currently selected."
+          },
+          "meta_data": {
+            "type": "array",
+            "description": "Additional rate metadata.",
+            "items": {
+              "type": "object"
+            }
+          }
+        }
+      },
+      "example": [
+        {
+          "rate_id": "500123",
+          "name": "Example Name",
+          "description": "A sample description",
+          "price": "string-value",
+          "taxes": "string-value",
+          "selected": true,
+          "meta_data": [
+            {}
+          ]
+        }
+      ]
+    }
+  }
+}

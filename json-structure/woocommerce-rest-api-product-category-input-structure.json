@@ -1,0 +1,40 @@
+{
+  "$schema": "https://json-structure.org/meta/core/v0/#",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/woocommerce/refs/heads/main/json-structure/woocommerce-rest-api-product-category-input-structure.json",
+  "name": "ProductCategoryInput",
+  "description": "Input for creating or updating a product category.",
+  "type": "object",
+  "properties": {
+    "name": {
+      "type": "string",
+      "description": "Category name (required for create).",
+      "example": "Example Name"
+    },
+    "slug": {
+      "type": "string",
+      "description": "URL-friendly category identifier.",
+      "example": "string-value"
+    },
+    "parent": {
+      "type": "int32",
+      "description": "Parent category ID for nested categories.",
+      "example": 1
+    },
+    "description": {
+      "type": "string",
+      "description": "Category description.",
+      "example": "A sample description"
+    },
+    "display": {
+      "type": "string",
+      "description": "Category archive display type.",
+      "enum": [
+        "default",
+        "products",
+        "subcategories",
+        "both"
+      ],
+      "example": "default"
+    }
+  }
+}

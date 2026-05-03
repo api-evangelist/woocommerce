@@ -1,0 +1,34 @@
+{
+  "$schema": "https://json-structure.org/meta/core/v0/#",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/woocommerce/refs/heads/main/json-structure/woocommerce-store-api-attribute-term-structure.json",
+  "name": "AttributeTerm",
+  "description": "A term (option value) for a product attribute.",
+  "type": "object",
+  "properties": {
+    "id": {
+      "type": "int32",
+      "description": "Term unique identifier.",
+      "example": 1
+    },
+    "name": {
+      "type": "string",
+      "description": "Term display name.",
+      "example": "Example Name"
+    },
+    "slug": {
+      "type": "string",
+      "description": "URL-friendly term slug.",
+      "example": "string-value"
+    },
+    "description": {
+      "type": "string",
+      "description": "Term description.",
+      "example": "A sample description"
+    },
+    "count": {
+      "type": "int32",
+      "description": "Number of products using this term.",
+      "example": 1
+    }
+  }
+}

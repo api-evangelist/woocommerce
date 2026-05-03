@@ -1,0 +1,44 @@
+{
+  "@context": {
+    "@version": 1.1,
+    "woo": "https://woocommerce.dev/schema/",
+    "schema": "https://schema.org/",
+    "dcterms": "http://purl.org/dc/terms/",
+    "xsd": "http://www.w3.org/2001/XMLSchema#",
+    "PaymentGateway": "woo:PaymentGateway",
+    "id": {
+      "@id": "woo:id",
+      "@type": "xsd:string"
+    },
+    "title": {
+      "@id": "woo:title",
+      "@type": "xsd:string"
+    },
+    "description": "schema:description",
+    "order": {
+      "@id": "woo:order",
+      "@type": "xsd:integer"
+    },
+    "enabled": {
+      "@id": "woo:enabled",
+      "@type": "xsd:boolean"
+    },
+    "methodTitle": {
+      "@id": "woo:method_title",
+      "@type": "xsd:string"
+    },
+    "methodDescription": {
+      "@id": "woo:method_description",
+      "@type": "xsd:string"
+    },
+    "methodSupports": {
+      "@id": "woo:method_supports",
+      "@container": "@set",
+      "@type": "xsd:string"
+    },
+    "settings": {
+      "@id": "woo:settings",
+      "@type": "@id"
+    }
+  }
+}

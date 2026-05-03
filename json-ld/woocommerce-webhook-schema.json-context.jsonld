@@ -1,0 +1,54 @@
+{
+  "@context": {
+    "@version": 1.1,
+    "woo": "https://woocommerce.dev/schema/",
+    "schema": "https://schema.org/",
+    "dcterms": "http://purl.org/dc/terms/",
+    "xsd": "http://www.w3.org/2001/XMLSchema#",
+    "WooCommerce Webhook": "woo:WooCommerce Webhook",
+    "id": {
+      "@id": "woo:id",
+      "@type": "xsd:integer"
+    },
+    "name": "schema:name",
+    "status": {
+      "@id": "woo:status",
+      "@type": "xsd:string"
+    },
+    "topic": {
+      "@id": "woo:topic",
+      "@type": "xsd:string"
+    },
+    "resource": {
+      "@id": "woo:resource",
+      "@type": "xsd:string"
+    },
+    "event": {
+      "@id": "woo:event",
+      "@type": "xsd:string"
+    },
+    "hooks": {
+      "@id": "woo:hooks",
+      "@container": "@set",
+      "@type": "xsd:string"
+    },
+    "deliveryUrl": {
+      "@id": "woo:delivery_url",
+      "@type": "@id"
+    },
+    "secret": {
+      "@id": "woo:secret",
+      "@type": "xsd:string"
+    },
+    "dateCreated": "schema:dateCreated",
+    "dateCreatedGmt": {
+      "@id": "woo:date_created_gmt",
+      "@type": "xsd:dateTime"
+    },
+    "dateModified": "schema:dateModified",
+    "dateModifiedGmt": {
+      "@id": "woo:date_modified_gmt",
+      "@type": "xsd:dateTime"
+    }
+  }
+}

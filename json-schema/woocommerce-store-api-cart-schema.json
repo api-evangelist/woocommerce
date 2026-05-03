@@ -1,0 +1,824 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/woocommerce/refs/heads/main/json-schema/woocommerce-store-api-cart-schema.json",
+  "title": "Cart",
+  "description": "The current customer's cart state.",
+  "type": "object",
+  "properties": {
+    "items": {
+      "type": "array",
+      "description": "Items in the cart.",
+      "items": {
+        "type": "object",
+        "description": "A product item in the cart.",
+        "properties": {
+          "key": {
+            "type": "string",
+            "description": "Unique cart item key.",
+            "example": "string-value"
+          },
+          "id": {
+            "type": "integer",
+            "description": "Product ID.",
+            "example": 1
+          },
+          "quantity": {
+            "type": "integer",
+            "description": "Quantity in cart.",
+            "example": 1
+          },
+          "variation_id": {
+            "type": "integer",
+            "description": "Variation ID (0 for simple products).",
+            "example": 1
+          },
+          "item_data": {
+            "type": "array",
+            "description": "Custom item data (e.g. variation attributes).",
+            "items": {
+              "type": "object",
+              "properties": {
+                "name": {
+                  "type": "string",
+                  "description": "Data field name."
+                },
+                "value": {
+                  "type": "string",
+                  "description": "Data field value."
+                },
+                "display": {
+                  "type": "string",
+                  "description": "Formatted display value."
+                }
+              }
+            },
+            "example": [
+              {
+                "name": "Example Name",
+                "value": "string-value",
+                "display": "string-value"
+              }
+            ]
+          },
+          "prices": {
+            "$ref": "#/components/schemas/StoreProductPrice"
+          },
+          "name": {
+            "type": "string",
+            "description": "Product name at time of cart addition.",
+            "example": "Example Name"
+          },
+          "short_description": {
+            "type": "string",
+            "description": "Product short description.",
+            "example": "A sample description"
+          },
+          "images": {
+            "type": "array",
+            "description": "Product images.",
+            "items": {
+              "$ref": "#/components/schemas/StoreProductImage"
+            },
+            "example": [
+              "string-value"
+            ]
+          },
+          "low_stock_remaining": {
+            "type": "integer",
+            "description": "Low stock quantity threshold remaining.",
+            "nullable": true,
+            "example": 1
+          },
+          "sold_individually": {
+            "type": "boolean",
+            "description": "Whether the product can only be purchased once per order.",
+            "example": true
+          }
+        }
+      },
+      "example": [
+        "string-value"
+      ]
+    },
+    "coupons": {
+      "type": "array",
+      "description": "Coupons applied to the cart.",
+      "items": {
+        "type": "object",
+        "properties": {
+          "code": {
+            "type": "string",
+            "description": "Coupon code."
+          },
+          "discount_type": {
+            "type": "string",
+            "description": "Type of discount applied."
+          },
+          "totals": {
+            "type": "object",
+            "description": "Coupon discount totals."
+          }
+        }
+      },
+      "example": [
+        {
+          "code": "string-value",
+          "discount_type": "standard",
+          "totals": {}
+        }
+      ]
+    },
+    "fees": {
+      "type": "array",
+      "description": "Additional fees added to the cart.",
+      "items": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "description": "Fee ID."
+          },
+          "name": {
+            "type": "string",
+            "description": "Fee name."
+          },
+          "totals": {
+            "type": "object",
+            "description": "Fee amount totals."
+          }
+        }
+      },
+      "example": [
+        {
+          "id": "500123",
+          "name": "Example Name",
+          "totals": {}
+        }
+      ]
+    },
+    "totals": {
+      "type": "object",
+      "description": "Cart financial totals including subtotal, taxes, shipping, and grand total.",
+      "properties": {
+        "total_items": {
+          "type": "string",
+          "description": "Subtotal of all items before discounts.",
+          "example": "string-value"
+        },
+        "total_items_tax": {
+          "type": "string",
+          "description": "Total item tax.",
+          "example": "string-value"
+        },
+        "total_fees": {
+          "type": "string",
+          "description": "Total of all cart fees.",
+          "example": "string-value"
+        },
+        "total_fees_tax": {
+          "type": "string",
+          "description": "Total tax on fees.",
+          "example": "string-value"
+        },
+        "total_discount": {
+          "type": "string",
+          "description": "Total discount applied by coupons.",
+          "example": "string-value"
+        },
+        "total_discount_tax": {
+          "type": "string",
+          "description": "Tax on total discount.",
+          "example": "string-value"
+        },
+        "total_shipping": {
+          "type": "string",
+          "description": "Total shipping cost.",
+          "example": "string-value"
+        },
+        "total_shipping_tax": {
+          "type": "string",
+          "description": "Tax on shipping.",
+          "example": "string-value"
+        },
+        "total_price": {
+          "type": "string",
+          "description": "Grand total including tax.",
+          "example": "string-value"
+        },
+        "total_tax": {
+          "type": "string",
+          "description": "Total tax amount.",
+          "example": "string-value"
+        },
+        "tax_lines": {
+          "type": "array",
+          "description": "Individual tax breakdown by rate.",
+          "items": {
+            "type": "object",
+            "properties": {
+              "name": {
+                "type": "string",
+                "description": "Tax rate label."
+              },
+              "price": {
+                "type": "string",
+                "description": "Tax amount for this rate."
+              },
+              "rate": {
+                "type": "string",
+                "description": "Tax rate percentage."
+              }
+            }
+          },
+          "example": [
+            {
+              "name": "Example Name",
+              "price": "string-value",
+              "rate": "string-value"
+            }
+          ]
+        }
+      }
+    },
+    "shipping_rates": {
+      "type": "array",
+      "description": "Available shipping rate packages.",
+      "items": {
+        "type": "object",
+        "description": "A shipping rate option available for the cart.",
+        "properties": {
+          "package_id": {
+            "type": "integer",
+            "description": "Shipping package index.",
+            "example": 1
+          },
+          "name": {
+            "type": "string",
+            "description": "Shipping package name.",
+            "example": "Example Name"
+          },
+          "destination": {
+            "type": "object",
+            "description": "Shipping destination address.",
+            "properties": {
+              "address_1": {
+                "type": "string",
+                "description": "Address line 1."
+              },
+              "address_2": {
+                "type": "string",
+                "description": "Address line 2."
+              },
+              "city": {
+                "type": "string",
+                "description": "City."
+              },
+              "state": {
+                "type": "string",
+                "description": "State code."
+              },
+              "postcode": {
+                "type": "string",
+                "description": "Postcode."
+              },
+              "country": {
+                "type": "string",
+                "description": "Country code."
+              }
+            },
+            "example": {
+              "address_1": "string-value",
+              "address_2": "string-value",
+              "city": "string-value",
+              "state": "string-value",
+              "postcode": "string-value",
+              "country": "string-value"
+            }
+          },
+          "items": {
+            "type": "array",
+            "description": "Cart items in this shipping package.",
+            "items": {
+              "type": "object",
+              "properties": {
+                "key": {
+                  "type": "string",
+                  "description": "Cart item key."
+                },
+                "name": {
+                  "type": "string",
+                  "description": "Product name."
+                },
+                "quantity": {
+                  "type": "integer",
+                  "description": "Item quantity."
+                }
+              }
+            },
+            "example": [
+              {
+                "key": "string-value",
+                "name": "Example Name",
+                "quantity": 1
+              }
+            ]
+          },
+          "shipping_rates": {
+            "type": "array",
+            "description": "Available shipping rates for this package.",
+            "items": {
+              "type": "object",
+              "properties": {
+                "rate_id": {
+                  "type": "string",
+                  "description": "Shipping rate unique ID."
+                },
+                "name": {
+                  "type": "string",
+                  "description": "Shipping rate display name."
+                },
+                "description": {
+                  "type": "string",
+                  "description": "Shipping rate description."
+                },
+                "price": {
+                  "type": "string",
+                  "description": "Shipping cost as a decimal string."
+                },
+                "taxes": {
+                  "type": "string",
+                  "description": "Shipping tax as a decimal string."
+                },
+                "selected": {
+                  "type": "boolean",
+                  "description": "Whether this rate is currently selected."
+                },
+                "meta_data": {
+                  "type": "array",
+                  "description": "Additional rate metadata.",
+                  "items": {
+                    "type": "object"
+                  }
+                }
+              }
+            },
+            "example": [
+              {
+                "rate_id": "500123",
+                "name": "Example Name",
+                "description": "A sample description",
+                "price": "string-value",
+                "taxes": "string-value",
+                "selected": true,
+                "meta_data": [
+                  {}
+                ]
+              }
+            ]
+          }
+        }
+      },
+      "example": [
+        "string-value"
+      ]
+    },
+    "billing_address": {
+      "type": "object",
+      "description": "A customer billing or shipping address in the Store API context.",
+      "properties": {
+        "first_name": {
+          "type": "string",
+          "description": "First name.",
+          "example": "Example Name"
+        },
+        "last_name": {
+          "type": "string",
+          "description": "Last name.",
+          "example": "Example Name"
+        },
+        "company": {
+          "type": "string",
+          "description": "Company name.",
+          "example": "string-value"
+        },
+        "address_1": {
+          "type": "string",
+          "description": "Address line 1.",
+          "example": "string-value"
+        },
+        "address_2": {
+          "type": "string",
+          "description": "Address line 2.",
+          "example": "string-value"
+        },
+        "city": {
+          "type": "string",
+          "description": "City.",
+          "example": "string-value"
+        },
+        "state": {
+          "type": "string",
+          "description": "State or province code.",
+          "example": "string-value"
+        },
+        "postcode": {
+          "type": "string",
+          "description": "Postal code.",
+          "example": "string-value"
+        },
+        "country": {
+          "type": "string",
+          "description": "ISO 3166-1 alpha-2 country code.",
+          "example": "string-value"
+        },
+        "email": {
+          "type": "string",
+          "format": "email",
+          "description": "Email address (billing only).",
+          "example": "user@example.com"
+        },
+        "phone": {
+          "type": "string",
+          "description": "Phone number.",
+          "example": "string-value"
+        }
+      }
+    },
+    "shipping_address": {
+      "type": "object",
+      "description": "A customer billing or shipping address in the Store API context.",
+      "properties": {
+        "first_name": {
+          "type": "string",
+          "description": "First name.",
+          "example": "Example Name"
+        },
+        "last_name": {
+          "type": "string",
+          "description": "Last name.",
+          "example": "Example Name"
+        },
+        "company": {
+          "type": "string",
+          "description": "Company name.",
+          "example": "string-value"
+        },
+        "address_1": {
+          "type": "string",
+          "description": "Address line 1.",
+          "example": "string-value"
+        },
+        "address_2": {
+          "type": "string",
+          "description": "Address line 2.",
+          "example": "string-value"
+        },
+        "city": {
+          "type": "string",
+          "description": "City.",
+          "example": "string-value"
+        },
+        "state": {
+          "type": "string",
+          "description": "State or province code.",
+          "example": "string-value"
+        },
+        "postcode": {
+          "type": "string",
+          "description": "Postal code.",
+          "example": "string-value"
+        },
+        "country": {
+          "type": "string",
+          "description": "ISO 3166-1 alpha-2 country code.",
+          "example": "string-value"
+        },
+        "email": {
+          "type": "string",
+          "format": "email",
+          "description": "Email address (billing only).",
+          "example": "user@example.com"
+        },
+        "phone": {
+          "type": "string",
+          "description": "Phone number.",
+          "example": "string-value"
+        }
+      }
+    },
+    "has_calculated_shipping": {
+      "type": "boolean",
+      "description": "Whether shipping has been calculated for the cart.",
+      "example": true
+    },
+    "needs_payment": {
+      "type": "boolean",
+      "description": "Whether the cart total requires payment.",
+      "example": true
+    },
+    "needs_shipping": {
+      "type": "boolean",
+      "description": "Whether any items in the cart require shipping.",
+      "example": true
+    },
+    "items_count": {
+      "type": "integer",
+      "description": "Total number of items in the cart.",
+      "example": 1
+    },
+    "items_weight": {
+      "type": "number",
+      "description": "Total weight of all items in the cart.",
+      "example": 10.5
+    },
+    "cross_sells": {
+      "type": "array",
+      "description": "Cross-sell product suggestions.",
+      "items": {
+        "type": "object",
+        "description": "A store product returned by the public Store API.",
+        "properties": {
+          "id": {
+            "type": "integer",
+            "description": "Product unique identifier.",
+            "example": 1
+          },
+          "name": {
+            "type": "string",
+            "description": "Product name.",
+            "example": "Example Name"
+          },
+          "slug": {
+            "type": "string",
+            "description": "URL-friendly product slug.",
+            "example": "string-value"
+          },
+          "parent": {
+            "type": "integer",
+            "description": "Parent product ID for variations.",
+            "example": 1
+          },
+          "type": {
+            "type": "string",
+            "description": "Product type (simple, variable, grouped, external).",
+            "example": "standard"
+          },
+          "variation": {
+            "type": "string",
+            "description": "Variation description for variation-type products.",
+            "example": "string-value"
+          },
+          "permalink": {
+            "type": "string",
+            "format": "uri",
+            "description": "Full URL to the product page.",
+            "example": "https://example.com/path"
+          },
+          "sku": {
+            "type": "string",
+            "description": "Product SKU.",
+            "example": "string-value"
+          },
+          "short_description": {
+            "type": "string",
+            "description": "Short product description (HTML).",
+            "example": "A sample description"
+          },
+          "description": {
+            "type": "string",
+            "description": "Full product description (HTML).",
+            "example": "A sample description"
+          },
+          "on_sale": {
+            "type": "boolean",
+            "description": "Whether the product is on sale.",
+            "example": true
+          },
+          "prices": {
+            "$ref": "#/components/schemas/StoreProductPrice"
+          },
+          "purchasable": {
+            "type": "boolean",
+            "description": "Whether the product can be purchased.",
+            "example": true
+          },
+          "images": {
+            "type": "array",
+            "description": "Product images.",
+            "items": {
+              "$ref": "#/components/schemas/StoreProductImage"
+            },
+            "example": [
+              "string-value"
+            ]
+          },
+          "categories": {
+            "type": "array",
+            "description": "Categories assigned to the product.",
+            "items": {
+              "type": "object",
+              "properties": {
+                "id": {
+                  "type": "integer",
+                  "description": "Category ID."
+                },
+                "name": {
+                  "type": "string",
+                  "description": "Category name."
+                },
+                "slug": {
+                  "type": "string",
+                  "description": "Category slug."
+                },
+                "link": {
+                  "type": "string",
+                  "format": "uri",
+                  "description": "Category archive URL."
+                }
+              }
+            },
+            "example": [
+              {
+                "id": 1,
+                "name": "Example Name",
+                "slug": "string-value",
+                "link": "https://example.com/path"
+              }
+            ]
+          },
+          "tags": {
+            "type": "array",
+            "description": "Tags assigned to the product.",
+            "items": {
+              "type": "object",
+              "properties": {
+                "id": {
+                  "type": "integer",
+                  "description": "Tag ID."
+                },
+                "name": {
+                  "type": "string",
+                  "description": "Tag name."
+                },
+                "slug": {
+                  "type": "string",
+                  "description": "Tag slug."
+                },
+                "link": {
+                  "type": "string",
+                  "format": "uri",
+                  "description": "Tag archive URL."
+                }
+              }
+            },
+            "example": [
+              {
+                "id": 1,
+                "name": "Example Name",
+                "slug": "string-value",
+                "link": "https://example.com/path"
+              }
+            ]
+          },
+          "attributes": {
+            "type": "array",
+            "description": "Product attributes.",
+            "items": {
+              "type": "object",
+              "properties": {
+                "id": {
+                  "type": "integer",
+                  "description": "Attribute ID."
+                },
+                "name": {
+                  "type": "string",
+                  "description": "Attribute name."
+                },
+                "taxonomy": {
+                  "type": "string",
+                  "description": "Attribute taxonomy slug."
+                },
+                "has_variations": {
+                  "type": "boolean",
+                  "description": "Whether this attribute is used for variations."
+                },
+                "terms": {
+                  "type": "array",
+                  "description": "Attribute terms.",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "id": {
+                        "type": "integer",
+                        "description": "Term ID."
+                      },
+                      "name": {
+                        "type": "string",
+                        "description": "Term name."
+                      },
+                      "slug": {
+                        "type": "string",
+                        "description": "Term slug."
+                      }
+                    }
+                  }
+                }
+              }
+            },
+            "example": [
+              {
+                "id": 1,
+                "name": "Example Name",
+                "taxonomy": "string-value",
+                "has_variations": true,
+                "terms": [
+                  {
+                    "id": {},
+                    "name": {},
+                    "slug": {}
+                  }
+                ]
+              }
+            ]
+          },
+          "average_rating": {
+            "type": "string",
+            "description": "Average product rating as a decimal string.",
+            "example": "string-value"
+          },
+          "review_count": {
+            "type": "integer",
+            "description": "Number of approved reviews.",
+            "example": 1
+          },
+          "is_in_stock": {
+            "type": "boolean",
+            "description": "Whether the product is in stock.",
+            "example": true
+          },
+          "low_stock_remaining": {
+            "type": "integer",
+            "description": "Remaining stock quantity when low stock notice is applicable.",
+            "nullable": true,
+            "example": 1
+          },
+          "sold_individually": {
+            "type": "boolean",
+            "description": "Whether the product must be bought individually.",
+            "example": true
+          },
+          "add_to_cart": {
+            "type": "object",
+            "description": "Add-to-cart action details.",
+            "properties": {
+              "text": {
+                "type": "string",
+                "description": "Button label text."
+              },
+              "description": {
+                "type": "string",
+                "description": "Accessible button description."
+              },
+              "url": {
+                "type": "string",
+                "format": "uri",
+                "description": "Add-to-cart URL for non-AJAX contexts."
+              }
+            },
+            "example": {
+              "text": "string-value",
+              "description": "A sample description",
+              "url": "https://example.com/path"
+            }
+          }
+        }
+      },
+      "example": [
+        "string-value"
+      ]
+    },
+    "errors": {
+      "type": "array",
+      "description": "Cart validation errors.",
+      "items": {
+        "type": "object",
+        "properties": {
+          "code": {
+            "type": "string",
+            "description": "Error code."
+          },
+          "message": {
+            "type": "string",
+            "description": "Error message."
+          }
+        }
+      },
+      "example": [
+        {
+          "code": "string-value",
+          "message": "string-value"
+        }
+      ]
+    }
+  }
+}

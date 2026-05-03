@@ -1,0 +1,15 @@
+{
+  "price": "string-value",
+  "regular_price": "string-value",
+  "sale_price": "string-value",
+  "price_range": {
+    "min_amount": "string-value",
+    "max_amount": "string-value"
+  },
+  "currency_code": "string-value",
+  "currency_symbol": "string-value",
+  "currency_decimal_separator": "string-value",
+  "currency_thousand_separator": "string-value",
+  "currency_prefix": "string-value",
+  "currency_suffix": "string-value"
+}

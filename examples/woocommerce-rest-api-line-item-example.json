@@ -1,0 +1,17 @@
+{
+  "id": 1,
+  "name": "Example Name",
+  "product_id": 1,
+  "variation_id": 1,
+  "quantity": 1,
+  "tax_class": "string-value",
+  "subtotal": "string-value",
+  "subtotal_tax": "string-value",
+  "total": "string-value",
+  "total_tax": "string-value",
+  "sku": "string-value",
+  "price": 10.5,
+  "meta_data": [
+    "string-value"
+  ]
+}

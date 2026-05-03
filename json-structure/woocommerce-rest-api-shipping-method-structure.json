@@ -1,0 +1,49 @@
+{
+  "$schema": "https://json-structure.org/meta/core/v0/#",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/woocommerce/refs/heads/main/json-structure/woocommerce-rest-api-shipping-method-structure.json",
+  "name": "ShippingMethod",
+  "description": "A shipping method configured within a shipping zone.",
+  "type": "object",
+  "properties": {
+    "id": {
+      "type": "int32",
+      "description": "Shipping method unique identifier.",
+      "example": 1
+    },
+    "instance_id": {
+      "type": "int32",
+      "description": "Shipping method instance ID within the zone.",
+      "example": 1
+    },
+    "title": {
+      "type": "string",
+      "description": "Shipping method display name.",
+      "example": "Example Name"
+    },
+    "order": {
+      "type": "int32",
+      "description": "Display order within the zone.",
+      "example": 1
+    },
+    "enabled": {
+      "type": "boolean",
+      "description": "Whether this shipping method is enabled.",
+      "example": true
+    },
+    "method_id": {
+      "type": "string",
+      "description": "Shipping method type ID (e.g. flat_rate, free_shipping, local_pickup).",
+      "example": "500123"
+    },
+    "method_title": {
+      "type": "string",
+      "description": "Shipping method type title.",
+      "example": "Example Name"
+    },
+    "method_description": {
+      "type": "string",
+      "description": "Shipping method type description.",
+      "example": "A sample description"
+    }
+  }
+}

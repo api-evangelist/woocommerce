@@ -1,0 +1,22 @@
+{
+  "@context": {
+    "@version": 1.1,
+    "woo": "https://woocommerce.dev/schema/",
+    "schema": "https://schema.org/",
+    "dcterms": "http://purl.org/dc/terms/",
+    "xsd": "http://www.w3.org/2001/XMLSchema#",
+    "OrderNoteInput": "woo:OrderNoteInput",
+    "note": {
+      "@id": "woo:note",
+      "@type": "xsd:string"
+    },
+    "customerNote": {
+      "@id": "woo:customer_note",
+      "@type": "xsd:boolean"
+    },
+    "addedByUser": {
+      "@id": "woo:added_by_user",
+      "@type": "xsd:boolean"
+    }
+  }
+}

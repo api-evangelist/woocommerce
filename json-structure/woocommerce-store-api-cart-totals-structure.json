@@ -1,0 +1,87 @@
+{
+  "$schema": "https://json-structure.org/meta/core/v0/#",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/woocommerce/refs/heads/main/json-structure/woocommerce-store-api-cart-totals-structure.json",
+  "name": "CartTotals",
+  "description": "Cart financial totals including subtotal, taxes, shipping, and grand total.",
+  "type": "object",
+  "properties": {
+    "total_items": {
+      "type": "string",
+      "description": "Subtotal of all items before discounts.",
+      "example": "string-value"
+    },
+    "total_items_tax": {
+      "type": "string",
+      "description": "Total item tax.",
+      "example": "string-value"
+    },
+    "total_fees": {
+      "type": "string",
+      "description": "Total of all cart fees.",
+      "example": "string-value"
+    },
+    "total_fees_tax": {
+      "type": "string",
+      "description": "Total tax on fees.",
+      "example": "string-value"
+    },
+    "total_discount": {
+      "type": "string",
+      "description": "Total discount applied by coupons.",
+      "example": "string-value"
+    },
+    "total_discount_tax": {
+      "type": "string",
+      "description": "Tax on total discount.",
+      "example": "string-value"
+    },
+    "total_shipping": {
+      "type": "string",
+      "description": "Total shipping cost.",
+      "example": "string-value"
+    },
+    "total_shipping_tax": {
+      "type": "string",
+      "description": "Tax on shipping.",
+      "example": "string-value"
+    },
+    "total_price": {
+      "type": "string",
+      "description": "Grand total including tax.",
+      "example": "string-value"
+    },
+    "total_tax": {
+      "type": "string",
+      "description": "Total tax amount.",
+      "example": "string-value"
+    },
+    "tax_lines": {
+      "type": "array",
+      "description": "Individual tax breakdown by rate.",
+      "items": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string",
+            "description": "Tax rate label."
+          },
+          "price": {
+            "type": "string",
+            "description": "Tax amount for this rate."
+          },
+          "rate": {
+            "type": "string",
+            "description": "Tax rate percentage."
+          }
+        }
+      },
+      "example": [
+        {
+          "name": "Example Name",
+          "price": "string-value",
+          "rate": "string-value"
+        }
+      ]
+    }
+  }
+}

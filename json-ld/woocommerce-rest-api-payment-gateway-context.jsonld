@@ -1,0 +1,18 @@
+{
+  "@context": {
+    "@version": 1.1,
+    "woo": "https://woocommerce.dev/schema/",
+    "schema": "https://schema.org/",
+    "dcterms": "http://purl.org/dc/terms/",
+    "xsd": "http://www.w3.org/2001/XMLSchema#",
+    "PaymentGatewayInput": "woo:PaymentGatewayInput",
+    "enabled": {
+      "@id": "woo:enabled",
+      "@type": "xsd:boolean"
+    },
+    "settings": {
+      "@id": "woo:settings",
+      "@type": "@id"
+    }
+  }
+}

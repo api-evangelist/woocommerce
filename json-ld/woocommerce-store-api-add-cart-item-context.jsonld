@@ -1,0 +1,30 @@
+{
+  "@context": {
+    "@version": 1.1,
+    "woo": "https://woocommerce.dev/schema/",
+    "schema": "https://schema.org/",
+    "dcterms": "http://purl.org/dc/terms/",
+    "xsd": "http://www.w3.org/2001/XMLSchema#",
+    "AddCartItemInput": "woo:AddCartItemInput",
+    "id": {
+      "@id": "woo:id",
+      "@type": "xsd:integer"
+    },
+    "quantity": {
+      "@id": "woo:quantity",
+      "@type": "xsd:integer"
+    },
+    "variationId": {
+      "@id": "woo:variation_id",
+      "@type": "xsd:integer"
+    },
+    "variation": {
+      "@id": "woo:variation",
+      "@container": "@set"
+    },
+    "itemData": {
+      "@id": "woo:item_data",
+      "@container": "@set"
+    }
+  }
+}

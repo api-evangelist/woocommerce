@@ -1,0 +1,55 @@
+{
+  "id": 813,
+  "parent_id": 137,
+  "number": "string-value",
+  "order_key": "string-value",
+  "created_via": "string-value",
+  "version": "string-value",
+  "status": "pending",
+  "currency": "string-value",
+  "date_created": "2026-05-03T14:30:00Z",
+  "date_created_gmt": "2026-05-03T14:30:00Z",
+  "date_modified": "2026-05-03T14:30:00Z",
+  "date_modified_gmt": "2026-05-03T14:30:00Z",
+  "date_completed": "2026-05-03T14:30:00Z",
+  "date_paid": "2026-05-03T14:30:00Z",
+  "discount_total": "string-value",
+  "discount_tax": "string-value",
+  "shipping_total": "string-value",
+  "shipping_tax": "string-value",
+  "cart_tax": "string-value",
+  "total": "string-value",
+  "total_tax": "string-value",
+  "prices_include_tax": false,
+  "customer_id": 671,
+  "customer_ip_address": "string-value",
+  "customer_user_agent": "string-value",
+  "customer_note": "string-value",
+  "billing": {},
+  "shipping": {},
+  "payment_method": "string-value",
+  "payment_method_title": "Example Name",
+  "transaction_id": "500123",
+  "payment_url": "https://example.com/path",
+  "line_items": [
+    "string-value"
+  ],
+  "tax_lines": [
+    "string-value"
+  ],
+  "shipping_lines": [
+    "string-value"
+  ],
+  "fee_lines": [
+    "string-value"
+  ],
+  "coupon_lines": [
+    "string-value"
+  ],
+  "refunds": [
+    "string-value"
+  ],
+  "meta_data": [
+    "string-value"
+  ]
+}

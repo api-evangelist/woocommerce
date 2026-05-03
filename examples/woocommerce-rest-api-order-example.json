@@ -1,0 +1,55 @@
+{
+  "id": 1,
+  "parent_id": 1,
+  "number": "string-value",
+  "order_key": "string-value",
+  "status": "pending",
+  "currency": "string-value",
+  "date_created": "2026-05-03T14:30:00Z",
+  "date_modified": "2026-05-03T14:30:00Z",
+  "date_completed": "2026-05-03T14:30:00Z",
+  "discount_total": "string-value",
+  "discount_tax": "string-value",
+  "shipping_total": "string-value",
+  "shipping_tax": "string-value",
+  "cart_tax": "string-value",
+  "total": "string-value",
+  "total_tax": "string-value",
+  "customer_id": 1,
+  "customer_note": "string-value",
+  "billing": {
+    "first_name": "Example Name",
+    "last_name": "Example Name",
+    "company": "string-value",
+    "address_1": "string-value",
+    "address_2": "string-value",
+    "city": "string-value",
+    "state": "string-value",
+    "postcode": "string-value",
+    "country": "string-value",
+    "email": "user@example.com",
+    "phone": "string-value"
+  },
+  "shipping": {
+    "first_name": "Example Name",
+    "last_name": "Example Name",
+    "company": "string-value",
+    "address_1": "string-value",
+    "address_2": "string-value",
+    "city": "string-value",
+    "state": "string-value",
+    "postcode": "string-value",
+    "country": "string-value",
+    "email": "user@example.com",
+    "phone": "string-value"
+  },
+  "payment_method": "string-value",
+  "payment_method_title": "Example Name",
+  "transaction_id": "500123",
+  "line_items": [
+    "string-value"
+  ],
+  "meta_data": [
+    "string-value"
+  ]
+}

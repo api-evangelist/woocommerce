@@ -1,0 +1,41 @@
+{
+  "id": 1,
+  "status": "active",
+  "order_key": "string-value",
+  "order_number": "string-value",
+  "customer_note": "string-value",
+  "billing_address": {
+    "first_name": "Example Name",
+    "last_name": "Example Name",
+    "company": "string-value",
+    "address_1": "string-value",
+    "address_2": "string-value",
+    "city": "string-value",
+    "state": "string-value",
+    "postcode": "string-value",
+    "country": "string-value",
+    "email": "user@example.com",
+    "phone": "string-value"
+  },
+  "shipping_address": {
+    "first_name": "Example Name",
+    "last_name": "Example Name",
+    "company": "string-value",
+    "address_1": "string-value",
+    "address_2": "string-value",
+    "city": "string-value",
+    "state": "string-value",
+    "postcode": "string-value",
+    "country": "string-value",
+    "email": "user@example.com",
+    "phone": "string-value"
+  },
+  "payment_method": "string-value",
+  "payment_result": {
+    "payment_status": "active",
+    "payment_details": [
+      {}
+    ],
+    "redirect_url": "https://example.com/path"
+  }
+}

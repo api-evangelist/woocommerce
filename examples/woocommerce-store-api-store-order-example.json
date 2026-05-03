@@ -1,0 +1,41 @@
+{
+  "id": 1,
+  "number": "string-value",
+  "status": "active",
+  "date_created": "2026-05-03T14:30:00Z",
+  "total": "string-value",
+  "billing": {
+    "first_name": "Example Name",
+    "last_name": "Example Name",
+    "company": "string-value",
+    "address_1": "string-value",
+    "address_2": "string-value",
+    "city": "string-value",
+    "state": "string-value",
+    "postcode": "string-value",
+    "country": "string-value",
+    "email": "user@example.com",
+    "phone": "string-value"
+  },
+  "shipping": {
+    "first_name": "Example Name",
+    "last_name": "Example Name",
+    "company": "string-value",
+    "address_1": "string-value",
+    "address_2": "string-value",
+    "city": "string-value",
+    "state": "string-value",
+    "postcode": "string-value",
+    "country": "string-value",
+    "email": "user@example.com",
+    "phone": "string-value"
+  },
+  "items": [
+    {
+      "id": 1,
+      "name": "Example Name",
+      "quantity": 1,
+      "total": "string-value"
+    }
+  ]
+}

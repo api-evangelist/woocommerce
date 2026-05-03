@@ -1,0 +1,73 @@
+{
+  "id": 1,
+  "name": "Example Name",
+  "slug": "string-value",
+  "parent": 1,
+  "type": "standard",
+  "variation": "string-value",
+  "permalink": "https://example.com/path",
+  "sku": "string-value",
+  "short_description": "A sample description",
+  "description": "A sample description",
+  "on_sale": true,
+  "prices": {
+    "price": "string-value",
+    "regular_price": "string-value",
+    "sale_price": "string-value",
+    "price_range": {
+      "min_amount": "string-value",
+      "max_amount": "string-value"
+    },
+    "currency_code": "string-value",
+    "currency_symbol": "string-value",
+    "currency_decimal_separator": "string-value",
+    "currency_thousand_separator": "string-value",
+    "currency_prefix": "string-value",
+    "currency_suffix": "string-value"
+  },
+  "purchasable": true,
+  "images": [
+    "string-value"
+  ],
+  "categories": [
+    {
+      "id": 1,
+      "name": "Example Name",
+      "slug": "string-value",
+      "link": "https://example.com/path"
+    }
+  ],
+  "tags": [
+    {
+      "id": 1,
+      "name": "Example Name",
+      "slug": "string-value",
+      "link": "https://example.com/path"
+    }
+  ],
+  "attributes": [
+    {
+      "id": 1,
+      "name": "Example Name",
+      "taxonomy": "string-value",
+      "has_variations": true,
+      "terms": [
+        {
+          "id": {},
+          "name": {},
+          "slug": {}
+        }
+      ]
+    }
+  ],
+  "average_rating": "string-value",
+  "review_count": 1,
+  "is_in_stock": true,
+  "low_stock_remaining": 1,
+  "sold_individually": true,
+  "add_to_cart": {
+    "text": "string-value",
+    "description": "A sample description",
+    "url": "https://example.com/path"
+  }
+}

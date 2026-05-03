@@ -1,0 +1,44 @@
+{
+  "@context": {
+    "@version": 1.1,
+    "woo": "https://woocommerce.dev/schema/",
+    "schema": "https://schema.org/",
+    "dcterms": "http://purl.org/dc/terms/",
+    "xsd": "http://www.w3.org/2001/XMLSchema#",
+    "ShippingMethod": "woo:ShippingMethod",
+    "id": {
+      "@id": "woo:id",
+      "@type": "xsd:integer"
+    },
+    "instanceId": {
+      "@id": "woo:instance_id",
+      "@type": "xsd:integer"
+    },
+    "title": {
+      "@id": "woo:title",
+      "@type": "xsd:string"
+    },
+    "order": {
+      "@id": "woo:order",
+      "@type": "xsd:integer"
+    },
+    "enabled": {
+      "@id": "woo:enabled",
+      "@type": "xsd:boolean"
+    },
+    "methodId": {
+      "@id": "woo:method_id",
+      "@type": "xsd:string"
+    },
+    "methodTitle": {
+      "@id": "woo:method_title",
+      "@type": "xsd:string"
+    },
+    "methodDescription": {
+      "@id": "woo:method_description",
+      "@type": "xsd:string"
+    },
+    "ShippingZone": "woo:ShippingZone",
+    "name": "schema:name"
+  }
+}

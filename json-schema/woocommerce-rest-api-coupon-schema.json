@@ -1,0 +1,138 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/woocommerce/refs/heads/main/json-schema/woocommerce-rest-api-coupon-schema.json",
+  "title": "Coupon",
+  "description": "A WooCommerce discount coupon.",
+  "type": "object",
+  "properties": {
+    "id": {
+      "type": "integer",
+      "description": "Coupon unique identifier.",
+      "example": 1
+    },
+    "code": {
+      "type": "string",
+      "description": "Coupon code used at checkout.",
+      "example": "string-value"
+    },
+    "amount": {
+      "type": "string",
+      "description": "The amount of discount as a decimal string.",
+      "example": "string-value"
+    },
+    "discount_type": {
+      "type": "string",
+      "description": "Determines the type of discount. Options: percent, fixed_cart, fixed_product.",
+      "enum": [
+        "percent",
+        "fixed_cart",
+        "fixed_product"
+      ],
+      "example": "percent"
+    },
+    "description": {
+      "type": "string",
+      "description": "Coupon description shown in the admin.",
+      "example": "A sample description"
+    },
+    "date_expires": {
+      "type": "string",
+      "format": "date-time",
+      "description": "Date the coupon expires, in the site timezone.",
+      "nullable": true,
+      "example": "2026-05-03T14:30:00Z"
+    },
+    "usage_count": {
+      "type": "integer",
+      "description": "Number of times the coupon has been used.",
+      "example": 1
+    },
+    "individual_use": {
+      "type": "boolean",
+      "description": "Whether the coupon can only be used alone (not with other coupons).",
+      "example": true
+    },
+    "product_ids": {
+      "type": "array",
+      "description": "List of product IDs the coupon applies to.",
+      "items": {
+        "type": "integer"
+      },
+      "example": [
+        1
+      ]
+    },
+    "excluded_product_ids": {
+      "type": "array",
+      "description": "List of product IDs the coupon cannot be used for.",
+      "items": {
+        "type": "integer"
+      },
+      "example": [
+        1
+      ]
+    },
+    "usage_limit": {
+      "type": "integer",
+      "description": "Maximum number of times the coupon can be used in total.",
+      "nullable": true,
+      "example": 1
+    },
+    "usage_limit_per_user": {
+      "type": "integer",
+      "description": "Maximum number of times per customer the coupon can be used.",
+      "nullable": true,
+      "example": 1
+    },
+    "minimum_amount": {
+      "type": "string",
+      "description": "Minimum order amount to use the coupon.",
+      "example": "string-value"
+    },
+    "maximum_amount": {
+      "type": "string",
+      "description": "Maximum order amount to use the coupon.",
+      "example": "string-value"
+    },
+    "date_created": {
+      "type": "string",
+      "format": "date-time",
+      "description": "Date the coupon was created.",
+      "example": "2026-05-03T14:30:00Z"
+    },
+    "date_modified": {
+      "type": "string",
+      "format": "date-time",
+      "description": "Date the coupon was last modified.",
+      "example": "2026-05-03T14:30:00Z"
+    },
+    "meta_data": {
+      "type": "array",
+      "description": "Custom metadata.",
+      "items": {
+        "type": "object",
+        "description": "Custom metadata key-value entry.",
+        "properties": {
+          "id": {
+            "type": "integer",
+            "description": "Metadata unique identifier.",
+            "example": 1
+          },
+          "key": {
+            "type": "string",
+            "description": "Metadata key.",
+            "example": "string-value"
+          },
+          "value": {
+            "type": "string",
+            "description": "Metadata value.",
+            "example": "string-value"
+          }
+        }
+      },
+      "example": [
+        "string-value"
+      ]
+    }
+  }
+}

@@ -1,0 +1,19 @@
+{
+  "total_items": "string-value",
+  "total_items_tax": "string-value",
+  "total_fees": "string-value",
+  "total_fees_tax": "string-value",
+  "total_discount": "string-value",
+  "total_discount_tax": "string-value",
+  "total_shipping": "string-value",
+  "total_shipping_tax": "string-value",
+  "total_price": "string-value",
+  "total_tax": "string-value",
+  "tax_lines": [
+    {
+      "name": "Example Name",
+      "price": "string-value",
+      "rate": "string-value"
+    }
+  ]
+}

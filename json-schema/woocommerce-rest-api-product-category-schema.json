@@ -1,0 +1,76 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/woocommerce/refs/heads/main/json-schema/woocommerce-rest-api-product-category-schema.json",
+  "title": "ProductCategory",
+  "description": "A product category used to organize the store catalog.",
+  "type": "object",
+  "properties": {
+    "id": {
+      "type": "integer",
+      "description": "Category unique identifier.",
+      "example": 1
+    },
+    "name": {
+      "type": "string",
+      "description": "Category name.",
+      "example": "Example Name"
+    },
+    "slug": {
+      "type": "string",
+      "description": "URL-friendly category identifier.",
+      "example": "string-value"
+    },
+    "parent": {
+      "type": "integer",
+      "description": "Parent category ID (0 for top-level categories).",
+      "example": 1
+    },
+    "description": {
+      "type": "string",
+      "description": "Category description.",
+      "example": "A sample description"
+    },
+    "display": {
+      "type": "string",
+      "description": "Category archive display type. Options: default, products, subcategories, both.",
+      "example": "string-value"
+    },
+    "image": {
+      "type": "object",
+      "description": "An image associated with a product.",
+      "properties": {
+        "id": {
+          "type": "integer",
+          "description": "Image unique identifier.",
+          "example": 1
+        },
+        "src": {
+          "type": "string",
+          "format": "uri",
+          "description": "Image URL.",
+          "example": "https://example.com/path"
+        },
+        "name": {
+          "type": "string",
+          "description": "Image name.",
+          "example": "Example Name"
+        },
+        "alt": {
+          "type": "string",
+          "description": "Image alternative text.",
+          "example": "string-value"
+        }
+      }
+    },
+    "menu_order": {
+      "type": "integer",
+      "description": "Menu order position for sorting.",
+      "example": 1
+    },
+    "count": {
+      "type": "integer",
+      "description": "Number of products in the category.",
+      "example": 1
+    }
+  }
+}

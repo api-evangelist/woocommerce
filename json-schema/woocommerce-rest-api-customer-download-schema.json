@@ -1,0 +1,76 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/woocommerce/refs/heads/main/json-schema/woocommerce-rest-api-customer-download-schema.json",
+  "title": "CustomerDownload",
+  "description": "A downloadable file accessible to a customer.",
+  "type": "object",
+  "properties": {
+    "download_id": {
+      "type": "string",
+      "description": "Download unique identifier.",
+      "example": "500123"
+    },
+    "download_url": {
+      "type": "string",
+      "format": "uri",
+      "description": "URL where the customer can download the file.",
+      "example": "https://example.com/path"
+    },
+    "product_id": {
+      "type": "integer",
+      "description": "Product ID associated with this download.",
+      "example": 1
+    },
+    "product_name": {
+      "type": "string",
+      "description": "Product name at time of purchase.",
+      "example": "Example Name"
+    },
+    "download_name": {
+      "type": "string",
+      "description": "Name of the downloadable file.",
+      "example": "Example Name"
+    },
+    "order_id": {
+      "type": "integer",
+      "description": "Order ID for this download.",
+      "example": 1
+    },
+    "order_key": {
+      "type": "string",
+      "description": "Order key for verification.",
+      "example": "string-value"
+    },
+    "downloads_remaining": {
+      "type": "string",
+      "description": "Number of downloads remaining (empty string for unlimited).",
+      "example": "string-value"
+    },
+    "access_expires": {
+      "type": "string",
+      "format": "date-time",
+      "description": "Date and time when download access expires.",
+      "nullable": true,
+      "example": "2026-05-03T14:30:00Z"
+    },
+    "file": {
+      "type": "object",
+      "description": "File information.",
+      "properties": {
+        "name": {
+          "type": "string",
+          "description": "File name."
+        },
+        "file": {
+          "type": "string",
+          "format": "uri",
+          "description": "File URL."
+        }
+      },
+      "example": {
+        "name": "Example Name",
+        "file": "https://example.com/path"
+      }
+    }
+  }
+}

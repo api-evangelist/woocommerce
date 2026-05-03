@@ -1,0 +1,30 @@
+{
+  "@context": {
+    "@version": 1.1,
+    "woo": "https://woocommerce.dev/schema/",
+    "schema": "https://schema.org/",
+    "dcterms": "http://purl.org/dc/terms/",
+    "xsd": "http://www.w3.org/2001/XMLSchema#",
+    "ProductCollectionData": "woo:ProductCollectionData",
+    "priceRange": {
+      "@id": "woo:price_range",
+      "@type": "@id"
+    },
+    "minPrice": {
+      "@id": "woo:min_price",
+      "@type": "xsd:string"
+    },
+    "maxPrice": {
+      "@id": "woo:max_price",
+      "@type": "xsd:string"
+    },
+    "attributeCounts": {
+      "@id": "woo:attribute_counts",
+      "@container": "@set"
+    },
+    "ratingCounts": {
+      "@id": "woo:rating_counts",
+      "@container": "@set"
+    }
+  }
+}

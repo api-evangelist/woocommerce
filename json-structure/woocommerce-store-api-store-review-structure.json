@@ -1,0 +1,46 @@
+{
+  "$schema": "https://json-structure.org/meta/core/v0/#",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/woocommerce/refs/heads/main/json-structure/woocommerce-store-api-store-review-structure.json",
+  "name": "StoreReview",
+  "description": "A customer review on a product.",
+  "type": "object",
+  "properties": {
+    "id": {
+      "type": "int32",
+      "description": "Review unique identifier.",
+      "example": 1
+    },
+    "date_created": {
+      "type": "datetime",
+      "description": "Date the review was submitted.",
+      "example": "2026-05-03T14:30:00Z"
+    },
+    "product_id": {
+      "type": "int32",
+      "description": "ID of the reviewed product.",
+      "example": 1
+    },
+    "reviewer": {
+      "type": "string",
+      "description": "Reviewer display name.",
+      "example": "string-value"
+    },
+    "review": {
+      "type": "string",
+      "description": "Review text content.",
+      "example": "string-value"
+    },
+    "rating": {
+      "type": "int32",
+      "description": "Star rating from 1 to 5.",
+      "minimum": 1,
+      "maximum": 5,
+      "example": 1
+    },
+    "verified": {
+      "type": "boolean",
+      "description": "Whether the reviewer purchased the product.",
+      "example": true
+    }
+  }
+}

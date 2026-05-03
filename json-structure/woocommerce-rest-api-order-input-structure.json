@@ -1,0 +1,278 @@
+{
+  "$schema": "https://json-structure.org/meta/core/v0/#",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/woocommerce/refs/heads/main/json-structure/woocommerce-rest-api-order-input-structure.json",
+  "name": "OrderInput",
+  "description": "Input for creating or updating an order.",
+  "type": "object",
+  "properties": {
+    "status": {
+      "type": "string",
+      "description": "Order status.",
+      "enum": [
+        "pending",
+        "processing",
+        "on-hold",
+        "completed",
+        "cancelled",
+        "refunded",
+        "failed"
+      ],
+      "example": "pending"
+    },
+    "customer_id": {
+      "type": "int32",
+      "description": "Customer ID (0 for guest).",
+      "example": 1
+    },
+    "customer_note": {
+      "type": "string",
+      "description": "Note from customer.",
+      "example": "string-value"
+    },
+    "billing": {
+      "type": "object",
+      "description": "Billing or shipping address associated with a customer or order.",
+      "properties": {
+        "first_name": {
+          "type": "string",
+          "description": "First name.",
+          "example": "Example Name"
+        },
+        "last_name": {
+          "type": "string",
+          "description": "Last name.",
+          "example": "Example Name"
+        },
+        "company": {
+          "type": "string",
+          "description": "Company name.",
+          "example": "string-value"
+        },
+        "address_1": {
+          "type": "string",
+          "description": "Address line 1.",
+          "example": "string-value"
+        },
+        "address_2": {
+          "type": "string",
+          "description": "Address line 2.",
+          "example": "string-value"
+        },
+        "city": {
+          "type": "string",
+          "description": "City name.",
+          "example": "string-value"
+        },
+        "state": {
+          "type": "string",
+          "description": "ISO code or name of the state, province, or district.",
+          "example": "string-value"
+        },
+        "postcode": {
+          "type": "string",
+          "description": "Postal code.",
+          "example": "string-value"
+        },
+        "country": {
+          "type": "string",
+          "description": "ISO 3166-1 alpha-2 country code.",
+          "example": "string-value"
+        },
+        "email": {
+          "type": "string",
+          "format": "email",
+          "description": "Email address (billing only).",
+          "example": "user@example.com"
+        },
+        "phone": {
+          "type": "string",
+          "description": "Phone number (billing only).",
+          "example": "string-value"
+        }
+      }
+    },
+    "shipping": {
+      "type": "object",
+      "description": "Billing or shipping address associated with a customer or order.",
+      "properties": {
+        "first_name": {
+          "type": "string",
+          "description": "First name.",
+          "example": "Example Name"
+        },
+        "last_name": {
+          "type": "string",
+          "description": "Last name.",
+          "example": "Example Name"
+        },
+        "company": {
+          "type": "string",
+          "description": "Company name.",
+          "example": "string-value"
+        },
+        "address_1": {
+          "type": "string",
+          "description": "Address line 1.",
+          "example": "string-value"
+        },
+        "address_2": {
+          "type": "string",
+          "description": "Address line 2.",
+          "example": "string-value"
+        },
+        "city": {
+          "type": "string",
+          "description": "City name.",
+          "example": "string-value"
+        },
+        "state": {
+          "type": "string",
+          "description": "ISO code or name of the state, province, or district.",
+          "example": "string-value"
+        },
+        "postcode": {
+          "type": "string",
+          "description": "Postal code.",
+          "example": "string-value"
+        },
+        "country": {
+          "type": "string",
+          "description": "ISO 3166-1 alpha-2 country code.",
+          "example": "string-value"
+        },
+        "email": {
+          "type": "string",
+          "format": "email",
+          "description": "Email address (billing only).",
+          "example": "user@example.com"
+        },
+        "phone": {
+          "type": "string",
+          "description": "Phone number (billing only).",
+          "example": "string-value"
+        }
+      }
+    },
+    "payment_method": {
+      "type": "string",
+      "description": "Payment method ID.",
+      "example": "string-value"
+    },
+    "payment_method_title": {
+      "type": "string",
+      "description": "Payment method display name.",
+      "example": "Example Name"
+    },
+    "line_items": {
+      "type": "array",
+      "description": "Line items to include in the order.",
+      "items": {
+        "type": "object",
+        "description": "A product line item within an order.",
+        "properties": {
+          "id": {
+            "type": "int32",
+            "description": "Line item unique identifier.",
+            "example": 1
+          },
+          "name": {
+            "type": "string",
+            "description": "Product name at time of purchase.",
+            "example": "Example Name"
+          },
+          "product_id": {
+            "type": "int32",
+            "description": "Product ID.",
+            "example": 1
+          },
+          "variation_id": {
+            "type": "int32",
+            "description": "Variation ID (0 if not a variation).",
+            "example": 1
+          },
+          "quantity": {
+            "type": "int32",
+            "description": "Quantity ordered.",
+            "example": 1
+          },
+          "tax_class": {
+            "type": "string",
+            "description": "Tax class used for this line item.",
+            "example": "string-value"
+          },
+          "subtotal": {
+            "type": "string",
+            "description": "Line subtotal (before discounts) as a decimal string.",
+            "example": "string-value"
+          },
+          "subtotal_tax": {
+            "type": "string",
+            "description": "Line subtotal tax as a decimal string.",
+            "example": "string-value"
+          },
+          "total": {
+            "type": "string",
+            "description": "Line total (after discounts) as a decimal string.",
+            "example": "string-value"
+          },
+          "total_tax": {
+            "type": "string",
+            "description": "Line total tax as a decimal string.",
+            "example": "string-value"
+          },
+          "sku": {
+            "type": "string",
+            "description": "Product SKU.",
+            "example": "string-value"
+          },
+          "price": {
+            "type": "double",
+            "description": "Product price at time of purchase.",
+            "example": 10.5
+          },
+          "meta_data": {
+            "type": "array",
+            "description": "Metadata for the line item (e.g. variation attributes).",
+            "items": {
+              "$ref": "#/components/schemas/MetaData"
+            },
+            "example": [
+              "string-value"
+            ]
+          }
+        }
+      },
+      "example": [
+        "string-value"
+      ]
+    },
+    "meta_data": {
+      "type": "array",
+      "description": "Custom metadata.",
+      "items": {
+        "type": "object",
+        "description": "Custom metadata key-value entry.",
+        "properties": {
+          "id": {
+            "type": "int32",
+            "description": "Metadata unique identifier.",
+            "example": 1
+          },
+          "key": {
+            "type": "string",
+            "description": "Metadata key.",
+            "example": "string-value"
+          },
+          "value": {
+            "type": "string",
+            "description": "Metadata value.",
+            "example": "string-value"
+          }
+        }
+      },
+      "example": [
+        "string-value"
+      ]
+    }
+  }
+}

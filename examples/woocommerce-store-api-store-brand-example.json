@@ -1,0 +1,15 @@
+{
+  "id": 1,
+  "name": "Example Name",
+  "slug": "string-value",
+  "description": "A sample description",
+  "image": {
+    "id": 1,
+    "src": "https://example.com/path",
+    "thumbnail": "https://example.com/path",
+    "srcset": "string-value",
+    "sizes": "string-value",
+    "name": "Example Name",
+    "alt": "string-value"
+  }
+}

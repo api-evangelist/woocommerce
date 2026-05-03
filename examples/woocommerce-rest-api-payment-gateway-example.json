@@ -1,0 +1,13 @@
+{
+  "id": "500123",
+  "title": "Example Name",
+  "description": "A sample description",
+  "order": 1,
+  "enabled": true,
+  "method_title": "Example Name",
+  "method_description": "A sample description",
+  "method_supports": [
+    "string-value"
+  ],
+  "settings": {}
+}

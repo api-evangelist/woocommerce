@@ -1,0 +1,59 @@
+{
+  "@context": {
+    "@version": 1.1,
+    "woo": "https://woocommerce.dev/schema/",
+    "schema": "https://schema.org/",
+    "dcterms": "http://purl.org/dc/terms/",
+    "xsd": "http://www.w3.org/2001/XMLSchema#",
+    "ProductVariationInput": "woo:ProductVariationInput",
+    "sku": {
+      "@id": "woo:sku",
+      "@type": "xsd:string"
+    },
+    "regularPrice": {
+      "@id": "woo:regular_price",
+      "@type": "xsd:string"
+    },
+    "salePrice": {
+      "@id": "woo:sale_price",
+      "@type": "xsd:string"
+    },
+    "status": {
+      "@id": "woo:status",
+      "@type": "xsd:string"
+    },
+    "manageStock": {
+      "@id": "woo:manage_stock",
+      "@type": "xsd:boolean"
+    },
+    "stockQuantity": {
+      "@id": "woo:stock_quantity",
+      "@type": "xsd:integer"
+    },
+    "stockStatus": {
+      "@id": "woo:stock_status",
+      "@type": "xsd:string"
+    },
+    "image": {
+      "@id": "woo:image",
+      "@type": "@id"
+    },
+    "id": {
+      "@id": "woo:id",
+      "@type": "xsd:integer"
+    },
+    "src": {
+      "@id": "woo:src",
+      "@type": "@id"
+    },
+    "name": "schema:name",
+    "alt": {
+      "@id": "woo:alt",
+      "@type": "xsd:string"
+    },
+    "attributes": {
+      "@id": "woo:attributes",
+      "@container": "@set"
+    }
+  }
+}

@@ -1,0 +1,9 @@
+{
+  "amount": "string-value",
+  "reason": "string-value",
+  "refunded_by": 1,
+  "api_refund": true,
+  "line_items": [
+    "string-value"
+  ]
+}

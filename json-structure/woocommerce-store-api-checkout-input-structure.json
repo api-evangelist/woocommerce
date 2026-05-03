@@ -1,0 +1,175 @@
+{
+  "$schema": "https://json-structure.org/meta/core/v0/#",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/woocommerce/refs/heads/main/json-structure/woocommerce-store-api-checkout-input-structure.json",
+  "name": "CheckoutInput",
+  "description": "Input payload for submitting or updating a checkout.",
+  "type": "object",
+  "properties": {
+    "billing_address": {
+      "type": "object",
+      "description": "A customer billing or shipping address in the Store API context.",
+      "properties": {
+        "first_name": {
+          "type": "string",
+          "description": "First name.",
+          "example": "Example Name"
+        },
+        "last_name": {
+          "type": "string",
+          "description": "Last name.",
+          "example": "Example Name"
+        },
+        "company": {
+          "type": "string",
+          "description": "Company name.",
+          "example": "string-value"
+        },
+        "address_1": {
+          "type": "string",
+          "description": "Address line 1.",
+          "example": "string-value"
+        },
+        "address_2": {
+          "type": "string",
+          "description": "Address line 2.",
+          "example": "string-value"
+        },
+        "city": {
+          "type": "string",
+          "description": "City.",
+          "example": "string-value"
+        },
+        "state": {
+          "type": "string",
+          "description": "State or province code.",
+          "example": "string-value"
+        },
+        "postcode": {
+          "type": "string",
+          "description": "Postal code.",
+          "example": "string-value"
+        },
+        "country": {
+          "type": "string",
+          "description": "ISO 3166-1 alpha-2 country code.",
+          "example": "string-value"
+        },
+        "email": {
+          "type": "string",
+          "format": "email",
+          "description": "Email address (billing only).",
+          "example": "user@example.com"
+        },
+        "phone": {
+          "type": "string",
+          "description": "Phone number.",
+          "example": "string-value"
+        }
+      }
+    },
+    "shipping_address": {
+      "type": "object",
+      "description": "A customer billing or shipping address in the Store API context.",
+      "properties": {
+        "first_name": {
+          "type": "string",
+          "description": "First name.",
+          "example": "Example Name"
+        },
+        "last_name": {
+          "type": "string",
+          "description": "Last name.",
+          "example": "Example Name"
+        },
+        "company": {
+          "type": "string",
+          "description": "Company name.",
+          "example": "string-value"
+        },
+        "address_1": {
+          "type": "string",
+          "description": "Address line 1.",
+          "example": "string-value"
+        },
+        "address_2": {
+          "type": "string",
+          "description": "Address line 2.",
+          "example": "string-value"
+        },
+        "city": {
+          "type": "string",
+          "description": "City.",
+          "example": "string-value"
+        },
+        "state": {
+          "type": "string",
+          "description": "State or province code.",
+          "example": "string-value"
+        },
+        "postcode": {
+          "type": "string",
+          "description": "Postal code.",
+          "example": "string-value"
+        },
+        "country": {
+          "type": "string",
+          "description": "ISO 3166-1 alpha-2 country code.",
+          "example": "string-value"
+        },
+        "email": {
+          "type": "string",
+          "format": "email",
+          "description": "Email address (billing only).",
+          "example": "user@example.com"
+        },
+        "phone": {
+          "type": "string",
+          "description": "Phone number.",
+          "example": "string-value"
+        }
+      }
+    },
+    "customer_note": {
+      "type": "string",
+      "description": "Optional note from the customer.",
+      "example": "string-value"
+    },
+    "create_account": {
+      "type": "boolean",
+      "description": "Whether to create a new customer account on checkout.",
+      "example": true
+    },
+    "payment_method": {
+      "type": "string",
+      "description": "Payment method ID to use for this order.",
+      "example": "string-value"
+    },
+    "payment_data": {
+      "type": "array",
+      "description": "Additional payment gateway data (e.g. token, nonce).",
+      "items": {
+        "type": "object",
+        "properties": {
+          "key": {
+            "type": "string",
+            "description": "Payment data key."
+          },
+          "value": {
+            "type": "string",
+            "description": "Payment data value."
+          }
+        }
+      },
+      "example": [
+        {
+          "key": "string-value",
+          "value": "string-value"
+        }
+      ]
+    }
+  },
+  "required": [
+    "billing_address",
+    "payment_method"
+  ]
+}

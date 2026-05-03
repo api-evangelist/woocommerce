@@ -1,0 +1,9 @@
+{
+  "id": 1,
+  "date_created": "2026-05-03T14:30:00Z",
+  "product_id": 1,
+  "reviewer": "string-value",
+  "review": "string-value",
+  "rating": 1,
+  "verified": true
+}

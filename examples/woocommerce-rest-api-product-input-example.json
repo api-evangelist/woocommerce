@@ -1,0 +1,36 @@
+{
+  "name": "Example Name",
+  "type": "simple",
+  "status": "draft",
+  "featured": true,
+  "description": "A sample description",
+  "short_description": "A sample description",
+  "sku": "string-value",
+  "regular_price": "string-value",
+  "sale_price": "string-value",
+  "virtual": true,
+  "downloadable": true,
+  "manage_stock": true,
+  "stock_quantity": 1,
+  "stock_status": "instock",
+  "weight": "string-value",
+  "categories": [
+    {
+      "id": 1
+    }
+  ],
+  "tags": [
+    {
+      "id": 1
+    }
+  ],
+  "images": [
+    "string-value"
+  ],
+  "attributes": [
+    "string-value"
+  ],
+  "meta_data": [
+    "string-value"
+  ]
+}

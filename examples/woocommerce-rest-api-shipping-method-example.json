@@ -1,0 +1,10 @@
+{
+  "id": 1,
+  "instance_id": 1,
+  "title": "Example Name",
+  "order": 1,
+  "enabled": true,
+  "method_id": "500123",
+  "method_title": "Example Name",
+  "method_description": "A sample description"
+}

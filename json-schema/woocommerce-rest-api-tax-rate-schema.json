@@ -1,0 +1,64 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/woocommerce/refs/heads/main/json-schema/woocommerce-rest-api-tax-rate-schema.json",
+  "title": "TaxRate",
+  "description": "A configured tax rate applied at checkout.",
+  "type": "object",
+  "properties": {
+    "id": {
+      "type": "integer",
+      "description": "Tax rate unique identifier.",
+      "example": 1
+    },
+    "country": {
+      "type": "string",
+      "description": "ISO 3166-1 alpha-2 country code for this rate.",
+      "example": "string-value"
+    },
+    "state": {
+      "type": "string",
+      "description": "State code for this rate (empty for country-wide rates).",
+      "example": "string-value"
+    },
+    "postcode": {
+      "type": "string",
+      "description": "Postcode or range for this rate.",
+      "example": "string-value"
+    },
+    "city": {
+      "type": "string",
+      "description": "City name for this rate.",
+      "example": "string-value"
+    },
+    "rate": {
+      "type": "string",
+      "description": "Tax rate percentage as a decimal string (e.g. 20.0000).",
+      "example": "string-value"
+    },
+    "name": {
+      "type": "string",
+      "description": "Tax rate label shown to customers.",
+      "example": "Example Name"
+    },
+    "priority": {
+      "type": "integer",
+      "description": "Priority of this tax rate (used when multiple rates match the same address).",
+      "example": 1
+    },
+    "compound": {
+      "type": "boolean",
+      "description": "Whether this is a compound tax rate (applied on top of other taxes).",
+      "example": true
+    },
+    "shipping": {
+      "type": "boolean",
+      "description": "Whether the tax applies to shipping costs.",
+      "example": true
+    },
+    "class": {
+      "type": "string",
+      "description": "Tax class slug. Standard class is identified by an empty string.",
+      "example": "string-value"
+    }
+  }
+}
