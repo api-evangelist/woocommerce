@@ -1,0 +1,13 @@
+{
+  "repo": "woocommerce",
+  "feeds": [
+    {
+      "source": "https://developer.woocommerce.com/blog/",
+      "feed_url": "https://developer.woocommerce.com/feed/",
+      "saved": 10,
+      "title": "The WooCommerce Developer Blog"
+    }
+  ],
+  "post_count": 10,
+  "fetched": "2026-05-03T23:38:18Z"
+}
