@@ -1,0 +1,33 @@
+specification: API Commons Rate Limits
+specificationVersion: '0.1'
+schema: https://raw.githubusercontent.com/api-evangelist/interface-research/main/schema/api-commons.yml#/$defs/RateLimits
+provider: WooCommerce
+providerId: woocommerce
+created: '2026-05-04'
+modified: '2026-05-04'
+reconciled: true
+tags:
+  - Rate Limiting
+  - E-Commerce
+description: WooCommerce REST API throughput depends on hosting; no platform-imposed limit.
+sources:
+  - https://woocommerce.com/pricing/
+  - https://woocommerce.github.io/woocommerce-rest-api-docs/
+headers: {}
+responseCodes:
+  throttled: 429
+  tooManyRequests: 429
+limits:
+  - name: REST API
+    scope: site
+    metric: requests_per_second
+    limit: host-dependent
+  - name: Bulk operations
+    scope: request
+    metric: items
+    limit: 100
+    timeFrame: request
+  - name: Webhooks
+    scope: site
+    metric: deliveries_per_second
+    limit: host-dependent

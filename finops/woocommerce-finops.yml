@@ -1,0 +1,58 @@
+specification: FinOps Framework
+specificationVersion: '1.0'
+schema: https://www.finops.org/framework/
+provider: WooCommerce
+providerId: woocommerce
+created: '2026-05-04'
+modified: '2026-05-04'
+reconciled: true
+tags:
+  - FinOps
+  - FOCUS
+  - E-Commerce
+description: FOCUS-aligned FinOps for WooCommerce.
+sources:
+  - https://woocommerce.com/pricing/
+alignedWith:
+  framework: FinOps Foundation Framework
+  frameworkUrl: https://www.finops.org/framework/
+  dataSpec: FOCUS
+  dataSpecVersion: '1.3'
+  dataSpecUrl: https://focus.finops.org/focus-specification/v1-3/
+publisherName: WooCommerce
+serviceCategory: E-Commerce
+billingModel:
+  pricingCategory: Free Core + Hosting + Extensions + Payment Fees
+  billingFrequency: Monthly
+  billingCurrency: USD
+focusColumns:
+  ServiceName: WooCommerce
+  ServiceCategory: E-Commerce
+  ProviderName: WooCommerce
+  PublisherName: WooCommerce
+  BillingCurrency: USD
+meters:
+  - name: hosting_costs
+    unit: month
+    aggregation: sum
+  - name: payment_processing_fees
+    unit: USD
+    aggregation: sum
+  - name: extension_subscriptions
+    unit: extension-year
+    aggregation: max
+  - name: transactions
+    unit: transaction
+    aggregation: sum
+  - name: transaction_volume
+    unit: USD
+    aggregation: sum
+principles:
+  - name: Visibility
+    description: Track WooCommerce consumption monthly.
+  - name: Allocation
+    description: Tag usage to teams/cost centers.
+  - name: Optimization
+    description: Right-size; reclaim unused entitlements.
+  - name: Accountability
+    description: Set spend alerts; quarterly review.
