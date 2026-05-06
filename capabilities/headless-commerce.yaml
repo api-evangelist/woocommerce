@@ -1,206 +1,622 @@
-naftiko: "1.0.0-alpha1"
-
+naftiko: 1.0.0-alpha2
 info:
-  label: "WooCommerce Headless Commerce"
-  description: >-
-    Headless commerce capability combining the public WooCommerce Store API with
-    authenticated REST API operations for building custom frontends. Used by
-    frontend developers and headless architects building React, Vue, or custom
-    storefronts with Woo as the commerce backend.
+  label: WooCommerce Headless Commerce
+  description: Headless commerce capability combining the public WooCommerce Store API with authenticated REST API operations
+    for building custom frontends. Used by frontend developers and headless architects building React, Vue, or custom storefronts
+    with Woo as the commerce backend.
   tags:
-    - Cart
-    - Checkout
-    - eCommerce
-    - Frontend
-    - Headless
-    - WooCommerce
-  created: "2026-05-03"
-  modified: "2026-05-03"
-
+  - Cart
+  - Checkout
+  - eCommerce
+  - Frontend
+  - Headless
+  - WooCommerce
+  created: '2026-05-03'
+  modified: '2026-05-06'
 binds:
-  - namespace: env
-    keys:
-      WOOCOMMERCE_CONSUMER_KEY: WOOCOMMERCE_CONSUMER_KEY
-      WOOCOMMERCE_CONSUMER_SECRET: WOOCOMMERCE_CONSUMER_SECRET
-
+- namespace: env
+  keys:
+    WOOCOMMERCE_CONSUMER_KEY: WOOCOMMERCE_CONSUMER_KEY
+    WOOCOMMERCE_CONSUMER_SECRET: WOOCOMMERCE_CONSUMER_SECRET
 capability:
   consumes:
-    - import: woo-store
-      location: ./shared/store-api.yaml
-    - import: woo-rest
-      location: ./shared/rest-api.yaml
-
+  - type: http
+    namespace: woo-store
+    baseUri: https://example.com/wp-json/wc/store/v1
+    description: WooCommerce Store API v1 for public storefront operations.
+    resources:
+    - name: products
+      path: /products
+      description: Browse the public product catalog.
+      operations:
+      - name: list-store-products
+        method: GET
+        description: List published products available for purchase.
+        inputParameters:
+        - name: page
+          in: query
+          type: integer
+          required: false
+          description: Page number.
+        - name: per_page
+          in: query
+          type: integer
+          required: false
+          description: Items per page.
+        - name: search
+          in: query
+          type: string
+          required: false
+          description: Search term.
+        - name: category
+          in: query
+          type: string
+          required: false
+          description: Filter by category slug.
+        - name: on_sale
+          in: query
+          type: boolean
+          required: false
+          description: Return only on-sale products.
+        outputRawFormat: json
+        outputParameters:
+        - name: products
+          type: array
+          value: $.
+      - name: get-store-product
+        method: GET
+        description: Get a single product by ID.
+        inputParameters:
+        - name: id
+          in: path
+          type: integer
+          required: true
+          description: Product ID.
+        outputRawFormat: json
+        outputParameters:
+        - name: product
+          type: object
+          value: $.
+    - name: cart
+      path: /cart
+      description: Manage the current shopper's cart.
+      operations:
+      - name: get-cart
+        method: GET
+        description: Get the current shopper's cart contents.
+        inputParameters: []
+        outputRawFormat: json
+        outputParameters:
+        - name: cart
+          type: object
+          value: $.
+      - name: add-to-cart
+        method: POST
+        description: Add an item to the cart.
+        inputParameters: []
+        body:
+          type: json
+          data:
+            id: '{{tools.product_id}}'
+            quantity: '{{tools.quantity}}'
+        outputRawFormat: json
+        outputParameters:
+        - name: cart_item
+          type: object
+          value: $.
+      - name: remove-cart-item
+        method: DELETE
+        description: Remove an item from the cart.
+        inputParameters:
+        - name: key
+          in: path
+          type: string
+          required: true
+          description: Cart item key.
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    - name: checkout
+      path: /checkout
+      description: Submit the checkout and place an order.
+      operations:
+      - name: submit-checkout
+        method: POST
+        description: Submit checkout details and place an order.
+        inputParameters: []
+        body:
+          type: json
+          data:
+            payment_method: '{{tools.payment_method}}'
+            billing_address: '{{tools.billing_address}}'
+            shipping_address: '{{tools.shipping_address}}'
+        outputRawFormat: json
+        outputParameters:
+        - name: order
+          type: object
+          value: $.
+    - name: categories
+      path: /products/categories
+      description: Browse product categories.
+      operations:
+      - name: list-categories
+        method: GET
+        description: List all product categories.
+        inputParameters:
+        - name: page
+          in: query
+          type: integer
+          required: false
+          description: Page number.
+        outputRawFormat: json
+        outputParameters:
+        - name: categories
+          type: array
+          value: $.
+  - type: http
+    namespace: woo-rest
+    baseUri: https://example.com/wp-json/wc/v3
+    description: WooCommerce REST API v3 for complete store management.
+    authentication:
+      type: basic
+      username: '{{WOOCOMMERCE_CONSUMER_KEY}}'
+      password: '{{WOOCOMMERCE_CONSUMER_SECRET}}'
+    resources:
+    - name: products
+      path: /products
+      description: Manage WooCommerce products.
+      operations:
+      - name: list-products
+        method: GET
+        description: List all products with optional filtering and pagination.
+        inputParameters:
+        - name: page
+          in: query
+          type: integer
+          required: false
+          description: Page number.
+        - name: per_page
+          in: query
+          type: integer
+          required: false
+          description: Items per page.
+        - name: status
+          in: query
+          type: string
+          required: false
+          description: Filter by product status.
+        - name: category
+          in: query
+          type: string
+          required: false
+          description: Filter by product category ID.
+        - name: search
+          in: query
+          type: string
+          required: false
+          description: Search term.
+        outputRawFormat: json
+        outputParameters:
+        - name: products
+          type: array
+          value: $.
+      - name: create-product
+        method: POST
+        description: Create a new WooCommerce product.
+        inputParameters: []
+        body:
+          type: json
+          data:
+            name: '{{tools.name}}'
+            type: '{{tools.type}}'
+            status: '{{tools.status}}'
+            regular_price: '{{tools.regular_price}}'
+        outputRawFormat: json
+        outputParameters:
+        - name: product
+          type: object
+          value: $.
+      - name: get-product
+        method: GET
+        description: Get a single product by ID.
+        inputParameters:
+        - name: id
+          in: path
+          type: integer
+          required: true
+          description: Product ID.
+        outputRawFormat: json
+        outputParameters:
+        - name: product
+          type: object
+          value: $.
+      - name: update-product
+        method: PUT
+        description: Update an existing product.
+        inputParameters:
+        - name: id
+          in: path
+          type: integer
+          required: true
+          description: Product ID.
+        body:
+          type: json
+          data:
+            regular_price: '{{tools.regular_price}}'
+            status: '{{tools.status}}'
+        outputRawFormat: json
+        outputParameters:
+        - name: product
+          type: object
+          value: $.
+      - name: delete-product
+        method: DELETE
+        description: Delete a product.
+        inputParameters:
+        - name: id
+          in: path
+          type: integer
+          required: true
+          description: Product ID.
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    - name: orders
+      path: /orders
+      description: Manage WooCommerce orders.
+      operations:
+      - name: list-orders
+        method: GET
+        description: List all orders with optional filtering.
+        inputParameters:
+        - name: page
+          in: query
+          type: integer
+          required: false
+          description: Page number.
+        - name: per_page
+          in: query
+          type: integer
+          required: false
+          description: Items per page.
+        - name: status
+          in: query
+          type: string
+          required: false
+          description: Filter by order status.
+        - name: customer
+          in: query
+          type: integer
+          required: false
+          description: Filter by customer ID.
+        - name: after
+          in: query
+          type: string
+          required: false
+          description: Filter orders after date (ISO 8601).
+        outputRawFormat: json
+        outputParameters:
+        - name: orders
+          type: array
+          value: $.
+      - name: create-order
+        method: POST
+        description: Create a new order.
+        inputParameters: []
+        body:
+          type: json
+          data:
+            payment_method: '{{tools.payment_method}}'
+            billing: '{{tools.billing}}'
+            line_items: '{{tools.line_items}}'
+        outputRawFormat: json
+        outputParameters:
+        - name: order
+          type: object
+          value: $.
+      - name: get-order
+        method: GET
+        description: Get a single order by ID.
+        inputParameters:
+        - name: id
+          in: path
+          type: integer
+          required: true
+          description: Order ID.
+        outputRawFormat: json
+        outputParameters:
+        - name: order
+          type: object
+          value: $.
+      - name: update-order
+        method: PUT
+        description: Update an order status or data.
+        inputParameters:
+        - name: id
+          in: path
+          type: integer
+          required: true
+          description: Order ID.
+        body:
+          type: json
+          data:
+            status: '{{tools.status}}'
+        outputRawFormat: json
+        outputParameters:
+        - name: order
+          type: object
+          value: $.
+    - name: customers
+      path: /customers
+      description: Manage WooCommerce customers.
+      operations:
+      - name: list-customers
+        method: GET
+        description: List all customers.
+        inputParameters:
+        - name: page
+          in: query
+          type: integer
+          required: false
+          description: Page number.
+        - name: per_page
+          in: query
+          type: integer
+          required: false
+          description: Items per page.
+        - name: search
+          in: query
+          type: string
+          required: false
+          description: Search by email or name.
+        outputRawFormat: json
+        outputParameters:
+        - name: customers
+          type: array
+          value: $.
+      - name: get-customer
+        method: GET
+        description: Get a single customer by ID.
+        inputParameters:
+        - name: id
+          in: path
+          type: integer
+          required: true
+          description: Customer ID.
+        outputRawFormat: json
+        outputParameters:
+        - name: customer
+          type: object
+          value: $.
+    - name: coupons
+      path: /coupons
+      description: Manage WooCommerce discount coupons.
+      operations:
+      - name: list-coupons
+        method: GET
+        description: List all coupons.
+        inputParameters:
+        - name: page
+          in: query
+          type: integer
+          required: false
+          description: Page number.
+        - name: search
+          in: query
+          type: string
+          required: false
+          description: Search by coupon code.
+        outputRawFormat: json
+        outputParameters:
+        - name: coupons
+          type: array
+          value: $.
+      - name: create-coupon
+        method: POST
+        description: Create a new discount coupon.
+        inputParameters: []
+        body:
+          type: json
+          data:
+            code: '{{tools.code}}'
+            discount_type: '{{tools.discount_type}}'
+            amount: '{{tools.amount}}'
+        outputRawFormat: json
+        outputParameters:
+        - name: coupon
+          type: object
+          value: $.
+    - name: reports
+      path: /reports/sales
+      description: Retrieve WooCommerce sales reports.
+      operations:
+      - name: get-sales-report
+        method: GET
+        description: Get sales report summary for a date range.
+        inputParameters:
+        - name: period
+          in: query
+          type: string
+          required: false
+          description: 'Report period: week, month, last_month, year.'
+        - name: date_min
+          in: query
+          type: string
+          required: false
+          description: Start date (ISO 8601).
+        - name: date_max
+          in: query
+          type: string
+          required: false
+          description: End date (ISO 8601).
+        outputRawFormat: json
+        outputParameters:
+        - name: report
+          type: object
+          value: $.
   exposes:
-    - type: rest
-      port: 8081
-      namespace: woo-headless-api
-      description: "Unified REST API for headless WooCommerce storefronts."
-      resources:
-        - path: /v1/catalog/products
-          name: catalog-products
-          description: "Public product catalog for the storefront."
-          operations:
-            - method: GET
-              name: browse-products
-              description: "Browse the public product catalog."
-              call: "woo-store.list-store-products"
-              with:
-                search: "rest.search"
-                category: "rest.category"
-                on_sale: "rest.on_sale"
-                min_price: "rest.min_price"
-                max_price: "rest.max_price"
-              outputParameters:
-                - type: array
-                  mapping: "$."
-
-        - path: /v1/catalog/categories
-          name: catalog-categories
-          description: "Product categories for navigation."
-          operations:
-            - method: GET
-              name: list-categories
-              description: "List product categories."
-              call: "woo-store.list-categories"
-              outputParameters:
-                - type: array
-                  mapping: "$."
-
-        - path: /v1/cart
-          name: cart
-          description: "Shopper cart management."
-          operations:
-            - method: GET
-              name: view-cart
-              description: "View current cart."
-              call: "woo-store.get-cart"
-              outputParameters:
-                - type: object
-                  mapping: "$."
-            - method: POST
-              name: add-to-cart
-              description: "Add product to cart."
-              call: "woo-store.add-to-cart"
-              outputParameters:
-                - type: object
-                  mapping: "$."
-
-        - path: /v1/checkout
-          name: checkout
-          description: "Checkout process."
-          operations:
-            - method: POST
-              name: submit-checkout
-              description: "Submit checkout and place order."
-              call: "woo-store.submit-checkout"
-              outputParameters:
-                - type: object
-                  mapping: "$."
-
-        - path: /v1/products
-          name: products-admin
-          description: "Product catalog management (admin)."
-          operations:
-            - method: GET
-              name: list-products-admin
-              description: "List all products including drafts."
-              call: "woo-rest.list-products"
-              with:
-                status: "rest.status"
-              outputParameters:
-                - type: array
-                  mapping: "$."
-
-    - type: mcp
-      port: 9091
-      namespace: woo-headless-mcp
-      transport: http
-      description: "MCP server for AI-assisted headless WooCommerce storefront building."
-      tools:
-        - name: browse-catalog
-          description: "Browse the public WooCommerce product catalog for storefront display."
-          hints:
-            readOnly: true
-          call: "woo-store.list-store-products"
-          with:
-            search: "tools.search"
-            category: "tools.category"
-            on_sale: "tools.on_sale"
-            min_price: "tools.min_price"
-            max_price: "tools.max_price"
-          outputParameters:
-            - type: array
-              mapping: "$."
-
-        - name: get-product-for-display
-          description: "Get full product details for storefront product page rendering."
-          hints:
-            readOnly: true
-          call: "woo-store.get-store-product"
-          with:
-            id: "tools.id"
-          outputParameters:
-            - type: object
-              mapping: "$."
-
-        - name: list-categories-for-nav
-          description: "List product categories for building storefront navigation menus."
-          hints:
-            readOnly: true
-          call: "woo-store.list-categories"
-          outputParameters:
-            - type: array
-              mapping: "$."
-
-        - name: view-current-cart
-          description: "View the current shopper's cart for display in the cart drawer/page."
-          hints:
-            readOnly: true
-          call: "woo-store.get-cart"
-          outputParameters:
-            - type: object
-              mapping: "$."
-
-        - name: add-item-to-cart
-          description: "Add a product to the shopper's cart during product browsing."
-          hints:
-            readOnly: false
-          call: "woo-store.add-to-cart"
-          with:
-            id: "tools.product_id"
-            quantity: "tools.quantity"
-          outputParameters:
-            - type: object
-              mapping: "$."
-
-        - name: remove-from-cart
-          description: "Remove an item from the shopper's cart."
-          hints:
-            readOnly: false
-            destructive: false
-          call: "woo-store.remove-cart-item"
-          with:
-            key: "tools.cart_item_key"
-          outputParameters:
-            - type: object
-              mapping: "$."
-
-        - name: place-order
-          description: "Submit checkout details and place a WooCommerce order."
-          hints:
-            readOnly: false
-          call: "woo-store.submit-checkout"
-          outputParameters:
-            - type: object
-              mapping: "$."
-
-        - name: list-all-products-admin
-          description: "List all products including drafts for admin/build-time rendering."
-          hints:
-            readOnly: true
-          call: "woo-rest.list-products"
-          with:
-            status: "tools.status"
-          outputParameters:
-            - type: array
-              mapping: "$."
+  - type: rest
+    port: 8081
+    namespace: woo-headless-api
+    description: Unified REST API for headless WooCommerce storefronts.
+    resources:
+    - path: /v1/catalog/products
+      name: catalog-products
+      description: Public product catalog for the storefront.
+      operations:
+      - method: GET
+        name: browse-products
+        description: Browse the public product catalog.
+        call: woo-store.list-store-products
+        with:
+          search: rest.search
+          category: rest.category
+          on_sale: rest.on_sale
+          min_price: rest.min_price
+          max_price: rest.max_price
+        outputParameters:
+        - type: array
+          mapping: $.
+    - path: /v1/catalog/categories
+      name: catalog-categories
+      description: Product categories for navigation.
+      operations:
+      - method: GET
+        name: list-categories
+        description: List product categories.
+        call: woo-store.list-categories
+        outputParameters:
+        - type: array
+          mapping: $.
+    - path: /v1/cart
+      name: cart
+      description: Shopper cart management.
+      operations:
+      - method: GET
+        name: view-cart
+        description: View current cart.
+        call: woo-store.get-cart
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: POST
+        name: add-to-cart
+        description: Add product to cart.
+        call: woo-store.add-to-cart
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/checkout
+      name: checkout
+      description: Checkout process.
+      operations:
+      - method: POST
+        name: submit-checkout
+        description: Submit checkout and place order.
+        call: woo-store.submit-checkout
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/products
+      name: products-admin
+      description: Product catalog management (admin).
+      operations:
+      - method: GET
+        name: list-products-admin
+        description: List all products including drafts.
+        call: woo-rest.list-products
+        with:
+          status: rest.status
+        outputParameters:
+        - type: array
+          mapping: $.
+  - type: mcp
+    port: 9091
+    namespace: woo-headless-mcp
+    transport: http
+    description: MCP server for AI-assisted headless WooCommerce storefront building.
+    tools:
+    - name: browse-catalog
+      description: Browse the public WooCommerce product catalog for storefront display.
+      hints:
+        readOnly: true
+      call: woo-store.list-store-products
+      with:
+        search: tools.search
+        category: tools.category
+        on_sale: tools.on_sale
+        min_price: tools.min_price
+        max_price: tools.max_price
+      outputParameters:
+      - type: array
+        mapping: $.
+    - name: get-product-for-display
+      description: Get full product details for storefront product page rendering.
+      hints:
+        readOnly: true
+      call: woo-store.get-store-product
+      with:
+        id: tools.id
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: list-categories-for-nav
+      description: List product categories for building storefront navigation menus.
+      hints:
+        readOnly: true
+      call: woo-store.list-categories
+      outputParameters:
+      - type: array
+        mapping: $.
+    - name: view-current-cart
+      description: View the current shopper's cart for display in the cart drawer/page.
+      hints:
+        readOnly: true
+      call: woo-store.get-cart
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: add-item-to-cart
+      description: Add a product to the shopper's cart during product browsing.
+      hints:
+        readOnly: false
+      call: woo-store.add-to-cart
+      with:
+        id: tools.product_id
+        quantity: tools.quantity
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: remove-from-cart
+      description: Remove an item from the shopper's cart.
+      hints:
+        readOnly: false
+        destructive: false
+      call: woo-store.remove-cart-item
+      with:
+        key: tools.cart_item_key
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: place-order
+      description: Submit checkout details and place a WooCommerce order.
+      hints:
+        readOnly: false
+      call: woo-store.submit-checkout
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: list-all-products-admin
+      description: List all products including drafts for admin/build-time rendering.
+      hints:
+        readOnly: true
+      call: woo-rest.list-products
+      with:
+        status: tools.status
+      outputParameters:
+      - type: array
+        mapping: $.
