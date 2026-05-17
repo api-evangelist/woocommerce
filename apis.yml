@@ -123,7 +123,7 @@ common:
     url: https://developer.woocommerce.com/changelog/
   - type: StatusPage
     url: https://status.woocommerce.com
-  - type: JSON-LD
+  - type: JSONLD
     url: json-ld/woocommerce-context.jsonld
   - type: SpectralRules
     url: rules/woocommerce-spectral-rules.yml
