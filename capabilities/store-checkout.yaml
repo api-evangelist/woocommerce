@@ -1,0 +1,169 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: WooCommerce Store API — Checkout
+  description: 'WooCommerce Store API — Checkout. 4 operations. Lead operation: WooCommerce Get Checkout Data. Self-contained
+    Naftiko capability covering one Woocommerce business surface.'
+  tags:
+  - Woocommerce
+  - Checkout
+  created: '2026-05-19'
+  modified: '2026-05-19'
+binds:
+- namespace: env
+  keys:
+    WOOCOMMERCE_API_KEY: WOOCOMMERCE_API_KEY
+capability:
+  consumes:
+  - type: http
+    namespace: store-checkout
+    baseUri: https://example.com/wp-json/wc/store/v1
+    description: WooCommerce Store API — Checkout business capability. Self-contained, no shared references.
+    resources:
+    - name: checkout
+      path: /checkout
+      operations:
+      - name: getcheckout
+        method: GET
+        description: WooCommerce Get Checkout Data
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+      - name: processcheckout
+        method: POST
+        description: WooCommerce Process Checkout and Place Order
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+    - name: checkout-id
+      path: /checkout/{id}
+      operations:
+      - name: getcheckoutorder
+        method: GET
+        description: WooCommerce Get a Checkout Order
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+      - name: updatecheckoutorder
+        method: PUT
+        description: WooCommerce Update a Pending Checkout Order
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+  exposes:
+  - type: rest
+    namespace: store-checkout-rest
+    port: 8080
+    description: REST adapter for WooCommerce Store API — Checkout. One Spectral-compliant resource per consumed operation,
+      prefixed with /v1.
+    resources:
+    - path: /v1/checkout
+      name: checkout
+      description: REST surface for checkout.
+      operations:
+      - method: GET
+        name: getcheckout
+        description: WooCommerce Get Checkout Data
+        call: store-checkout.getcheckout
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: POST
+        name: processcheckout
+        description: WooCommerce Process Checkout and Place Order
+        call: store-checkout.processcheckout
+        with:
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/checkout/{id}
+      name: checkout-id
+      description: REST surface for checkout-id.
+      operations:
+      - method: GET
+        name: getcheckoutorder
+        description: WooCommerce Get a Checkout Order
+        call: store-checkout.getcheckoutorder
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: PUT
+        name: updatecheckoutorder
+        description: WooCommerce Update a Pending Checkout Order
+        call: store-checkout.updatecheckoutorder
+        with:
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+  - type: mcp
+    namespace: store-checkout-mcp
+    port: 9090
+    transport: http
+    description: MCP adapter for WooCommerce Store API — Checkout. One tool per consumed operation, routed inline through
+      this capability's consumes block.
+    tools:
+    - name: woocommerce-get-checkout-data
+      description: WooCommerce Get Checkout Data
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: store-checkout.getcheckout
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: woocommerce-process-checkout-and-place
+      description: WooCommerce Process Checkout and Place Order
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: store-checkout.processcheckout
+      with:
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: woocommerce-get-checkout-order
+      description: WooCommerce Get a Checkout Order
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: store-checkout.getcheckoutorder
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: woocommerce-update-pending-checkout-order
+      description: WooCommerce Update a Pending Checkout Order
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: true
+      call: store-checkout.updatecheckoutorder
+      with:
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.

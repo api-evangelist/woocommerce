@@ -1,0 +1,163 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: WooCommerce REST API — Order Refunds
+  description: 'WooCommerce REST API — Order Refunds. 4 operations. Lead operation: WooCommerce List All Order Refunds. Self-contained
+    Naftiko capability covering one Woocommerce business surface.'
+  tags:
+  - Woocommerce
+  - Order Refunds
+  created: '2026-05-19'
+  modified: '2026-05-19'
+binds:
+- namespace: env
+  keys:
+    WOOCOMMERCE_API_KEY: WOOCOMMERCE_API_KEY
+capability:
+  consumes:
+  - type: http
+    namespace: rest-order-refunds
+    baseUri: https://example.com/wp-json/wc/v3
+    description: WooCommerce REST API — Order Refunds business capability. Self-contained, no shared references.
+    resources:
+    - name: orders-order_id-refunds
+      path: /orders/{order_id}/refunds
+      operations:
+      - name: listorderrefunds
+        method: GET
+        description: WooCommerce List All Order Refunds
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+      - name: createorderrefund
+        method: POST
+        description: WooCommerce Create an Order Refund
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+    - name: orders-order_id-refunds-id
+      path: /orders/{order_id}/refunds/{id}
+      operations:
+      - name: getorderrefund
+        method: GET
+        description: WooCommerce Retrieve an Order Refund
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+      - name: deleteorderrefund
+        method: DELETE
+        description: WooCommerce Delete an Order Refund
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    authentication:
+      type: basic
+      username: '{{env.WOOCOMMERCE_USER}}'
+      password: '{{env.WOOCOMMERCE_PASS}}'
+  exposes:
+  - type: rest
+    namespace: rest-order-refunds-rest
+    port: 8080
+    description: REST adapter for WooCommerce REST API — Order Refunds. One Spectral-compliant resource per consumed operation,
+      prefixed with /v1.
+    resources:
+    - path: /v1/orders/{order-id}/refunds
+      name: orders-order-id-refunds
+      description: REST surface for orders-order_id-refunds.
+      operations:
+      - method: GET
+        name: listorderrefunds
+        description: WooCommerce List All Order Refunds
+        call: rest-order-refunds.listorderrefunds
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: POST
+        name: createorderrefund
+        description: WooCommerce Create an Order Refund
+        call: rest-order-refunds.createorderrefund
+        with:
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/orders/{order-id}/refunds/{id}
+      name: orders-order-id-refunds-id
+      description: REST surface for orders-order_id-refunds-id.
+      operations:
+      - method: GET
+        name: getorderrefund
+        description: WooCommerce Retrieve an Order Refund
+        call: rest-order-refunds.getorderrefund
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: DELETE
+        name: deleteorderrefund
+        description: WooCommerce Delete an Order Refund
+        call: rest-order-refunds.deleteorderrefund
+        outputParameters:
+        - type: object
+          mapping: $.
+  - type: mcp
+    namespace: rest-order-refunds-mcp
+    port: 9090
+    transport: http
+    description: MCP adapter for WooCommerce REST API — Order Refunds. One tool per consumed operation, routed inline through
+      this capability's consumes block.
+    tools:
+    - name: woocommerce-list-all-order-refunds
+      description: WooCommerce List All Order Refunds
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: rest-order-refunds.listorderrefunds
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: woocommerce-create-order-refund
+      description: WooCommerce Create an Order Refund
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: rest-order-refunds.createorderrefund
+      with:
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: woocommerce-retrieve-order-refund
+      description: WooCommerce Retrieve an Order Refund
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: rest-order-refunds.getorderrefund
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: woocommerce-delete-order-refund
+      description: WooCommerce Delete an Order Refund
+      hints:
+        readOnly: false
+        destructive: true
+        idempotent: true
+      call: rest-order-refunds.deleteorderrefund
+      outputParameters:
+      - type: object
+        mapping: $.

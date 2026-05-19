@@ -1,0 +1,209 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: WooCommerce Store API — Products
+  description: 'WooCommerce Store API — Products. 3 operations. Lead operation: WooCommerce List Products. Self-contained
+    Naftiko capability covering one Woocommerce business surface.'
+  tags:
+  - Woocommerce
+  - Products
+  created: '2026-05-19'
+  modified: '2026-05-19'
+binds:
+- namespace: env
+  keys:
+    WOOCOMMERCE_API_KEY: WOOCOMMERCE_API_KEY
+capability:
+  consumes:
+  - type: http
+    namespace: store-products
+    baseUri: https://example.com/wp-json/wc/store/v1
+    description: WooCommerce Store API — Products business capability. Self-contained, no shared references.
+    resources:
+    - name: products
+      path: /products
+      operations:
+      - name: liststoreproducts
+        method: GET
+        description: WooCommerce List Products
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: category
+          in: query
+          type: string
+          description: Filter products by category slug.
+        - name: tag
+          in: query
+          type: string
+          description: Filter products by tag slug.
+        - name: on_sale
+          in: query
+          type: boolean
+          description: Return only on-sale products when true.
+        - name: featured
+          in: query
+          type: boolean
+          description: Return only featured products when true.
+        - name: min_price
+          in: query
+          type: string
+          description: Minimum product price filter.
+        - name: max_price
+          in: query
+          type: string
+          description: Maximum product price filter.
+        - name: stock_status
+          in: query
+          type: string
+          description: 'Filter by stock status. Options: instock, outofstock, onbackorder.'
+        - name: orderby
+          in: query
+          type: string
+          description: 'Sort products by field. Options: date, id, include, title, slug, price, popularity, rating, menu_order.'
+        - name: order
+          in: query
+          type: string
+          description: 'Sort direction. Options: asc, desc.'
+    - name: products-collection-data
+      path: /products/collection-data
+      operations:
+      - name: getproductcollectiondata
+        method: GET
+        description: WooCommerce Get Product Collection Data
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: calculate_price_range
+          in: query
+          type: boolean
+          description: Whether to calculate and return the min/max price range.
+        - name: calculate_attribute_counts
+          in: query
+          type: string
+          description: Comma-separated list of attribute slugs to count active terms for filter UIs.
+        - name: calculate_rating_counts
+          in: query
+          type: boolean
+          description: Whether to calculate and return review rating counts.
+    - name: products-id
+      path: /products/{id}
+      operations:
+      - name: getstoreproduct
+        method: GET
+        description: WooCommerce Retrieve a Product
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+  exposes:
+  - type: rest
+    namespace: store-products-rest
+    port: 8080
+    description: REST adapter for WooCommerce Store API — Products. One Spectral-compliant resource per consumed operation,
+      prefixed with /v1.
+    resources:
+    - path: /v1/products
+      name: products
+      description: REST surface for products.
+      operations:
+      - method: GET
+        name: liststoreproducts
+        description: WooCommerce List Products
+        call: store-products.liststoreproducts
+        with:
+          category: rest.category
+          tag: rest.tag
+          on_sale: rest.on_sale
+          featured: rest.featured
+          min_price: rest.min_price
+          max_price: rest.max_price
+          stock_status: rest.stock_status
+          orderby: rest.orderby
+          order: rest.order
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/products/collection-data
+      name: products-collection-data
+      description: REST surface for products-collection-data.
+      operations:
+      - method: GET
+        name: getproductcollectiondata
+        description: WooCommerce Get Product Collection Data
+        call: store-products.getproductcollectiondata
+        with:
+          calculate_price_range: rest.calculate_price_range
+          calculate_attribute_counts: rest.calculate_attribute_counts
+          calculate_rating_counts: rest.calculate_rating_counts
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/products/{id}
+      name: products-id
+      description: REST surface for products-id.
+      operations:
+      - method: GET
+        name: getstoreproduct
+        description: WooCommerce Retrieve a Product
+        call: store-products.getstoreproduct
+        outputParameters:
+        - type: object
+          mapping: $.
+  - type: mcp
+    namespace: store-products-mcp
+    port: 9090
+    transport: http
+    description: MCP adapter for WooCommerce Store API — Products. One tool per consumed operation, routed inline through
+      this capability's consumes block.
+    tools:
+    - name: woocommerce-list-products
+      description: WooCommerce List Products
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: store-products.liststoreproducts
+      with:
+        category: tools.category
+        tag: tools.tag
+        on_sale: tools.on_sale
+        featured: tools.featured
+        min_price: tools.min_price
+        max_price: tools.max_price
+        stock_status: tools.stock_status
+        orderby: tools.orderby
+        order: tools.order
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: woocommerce-get-product-collection-data
+      description: WooCommerce Get Product Collection Data
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: store-products.getproductcollectiondata
+      with:
+        calculate_price_range: tools.calculate_price_range
+        calculate_attribute_counts: tools.calculate_attribute_counts
+        calculate_rating_counts: tools.calculate_rating_counts
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: woocommerce-retrieve-product
+      description: WooCommerce Retrieve a Product
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: store-products.getstoreproduct
+      outputParameters:
+      - type: object
+        mapping: $.

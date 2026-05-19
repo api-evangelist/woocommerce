@@ -1,0 +1,510 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: WooCommerce Store API — Cart
+  description: 'WooCommerce Store API — Cart. 13 operations. Lead operation: WooCommerce Get the Current Cart. Self-contained
+    Naftiko capability covering one Woocommerce business surface.'
+  tags:
+  - Woocommerce
+  - Cart
+  created: '2026-05-19'
+  modified: '2026-05-19'
+binds:
+- namespace: env
+  keys:
+    WOOCOMMERCE_API_KEY: WOOCOMMERCE_API_KEY
+capability:
+  consumes:
+  - type: http
+    namespace: store-cart
+    baseUri: https://example.com/wp-json/wc/store/v1
+    description: WooCommerce Store API — Cart business capability. Self-contained, no shared references.
+    resources:
+    - name: cart
+      path: /cart
+      operations:
+      - name: getcart
+        method: GET
+        description: WooCommerce Get the Current Cart
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    - name: cart-add-item
+      path: /cart/add-item
+      operations:
+      - name: addcartitem
+        method: POST
+        description: WooCommerce Add an Item to the Cart
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+    - name: cart-apply-coupon
+      path: /cart/apply-coupon
+      operations:
+      - name: applycartcoupon
+        method: POST
+        description: WooCommerce Apply a Coupon to the Cart
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+    - name: cart-items
+      path: /cart/items
+      operations:
+      - name: listcartitems
+        method: GET
+        description: WooCommerce List Cart Items
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+      - name: clearcartitems
+        method: DELETE
+        description: WooCommerce Clear All Cart Items
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    - name: cart-items-key
+      path: /cart/items/{key}
+      operations:
+      - name: getcartitem
+        method: GET
+        description: WooCommerce Get a Cart Item
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+      - name: updatecartitembykey
+        method: PUT
+        description: WooCommerce Update a Cart Item by Key
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+      - name: deletecartitem
+        method: DELETE
+        description: WooCommerce Delete a Cart Item by Key
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    - name: cart-remove-coupon
+      path: /cart/remove-coupon
+      operations:
+      - name: removecartcoupon
+        method: POST
+        description: WooCommerce Remove a Coupon from the Cart
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+    - name: cart-remove-item
+      path: /cart/remove-item
+      operations:
+      - name: removecartitem
+        method: POST
+        description: WooCommerce Remove an Item from the Cart
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+    - name: cart-select-shipping-rate
+      path: /cart/select-shipping-rate
+      operations:
+      - name: selectcartshippingrate
+        method: POST
+        description: WooCommerce Select a Shipping Rate for the Cart
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+    - name: cart-update-customer
+      path: /cart/update-customer
+      operations:
+      - name: updatecartcustomer
+        method: POST
+        description: WooCommerce Update Cart Customer Data
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+    - name: cart-update-item
+      path: /cart/update-item
+      operations:
+      - name: updatecartitem
+        method: POST
+        description: WooCommerce Update a Cart Item Quantity
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+  exposes:
+  - type: rest
+    namespace: store-cart-rest
+    port: 8080
+    description: REST adapter for WooCommerce Store API — Cart. One Spectral-compliant resource per consumed operation, prefixed
+      with /v1.
+    resources:
+    - path: /v1/cart
+      name: cart
+      description: REST surface for cart.
+      operations:
+      - method: GET
+        name: getcart
+        description: WooCommerce Get the Current Cart
+        call: store-cart.getcart
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/cart/add-item
+      name: cart-add-item
+      description: REST surface for cart-add-item.
+      operations:
+      - method: POST
+        name: addcartitem
+        description: WooCommerce Add an Item to the Cart
+        call: store-cart.addcartitem
+        with:
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/cart/apply-coupon
+      name: cart-apply-coupon
+      description: REST surface for cart-apply-coupon.
+      operations:
+      - method: POST
+        name: applycartcoupon
+        description: WooCommerce Apply a Coupon to the Cart
+        call: store-cart.applycartcoupon
+        with:
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/cart/items
+      name: cart-items
+      description: REST surface for cart-items.
+      operations:
+      - method: GET
+        name: listcartitems
+        description: WooCommerce List Cart Items
+        call: store-cart.listcartitems
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: DELETE
+        name: clearcartitems
+        description: WooCommerce Clear All Cart Items
+        call: store-cart.clearcartitems
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/cart/items/{key}
+      name: cart-items-key
+      description: REST surface for cart-items-key.
+      operations:
+      - method: GET
+        name: getcartitem
+        description: WooCommerce Get a Cart Item
+        call: store-cart.getcartitem
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: PUT
+        name: updatecartitembykey
+        description: WooCommerce Update a Cart Item by Key
+        call: store-cart.updatecartitembykey
+        with:
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: DELETE
+        name: deletecartitem
+        description: WooCommerce Delete a Cart Item by Key
+        call: store-cart.deletecartitem
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/cart/remove-coupon
+      name: cart-remove-coupon
+      description: REST surface for cart-remove-coupon.
+      operations:
+      - method: POST
+        name: removecartcoupon
+        description: WooCommerce Remove a Coupon from the Cart
+        call: store-cart.removecartcoupon
+        with:
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/cart/remove-item
+      name: cart-remove-item
+      description: REST surface for cart-remove-item.
+      operations:
+      - method: POST
+        name: removecartitem
+        description: WooCommerce Remove an Item from the Cart
+        call: store-cart.removecartitem
+        with:
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/cart/select-shipping-rate
+      name: cart-select-shipping-rate
+      description: REST surface for cart-select-shipping-rate.
+      operations:
+      - method: POST
+        name: selectcartshippingrate
+        description: WooCommerce Select a Shipping Rate for the Cart
+        call: store-cart.selectcartshippingrate
+        with:
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/cart/update-customer
+      name: cart-update-customer
+      description: REST surface for cart-update-customer.
+      operations:
+      - method: POST
+        name: updatecartcustomer
+        description: WooCommerce Update Cart Customer Data
+        call: store-cart.updatecartcustomer
+        with:
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/cart/update-item
+      name: cart-update-item
+      description: REST surface for cart-update-item.
+      operations:
+      - method: POST
+        name: updatecartitem
+        description: WooCommerce Update a Cart Item Quantity
+        call: store-cart.updatecartitem
+        with:
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+  - type: mcp
+    namespace: store-cart-mcp
+    port: 9090
+    transport: http
+    description: MCP adapter for WooCommerce Store API — Cart. One tool per consumed operation, routed inline through this
+      capability's consumes block.
+    tools:
+    - name: woocommerce-get-current-cart
+      description: WooCommerce Get the Current Cart
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: store-cart.getcart
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: woocommerce-add-item-cart
+      description: WooCommerce Add an Item to the Cart
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: store-cart.addcartitem
+      with:
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: woocommerce-apply-coupon-cart
+      description: WooCommerce Apply a Coupon to the Cart
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: store-cart.applycartcoupon
+      with:
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: woocommerce-list-cart-items
+      description: WooCommerce List Cart Items
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: store-cart.listcartitems
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: woocommerce-clear-all-cart-items
+      description: WooCommerce Clear All Cart Items
+      hints:
+        readOnly: false
+        destructive: true
+        idempotent: true
+      call: store-cart.clearcartitems
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: woocommerce-get-cart-item
+      description: WooCommerce Get a Cart Item
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: store-cart.getcartitem
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: woocommerce-update-cart-item-key
+      description: WooCommerce Update a Cart Item by Key
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: true
+      call: store-cart.updatecartitembykey
+      with:
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: woocommerce-delete-cart-item-key
+      description: WooCommerce Delete a Cart Item by Key
+      hints:
+        readOnly: false
+        destructive: true
+        idempotent: true
+      call: store-cart.deletecartitem
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: woocommerce-remove-coupon-cart
+      description: WooCommerce Remove a Coupon from the Cart
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: store-cart.removecartcoupon
+      with:
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: woocommerce-remove-item-cart
+      description: WooCommerce Remove an Item from the Cart
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: store-cart.removecartitem
+      with:
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: woocommerce-select-shipping-rate-cart
+      description: WooCommerce Select a Shipping Rate for the Cart
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: store-cart.selectcartshippingrate
+      with:
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: woocommerce-update-cart-customer-data
+      description: WooCommerce Update Cart Customer Data
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: store-cart.updatecartcustomer
+      with:
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: woocommerce-update-cart-item-quantity
+      description: WooCommerce Update a Cart Item Quantity
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: store-cart.updatecartitem
+      with:
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.

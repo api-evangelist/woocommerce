@@ -1,0 +1,82 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: WooCommerce Store API — Product Categories
+  description: 'WooCommerce Store API — Product Categories. 1 operations. Lead operation: WooCommerce List Product Categories.
+    Self-contained Naftiko capability covering one Woocommerce business surface.'
+  tags:
+  - Woocommerce
+  - Product Categories
+  created: '2026-05-19'
+  modified: '2026-05-19'
+binds:
+- namespace: env
+  keys:
+    WOOCOMMERCE_API_KEY: WOOCOMMERCE_API_KEY
+capability:
+  consumes:
+  - type: http
+    namespace: store-product-categories
+    baseUri: https://example.com/wp-json/wc/store/v1
+    description: WooCommerce Store API — Product Categories business capability. Self-contained, no shared references.
+    resources:
+    - name: products-categories
+      path: /products/categories
+      operations:
+      - name: liststoreproductcategories
+        method: GET
+        description: WooCommerce List Product Categories
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: hide_empty
+          in: query
+          type: boolean
+          description: Hide categories with no visible products.
+        - name: parent
+          in: query
+          type: integer
+          description: Limit to children of a specific category ID.
+  exposes:
+  - type: rest
+    namespace: store-product-categories-rest
+    port: 8080
+    description: REST adapter for WooCommerce Store API — Product Categories. One Spectral-compliant resource per consumed
+      operation, prefixed with /v1.
+    resources:
+    - path: /v1/products/categories
+      name: products-categories
+      description: REST surface for products-categories.
+      operations:
+      - method: GET
+        name: liststoreproductcategories
+        description: WooCommerce List Product Categories
+        call: store-product-categories.liststoreproductcategories
+        with:
+          hide_empty: rest.hide_empty
+          parent: rest.parent
+        outputParameters:
+        - type: object
+          mapping: $.
+  - type: mcp
+    namespace: store-product-categories-mcp
+    port: 9090
+    transport: http
+    description: MCP adapter for WooCommerce Store API — Product Categories. One tool per consumed operation, routed inline
+      through this capability's consumes block.
+    tools:
+    - name: woocommerce-list-product-categories
+      description: WooCommerce List Product Categories
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: store-product-categories.liststoreproductcategories
+      with:
+        hide_empty: tools.hide_empty
+        parent: tools.parent
+      outputParameters:
+      - type: object
+        mapping: $.

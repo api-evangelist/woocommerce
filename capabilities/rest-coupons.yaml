@@ -1,0 +1,207 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: WooCommerce REST API — Coupons
+  description: 'WooCommerce REST API — Coupons. 5 operations. Lead operation: WooCommerce List All Coupons. Self-contained
+    Naftiko capability covering one Woocommerce business surface.'
+  tags:
+  - Woocommerce
+  - Coupons
+  created: '2026-05-19'
+  modified: '2026-05-19'
+binds:
+- namespace: env
+  keys:
+    WOOCOMMERCE_API_KEY: WOOCOMMERCE_API_KEY
+capability:
+  consumes:
+  - type: http
+    namespace: rest-coupons
+    baseUri: https://example.com/wp-json/wc/v3
+    description: WooCommerce REST API — Coupons business capability. Self-contained, no shared references.
+    resources:
+    - name: coupons
+      path: /coupons
+      operations:
+      - name: listcoupons
+        method: GET
+        description: WooCommerce List All Coupons
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: code
+          in: query
+          type: string
+          description: Filter coupons by coupon code.
+      - name: createcoupon
+        method: POST
+        description: WooCommerce Create a Coupon
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+    - name: coupons-id
+      path: /coupons/{id}
+      operations:
+      - name: getcoupon
+        method: GET
+        description: WooCommerce Retrieve a Coupon
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+      - name: updatecoupon
+        method: PUT
+        description: WooCommerce Update a Coupon
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+      - name: deletecoupon
+        method: DELETE
+        description: WooCommerce Delete a Coupon
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    authentication:
+      type: basic
+      username: '{{env.WOOCOMMERCE_USER}}'
+      password: '{{env.WOOCOMMERCE_PASS}}'
+  exposes:
+  - type: rest
+    namespace: rest-coupons-rest
+    port: 8080
+    description: REST adapter for WooCommerce REST API — Coupons. One Spectral-compliant resource per consumed operation,
+      prefixed with /v1.
+    resources:
+    - path: /v1/coupons
+      name: coupons
+      description: REST surface for coupons.
+      operations:
+      - method: GET
+        name: listcoupons
+        description: WooCommerce List All Coupons
+        call: rest-coupons.listcoupons
+        with:
+          code: rest.code
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: POST
+        name: createcoupon
+        description: WooCommerce Create a Coupon
+        call: rest-coupons.createcoupon
+        with:
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/coupons/{id}
+      name: coupons-id
+      description: REST surface for coupons-id.
+      operations:
+      - method: GET
+        name: getcoupon
+        description: WooCommerce Retrieve a Coupon
+        call: rest-coupons.getcoupon
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: PUT
+        name: updatecoupon
+        description: WooCommerce Update a Coupon
+        call: rest-coupons.updatecoupon
+        with:
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: DELETE
+        name: deletecoupon
+        description: WooCommerce Delete a Coupon
+        call: rest-coupons.deletecoupon
+        outputParameters:
+        - type: object
+          mapping: $.
+  - type: mcp
+    namespace: rest-coupons-mcp
+    port: 9090
+    transport: http
+    description: MCP adapter for WooCommerce REST API — Coupons. One tool per consumed operation, routed inline through this
+      capability's consumes block.
+    tools:
+    - name: woocommerce-list-all-coupons
+      description: WooCommerce List All Coupons
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: rest-coupons.listcoupons
+      with:
+        code: tools.code
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: woocommerce-create-coupon
+      description: WooCommerce Create a Coupon
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: rest-coupons.createcoupon
+      with:
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: woocommerce-retrieve-coupon
+      description: WooCommerce Retrieve a Coupon
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: rest-coupons.getcoupon
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: woocommerce-update-coupon
+      description: WooCommerce Update a Coupon
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: true
+      call: rest-coupons.updatecoupon
+      with:
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: woocommerce-delete-coupon
+      description: WooCommerce Delete a Coupon
+      hints:
+        readOnly: false
+        destructive: true
+        idempotent: true
+      call: rest-coupons.deletecoupon
+      outputParameters:
+      - type: object
+        mapping: $.

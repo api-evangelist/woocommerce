@@ -1,0 +1,82 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: WooCommerce Store API — Product Reviews
+  description: 'WooCommerce Store API — Product Reviews. 1 operations. Lead operation: WooCommerce List Product Reviews. Self-contained
+    Naftiko capability covering one Woocommerce business surface.'
+  tags:
+  - Woocommerce
+  - Product Reviews
+  created: '2026-05-19'
+  modified: '2026-05-19'
+binds:
+- namespace: env
+  keys:
+    WOOCOMMERCE_API_KEY: WOOCOMMERCE_API_KEY
+capability:
+  consumes:
+  - type: http
+    namespace: store-product-reviews
+    baseUri: https://example.com/wp-json/wc/store/v1
+    description: WooCommerce Store API — Product Reviews business capability. Self-contained, no shared references.
+    resources:
+    - name: products-reviews
+      path: /products/reviews
+      operations:
+      - name: liststoreproductreviews
+        method: GET
+        description: WooCommerce List Product Reviews
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: product_id
+          in: query
+          type: integer
+          description: Filter reviews by product ID.
+        - name: rating
+          in: query
+          type: integer
+          description: Filter reviews by star rating (1-5).
+  exposes:
+  - type: rest
+    namespace: store-product-reviews-rest
+    port: 8080
+    description: REST adapter for WooCommerce Store API — Product Reviews. One Spectral-compliant resource per consumed operation,
+      prefixed with /v1.
+    resources:
+    - path: /v1/products/reviews
+      name: products-reviews
+      description: REST surface for products-reviews.
+      operations:
+      - method: GET
+        name: liststoreproductreviews
+        description: WooCommerce List Product Reviews
+        call: store-product-reviews.liststoreproductreviews
+        with:
+          product_id: rest.product_id
+          rating: rest.rating
+        outputParameters:
+        - type: object
+          mapping: $.
+  - type: mcp
+    namespace: store-product-reviews-mcp
+    port: 9090
+    transport: http
+    description: MCP adapter for WooCommerce Store API — Product Reviews. One tool per consumed operation, routed inline through
+      this capability's consumes block.
+    tools:
+    - name: woocommerce-list-product-reviews
+      description: WooCommerce List Product Reviews
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: store-product-reviews.liststoreproductreviews
+      with:
+        product_id: tools.product_id
+        rating: tools.rating
+      outputParameters:
+      - type: object
+        mapping: $.

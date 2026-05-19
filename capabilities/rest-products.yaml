@@ -1,0 +1,279 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: WooCommerce REST API — Products
+  description: 'WooCommerce REST API — Products. 6 operations. Lead operation: WooCommerce List All Products. Self-contained
+    Naftiko capability covering one Woocommerce business surface.'
+  tags:
+  - Woocommerce
+  - Products
+  created: '2026-05-19'
+  modified: '2026-05-19'
+binds:
+- namespace: env
+  keys:
+    WOOCOMMERCE_API_KEY: WOOCOMMERCE_API_KEY
+capability:
+  consumes:
+  - type: http
+    namespace: rest-products
+    baseUri: https://example.com/wp-json/wc/v3
+    description: WooCommerce REST API — Products business capability. Self-contained, no shared references.
+    resources:
+    - name: products
+      path: /products
+      operations:
+      - name: listproducts
+        method: GET
+        description: WooCommerce List All Products
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: status
+          in: query
+          type: string
+          description: 'Filter products by publication status. Options: any, draft, pending, private, publish.'
+        - name: category
+          in: query
+          type: string
+          description: Filter products by category ID.
+        - name: tag
+          in: query
+          type: string
+          description: Filter products by tag ID.
+        - name: on_sale
+          in: query
+          type: boolean
+          description: Limit results to products on sale when true.
+        - name: featured
+          in: query
+          type: boolean
+          description: Limit results to featured products when true.
+        - name: stock_status
+          in: query
+          type: string
+          description: 'Filter by stock status. Options: instock, outofstock, onbackorder.'
+      - name: createproduct
+        method: POST
+        description: WooCommerce Create a Product
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+    - name: products-batch
+      path: /products/batch
+      operations:
+      - name: batchupdateproducts
+        method: POST
+        description: WooCommerce Batch Create, Update, and Delete Products
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+    - name: products-id
+      path: /products/{id}
+      operations:
+      - name: getproduct
+        method: GET
+        description: WooCommerce Retrieve a Product
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+      - name: updateproduct
+        method: PUT
+        description: WooCommerce Update a Product
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+      - name: deleteproduct
+        method: DELETE
+        description: WooCommerce Delete a Product
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    authentication:
+      type: basic
+      username: '{{env.WOOCOMMERCE_USER}}'
+      password: '{{env.WOOCOMMERCE_PASS}}'
+  exposes:
+  - type: rest
+    namespace: rest-products-rest
+    port: 8080
+    description: REST adapter for WooCommerce REST API — Products. One Spectral-compliant resource per consumed operation,
+      prefixed with /v1.
+    resources:
+    - path: /v1/products
+      name: products
+      description: REST surface for products.
+      operations:
+      - method: GET
+        name: listproducts
+        description: WooCommerce List All Products
+        call: rest-products.listproducts
+        with:
+          status: rest.status
+          category: rest.category
+          tag: rest.tag
+          on_sale: rest.on_sale
+          featured: rest.featured
+          stock_status: rest.stock_status
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: POST
+        name: createproduct
+        description: WooCommerce Create a Product
+        call: rest-products.createproduct
+        with:
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/products/batch
+      name: products-batch
+      description: REST surface for products-batch.
+      operations:
+      - method: POST
+        name: batchupdateproducts
+        description: WooCommerce Batch Create, Update, and Delete Products
+        call: rest-products.batchupdateproducts
+        with:
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/products/{id}
+      name: products-id
+      description: REST surface for products-id.
+      operations:
+      - method: GET
+        name: getproduct
+        description: WooCommerce Retrieve a Product
+        call: rest-products.getproduct
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: PUT
+        name: updateproduct
+        description: WooCommerce Update a Product
+        call: rest-products.updateproduct
+        with:
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: DELETE
+        name: deleteproduct
+        description: WooCommerce Delete a Product
+        call: rest-products.deleteproduct
+        outputParameters:
+        - type: object
+          mapping: $.
+  - type: mcp
+    namespace: rest-products-mcp
+    port: 9090
+    transport: http
+    description: MCP adapter for WooCommerce REST API — Products. One tool per consumed operation, routed inline through this
+      capability's consumes block.
+    tools:
+    - name: woocommerce-list-all-products
+      description: WooCommerce List All Products
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: rest-products.listproducts
+      with:
+        status: tools.status
+        category: tools.category
+        tag: tools.tag
+        on_sale: tools.on_sale
+        featured: tools.featured
+        stock_status: tools.stock_status
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: woocommerce-create-product
+      description: WooCommerce Create a Product
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: rest-products.createproduct
+      with:
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: woocommerce-batch-create-update-and
+      description: WooCommerce Batch Create, Update, and Delete Products
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: rest-products.batchupdateproducts
+      with:
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: woocommerce-retrieve-product
+      description: WooCommerce Retrieve a Product
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: rest-products.getproduct
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: woocommerce-update-product
+      description: WooCommerce Update a Product
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: true
+      call: rest-products.updateproduct
+      with:
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: woocommerce-delete-product
+      description: WooCommerce Delete a Product
+      hints:
+        readOnly: false
+        destructive: true
+        idempotent: true
+      call: rest-products.deleteproduct
+      outputParameters:
+      - type: object
+        mapping: $.

@@ -1,0 +1,254 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: WooCommerce REST API — Customers
+  description: 'WooCommerce REST API — Customers. 6 operations. Lead operation: WooCommerce List All Customers. Self-contained
+    Naftiko capability covering one Woocommerce business surface.'
+  tags:
+  - Woocommerce
+  - Customers
+  created: '2026-05-19'
+  modified: '2026-05-19'
+binds:
+- namespace: env
+  keys:
+    WOOCOMMERCE_API_KEY: WOOCOMMERCE_API_KEY
+capability:
+  consumes:
+  - type: http
+    namespace: rest-customers
+    baseUri: https://example.com/wp-json/wc/v3
+    description: WooCommerce REST API — Customers business capability. Self-contained, no shared references.
+    resources:
+    - name: customers
+      path: /customers
+      operations:
+      - name: listcustomers
+        method: GET
+        description: WooCommerce List All Customers
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: role
+          in: query
+          type: string
+          description: Filter customers by WordPress user role. Default is customer.
+        - name: email
+          in: query
+          type: string
+          description: Filter customers by email address.
+      - name: createcustomer
+        method: POST
+        description: WooCommerce Create a Customer
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+    - name: customers-id
+      path: /customers/{id}
+      operations:
+      - name: getcustomer
+        method: GET
+        description: WooCommerce Retrieve a Customer
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+      - name: updatecustomer
+        method: PUT
+        description: WooCommerce Update a Customer
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+      - name: deletecustomer
+        method: DELETE
+        description: WooCommerce Delete a Customer
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: reassign
+          in: query
+          type: integer
+          description: User ID to reassign posts and links to.
+    - name: customers-id-downloads
+      path: /customers/{id}/downloads
+      operations:
+      - name: getcustomerdownloads
+        method: GET
+        description: WooCommerce Retrieve Customer Downloads
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    authentication:
+      type: basic
+      username: '{{env.WOOCOMMERCE_USER}}'
+      password: '{{env.WOOCOMMERCE_PASS}}'
+  exposes:
+  - type: rest
+    namespace: rest-customers-rest
+    port: 8080
+    description: REST adapter for WooCommerce REST API — Customers. One Spectral-compliant resource per consumed operation,
+      prefixed with /v1.
+    resources:
+    - path: /v1/customers
+      name: customers
+      description: REST surface for customers.
+      operations:
+      - method: GET
+        name: listcustomers
+        description: WooCommerce List All Customers
+        call: rest-customers.listcustomers
+        with:
+          role: rest.role
+          email: rest.email
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: POST
+        name: createcustomer
+        description: WooCommerce Create a Customer
+        call: rest-customers.createcustomer
+        with:
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/customers/{id}
+      name: customers-id
+      description: REST surface for customers-id.
+      operations:
+      - method: GET
+        name: getcustomer
+        description: WooCommerce Retrieve a Customer
+        call: rest-customers.getcustomer
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: PUT
+        name: updatecustomer
+        description: WooCommerce Update a Customer
+        call: rest-customers.updatecustomer
+        with:
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: DELETE
+        name: deletecustomer
+        description: WooCommerce Delete a Customer
+        call: rest-customers.deletecustomer
+        with:
+          reassign: rest.reassign
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/customers/{id}/downloads
+      name: customers-id-downloads
+      description: REST surface for customers-id-downloads.
+      operations:
+      - method: GET
+        name: getcustomerdownloads
+        description: WooCommerce Retrieve Customer Downloads
+        call: rest-customers.getcustomerdownloads
+        outputParameters:
+        - type: object
+          mapping: $.
+  - type: mcp
+    namespace: rest-customers-mcp
+    port: 9090
+    transport: http
+    description: MCP adapter for WooCommerce REST API — Customers. One tool per consumed operation, routed inline through
+      this capability's consumes block.
+    tools:
+    - name: woocommerce-list-all-customers
+      description: WooCommerce List All Customers
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: rest-customers.listcustomers
+      with:
+        role: tools.role
+        email: tools.email
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: woocommerce-create-customer
+      description: WooCommerce Create a Customer
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: rest-customers.createcustomer
+      with:
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: woocommerce-retrieve-customer
+      description: WooCommerce Retrieve a Customer
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: rest-customers.getcustomer
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: woocommerce-update-customer
+      description: WooCommerce Update a Customer
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: true
+      call: rest-customers.updatecustomer
+      with:
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: woocommerce-delete-customer
+      description: WooCommerce Delete a Customer
+      hints:
+        readOnly: false
+        destructive: true
+        idempotent: true
+      call: rest-customers.deletecustomer
+      with:
+        reassign: tools.reassign
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: woocommerce-retrieve-customer-downloads
+      description: WooCommerce Retrieve Customer Downloads
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: rest-customers.getcustomerdownloads
+      outputParameters:
+      - type: object
+        mapping: $.
