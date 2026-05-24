@@ -240,6 +240,8 @@ common:
   - name: MCP Server
     url: https://github.com/woocommerce/wc-mcp-ability
     type: MCPServer
+  - type: LLMsTxt
+    url: https://developer.woocommerce.com/llms.txt
 maintainers:
   - FN: Kin Lane
     email: kin@apievangelist.com
