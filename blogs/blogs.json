@@ -2,12 +2,20 @@
   "repo": "woocommerce",
   "feeds": [
     {
-      "source": "https://developer.woocommerce.com/blog/",
+      "source": "https://developer.woocommerce.com/feed/",
       "feed_url": "https://developer.woocommerce.com/feed/",
-      "title": "The WooCommerce Developer Blog",
-      "saved": 7
+      "title": "",
+      "saved": 0,
+      "method": "feed"
+    },
+    {
+      "source": "https://github.com/woocommerce",
+      "feed_url": "https://github.com/woocommerce",
+      "title": "",
+      "saved": 0,
+      "method": "none"
     }
   ],
-  "post_count": 20,
-  "fetched": "2026-05-17T20:20:35Z"
+  "post_count": 30,
+  "fetched": "2026-06-01T23:35:02Z"
 }
