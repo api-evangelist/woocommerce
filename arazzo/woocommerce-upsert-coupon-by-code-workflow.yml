@@ -1,0 +1,104 @@
+arazzo: 1.0.1
+info:
+  title: WooCommerce Upsert Coupon by Code
+  summary: Find a coupon by its code and create it only if it does not already exist.
+  description: >-
+    Keeps promotional codes unique when syncing campaigns. The workflow searches
+    existing coupons by code, then branches: when a match is found it reads the
+    existing coupon, and when no match is found it creates a new coupon with the
+    supplied discount. Every step spells out its request inline so the flow can
+    be read and executed without opening the underlying OpenAPI description.
+  version: 1.0.0
+sourceDescriptions:
+- name: woocommerceRestApi
+  url: ../openapi/woocommerce-rest-api-openapi.yml
+  type: openapi
+workflows:
+- workflowId: upsert-coupon-by-code
+  summary: Upsert a coupon keyed on its code, creating it only when missing.
+  description: >-
+    Searches existing coupons by code and either reads the matched coupon or
+    creates a new one when no match exists.
+  inputs:
+    type: object
+    required:
+    - code
+    - amount
+    - discountType
+    properties:
+      code:
+        type: string
+        description: Coupon code used to detect an existing coupon.
+      amount:
+        type: string
+        description: Discount amount as a decimal string to use on create.
+      discountType:
+        type: string
+        description: Discount type to use on create (percent, fixed_cart, or fixed_product).
+  steps:
+  - stepId: findCoupon
+    description: >-
+      Search existing coupons for one matching the supplied code, returning at
+      most one result.
+    operationId: listCoupons
+    parameters:
+    - name: code
+      in: query
+      value: $inputs.code
+    - name: per_page
+      in: query
+      value: 1
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      matchedCouponId: $response.body#/0/id
+    onSuccess:
+    - name: couponExists
+      type: goto
+      stepId: getExisting
+      criteria:
+      - context: $response.body
+        condition: $.length > 0
+        type: jsonpath
+    - name: couponMissing
+      type: goto
+      stepId: createNew
+      criteria:
+      - context: $response.body
+        condition: $.length == 0
+        type: jsonpath
+  - stepId: getExisting
+    description: >-
+      Read the matched coupon to confirm its current discount settings.
+    operationId: getCoupon
+    parameters:
+    - name: id
+      in: path
+      value: $steps.findCoupon.outputs.matchedCouponId
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      couponId: $response.body#/id
+      couponCode: $response.body#/code
+    onSuccess:
+    - name: done
+      type: end
+  - stepId: createNew
+    description: >-
+      Create a new coupon with the supplied code and discount when no existing
+      coupon matched.
+    operationId: createCoupon
+    requestBody:
+      contentType: application/json
+      payload:
+        code: $inputs.code
+        amount: $inputs.amount
+        discount_type: $inputs.discountType
+    successCriteria:
+    - condition: $statusCode == 201
+    outputs:
+      couponId: $response.body#/id
+      couponCode: $response.body#/code
+  outputs:
+    couponId: $steps.getExisting.outputs.couponId
+    createdCouponId: $steps.createNew.outputs.couponId

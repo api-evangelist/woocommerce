@@ -1,0 +1,102 @@
+arazzo: 1.0.1
+info:
+  title: WooCommerce Upsert Product Category
+  summary: Find a product category by slug and create it only if it does not already exist.
+  description: >-
+    A common catalog maintenance pattern. The workflow searches existing product
+    categories for one whose name matches the supplied value, then branches:
+    when a match is found it reads the existing category, and when no match is
+    found it creates a new category. Every step spells out its request inline so
+    the flow can be read and executed without opening the underlying OpenAPI
+    description.
+  version: 1.0.0
+sourceDescriptions:
+- name: woocommerceRestApi
+  url: ../openapi/woocommerce-rest-api-openapi.yml
+  type: openapi
+workflows:
+- workflowId: upsert-category
+  summary: Upsert a product category, creating it only when it is missing.
+  description: >-
+    Searches for an existing product category by name and either reads the
+    matched category or creates a new one when no match exists.
+  inputs:
+    type: object
+    required:
+    - categoryName
+    properties:
+      categoryName:
+        type: string
+        description: Name of the category to find or create.
+      categorySlug:
+        type: string
+        description: Optional URL-friendly slug to use when creating the category.
+      categoryDescription:
+        type: string
+        description: Optional description to use when creating the category.
+  steps:
+  - stepId: findCategory
+    description: >-
+      Search existing product categories for one matching the supplied name,
+      returning at most one result.
+    operationId: listProductCategories
+    parameters:
+    - name: search
+      in: query
+      value: $inputs.categoryName
+    - name: per_page
+      in: query
+      value: 1
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      matchedCategoryId: $response.body#/0/id
+    onSuccess:
+    - name: categoryExists
+      type: goto
+      stepId: getExisting
+      criteria:
+      - context: $response.body
+        condition: $.length > 0
+        type: jsonpath
+    - name: categoryMissing
+      type: goto
+      stepId: createNew
+      criteria:
+      - context: $response.body
+        condition: $.length == 0
+        type: jsonpath
+  - stepId: getExisting
+    description: >-
+      Read the matched category to confirm its current name and slug.
+    operationId: getProductCategory
+    parameters:
+    - name: id
+      in: path
+      value: $steps.findCategory.outputs.matchedCategoryId
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      categoryId: $response.body#/id
+      categoryName: $response.body#/name
+    onSuccess:
+    - name: done
+      type: end
+  - stepId: createNew
+    description: >-
+      Create a new product category when no existing category matched the name.
+    operationId: createProductCategory
+    requestBody:
+      contentType: application/json
+      payload:
+        name: $inputs.categoryName
+        slug: $inputs.categorySlug
+        description: $inputs.categoryDescription
+    successCriteria:
+    - condition: $statusCode == 201
+    outputs:
+      categoryId: $response.body#/id
+      categoryName: $response.body#/name
+  outputs:
+    categoryId: $steps.getExisting.outputs.categoryId
+    createdCategoryId: $steps.createNew.outputs.categoryId

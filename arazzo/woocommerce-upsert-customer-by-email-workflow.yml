@@ -1,0 +1,101 @@
+arazzo: 1.0.1
+info:
+  title: WooCommerce Upsert Customer by Email
+  summary: Find a customer by email and create the account only if it does not already exist.
+  description: >-
+    Avoids duplicate customer accounts when importing buyers. The workflow
+    searches existing customers by email, then branches: when a match is found
+    it reads the existing customer, and when no match is found it creates a new
+    customer account. Every step spells out its request inline so the flow can
+    be read and executed without opening the underlying OpenAPI description.
+  version: 1.0.0
+sourceDescriptions:
+- name: woocommerceRestApi
+  url: ../openapi/woocommerce-rest-api-openapi.yml
+  type: openapi
+workflows:
+- workflowId: upsert-customer-by-email
+  summary: Upsert a customer keyed on email, creating it only when missing.
+  description: >-
+    Searches existing customers by email and either reads the matched customer
+    or creates a new account when no match exists.
+  inputs:
+    type: object
+    required:
+    - email
+    properties:
+      email:
+        type: string
+        description: Email address used to detect an existing customer.
+      firstName:
+        type: string
+        description: First name to use when creating a new customer.
+      lastName:
+        type: string
+        description: Last name to use when creating a new customer.
+  steps:
+  - stepId: findCustomer
+    description: >-
+      Search existing customers for one matching the supplied email, returning
+      at most one result.
+    operationId: listCustomers
+    parameters:
+    - name: email
+      in: query
+      value: $inputs.email
+    - name: per_page
+      in: query
+      value: 1
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      matchedCustomerId: $response.body#/0/id
+    onSuccess:
+    - name: customerExists
+      type: goto
+      stepId: getExisting
+      criteria:
+      - context: $response.body
+        condition: $.length > 0
+        type: jsonpath
+    - name: customerMissing
+      type: goto
+      stepId: createNew
+      criteria:
+      - context: $response.body
+        condition: $.length == 0
+        type: jsonpath
+  - stepId: getExisting
+    description: >-
+      Read the matched customer to confirm the current account details.
+    operationId: getCustomer
+    parameters:
+    - name: id
+      in: path
+      value: $steps.findCustomer.outputs.matchedCustomerId
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      customerId: $response.body#/id
+      customerEmail: $response.body#/email
+    onSuccess:
+    - name: done
+      type: end
+  - stepId: createNew
+    description: >-
+      Create a new customer account when no existing customer matched the email.
+    operationId: createCustomer
+    requestBody:
+      contentType: application/json
+      payload:
+        email: $inputs.email
+        first_name: $inputs.firstName
+        last_name: $inputs.lastName
+    successCriteria:
+    - condition: $statusCode == 201
+    outputs:
+      customerId: $response.body#/id
+      customerEmail: $response.body#/email
+  outputs:
+    customerId: $steps.getExisting.outputs.customerId
+    createdCustomerId: $steps.createNew.outputs.customerId

@@ -1,0 +1,107 @@
+arazzo: 1.0.1
+info:
+  title: WooCommerce Upsert Product by SKU
+  summary: Find a product by its SKU and create it only if no matching product exists.
+  description: >-
+    Keeps a catalog idempotent when syncing from an external source of truth.
+    The workflow searches the catalog for a product matching the supplied SKU,
+    then branches: when a match is found it reads the existing product, and when
+    no match is found it creates a new product carrying that SKU. Every step
+    spells out its request inline so the flow can be read and executed without
+    opening the underlying OpenAPI description.
+  version: 1.0.0
+sourceDescriptions:
+- name: woocommerceRestApi
+  url: ../openapi/woocommerce-rest-api-openapi.yml
+  type: openapi
+workflows:
+- workflowId: upsert-product-by-sku
+  summary: Upsert a product keyed on its SKU, creating it only when missing.
+  description: >-
+    Searches the catalog for a product matching the supplied SKU and either
+    reads the matched product or creates a new one when no match exists.
+  inputs:
+    type: object
+    required:
+    - sku
+    - productName
+    - regularPrice
+    properties:
+      sku:
+        type: string
+        description: Stock-keeping unit used to detect an existing product.
+      productName:
+        type: string
+        description: Product name to use when creating a new product.
+      regularPrice:
+        type: string
+        description: Regular price as a decimal string to use on create.
+  steps:
+  - stepId: findProduct
+    description: >-
+      Search the catalog for a product matching the supplied SKU, returning at
+      most one result.
+    operationId: listProducts
+    parameters:
+    - name: search
+      in: query
+      value: $inputs.sku
+    - name: per_page
+      in: query
+      value: 1
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      matchedProductId: $response.body#/0/id
+    onSuccess:
+    - name: productExists
+      type: goto
+      stepId: getExisting
+      criteria:
+      - context: $response.body
+        condition: $.length > 0
+        type: jsonpath
+    - name: productMissing
+      type: goto
+      stepId: createNew
+      criteria:
+      - context: $response.body
+        condition: $.length == 0
+        type: jsonpath
+  - stepId: getExisting
+    description: >-
+      Read the matched product to confirm its current pricing and stock status.
+    operationId: getProduct
+    parameters:
+    - name: id
+      in: path
+      value: $steps.findProduct.outputs.matchedProductId
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      productId: $response.body#/id
+      productSku: $response.body#/sku
+    onSuccess:
+    - name: done
+      type: end
+  - stepId: createNew
+    description: >-
+      Create a new product carrying the supplied SKU when no existing product
+      matched.
+    operationId: createProduct
+    requestBody:
+      contentType: application/json
+      payload:
+        name: $inputs.productName
+        type: simple
+        status: publish
+        sku: $inputs.sku
+        regular_price: $inputs.regularPrice
+    successCriteria:
+    - condition: $statusCode == 201
+    outputs:
+      productId: $response.body#/id
+      productSku: $response.body#/sku
+  outputs:
+    productId: $steps.getExisting.outputs.productId
+    createdProductId: $steps.createNew.outputs.productId

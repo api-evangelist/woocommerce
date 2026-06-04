@@ -1,0 +1,120 @@
+arazzo: 1.0.1
+info:
+  title: WooCommerce Customer Order Refund Lifecycle
+  summary: Onboard a customer, place and complete their order, then refund it end to end.
+  description: >-
+    Walks a buyer through a full commerce lifecycle in one flow. The workflow
+    creates a customer account, places an order for that customer with a line
+    item, transitions the order to completed, and finally issues a refund
+    against it. Every step spells out its request inline so the flow can be read
+    and executed without opening the underlying OpenAPI description.
+  version: 1.0.0
+sourceDescriptions:
+- name: woocommerceRestApi
+  url: ../openapi/woocommerce-rest-api-openapi.yml
+  type: openapi
+workflows:
+- workflowId: customer-order-refund-lifecycle
+  summary: Create customer, place order, complete it, and refund it.
+  description: >-
+    Creates a customer, creates and completes an order for them, and issues a
+    refund against that order.
+  inputs:
+    type: object
+    required:
+    - email
+    - productId
+    - quantity
+    - refundAmount
+    properties:
+      email:
+        type: string
+        description: Email address for the new customer account.
+      firstName:
+        type: string
+        description: Customer first name.
+      lastName:
+        type: string
+        description: Customer last name.
+      productId:
+        type: integer
+        description: ID of the product to add as a line item on the order.
+      quantity:
+        type: integer
+        description: Quantity of the product to order.
+      refundAmount:
+        type: string
+        description: Amount to refund as a decimal string.
+      refundReason:
+        type: string
+        description: Optional reason for the refund.
+  steps:
+  - stepId: createCustomer
+    description: >-
+      Create the customer account that the order will be placed against.
+    operationId: createCustomer
+    requestBody:
+      contentType: application/json
+      payload:
+        email: $inputs.email
+        first_name: $inputs.firstName
+        last_name: $inputs.lastName
+    successCriteria:
+    - condition: $statusCode == 201
+    outputs:
+      customerId: $response.body#/id
+  - stepId: createOrder
+    description: >-
+      Place an order for the customer with a single product line item.
+    operationId: createOrder
+    requestBody:
+      contentType: application/json
+      payload:
+        status: processing
+        customer_id: $steps.createCustomer.outputs.customerId
+        line_items:
+        - product_id: $inputs.productId
+          quantity: $inputs.quantity
+    successCriteria:
+    - condition: $statusCode == 201
+    outputs:
+      orderId: $response.body#/id
+  - stepId: completeOrder
+    description: >-
+      Transition the order to completed so it becomes eligible for a refund.
+    operationId: updateOrder
+    parameters:
+    - name: id
+      in: path
+      value: $steps.createOrder.outputs.orderId
+    requestBody:
+      contentType: application/json
+      payload:
+        status: completed
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      orderStatus: $response.body#/status
+  - stepId: createRefund
+    description: >-
+      Issue a refund against the completed order for the supplied amount.
+    operationId: createOrderRefund
+    parameters:
+    - name: order_id
+      in: path
+      value: $steps.createOrder.outputs.orderId
+    requestBody:
+      contentType: application/json
+      payload:
+        amount: $inputs.refundAmount
+        reason: $inputs.refundReason
+        api_refund: false
+    successCriteria:
+    - condition: $statusCode == 201
+    outputs:
+      refundId: $response.body#/id
+      refundAmount: $response.body#/amount
+  outputs:
+    customerId: $steps.createCustomer.outputs.customerId
+    orderId: $steps.createOrder.outputs.orderId
+    refundId: $steps.createRefund.outputs.refundId

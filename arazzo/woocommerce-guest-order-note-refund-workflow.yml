@@ -1,0 +1,102 @@
+arazzo: 1.0.1
+info:
+  title: WooCommerce Guest Order with Note and Refund
+  summary: Place a guest order, annotate it with a note, then refund it.
+  description: >-
+    Handles a checkout from an unauthenticated guest and its after-sale
+    handling. The workflow creates a guest order (customer_id of zero) with a
+    line item, attaches an internal note documenting the situation, and then
+    issues a refund against the order. Every step spells out its request inline
+    so the flow can be read and executed without opening the underlying OpenAPI
+    description.
+  version: 1.0.0
+sourceDescriptions:
+- name: woocommerceRestApi
+  url: ../openapi/woocommerce-rest-api-openapi.yml
+  type: openapi
+workflows:
+- workflowId: guest-order-note-refund
+  summary: Create a guest order, add a note, and refund it.
+  description: >-
+    Creates a guest order, attaches an internal note, and issues a refund
+    against the order.
+  inputs:
+    type: object
+    required:
+    - productId
+    - quantity
+    - noteText
+    - refundAmount
+    properties:
+      productId:
+        type: integer
+        description: ID of the product to add as a line item on the order.
+      quantity:
+        type: integer
+        description: Quantity of the product to order.
+      noteText:
+        type: string
+        description: Internal note documenting the order or refund.
+      refundAmount:
+        type: string
+        description: Amount to refund as a decimal string.
+      refundReason:
+        type: string
+        description: Optional reason for the refund.
+  steps:
+  - stepId: createOrder
+    description: >-
+      Create a guest order (customer_id zero) with a single product line item.
+    operationId: createOrder
+    requestBody:
+      contentType: application/json
+      payload:
+        status: processing
+        customer_id: 0
+        line_items:
+        - product_id: $inputs.productId
+          quantity: $inputs.quantity
+    successCriteria:
+    - condition: $statusCode == 201
+    outputs:
+      orderId: $response.body#/id
+  - stepId: addNote
+    description: >-
+      Attach an internal note to the order documenting the situation.
+    operationId: createOrderNote
+    parameters:
+    - name: order_id
+      in: path
+      value: $steps.createOrder.outputs.orderId
+    requestBody:
+      contentType: application/json
+      payload:
+        note: $inputs.noteText
+        customer_note: false
+    successCriteria:
+    - condition: $statusCode == 201
+    outputs:
+      noteId: $response.body#/id
+  - stepId: createRefund
+    description: >-
+      Issue a refund against the order for the supplied amount.
+    operationId: createOrderRefund
+    parameters:
+    - name: order_id
+      in: path
+      value: $steps.createOrder.outputs.orderId
+    requestBody:
+      contentType: application/json
+      payload:
+        amount: $inputs.refundAmount
+        reason: $inputs.refundReason
+        api_refund: false
+    successCriteria:
+    - condition: $statusCode == 201
+    outputs:
+      refundId: $response.body#/id
+      refundAmount: $response.body#/amount
+  outputs:
+    orderId: $steps.createOrder.outputs.orderId
+    noteId: $steps.addNote.outputs.noteId
+    refundId: $steps.createRefund.outputs.refundId

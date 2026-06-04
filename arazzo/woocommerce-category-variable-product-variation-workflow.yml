@@ -1,0 +1,109 @@
+arazzo: 1.0.1
+info:
+  title: WooCommerce Category, Variable Product, and Variation
+  summary: Create a category, a variable product in it, a variation, and confirm the variation.
+  description: >-
+    Stands up a full merchandised variable product in one pass. The workflow
+    creates a product category, creates a variable product assigned to that
+    category, adds a purchasable variation under the product, and finally reads
+    the variation back to confirm it. Every step spells out its request inline
+    so the flow can be read and executed without opening the underlying OpenAPI
+    description.
+  version: 1.0.0
+sourceDescriptions:
+- name: woocommerceRestApi
+  url: ../openapi/woocommerce-rest-api-openapi.yml
+  type: openapi
+workflows:
+- workflowId: category-variable-product-variation
+  summary: Create category, variable product, and a variation, then confirm it.
+  description: >-
+    Creates a category, a variable product in that category, a variation under
+    the product, and reads the variation back to verify it.
+  inputs:
+    type: object
+    required:
+    - categoryName
+    - productName
+    - variationSku
+    - variationPrice
+    properties:
+      categoryName:
+        type: string
+        description: Name of the product category to create.
+      productName:
+        type: string
+        description: Name of the variable product to create.
+      variationSku:
+        type: string
+        description: SKU to assign to the variation.
+      variationPrice:
+        type: string
+        description: Regular price for the variation as a decimal string.
+  steps:
+  - stepId: createCategory
+    description: >-
+      Create the product category that the variable product will belong to.
+    operationId: createProductCategory
+    requestBody:
+      contentType: application/json
+      payload:
+        name: $inputs.categoryName
+    successCriteria:
+    - condition: $statusCode == 201
+    outputs:
+      categoryId: $response.body#/id
+  - stepId: createProduct
+    description: >-
+      Create a variable product assigned to the new category.
+    operationId: createProduct
+    requestBody:
+      contentType: application/json
+      payload:
+        name: $inputs.productName
+        type: variable
+        status: publish
+        categories:
+        - id: $steps.createCategory.outputs.categoryId
+    successCriteria:
+    - condition: $statusCode == 201
+    outputs:
+      productId: $response.body#/id
+  - stepId: createVariation
+    description: >-
+      Add a purchasable variation under the variable product.
+    operationId: createProductVariation
+    parameters:
+    - name: product_id
+      in: path
+      value: $steps.createProduct.outputs.productId
+    requestBody:
+      contentType: application/json
+      payload:
+        sku: $inputs.variationSku
+        regular_price: $inputs.variationPrice
+        status: publish
+    successCriteria:
+    - condition: $statusCode == 201
+    outputs:
+      variationId: $response.body#/id
+  - stepId: getVariation
+    description: >-
+      Read the variation back to confirm it persisted with its SKU and price.
+    operationId: getProductVariation
+    parameters:
+    - name: product_id
+      in: path
+      value: $steps.createProduct.outputs.productId
+    - name: id
+      in: path
+      value: $steps.createVariation.outputs.variationId
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      variationId: $response.body#/id
+      variationSku: $response.body#/sku
+  outputs:
+    categoryId: $steps.createCategory.outputs.categoryId
+    productId: $steps.createProduct.outputs.productId
+    variationId: $steps.getVariation.outputs.variationId

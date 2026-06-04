@@ -1,0 +1,96 @@
+arazzo: 1.0.1
+info:
+  title: WooCommerce Create Customer and Order
+  summary: Create a customer account and place an order on their behalf, then read the order back.
+  description: >-
+    Onboards a buyer and immediately places their first order. The workflow
+    creates a customer account, creates an order tied to that customer with a
+    line item, and finally retrieves the order to confirm it was recorded
+    against the customer. Every step spells out its request inline so the flow
+    can be read and executed without opening the underlying OpenAPI description.
+  version: 1.0.0
+sourceDescriptions:
+- name: woocommerceRestApi
+  url: ../openapi/woocommerce-rest-api-openapi.yml
+  type: openapi
+workflows:
+- workflowId: create-customer-and-order
+  summary: Create a customer, place an order for them, and confirm the order.
+  description: >-
+    Creates a customer account, creates an order referencing that customer and
+    a product line item, and reads the order back to verify it persisted.
+  inputs:
+    type: object
+    required:
+    - email
+    - productId
+    - quantity
+    properties:
+      email:
+        type: string
+        description: Email address for the new customer account.
+      firstName:
+        type: string
+        description: Customer first name.
+      lastName:
+        type: string
+        description: Customer last name.
+      productId:
+        type: integer
+        description: ID of the product to add as a line item on the order.
+      quantity:
+        type: integer
+        description: Quantity of the product to order.
+      paymentMethod:
+        type: string
+        description: Optional payment method ID for the order.
+  steps:
+  - stepId: createCustomer
+    description: >-
+      Create the customer account that the order will be placed against.
+    operationId: createCustomer
+    requestBody:
+      contentType: application/json
+      payload:
+        email: $inputs.email
+        first_name: $inputs.firstName
+        last_name: $inputs.lastName
+    successCriteria:
+    - condition: $statusCode == 201
+    outputs:
+      customerId: $response.body#/id
+  - stepId: createOrder
+    description: >-
+      Create an order tied to the new customer with a single product line item.
+    operationId: createOrder
+    requestBody:
+      contentType: application/json
+      payload:
+        status: pending
+        customer_id: $steps.createCustomer.outputs.customerId
+        payment_method: $inputs.paymentMethod
+        line_items:
+        - product_id: $inputs.productId
+          quantity: $inputs.quantity
+    successCriteria:
+    - condition: $statusCode == 201
+    outputs:
+      orderId: $response.body#/id
+  - stepId: getOrder
+    description: >-
+      Retrieve the created order to confirm it was recorded against the
+      customer.
+    operationId: getOrder
+    parameters:
+    - name: id
+      in: path
+      value: $steps.createOrder.outputs.orderId
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      orderId: $response.body#/id
+      orderStatus: $response.body#/status
+  outputs:
+    customerId: $steps.createCustomer.outputs.customerId
+    orderId: $steps.getOrder.outputs.orderId
+    orderStatus: $steps.getOrder.outputs.orderStatus

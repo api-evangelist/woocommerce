@@ -1,0 +1,77 @@
+arazzo: 1.0.1
+info:
+  title: WooCommerce Register Order Webhook
+  summary: Create a webhook subscribed to an order event and confirm it was registered.
+  description: >-
+    Wires up an outbound notification for store events. The workflow creates a
+    webhook subscribed to a supplied topic such as order.created, delivering to
+    a supplied URL, and then reads the webhook back to confirm it is active and
+    pointed at the correct delivery URL. Every step spells out its request
+    inline so the flow can be read and executed without opening the underlying
+    OpenAPI description.
+  version: 1.0.0
+sourceDescriptions:
+- name: woocommerceRestApi
+  url: ../openapi/woocommerce-rest-api-openapi.yml
+  type: openapi
+workflows:
+- workflowId: register-order-webhook
+  summary: Register a webhook for an order topic and confirm it.
+  description: >-
+    Creates a webhook subscribed to the supplied topic and delivery URL, then
+    reads it back to verify the registration.
+  inputs:
+    type: object
+    required:
+    - name
+    - topic
+    - deliveryUrl
+    properties:
+      name:
+        type: string
+        description: Friendly name for the webhook.
+      topic:
+        type: string
+        description: Event topic that triggers the webhook (e.g. order.created).
+      deliveryUrl:
+        type: string
+        description: URL that will receive the webhook POST notification.
+      secret:
+        type: string
+        description: Optional secret used to sign the webhook payload.
+  steps:
+  - stepId: createWebhook
+    description: >-
+      Create a webhook subscribed to the supplied topic and delivery URL.
+    operationId: createWebhook
+    requestBody:
+      contentType: application/json
+      payload:
+        name: $inputs.name
+        status: active
+        topic: $inputs.topic
+        delivery_url: $inputs.deliveryUrl
+        secret: $inputs.secret
+    successCriteria:
+    - condition: $statusCode == 201
+    outputs:
+      webhookId: $response.body#/id
+  - stepId: getWebhook
+    description: >-
+      Read the webhook back to confirm it is active and pointed at the correct
+      delivery URL.
+    operationId: getWebhook
+    parameters:
+    - name: id
+      in: path
+      value: $steps.createWebhook.outputs.webhookId
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      webhookId: $response.body#/id
+      webhookStatus: $response.body#/status
+      deliveryUrl: $response.body#/delivery_url
+  outputs:
+    webhookId: $steps.getWebhook.outputs.webhookId
+    webhookStatus: $steps.getWebhook.outputs.webhookStatus
+    deliveryUrl: $steps.getWebhook.outputs.deliveryUrl

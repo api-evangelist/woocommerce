@@ -1,0 +1,90 @@
+arazzo: 1.0.1
+info:
+  title: WooCommerce Create Order with Note
+  summary: Place an order and attach an internal or customer-facing note to it.
+  description: >-
+    Records an order and annotates it for the fulfillment team or the buyer.
+    The workflow creates an order with a line item, then attaches a note to that
+    order, and finally retrieves the order to confirm it persisted. Every step
+    spells out its request inline so the flow can be read and executed without
+    opening the underlying OpenAPI description.
+  version: 1.0.0
+sourceDescriptions:
+- name: woocommerceRestApi
+  url: ../openapi/woocommerce-rest-api-openapi.yml
+  type: openapi
+workflows:
+- workflowId: create-order-with-note
+  summary: Create an order, attach a note to it, and confirm the order.
+  description: >-
+    Creates an order, adds an order note, and reads the order back to verify it
+    was stored.
+  inputs:
+    type: object
+    required:
+    - productId
+    - quantity
+    - noteText
+    properties:
+      productId:
+        type: integer
+        description: ID of the product to add as a line item on the order.
+      quantity:
+        type: integer
+        description: Quantity of the product to order.
+      noteText:
+        type: string
+        description: Content of the note to attach to the order.
+      customerNote:
+        type: boolean
+        description: Whether the note should be visible to the customer.
+  steps:
+  - stepId: createOrder
+    description: >-
+      Create an order with a single product line item.
+    operationId: createOrder
+    requestBody:
+      contentType: application/json
+      payload:
+        status: processing
+        line_items:
+        - product_id: $inputs.productId
+          quantity: $inputs.quantity
+    successCriteria:
+    - condition: $statusCode == 201
+    outputs:
+      orderId: $response.body#/id
+  - stepId: addNote
+    description: >-
+      Attach a note to the order, optionally making it visible to the customer.
+    operationId: createOrderNote
+    parameters:
+    - name: order_id
+      in: path
+      value: $steps.createOrder.outputs.orderId
+    requestBody:
+      contentType: application/json
+      payload:
+        note: $inputs.noteText
+        customer_note: $inputs.customerNote
+    successCriteria:
+    - condition: $statusCode == 201
+    outputs:
+      noteId: $response.body#/id
+  - stepId: getOrder
+    description: >-
+      Retrieve the order to confirm it persisted after the note was attached.
+    operationId: getOrder
+    parameters:
+    - name: id
+      in: path
+      value: $steps.createOrder.outputs.orderId
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      orderId: $response.body#/id
+      orderStatus: $response.body#/status
+  outputs:
+    orderId: $steps.getOrder.outputs.orderId
+    noteId: $steps.addNote.outputs.noteId
+    orderStatus: $steps.getOrder.outputs.orderStatus

@@ -1,0 +1,99 @@
+arazzo: 1.0.1
+info:
+  title: WooCommerce Create Variable Product with Variation
+  summary: Create a variable product and add a single purchasable variation to it.
+  description: >-
+    Sets up a variable product and gives it a sellable variation. The workflow
+    first creates a product of type variable, then creates a variation under
+    that product with its own SKU, price, and stock, and finally reads the
+    variation back to confirm it is purchasable. Every step spells out its
+    request inline so the flow can be read and executed without opening the
+    underlying OpenAPI description.
+  version: 1.0.0
+sourceDescriptions:
+- name: woocommerceRestApi
+  url: ../openapi/woocommerce-rest-api-openapi.yml
+  type: openapi
+workflows:
+- workflowId: create-variable-product-with-variation
+  summary: Create a variable product, add a variation, and confirm the variation.
+  description: >-
+    Creates a variable product, adds a single variation with its own SKU and
+    price, and reads the variation back to verify it was stored.
+  inputs:
+    type: object
+    required:
+    - productName
+    - variationSku
+    - variationPrice
+    properties:
+      productName:
+        type: string
+        description: Name of the variable product to create.
+      variationSku:
+        type: string
+        description: SKU to assign to the variation.
+      variationPrice:
+        type: string
+        description: Regular price for the variation as a decimal string.
+      stockQuantity:
+        type: integer
+        description: Optional stock quantity to manage for the variation.
+  steps:
+  - stepId: createProduct
+    description: >-
+      Create a product of type variable that will hold one or more variations.
+    operationId: createProduct
+    requestBody:
+      contentType: application/json
+      payload:
+        name: $inputs.productName
+        type: variable
+        status: publish
+    successCriteria:
+    - condition: $statusCode == 201
+    outputs:
+      productId: $response.body#/id
+  - stepId: createVariation
+    description: >-
+      Create a variation under the new product with its own SKU, price, and
+      managed stock.
+    operationId: createProductVariation
+    parameters:
+    - name: product_id
+      in: path
+      value: $steps.createProduct.outputs.productId
+    requestBody:
+      contentType: application/json
+      payload:
+        sku: $inputs.variationSku
+        regular_price: $inputs.variationPrice
+        status: publish
+        manage_stock: true
+        stock_quantity: $inputs.stockQuantity
+        stock_status: instock
+    successCriteria:
+    - condition: $statusCode == 201
+    outputs:
+      variationId: $response.body#/id
+  - stepId: getVariation
+    description: >-
+      Read the variation back to confirm it persisted with the supplied SKU and
+      price.
+    operationId: getProductVariation
+    parameters:
+    - name: product_id
+      in: path
+      value: $steps.createProduct.outputs.productId
+    - name: id
+      in: path
+      value: $steps.createVariation.outputs.variationId
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      variationId: $response.body#/id
+      variationSku: $response.body#/sku
+  outputs:
+    productId: $steps.createProduct.outputs.productId
+    variationId: $steps.getVariation.outputs.variationId
+    variationSku: $steps.getVariation.outputs.variationSku

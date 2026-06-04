@@ -143,6 +143,57 @@ apis:
       url: json-schema/woocommerce-rest-api-webhook-schema.json
       title: Webhook Schema
 common:
+  - type: ArazzoWorkflows
+    url: arazzo/
+    workflows:
+    - url: arazzo/woocommerce-category-variable-product-variation-workflow.yml
+      name: WooCommerce Category, Variable Product, and Variation
+      summary: Create a category, a variable product in it, a variation, and confirm the variation.
+    - url: arazzo/woocommerce-create-category-and-product-workflow.yml
+      name: WooCommerce Create Category and Product
+      summary: Create a product category, create a product assigned to it, then read the product back.
+    - url: arazzo/woocommerce-create-customer-and-order-workflow.yml
+      name: WooCommerce Create Customer and Order
+      summary: Create a customer account and place an order on their behalf, then read the order back.
+    - url: arazzo/woocommerce-create-customer-with-billing-order-workflow.yml
+      name: WooCommerce Create Customer with Billing and Order
+      summary: Create a customer with a full billing address, then place an order reusing that address.
+    - url: arazzo/woocommerce-create-nested-category-product-workflow.yml
+      name: WooCommerce Create Nested Category and Product
+      summary: Create a parent category, a child category under it, and a product in the child.
+    - url: arazzo/woocommerce-create-order-and-refund-workflow.yml
+      name: WooCommerce Create Order and Refund
+      summary: Place an order, mark it completed, then issue a refund against it.
+    - url: arazzo/woocommerce-create-order-with-note-workflow.yml
+      name: WooCommerce Create Order with Note
+      summary: Place an order and attach an internal or customer-facing note to it.
+    - url: arazzo/woocommerce-create-product-coupon-workflow.yml
+      name: WooCommerce Create Product and Targeted Coupon
+      summary: Create a product, then create a coupon restricted to that product.
+    - url: arazzo/woocommerce-create-variable-product-with-variation-workflow.yml
+      name: WooCommerce Create Variable Product with Variation
+      summary: Create a variable product and add a single purchasable variation to it.
+    - url: arazzo/woocommerce-customer-order-refund-lifecycle-workflow.yml
+      name: WooCommerce Customer Order Refund Lifecycle
+      summary: Onboard a customer, place and complete their order, then refund it end to end.
+    - url: arazzo/woocommerce-guest-order-note-refund-workflow.yml
+      name: WooCommerce Guest Order with Note and Refund
+      summary: Place a guest order, annotate it with a note, then refund it.
+    - url: arazzo/woocommerce-register-order-webhook-workflow.yml
+      name: WooCommerce Register Order Webhook
+      summary: Create a webhook subscribed to an order event and confirm it was registered.
+    - url: arazzo/woocommerce-upsert-category-workflow.yml
+      name: WooCommerce Upsert Product Category
+      summary: Find a product category by slug and create it only if it does not already exist.
+    - url: arazzo/woocommerce-upsert-coupon-by-code-workflow.yml
+      name: WooCommerce Upsert Coupon by Code
+      summary: Find a coupon by its code and create it only if it does not already exist.
+    - url: arazzo/woocommerce-upsert-customer-by-email-workflow.yml
+      name: WooCommerce Upsert Customer by Email
+      summary: Find a customer by email and create the account only if it does not already exist.
+    - url: arazzo/woocommerce-upsert-product-by-sku-workflow.yml
+      name: WooCommerce Upsert Product by SKU
+      summary: Find a product by its SKU and create it only if no matching product exists.
   - type: LinkedIn
     url: https://www.linkedin.com/company/woocommerce
   - type: Website

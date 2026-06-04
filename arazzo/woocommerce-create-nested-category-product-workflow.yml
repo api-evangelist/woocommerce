@@ -1,0 +1,87 @@
+arazzo: 1.0.1
+info:
+  title: WooCommerce Create Nested Category and Product
+  summary: Create a parent category, a child category under it, and a product in the child.
+  description: >-
+    Builds a two-level catalog taxonomy and a product within it. The workflow
+    creates a parent product category, creates a child category whose parent is
+    the first category, and finally creates a product assigned to the child
+    category. Every step spells out its request inline so the flow can be read
+    and executed without opening the underlying OpenAPI description.
+  version: 1.0.0
+sourceDescriptions:
+- name: woocommerceRestApi
+  url: ../openapi/woocommerce-rest-api-openapi.yml
+  type: openapi
+workflows:
+- workflowId: create-nested-category-product
+  summary: Create a parent category, a child category, and a product in the child.
+  description: >-
+    Creates a parent category, a nested child category, and a product assigned
+    to the child category.
+  inputs:
+    type: object
+    required:
+    - parentName
+    - childName
+    - productName
+    properties:
+      parentName:
+        type: string
+        description: Name of the parent category to create.
+      childName:
+        type: string
+        description: Name of the child category to create under the parent.
+      productName:
+        type: string
+        description: Name of the product to create in the child category.
+      regularPrice:
+        type: string
+        description: Optional regular price for the product as a decimal string.
+  steps:
+  - stepId: createParentCategory
+    description: >-
+      Create the top-level parent product category.
+    operationId: createProductCategory
+    requestBody:
+      contentType: application/json
+      payload:
+        name: $inputs.parentName
+    successCriteria:
+    - condition: $statusCode == 201
+    outputs:
+      parentCategoryId: $response.body#/id
+  - stepId: createChildCategory
+    description: >-
+      Create a child category nested under the parent category.
+    operationId: createProductCategory
+    requestBody:
+      contentType: application/json
+      payload:
+        name: $inputs.childName
+        parent: $steps.createParentCategory.outputs.parentCategoryId
+    successCriteria:
+    - condition: $statusCode == 201
+    outputs:
+      childCategoryId: $response.body#/id
+  - stepId: createProduct
+    description: >-
+      Create a product assigned to the child category.
+    operationId: createProduct
+    requestBody:
+      contentType: application/json
+      payload:
+        name: $inputs.productName
+        type: simple
+        status: publish
+        regular_price: $inputs.regularPrice
+        categories:
+        - id: $steps.createChildCategory.outputs.childCategoryId
+    successCriteria:
+    - condition: $statusCode == 201
+    outputs:
+      productId: $response.body#/id
+  outputs:
+    parentCategoryId: $steps.createParentCategory.outputs.parentCategoryId
+    childCategoryId: $steps.createChildCategory.outputs.childCategoryId
+    productId: $steps.createProduct.outputs.productId

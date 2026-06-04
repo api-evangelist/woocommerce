@@ -1,0 +1,92 @@
+arazzo: 1.0.1
+info:
+  title: WooCommerce Create Product and Targeted Coupon
+  summary: Create a product, then create a coupon restricted to that product.
+  description: >-
+    Launches a product alongside a promotion scoped to it. The workflow creates
+    a product, then creates a percentage coupon whose applicable product list is
+    restricted to the new product, and finally reads the coupon back to confirm
+    the restriction was stored. Every step spells out its request inline so the
+    flow can be read and executed without opening the underlying OpenAPI
+    description.
+  version: 1.0.0
+sourceDescriptions:
+- name: woocommerceRestApi
+  url: ../openapi/woocommerce-rest-api-openapi.yml
+  type: openapi
+workflows:
+- workflowId: create-product-coupon
+  summary: Create a product and a coupon restricted to that product.
+  description: >-
+    Creates a product, creates a coupon limited to that product, and reads the
+    coupon back to verify the product restriction.
+  inputs:
+    type: object
+    required:
+    - productName
+    - regularPrice
+    - couponCode
+    - couponAmount
+    properties:
+      productName:
+        type: string
+        description: Name of the product to create.
+      regularPrice:
+        type: string
+        description: Regular price of the product as a decimal string.
+      couponCode:
+        type: string
+        description: Code for the coupon to create.
+      couponAmount:
+        type: string
+        description: Discount amount as a decimal string.
+  steps:
+  - stepId: createProduct
+    description: >-
+      Create the product that the coupon will be restricted to.
+    operationId: createProduct
+    requestBody:
+      contentType: application/json
+      payload:
+        name: $inputs.productName
+        type: simple
+        status: publish
+        regular_price: $inputs.regularPrice
+    successCriteria:
+    - condition: $statusCode == 201
+    outputs:
+      productId: $response.body#/id
+  - stepId: createCoupon
+    description: >-
+      Create a percentage coupon whose applicable products are restricted to the
+      new product.
+    operationId: createCoupon
+    requestBody:
+      contentType: application/json
+      payload:
+        code: $inputs.couponCode
+        amount: $inputs.couponAmount
+        discount_type: percent
+        product_ids:
+        - $steps.createProduct.outputs.productId
+    successCriteria:
+    - condition: $statusCode == 201
+    outputs:
+      couponId: $response.body#/id
+  - stepId: getCoupon
+    description: >-
+      Read the coupon back to confirm the product restriction persisted.
+    operationId: getCoupon
+    parameters:
+    - name: id
+      in: path
+      value: $steps.createCoupon.outputs.couponId
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      couponId: $response.body#/id
+      couponCode: $response.body#/code
+  outputs:
+    productId: $steps.createProduct.outputs.productId
+    couponId: $steps.getCoupon.outputs.couponId
+    couponCode: $steps.getCoupon.outputs.couponCode
