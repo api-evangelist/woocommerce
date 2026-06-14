@@ -1,0 +1,1748 @@
+"""
+WooCommerce GraphQL Schema
+Source: WPGraphQL WooCommerce (WooGraphQL)
+GitHub: https://github.com/wp-graphql/wp-graphql-woocommerce
+Endpoint: https://yoursite.com/graphql
+"""
+
+# ─── Scalars ──────────────────────────────────────────────────────────────────
+
+scalar DateTime
+scalar Decimal
+scalar ID
+
+# ─── Enums ────────────────────────────────────────────────────────────────────
+
+enum StockStatus {
+  IN_STOCK
+  OUT_OF_STOCK
+  ON_BACKORDER
+}
+
+enum BackordersAllowed {
+  NO
+  NOTIFY
+  YES
+}
+
+enum ManageStock {
+  FALSE
+  NOTIFY
+  TRUE
+}
+
+enum CatalogVisibility {
+  CATALOG
+  SEARCH
+  HIDDEN
+  VISIBLE
+}
+
+enum OrderStatus {
+  PENDING
+  PROCESSING
+  ON_HOLD
+  COMPLETED
+  CANCELLED
+  REFUNDED
+  FAILED
+}
+
+enum ProductTypesEnum {
+  SIMPLE
+  VARIABLE
+  EXTERNAL
+  GROUPED
+}
+
+enum TaxStatusEnum {
+  TAXABLE
+  SHIPPING
+  NONE
+}
+
+enum DiscountTypeEnum {
+  PERCENT
+  FIXED_CART
+  FIXED_PRODUCT
+}
+
+enum OrdersOrderbyEnum {
+  DATE
+  MODIFIED
+  ID
+  TOTAL
+  ORDER_NUMBER
+}
+
+enum OrderEnum {
+  ASC
+  DESC
+}
+
+# ─── Interfaces ───────────────────────────────────────────────────────────────
+
+"""Base interface shared by all WooCommerce product types."""
+interface Product {
+  id: ID!
+  databaseId: Int!
+  name: String
+  slug: String
+  type: ProductTypesEnum
+  status: String
+  description: String
+  shortDescription: String
+  sku: String
+  price: String
+  regularPrice: String
+  salePrice: String
+  onSale: Boolean
+  purchasable: Boolean
+  totalSales: Int
+  virtual: Boolean
+  downloadable: Boolean
+  taxStatus: TaxStatusEnum
+  taxClass: String
+  manageStock: ManageStock
+  stockQuantity: Int
+  stockStatus: StockStatus
+  backorders: BackordersAllowed
+  backordersAllowed: Boolean
+  backordered: Boolean
+  soldIndividually: Boolean
+  weight: String
+  reviewsAllowed: Boolean
+  averageRating: Float
+  reviewCount: Int
+  featured: Boolean
+  catalogVisibility: CatalogVisibility
+  dateOnSaleFrom: DateTime
+  dateOnSaleTo: DateTime
+  dateCreated: DateTime
+  dateModified: DateTime
+  image: MediaItem
+  productCategories: ProductCategoryConnection
+  productTags: ProductTagConnection
+  attributes: ProductAttributeConnection
+  metaData: [MetaData]
+}
+
+"""Base interface for all order line items."""
+interface OrderItem {
+  databaseId: Int
+  quantity: Int
+  total: String
+  totalTax: String
+  metaData: [MetaData]
+}
+
+# ─── Types ────────────────────────────────────────────────────────────────────
+
+"""WordPress media item used as product image."""
+type MediaItem {
+  id: ID!
+  databaseId: Int!
+  sourceUrl(size: MediaItemSizeEnum): String
+  altText: String
+  title: String
+  mediaDetails: MediaDetails
+}
+
+enum MediaItemSizeEnum {
+  THUMBNAIL
+  MEDIUM
+  MEDIUM_LARGE
+  LARGE
+  FULL
+  WOOCOMMERCE_THUMBNAIL
+  WOOCOMMERCE_SINGLE
+  WOOCOMMERCE_GALLERY_THUMBNAIL
+}
+
+type MediaDetails {
+  width: Int
+  height: Int
+  file: String
+}
+
+"""Gallery of product images."""
+type Gallery {
+  nodes: [MediaItem]
+}
+
+"""Price range for variable products."""
+type PricingRange {
+  minPrice: String
+  maxPrice: String
+  minRegularPrice: String
+  maxRegularPrice: String
+}
+
+"""A simple (single-variation) WooCommerce product."""
+type SimpleProduct implements Product {
+  id: ID!
+  databaseId: Int!
+  name: String
+  slug: String
+  type: ProductTypesEnum
+  status: String
+  description: String
+  shortDescription: String
+  sku: String
+  price: String
+  regularPrice: String
+  salePrice: String
+  onSale: Boolean
+  purchasable: Boolean
+  totalSales: Int
+  virtual: Boolean
+  downloadable: Boolean
+  taxStatus: TaxStatusEnum
+  taxClass: String
+  manageStock: ManageStock
+  stockQuantity: Int
+  stockStatus: StockStatus
+  backorders: BackordersAllowed
+  backordersAllowed: Boolean
+  backordered: Boolean
+  soldIndividually: Boolean
+  weight: String
+  reviewsAllowed: Boolean
+  averageRating: Float
+  reviewCount: Int
+  featured: Boolean
+  catalogVisibility: CatalogVisibility
+  dateOnSaleFrom: DateTime
+  dateOnSaleTo: DateTime
+  dateCreated: DateTime
+  dateModified: DateTime
+  image: MediaItem
+  galleryImages: Gallery
+  productCategories: ProductCategoryConnection
+  productTags: ProductTagConnection
+  attributes: ProductAttributeConnection
+  downloads: [DownloadableFile]
+  downloadLimit: Int
+  downloadExpiry: Int
+  metaData: [MetaData]
+  reviews: ReviewConnection
+}
+
+"""A variable product with multiple purchasable variations."""
+type VariableProduct implements Product {
+  id: ID!
+  databaseId: Int!
+  name: String
+  slug: String
+  type: ProductTypesEnum
+  status: String
+  description: String
+  shortDescription: String
+  sku: String
+  price: String
+  regularPrice: String
+  salePrice: String
+  onSale: Boolean
+  purchasable: Boolean
+  totalSales: Int
+  virtual: Boolean
+  downloadable: Boolean
+  taxStatus: TaxStatusEnum
+  taxClass: String
+  manageStock: ManageStock
+  stockQuantity: Int
+  stockStatus: StockStatus
+  backorders: BackordersAllowed
+  backordersAllowed: Boolean
+  backordered: Boolean
+  soldIndividually: Boolean
+  weight: String
+  reviewsAllowed: Boolean
+  averageRating: Float
+  reviewCount: Int
+  featured: Boolean
+  catalogVisibility: CatalogVisibility
+  dateOnSaleFrom: DateTime
+  dateOnSaleTo: DateTime
+  dateCreated: DateTime
+  dateModified: DateTime
+  image: MediaItem
+  galleryImages: Gallery
+  priceRange: PricingRange
+  productCategories: ProductCategoryConnection
+  productTags: ProductTagConnection
+  attributes: ProductAttributeConnection
+  variations(first: Int, after: String): ProductVariationConnection
+  metaData: [MetaData]
+  reviews: ReviewConnection
+}
+
+"""An external/affiliate product that links to another site."""
+type ExternalProduct implements Product {
+  id: ID!
+  databaseId: Int!
+  name: String
+  slug: String
+  type: ProductTypesEnum
+  status: String
+  description: String
+  shortDescription: String
+  sku: String
+  price: String
+  regularPrice: String
+  salePrice: String
+  onSale: Boolean
+  purchasable: Boolean
+  totalSales: Int
+  virtual: Boolean
+  downloadable: Boolean
+  taxStatus: TaxStatusEnum
+  taxClass: String
+  manageStock: ManageStock
+  stockQuantity: Int
+  stockStatus: StockStatus
+  backorders: BackordersAllowed
+  backordersAllowed: Boolean
+  backordered: Boolean
+  soldIndividually: Boolean
+  weight: String
+  reviewsAllowed: Boolean
+  averageRating: Float
+  reviewCount: Int
+  featured: Boolean
+  catalogVisibility: CatalogVisibility
+  dateOnSaleFrom: DateTime
+  dateOnSaleTo: DateTime
+  dateCreated: DateTime
+  dateModified: DateTime
+  image: MediaItem
+  externalUrl: String
+  buttonText: String
+  productCategories: ProductCategoryConnection
+  productTags: ProductTagConnection
+  attributes: ProductAttributeConnection
+  metaData: [MetaData]
+}
+
+"""A grouped product linking several related simple products."""
+type GroupedProduct implements Product {
+  id: ID!
+  databaseId: Int!
+  name: String
+  slug: String
+  type: ProductTypesEnum
+  status: String
+  description: String
+  shortDescription: String
+  sku: String
+  price: String
+  regularPrice: String
+  salePrice: String
+  onSale: Boolean
+  purchasable: Boolean
+  totalSales: Int
+  virtual: Boolean
+  downloadable: Boolean
+  taxStatus: TaxStatusEnum
+  taxClass: String
+  manageStock: ManageStock
+  stockQuantity: Int
+  stockStatus: StockStatus
+  backorders: BackordersAllowed
+  backordersAllowed: Boolean
+  backordered: Boolean
+  soldIndividually: Boolean
+  weight: String
+  reviewsAllowed: Boolean
+  averageRating: Float
+  reviewCount: Int
+  featured: Boolean
+  catalogVisibility: CatalogVisibility
+  dateOnSaleFrom: DateTime
+  dateOnSaleTo: DateTime
+  dateCreated: DateTime
+  dateModified: DateTime
+  image: MediaItem
+  products: ProductConnection
+  productCategories: ProductCategoryConnection
+  productTags: ProductTagConnection
+  attributes: ProductAttributeConnection
+  metaData: [MetaData]
+}
+
+"""A specific purchasable variant of a variable product."""
+type ProductVariation {
+  id: ID!
+  databaseId: Int!
+  name: String
+  slug: String
+  status: String
+  description: String
+  sku: String
+  price: String
+  regularPrice: String
+  salePrice: String
+  onSale: Boolean
+  purchasable: Boolean
+  virtual: Boolean
+  downloadable: Boolean
+  taxStatus: TaxStatusEnum
+  taxClass: String
+  manageStock: ManageStock
+  stockQuantity: Int
+  stockStatus: StockStatus
+  backorders: BackordersAllowed
+  backordersAllowed: Boolean
+  backordered: Boolean
+  weight: String
+  image: MediaItem
+  attributes: VariationAttributeConnection
+  downloads: [DownloadableFile]
+  metaData: [MetaData]
+  parent: VariableProduct
+}
+
+"""A WooCommerce product category."""
+type ProductCategory {
+  id: ID!
+  databaseId: Int!
+  name: String
+  slug: String
+  description: String
+  count: Int
+  parent: ProductCategoryToParentProductCategoryConnectionEdge
+  children: ProductCategoryConnection
+  image: MediaItem
+  products: ProductConnection
+}
+
+"""A WooCommerce product tag."""
+type ProductTag {
+  id: ID!
+  databaseId: Int!
+  name: String
+  slug: String
+  description: String
+  count: Int
+  products: ProductConnection
+}
+
+"""A WooCommerce product attribute (e.g. size, color)."""
+type ProductAttribute {
+  id: ID!
+  attributeId: Int
+  name: String
+  label: String
+  scope: ProductAttributeTypesEnum
+  variation: Boolean
+  visible: Boolean
+  options: [String]
+}
+
+enum ProductAttributeTypesEnum {
+  GLOBAL
+  LOCAL
+}
+
+"""A site-wide reusable product attribute."""
+type GlobalProductAttribute {
+  id: ID!
+  databaseId: Int!
+  name: String
+  slug: String
+  label: String
+  hasArchives: Boolean
+  terms: ProductAttributeOptionConnection
+}
+
+"""A product-specific attribute definition."""
+type LocalProductAttribute {
+  id: ID!
+  name: String
+  label: String
+  variation: Boolean
+  visible: Boolean
+  options: [String]
+}
+
+"""An individual term/option within a product attribute."""
+type ProductAttributeOption {
+  id: ID!
+  databaseId: Int!
+  name: String
+  slug: String
+  count: Int
+}
+
+"""An attribute value applied to a specific product variation."""
+type VariationAttribute {
+  id: ID!
+  name: String
+  label: String
+  value: String
+}
+
+"""A file available for download on a downloadable product."""
+type DownloadableFile {
+  downloadId: String
+  name: String
+  file: String
+}
+
+"""A downloadable item granted to a customer after purchase."""
+type DownloadableItem {
+  url: String
+  downloadId: String
+  name: String
+  product: SimpleProduct
+  order: Order
+  downloadsRemaining: String
+  accessExpires: DateTime
+  downloadCount: Int
+}
+
+"""Arbitrary metadata key-value pair attached to WooCommerce objects."""
+type MetaData {
+  id: ID!
+  key: String!
+  value: String
+}
+
+"""A coupon code for discounting orders."""
+type Coupon {
+  id: ID!
+  databaseId: Int!
+  code: String
+  discountType: DiscountTypeEnum
+  amount: String
+  dateCreated: DateTime
+  dateModified: DateTime
+  dateExpiry: DateTime
+  usageCount: Int
+  usageLimit: Int
+  usageLimitPerUser: Int
+  individualUse: Boolean
+  minimumAmount: String
+  maximumAmount: String
+  excludeSaleItems: Boolean
+  freeShipping: Boolean
+  emailRestrictions: [String]
+  products: ProductConnection
+  excludedProducts: ProductConnection
+  productCategories: ProductCategoryConnection
+  excludedProductCategories: ProductCategoryConnection
+  metaData: [MetaData]
+}
+
+"""A coupon applied to the current cart."""
+type AppliedCoupon {
+  code: String!
+  discountAmount: String
+  discountTax: String
+}
+
+"""The current shopping cart."""
+type Cart {
+  subtotal: String
+  subtotalTax: String
+  shippingTax: String
+  shippingTotal: String
+  total: String
+  totalTax: String
+  feesTotal: String
+  feesTax: String
+  discountTotal: String
+  discountTax: String
+  contentsTotal: String
+  contentsTax: String
+  isEmpty: Boolean
+  needsShipping: Boolean
+  needsPayment: Boolean
+  chosenShippingMethods: [String]
+  availableShippingMethods: [ShippingPackage]
+  appliedCoupons: [AppliedCoupon]
+  fees: [CartFee]
+  contents: CartContents
+  taxes: [CartTax]
+}
+
+"""The collection of items in the cart."""
+type CartContents {
+  itemCount: Int
+  productCount: Int
+  nodes: [CartItem]
+  pageInfo: WPPageInfo
+}
+
+"""A single product line in the cart."""
+type CartItem {
+  key: String!
+  quantity: Int
+  subtotal: String
+  subtotalTax: String
+  total: String
+  tax: String
+  product: CartItemToProductConnectionEdge
+  variation: CartItemToProductVariationConnectionEdge
+  extraData: [MetaData]
+}
+
+"""An additional fee applied to the cart."""
+type CartFee {
+  id: ID!
+  name: String
+  amount: String
+  tax: String
+  taxable: Boolean
+  taxClass: String
+}
+
+"""A tax amount applied to the cart."""
+type CartTax {
+  id: String!
+  label: String
+  amount: String
+  isCompound: Boolean
+}
+
+"""A shipping package available during cart checkout."""
+type ShippingPackage {
+  packageDetails: String
+  supportsLocalPickup: Boolean
+  rates: [ShippingRate]
+}
+
+"""A calculated shipping rate."""
+type ShippingRate {
+  id: String!
+  label: String
+  cost: String
+  tax: String
+  methodId: String
+  instanceId: Int
+}
+
+"""A WooCommerce order."""
+type Order {
+  id: ID!
+  databaseId: Int!
+  orderNumber: String
+  status: OrderStatus
+  currency: String
+  total: String
+  subtotal: String
+  totalTax: String
+  shippingTotal: String
+  shippingTax: String
+  discountTotal: String
+  discountTax: String
+  cartTax: String
+  pricesIncludeTax: Boolean
+  dateCreated: DateTime
+  dateModified: DateTime
+  dateCompleted: DateTime
+  datePaid: DateTime
+  paymentMethod: String
+  paymentMethodTitle: String
+  transactionId: String
+  customerNote: String
+  billing: CustomerAddress
+  shipping: CustomerAddress
+  customer: Customer
+  lineItems: LineItemConnection
+  shippingLines: ShippingLineConnection
+  taxLines: TaxLineConnection
+  feeLines: FeeLineConnection
+  couponLines: CouponLineConnection
+  refunds: RefundConnection
+  metaData: [MetaData]
+}
+
+"""A product line item within an order."""
+type LineItem implements OrderItem {
+  databaseId: Int
+  productId: Int
+  variationId: Int
+  quantity: Int
+  subtotal: String
+  subtotalTax: String
+  total: String
+  totalTax: String
+  taxClass: String
+  taxStatus: TaxStatusEnum
+  product: LineItemToProductConnectionEdge
+  variation: LineItemToProductVariationConnectionEdge
+  metaData: [MetaData]
+}
+
+"""A shipping method line on an order."""
+type ShippingLine implements OrderItem {
+  databaseId: Int
+  methodTitle: String
+  shippingMethodId: String
+  quantity: Int
+  total: String
+  totalTax: String
+  taxes: [OrderTax]
+  metaData: [MetaData]
+}
+
+"""A tax line on an order."""
+type TaxLine implements OrderItem {
+  databaseId: Int
+  rateCode: String
+  rateId: Int
+  label: String
+  isCompound: Boolean
+  taxTotal: String
+  shippingTaxTotal: String
+  quantity: Int
+  total: String
+  totalTax: String
+  metaData: [MetaData]
+}
+
+"""An additional fee line on an order."""
+type FeeLine implements OrderItem {
+  databaseId: Int
+  name: String
+  taxClass: String
+  taxStatus: TaxStatusEnum
+  quantity: Int
+  total: String
+  totalTax: String
+  taxes: [OrderTax]
+  metaData: [MetaData]
+}
+
+"""A coupon applied to an order."""
+type CouponLine implements OrderItem {
+  databaseId: Int
+  code: String
+  discount: String
+  discountTax: String
+  quantity: Int
+  total: String
+  totalTax: String
+  metaData: [MetaData]
+}
+
+"""Tax detail associated with an order line."""
+type OrderTax {
+  id: String
+  total: String
+  subtotal: String
+}
+
+"""A refund issued against an order."""
+type Refund {
+  id: ID!
+  databaseId: Int!
+  title: String
+  amount: String
+  reason: String
+  dateCreated: DateTime
+  refundedBy: String
+  lineItems: RefundedItemConnection
+  metaData: [MetaData]
+}
+
+"""An individual refunded line item."""
+type RefundedItem {
+  databaseId: Int
+  quantity: Int
+  subtotal: String
+  subtotalTax: String
+  total: String
+  totalTax: String
+  metaData: [MetaData]
+}
+
+"""A WooCommerce shipping zone."""
+type ShippingZone {
+  id: ID!
+  databaseId: Int!
+  name: String
+  order: Int
+  locations: [ShippingLocation]
+  methods: [ShippingMethod]
+}
+
+"""A location within a shipping zone."""
+type ShippingLocation {
+  type: ShippingLocationTypeEnum
+  code: String
+}
+
+enum ShippingLocationTypeEnum {
+  COUNTRY
+  STATE
+  POSTCODE
+  CONTINENT
+}
+
+"""A WooCommerce shipping method (flat rate, free shipping, etc.)."""
+type ShippingMethod {
+  id: ID!
+  databaseId: Int!
+  instanceId: Int
+  title: String
+  order: Int
+  enabled: Boolean
+  methodId: String
+  methodTitle: String
+  methodDescription: String
+  settings: [ShippingMethodSetting]
+}
+
+"""A setting key-value pair for a shipping method."""
+type ShippingMethodSetting {
+  id: String
+  label: String
+  description: String
+  type: String
+  value: String
+  default: String
+  tip: String
+  placeholder: String
+}
+
+"""A WooCommerce tax rate."""
+type TaxRate {
+  id: ID!
+  databaseId: Int!
+  name: String
+  rate: String
+  country: String
+  state: String
+  postcodes: [String]
+  cities: [String]
+  priority: Int
+  compound: Boolean
+  shipping: Boolean
+  order: Int
+  taxClass: String
+}
+
+"""A tax class (standard, reduced-rate, zero-rate)."""
+type TaxClass {
+  slug: String
+  name: String
+}
+
+"""A registered WooCommerce customer."""
+type Customer {
+  id: ID!
+  databaseId: Int!
+  firstName: String
+  lastName: String
+  displayName: String
+  email: String
+  username: String
+  role: String
+  dateCreated: DateTime
+  dateModified: DateTime
+  totalSpent: String
+  orderCount: Int
+  avatarUrl: String
+  billing: CustomerAddress
+  shipping: CustomerAddress
+  orders: OrderConnection
+  downloads: [DownloadableItem]
+  metaData: [MetaData]
+  session: [MetaData]
+}
+
+"""Billing or shipping address for a customer or order."""
+type CustomerAddress {
+  firstName: String
+  lastName: String
+  company: String
+  address1: String
+  address2: String
+  city: String
+  state: String
+  postcode: String
+  country: String
+  email: String
+  phone: String
+}
+
+"""A WooCommerce product review."""
+type Review {
+  id: ID!
+  databaseId: Int!
+  content: String
+  date: DateTime
+  status: ReviewStatusEnum
+  rating: Int
+  verified: Boolean
+  author: ReviewAuthor
+  product: ReviewToProductConnectionEdge
+}
+
+enum ReviewStatusEnum {
+  APPROVED
+  HOLD
+  SPAM
+  TRASH
+  UNSPAM
+  UNTRASH
+}
+
+"""The author of a product review."""
+type ReviewAuthor {
+  name: String
+  email: String
+  url: String
+  avatarUrl: String
+}
+
+"""A product review (alias with explicit product context)."""
+type ProductReview {
+  id: ID!
+  databaseId: Int!
+  content: String
+  date: DateTime
+  status: ReviewStatusEnum
+  rating: Int
+  verified: Boolean
+  author: ReviewAuthor
+  product: Product
+}
+
+"""An available payment gateway (Stripe, PayPal, etc.)."""
+type PaymentGateway {
+  id: ID!
+  databaseId: ID
+  title: String
+  description: String
+  icon: String
+  hasFields: Boolean
+  enabled: Boolean
+  order: Int
+}
+
+"""Checkout session state and available options."""
+type Checkout {
+  orderNotes: String
+  customerId: Int
+  needsShipping: Boolean
+  paymentGateways: [PaymentGateway]
+  shippingAddress: CustomerAddress
+  billingAddress: CustomerAddress
+}
+
+"""A WooCommerce subscription (requires Subscriptions extension)."""
+type Subscription {
+  id: ID!
+  databaseId: Int!
+  status: SubscriptionStatusEnum
+  billingPeriod: BillingPeriodEnum
+  billingInterval: Int
+  startDate: DateTime
+  nextPaymentDate: DateTime
+  lastPaymentDate: DateTime
+  endDate: DateTime
+  total: String
+  customer: Customer
+  order: Order
+  lineItems: SubscriptionItemConnection
+  metaData: [MetaData]
+}
+
+enum SubscriptionStatusEnum {
+  ACTIVE
+  CANCELLED
+  EXPIRED
+  ON_HOLD
+  PENDING
+  PENDING_CANCEL
+}
+
+enum BillingPeriodEnum {
+  DAY
+  WEEK
+  MONTH
+  YEAR
+}
+
+"""A line item within a subscription."""
+type SubscriptionItem {
+  id: ID!
+  databaseId: Int!
+  name: String
+  quantity: Int
+  subtotal: String
+  total: String
+  product: Product
+  variation: ProductVariation
+}
+
+"""A WooCommerce membership record (requires Memberships extension)."""
+type Membership {
+  id: ID!
+  databaseId: Int!
+  status: MembershipStatusEnum
+  startDate: DateTime
+  endDate: DateTime
+  pausedDate: DateTime
+  customer: Customer
+  plan: MembershipPlan
+  order: Order
+  metaData: [MetaData]
+}
+
+enum MembershipStatusEnum {
+  ACTIVE
+  COMPLIMENTARY
+  EXPIRED
+  CANCELLED
+  PAUSED
+  PENDING
+}
+
+"""A membership plan definition (requires Memberships extension)."""
+type MembershipPlan {
+  id: ID!
+  databaseId: Int!
+  name: String
+  slug: String
+  status: String
+  accessLength: Int
+  accessLengthPeriod: BillingPeriodEnum
+  rules: [MembershipRule]
+}
+
+"""A rule within a membership plan (content/product restriction)."""
+type MembershipRule {
+  id: String
+  ruleType: String
+  accessType: String
+  objectIds: [Int]
+}
+
+"""Current user/guest session state."""
+type Session {
+  authToken: String
+  refreshToken: String
+  sessionToken: String
+  customer: Customer
+  cart: Cart
+}
+
+"""A WordPress nonce for securing form submissions."""
+type Nonce {
+  action: String
+  value: String
+}
+
+"""Standard WordPress pagination info."""
+type WPPageInfo {
+  hasNextPage: Boolean!
+  hasPreviousPage: Boolean!
+  startCursor: String
+  endCursor: String
+}
+
+# ─── Connection Types ──────────────────────────────────────────────────────────
+
+type ProductConnection {
+  nodes: [Product]
+  pageInfo: WPPageInfo
+}
+
+type ProductCategoryConnection {
+  nodes: [ProductCategory]
+  pageInfo: WPPageInfo
+}
+
+type ProductCategoryToParentProductCategoryConnectionEdge {
+  node: ProductCategory
+}
+
+type ProductTagConnection {
+  nodes: [ProductTag]
+  pageInfo: WPPageInfo
+}
+
+type ProductAttributeConnection {
+  nodes: [ProductAttribute]
+}
+
+type ProductAttributeOptionConnection {
+  nodes: [ProductAttributeOption]
+}
+
+type ProductVariationConnection {
+  nodes: [ProductVariation]
+  pageInfo: WPPageInfo
+}
+
+type VariationAttributeConnection {
+  nodes: [VariationAttribute]
+}
+
+type OrderConnection {
+  nodes: [Order]
+  pageInfo: WPPageInfo
+}
+
+type LineItemConnection {
+  nodes: [LineItem]
+  pageInfo: WPPageInfo
+}
+
+type ShippingLineConnection {
+  nodes: [ShippingLine]
+  pageInfo: WPPageInfo
+}
+
+type TaxLineConnection {
+  nodes: [TaxLine]
+  pageInfo: WPPageInfo
+}
+
+type FeeLineConnection {
+  nodes: [FeeLine]
+  pageInfo: WPPageInfo
+}
+
+type CouponLineConnection {
+  nodes: [CouponLine]
+  pageInfo: WPPageInfo
+}
+
+type RefundConnection {
+  nodes: [Refund]
+  pageInfo: WPPageInfo
+}
+
+type RefundedItemConnection {
+  nodes: [RefundedItem]
+}
+
+type ReviewConnection {
+  nodes: [Review]
+  pageInfo: WPPageInfo
+}
+
+type SubscriptionItemConnection {
+  nodes: [SubscriptionItem]
+}
+
+# Edge types for single-object connections
+type CartItemToProductConnectionEdge {
+  node: Product
+}
+
+type CartItemToProductVariationConnectionEdge {
+  node: ProductVariation
+}
+
+type LineItemToProductConnectionEdge {
+  node: Product
+}
+
+type LineItemToProductVariationConnectionEdge {
+  node: ProductVariation
+}
+
+type ReviewToProductConnectionEdge {
+  node: Product
+}
+
+# ─── Input Types ──────────────────────────────────────────────────────────────
+
+input AddToCartInput {
+  productId: Int!
+  variationId: Int
+  quantity: Int
+  extraData: String
+  clientMutationId: String
+}
+
+input UpdateCartItemInput {
+  key: String!
+  quantity: Int!
+  clientMutationId: String
+}
+
+input RemoveItemsFromCartInput {
+  keys: [String]!
+  all: Boolean
+  clientMutationId: String
+}
+
+input ApplyCouponInput {
+  code: String!
+  clientMutationId: String
+}
+
+input RemoveCouponsInput {
+  codes: [String]!
+  clientMutationId: String
+}
+
+input CustomerAddressInput {
+  firstName: String
+  lastName: String
+  company: String
+  address1: String
+  address2: String
+  city: String
+  state: String
+  postcode: String
+  country: String
+  email: String
+  phone: String
+}
+
+input CheckoutInput {
+  paymentMethod: String!
+  billing: CustomerAddressInput
+  shipping: CustomerAddressInput
+  shipToDifferentAddress: Boolean
+  customerNote: String
+  isPaid: Boolean
+  transactionId: String
+  metaData: [MetaDataInput]
+  clientMutationId: String
+}
+
+input MetaDataInput {
+  key: String!
+  value: String!
+}
+
+input CreateOrderInput {
+  status: OrderStatus
+  customerId: Int
+  customerNote: String
+  billing: CustomerAddressInput
+  shipping: CustomerAddressInput
+  paymentMethod: String
+  paymentMethodTitle: String
+  transactionId: String
+  lineItems: [LineItemInput]
+  shippingLines: [ShippingLineInput]
+  feeLines: [FeeLineInput]
+  couponLines: [CouponLineInput]
+  metaData: [MetaDataInput]
+  clientMutationId: String
+}
+
+input LineItemInput {
+  productId: Int
+  variationId: Int
+  quantity: Int
+  subtotal: String
+  total: String
+  metaData: [MetaDataInput]
+}
+
+input ShippingLineInput {
+  methodTitle: String
+  shippingMethodId: String
+  total: String
+  metaData: [MetaDataInput]
+}
+
+input FeeLineInput {
+  name: String
+  taxClass: String
+  taxStatus: TaxStatusEnum
+  total: String
+  metaData: [MetaDataInput]
+}
+
+input CouponLineInput {
+  code: String
+  discount: String
+  discountTax: String
+  metaData: [MetaDataInput]
+}
+
+input UpdateOrderInput {
+  id: ID!
+  status: OrderStatus
+  customerNote: String
+  billing: CustomerAddressInput
+  shipping: CustomerAddressInput
+  lineItems: [LineItemInput]
+  metaData: [MetaDataInput]
+  clientMutationId: String
+}
+
+input CreateRefundInput {
+  orderId: Int!
+  amount: String
+  reason: String
+  lineItems: [RefundLineInput]
+  metaData: [MetaDataInput]
+  clientMutationId: String
+}
+
+input RefundLineInput {
+  itemId: Int
+  quantity: Int
+  refundTotal: String
+  refundTax: [RefundTaxInput]
+}
+
+input RefundTaxInput {
+  taxId: Int
+  refundTotal: String
+}
+
+input RegisterCustomerInput {
+  username: String
+  password: String!
+  email: String!
+  firstName: String
+  lastName: String
+  billing: CustomerAddressInput
+  shipping: CustomerAddressInput
+  metaData: [MetaDataInput]
+  clientMutationId: String
+}
+
+input UpdateCustomerInput {
+  id: ID
+  username: String
+  email: String
+  firstName: String
+  lastName: String
+  password: String
+  billing: CustomerAddressInput
+  shipping: CustomerAddressInput
+  metaData: [MetaDataInput]
+  clientMutationId: String
+}
+
+input WriteReviewInput {
+  commentOn: Int!
+  rating: Int!
+  content: String!
+  author: String
+  authorEmail: String
+  clientMutationId: String
+}
+
+input ProductsWhereArgs {
+  search: String
+  category: String
+  categoryId: Int
+  categoryIn: [String]
+  tag: String
+  tagId: Int
+  sku: String
+  onSale: Boolean
+  featured: Boolean
+  stockStatus: StockStatus
+  minPrice: Float
+  maxPrice: Float
+  type: ProductTypesEnum
+  typeIn: [ProductTypesEnum]
+  status: String
+  orderby: [ProductsOrderbyInput]
+}
+
+input ProductsOrderbyInput {
+  field: ProductsOrderbyEnum!
+  order: OrderEnum
+}
+
+enum ProductsOrderbyEnum {
+  DATE
+  MODIFIED
+  ID
+  TITLE
+  PRICE
+  POPULARITY
+  RATING
+  MENU_ORDER
+}
+
+input OrdersWhereArgs {
+  search: String
+  customerId: Int
+  customersIn: [Int]
+  statuses: [OrderStatus]
+  dateQuery: DateQueryInput
+  orderby: [OrdersOrderbyInput]
+}
+
+input OrdersOrderbyInput {
+  field: OrdersOrderbyEnum!
+  order: OrderEnum
+}
+
+input DateQueryInput {
+  year: Int
+  month: Int
+  day: Int
+  after: DateInput
+  before: DateInput
+}
+
+input DateInput {
+  year: Int
+  month: Int
+  day: Int
+}
+
+# ─── Mutation Payloads ────────────────────────────────────────────────────────
+
+type AddToCartPayload {
+  cart: Cart
+  cartItem: CartItem
+  clientMutationId: String
+}
+
+type UpdateCartItemPayload {
+  cart: Cart
+  cartItem: CartItem
+  clientMutationId: String
+}
+
+type RemoveItemsFromCartPayload {
+  cart: Cart
+  cartItems: [CartItem]
+  clientMutationId: String
+}
+
+type ApplyCouponPayload {
+  cart: Cart
+  applied: AppliedCoupon
+  clientMutationId: String
+}
+
+type RemoveCouponsPayload {
+  cart: Cart
+  clientMutationId: String
+}
+
+type CheckoutPayload {
+  order: Order
+  result: String
+  redirect: String
+  clientMutationId: String
+}
+
+type CreateOrderPayload {
+  order: Order
+  clientMutationId: String
+}
+
+type UpdateOrderPayload {
+  order: Order
+  clientMutationId: String
+}
+
+type DeleteOrderPayload {
+  order: Order
+  clientMutationId: String
+}
+
+type CreateRefundPayload {
+  refund: Refund
+  order: Order
+  clientMutationId: String
+}
+
+type RegisterCustomerPayload {
+  customer: Customer
+  viewer: Customer
+  authToken: String
+  refreshToken: String
+  clientMutationId: String
+}
+
+type UpdateCustomerPayload {
+  customer: Customer
+  clientMutationId: String
+}
+
+type LoginPayload {
+  customer: Customer
+  viewer: Customer
+  authToken: String
+  authTokenExpiration: String
+  refreshToken: String
+  sessionToken: String
+  clientMutationId: String
+}
+
+type WriteReviewPayload {
+  review: Review
+  rating: Int
+  clientMutationId: String
+}
+
+type DeleteReviewPayload {
+  review: Review
+  clientMutationId: String
+}
+
+type RefreshJwtAuthTokenPayload {
+  authToken: String
+  clientMutationId: String
+}
+
+type SendPasswordResetEmailPayload {
+  success: Boolean
+  clientMutationId: String
+}
+
+# ─── Root Query ───────────────────────────────────────────────────────────────
+
+type Query {
+  """Fetch a single product by ID or slug."""
+  product(id: ID, idType: ProductIdTypeEnum, slug: String): Product
+
+  """Fetch a list of products with optional filtering."""
+  products(
+    first: Int
+    last: Int
+    after: String
+    before: String
+    where: ProductsWhereArgs
+  ): ProductConnection
+
+  """Fetch a product variation by ID."""
+  productVariation(id: ID, idType: ProductVariationIdTypeEnum): ProductVariation
+
+  """Fetch a product category by ID or slug."""
+  productCategory(id: ID, idType: ProductCategoryIdTypeEnum): ProductCategory
+
+  """Fetch all product categories."""
+  productCategories(
+    first: Int
+    after: String
+    where: ProductCategoryWhereArgs
+  ): ProductCategoryConnection
+
+  """Fetch a product tag by ID or slug."""
+  productTag(id: ID, idType: ProductTagIdTypeEnum): ProductTag
+
+  """Fetch all product tags."""
+  productTags(first: Int, after: String): ProductTagConnection
+
+  """Fetch all globally defined product attributes."""
+  globalProductAttributes(first: Int): ProductAttributeConnection
+
+  """Fetch the current customer's cart."""
+  cart: Cart
+
+  """Fetch a single coupon by ID or code."""
+  coupon(id: ID, idType: CouponIdTypeEnum): Coupon
+
+  """Fetch all coupons."""
+  coupons(first: Int, after: String): CouponConnection
+
+  """Fetch a single order by ID or order number."""
+  order(id: ID, idType: OrderIdTypeEnum): Order
+
+  """Fetch orders with optional filtering (requires auth)."""
+  orders(
+    first: Int
+    after: String
+    where: OrdersWhereArgs
+  ): OrderConnection
+
+  """Fetch a single customer by ID or email."""
+  customer(id: ID, idType: CustomerIdTypeEnum): Customer
+
+  """Fetch all customers (requires admin)."""
+  customers(first: Int, after: String): CustomerConnection
+
+  """Fetch all shipping zones."""
+  shippingZones: [ShippingZone]
+
+  """Fetch a single shipping zone."""
+  shippingZone(id: ID!): ShippingZone
+
+  """Fetch all tax rates."""
+  taxRates(first: Int, after: String): TaxRateConnection
+
+  """Fetch all tax classes."""
+  taxClasses: [TaxClass]
+
+  """Fetch all active payment gateways."""
+  paymentGateways(all: Boolean): [PaymentGateway]
+
+  """Fetch product reviews."""
+  reviews(
+    first: Int
+    after: String
+    where: ReviewsWhereArgs
+  ): ReviewConnection
+
+  """Fetch the current session."""
+  session: Session
+}
+
+enum ProductIdTypeEnum {
+  DATABASE_ID
+  ID
+  SLUG
+  SKU
+}
+
+enum ProductVariationIdTypeEnum {
+  DATABASE_ID
+  ID
+}
+
+enum ProductCategoryIdTypeEnum {
+  DATABASE_ID
+  ID
+  NAME
+  SLUG
+}
+
+enum ProductTagIdTypeEnum {
+  DATABASE_ID
+  ID
+  NAME
+  SLUG
+}
+
+enum CouponIdTypeEnum {
+  DATABASE_ID
+  ID
+  CODE
+}
+
+enum OrderIdTypeEnum {
+  DATABASE_ID
+  ID
+  ORDER_NUMBER
+}
+
+enum CustomerIdTypeEnum {
+  DATABASE_ID
+  ID
+  EMAIL
+  USERNAME
+}
+
+input ProductCategoryWhereArgs {
+  search: String
+  slug: String
+  parent: Int
+  childOf: Int
+  hideEmpty: Boolean
+}
+
+input ReviewsWhereArgs {
+  productId: Int
+  status: ReviewStatusEnum
+  authorEmail: String
+}
+
+type CouponConnection {
+  nodes: [Coupon]
+  pageInfo: WPPageInfo
+}
+
+type CustomerConnection {
+  nodes: [Customer]
+  pageInfo: WPPageInfo
+}
+
+type TaxRateConnection {
+  nodes: [TaxRate]
+  pageInfo: WPPageInfo
+}
+
+# ─── Root Mutation ────────────────────────────────────────────────────────────
+
+type Mutation {
+  """Add a product to the cart."""
+  addToCart(input: AddToCartInput!): AddToCartPayload
+
+  """Update the quantity of a cart item."""
+  updateCartItem(input: UpdateCartItemInput!): UpdateCartItemPayload
+
+  """Remove one or more items from the cart."""
+  removeItemsFromCart(input: RemoveItemsFromCartInput!): RemoveItemsFromCartPayload
+
+  """Apply a coupon code to the cart."""
+  applyCoupon(input: ApplyCouponInput!): ApplyCouponPayload
+
+  """Remove coupon codes from the cart."""
+  removeCoupons(input: RemoveCouponsInput!): RemoveCouponsPayload
+
+  """Finalize the cart and create an order."""
+  checkout(input: CheckoutInput!): CheckoutPayload
+
+  """Create an order programmatically (admin)."""
+  createOrder(input: CreateOrderInput!): CreateOrderPayload
+
+  """Update an existing order."""
+  updateOrder(input: UpdateOrderInput!): UpdateOrderPayload
+
+  """Delete an order."""
+  deleteOrder(input: DeleteOrderIdInput!): DeleteOrderPayload
+
+  """Issue a refund against an order."""
+  createRefund(input: CreateRefundInput!): CreateRefundPayload
+
+  """Register a new customer account."""
+  registerCustomer(input: RegisterCustomerInput!): RegisterCustomerPayload
+
+  """Update a customer's profile or addresses."""
+  updateCustomer(input: UpdateCustomerInput!): UpdateCustomerPayload
+
+  """Authenticate a customer and receive session tokens."""
+  login(input: LoginInput!): LoginPayload
+
+  """Submit a product review."""
+  writeReview(input: WriteReviewInput!): WriteReviewPayload
+
+  """Delete a product review."""
+  deleteReview(input: DeleteReviewInput!): DeleteReviewPayload
+
+  """Refresh an expired JWT auth token."""
+  refreshJwtAuthToken(input: RefreshJwtAuthTokenInput!): RefreshJwtAuthTokenPayload
+
+  """Send a password reset email to a customer."""
+  sendPasswordResetEmail(input: SendPasswordResetEmailInput!): SendPasswordResetEmailPayload
+}
+
+input DeleteOrderIdInput {
+  id: ID!
+  forceDelete: Boolean
+  clientMutationId: String
+}
+
+input LoginInput {
+  username: String!
+  password: String!
+  clientMutationId: String
+}
+
+input DeleteReviewInput {
+  id: ID!
+  forceDelete: Boolean
+  clientMutationId: String
+}
+
+input RefreshJwtAuthTokenInput {
+  jwtRefreshToken: String!
+  clientMutationId: String
+}
+
+input SendPasswordResetEmailInput {
+  username: String!
+  clientMutationId: String
+}
+
+# ─── Schema Definition ────────────────────────────────────────────────────────
+
+schema {
+  query: Query
+  mutation: Mutation
+}
