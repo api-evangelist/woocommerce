@@ -1,0 +1,766 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "WooCommerce Store API",
+    "version": "v1"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Products",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "WooCommerce List Products",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://example.com/wp-json/wc/store/v1/products",
+            "params": [
+              {
+                "name": "page",
+                "value": "",
+                "type": "query",
+                "description": "Current page of the collection."
+              },
+              {
+                "name": "per_page",
+                "value": "",
+                "type": "query",
+                "description": "Maximum number of items per page (maximum 100)."
+              },
+              {
+                "name": "search",
+                "value": "",
+                "type": "query",
+                "description": "Search term to filter results."
+              },
+              {
+                "name": "category",
+                "value": "string-value",
+                "type": "query",
+                "description": "Filter products by category slug."
+              },
+              {
+                "name": "tag",
+                "value": "string-value",
+                "type": "query",
+                "description": "Filter products by tag slug."
+              },
+              {
+                "name": "on_sale",
+                "value": "true",
+                "type": "query",
+                "description": "Return only on-sale products when true."
+              },
+              {
+                "name": "featured",
+                "value": "true",
+                "type": "query",
+                "description": "Return only featured products when true."
+              },
+              {
+                "name": "min_price",
+                "value": "string-value",
+                "type": "query",
+                "description": "Minimum product price filter."
+              },
+              {
+                "name": "max_price",
+                "value": "string-value",
+                "type": "query",
+                "description": "Maximum product price filter."
+              },
+              {
+                "name": "stock_status",
+                "value": "instock",
+                "type": "query",
+                "description": "Filter by stock status. Options: instock, outofstock, onbackorder."
+              },
+              {
+                "name": "orderby",
+                "value": "string-value",
+                "type": "query",
+                "description": "Sort products by field. Options: date, id, include, title, slug, price, popularity, rating, menu_order."
+              },
+              {
+                "name": "order",
+                "value": "asc",
+                "type": "query",
+                "description": "Sort direction. Options: asc, desc."
+              }
+            ]
+          },
+          "docs": "Returns a paginated list of published products available for purchase. Supports filtering by category, tag, attribute, price range, on-sale status, featured status, and keyword search. This endpoint is public and requires no authentication."
+        },
+        {
+          "info": {
+            "name": "WooCommerce Retrieve a Product",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://example.com/wp-json/wc/store/v1/products/:id",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "Unique identifier for the resource."
+              }
+            ]
+          },
+          "docs": "Returns a single published product by its numeric ID. Includes pricing, stock status, images, categories, tags, and available variations for variable products. Public endpoint requiring no authentication."
+        },
+        {
+          "info": {
+            "name": "WooCommerce Get Product Collection Data",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://example.com/wp-json/wc/store/v1/products/collection-data",
+            "params": [
+              {
+                "name": "calculate_price_range",
+                "value": "true",
+                "type": "query",
+                "description": "Whether to calculate and return the min/max price range."
+              },
+              {
+                "name": "calculate_attribute_counts",
+                "value": "string-value",
+                "type": "query",
+                "description": "Comma-separated list of attribute slugs to count active terms for filter UIs."
+              },
+              {
+                "name": "calculate_rating_counts",
+                "value": "true",
+                "type": "query",
+                "description": "Whether to calculate and return review rating counts."
+              }
+            ]
+          },
+          "docs": "Returns aggregate data about a product collection including price ranges, attribute counts, and category counts. Used to populate filter widgets on shop and category archive pages without fetching full product records."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Product Categories",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "WooCommerce List Product Categories",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://example.com/wp-json/wc/store/v1/products/categories",
+            "params": [
+              {
+                "name": "page",
+                "value": "",
+                "type": "query",
+                "description": "Current page of the collection."
+              },
+              {
+                "name": "per_page",
+                "value": "",
+                "type": "query",
+                "description": "Maximum number of items per page (maximum 100)."
+              },
+              {
+                "name": "hide_empty",
+                "value": "true",
+                "type": "query",
+                "description": "Hide categories with no visible products."
+              },
+              {
+                "name": "parent",
+                "value": "1",
+                "type": "query",
+                "description": "Limit to children of a specific category ID."
+              }
+            ]
+          },
+          "docs": "Returns all product categories for storefront navigation and filtering. Only categories containing visible products are returned by default. Public endpoint requiring no authentication."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Product Attributes",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "WooCommerce List Product Attributes",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://example.com/wp-json/wc/store/v1/products/attributes",
+            "params": [
+              {
+                "name": "page",
+                "value": "",
+                "type": "query",
+                "description": "Current page of the collection."
+              },
+              {
+                "name": "per_page",
+                "value": "",
+                "type": "query",
+                "description": "Maximum number of items per page (maximum 100)."
+              }
+            ]
+          },
+          "docs": "Returns all global product attributes registered in the store. Used to build attribute-based filters and variation selectors on the storefront."
+        },
+        {
+          "info": {
+            "name": "WooCommerce Retrieve a Product Attribute",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://example.com/wp-json/wc/store/v1/products/attributes/:id",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "Unique identifier for the resource."
+              }
+            ]
+          },
+          "docs": "Returns a single product attribute by its numeric ID."
+        },
+        {
+          "info": {
+            "name": "WooCommerce List Product Attribute Terms",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://example.com/wp-json/wc/store/v1/products/attributes/:id/terms",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "Unique identifier for the resource."
+              },
+              {
+                "name": "page",
+                "value": "",
+                "type": "query",
+                "description": "Current page of the collection."
+              },
+              {
+                "name": "per_page",
+                "value": "",
+                "type": "query",
+                "description": "Maximum number of items per page (maximum 100)."
+              }
+            ]
+          },
+          "docs": "Returns all terms (options) for a specific product attribute. Used to populate attribute-based filter dropdowns and swatches on the storefront."
+        },
+        {
+          "info": {
+            "name": "WooCommerce List Product Brands",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://example.com/wp-json/wc/store/v1/products/brands",
+            "params": [
+              {
+                "name": "page",
+                "value": "",
+                "type": "query",
+                "description": "Current page of the collection."
+              },
+              {
+                "name": "per_page",
+                "value": "",
+                "type": "query",
+                "description": "Maximum number of items per page (maximum 100)."
+              }
+            ]
+          },
+          "docs": "Returns all product brands registered in the store. Brand support requires WooCommerce Brands or a compatible extension."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Product Tags",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "WooCommerce List Product Tags",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://example.com/wp-json/wc/store/v1/products/tags",
+            "params": [
+              {
+                "name": "page",
+                "value": "",
+                "type": "query",
+                "description": "Current page of the collection."
+              },
+              {
+                "name": "per_page",
+                "value": "",
+                "type": "query",
+                "description": "Maximum number of items per page (maximum 100)."
+              }
+            ]
+          },
+          "docs": "Returns all product tags used in the store catalog."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Product Reviews",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "WooCommerce List Product Reviews",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://example.com/wp-json/wc/store/v1/products/reviews",
+            "params": [
+              {
+                "name": "page",
+                "value": "",
+                "type": "query",
+                "description": "Current page of the collection."
+              },
+              {
+                "name": "per_page",
+                "value": "",
+                "type": "query",
+                "description": "Maximum number of items per page (maximum 100)."
+              },
+              {
+                "name": "product_id",
+                "value": "1",
+                "type": "query",
+                "description": "Filter reviews by product ID."
+              },
+              {
+                "name": "rating",
+                "value": "1",
+                "type": "query",
+                "description": "Filter reviews by star rating (1-5)."
+              }
+            ]
+          },
+          "docs": "Returns published product reviews. Can be filtered by product ID and star rating. Public endpoint requiring no authentication."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Cart",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "WooCommerce Get the Current Cart",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://example.com/wp-json/wc/store/v1/cart"
+          },
+          "docs": "Returns the current customer's cart contents including items, coupons, fees, totals, and available shipping rates. The response also includes a nonce token in the X-WC-Store-API-Nonce header (and body) required for write operations."
+        },
+        {
+          "info": {
+            "name": "WooCommerce Add an Item to the Cart",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://example.com/wp-json/wc/store/v1/cart/add-item",
+            "headers": [
+              {
+                "name": "Nonce",
+                "value": ""
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Adds a product or variation to the cart. Requires a product_id, an optional variation_id, and quantity. Custom item data can be passed via the item_data array. Requires the Nonce header from a prior cart GET."
+        },
+        {
+          "info": {
+            "name": "WooCommerce Remove an Item from the Cart",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://example.com/wp-json/wc/store/v1/cart/remove-item",
+            "headers": [
+              {
+                "name": "Nonce",
+                "value": ""
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Removes a cart item identified by its unique cart item key. Requires the Nonce header."
+        },
+        {
+          "info": {
+            "name": "WooCommerce Update a Cart Item Quantity",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://example.com/wp-json/wc/store/v1/cart/update-item",
+            "headers": [
+              {
+                "name": "Nonce",
+                "value": ""
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Updates the quantity of a cart item identified by its key. Set quantity to 0 to remove the item. Requires the Nonce header."
+        },
+        {
+          "info": {
+            "name": "WooCommerce Apply a Coupon to the Cart",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://example.com/wp-json/wc/store/v1/cart/apply-coupon",
+            "headers": [
+              {
+                "name": "Nonce",
+                "value": ""
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Applies a coupon code to the current cart session. Returns an error if the coupon is invalid, expired, or does not meet usage conditions. Requires the Nonce header."
+        },
+        {
+          "info": {
+            "name": "WooCommerce Remove a Coupon from the Cart",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://example.com/wp-json/wc/store/v1/cart/remove-coupon",
+            "headers": [
+              {
+                "name": "Nonce",
+                "value": ""
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Removes a previously applied coupon code from the cart. Requires the Nonce header."
+        },
+        {
+          "info": {
+            "name": "WooCommerce Update Cart Customer Data",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://example.com/wp-json/wc/store/v1/cart/update-customer",
+            "headers": [
+              {
+                "name": "Nonce",
+                "value": ""
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Updates billing and/or shipping address information for the current cart session. Used to recalculate shipping rates and taxes based on the customer's location. Requires the Nonce header."
+        },
+        {
+          "info": {
+            "name": "WooCommerce Select a Shipping Rate for the Cart",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://example.com/wp-json/wc/store/v1/cart/select-shipping-rate",
+            "headers": [
+              {
+                "name": "Nonce",
+                "value": ""
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Selects a specific shipping rate from those available for the customer's shipping address. Requires the Nonce header."
+        },
+        {
+          "info": {
+            "name": "WooCommerce List Cart Items",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://example.com/wp-json/wc/store/v1/cart/items"
+          },
+          "docs": "Returns a list of all items currently in the cart session."
+        },
+        {
+          "info": {
+            "name": "WooCommerce Clear All Cart Items",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://example.com/wp-json/wc/store/v1/cart/items",
+            "headers": [
+              {
+                "name": "Nonce",
+                "value": ""
+              }
+            ]
+          },
+          "docs": "Removes all items from the current cart. Requires the Nonce header."
+        },
+        {
+          "info": {
+            "name": "WooCommerce Get a Cart Item",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://example.com/wp-json/wc/store/v1/cart/items/:key",
+            "params": [
+              {
+                "name": "key",
+                "value": "",
+                "type": "path",
+                "description": "Unique cart item key."
+              }
+            ]
+          },
+          "docs": "Returns a single cart item by its unique key."
+        },
+        {
+          "info": {
+            "name": "WooCommerce Update a Cart Item by Key",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://example.com/wp-json/wc/store/v1/cart/items/:key",
+            "headers": [
+              {
+                "name": "Nonce",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "key",
+                "value": "",
+                "type": "path",
+                "description": "Unique cart item key."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Updates the quantity or data of a specific cart item."
+        },
+        {
+          "info": {
+            "name": "WooCommerce Delete a Cart Item by Key",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://example.com/wp-json/wc/store/v1/cart/items/:key",
+            "headers": [
+              {
+                "name": "Nonce",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "key",
+                "value": "",
+                "type": "path",
+                "description": "Unique cart item key."
+              }
+            ]
+          },
+          "docs": "Removes a single cart item identified by its key."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Checkout",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "WooCommerce Get Checkout Data",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://example.com/wp-json/wc/store/v1/checkout"
+          },
+          "docs": "Returns the current checkout state including the cart contents, available payment methods, and pre-filled billing and shipping fields from the customer's account."
+        },
+        {
+          "info": {
+            "name": "WooCommerce Process Checkout and Place Order",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://example.com/wp-json/wc/store/v1/checkout",
+            "headers": [
+              {
+                "name": "Nonce",
+                "value": ""
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Submits the checkout form to create an order and process payment. Requires billing address, payment method, and optional shipping data. Requires the Nonce header. Returns the created order on success or redirects to the payment gateway for hosted gateways."
+        },
+        {
+          "info": {
+            "name": "WooCommerce Get a Checkout Order",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://example.com/wp-json/wc/store/v1/checkout/:id",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "Unique identifier for the resource."
+              }
+            ]
+          },
+          "docs": "Returns an order placed via checkout identified by its numeric ID. Only accessible for the order owner or a store administrator."
+        },
+        {
+          "info": {
+            "name": "WooCommerce Update a Pending Checkout Order",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://example.com/wp-json/wc/store/v1/checkout/:id",
+            "headers": [
+              {
+                "name": "Nonce",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "Unique identifier for the resource."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Updates billing, shipping, or payment method on a pending order before payment is confirmed. Requires the Nonce header."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Orders",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "WooCommerce Retrieve a Customer Order",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://example.com/wp-json/wc/store/v1/order/:id",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "Unique identifier for the resource."
+              }
+            ]
+          },
+          "docs": "Returns a single order by ID. Only returns orders belonging to the currently authenticated customer. Used for order confirmation and account order history pages."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

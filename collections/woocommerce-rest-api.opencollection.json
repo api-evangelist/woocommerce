@@ -1,0 +1,1476 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "WooCommerce REST API",
+    "version": "v3"
+  },
+  "request": {
+    "auth": {
+      "type": "basic",
+      "username": "{{username}}",
+      "password": "{{password}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Products",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "WooCommerce List All Products",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://example.com/wp-json/wc/v3/products",
+            "params": [
+              {
+                "name": "page",
+                "value": "",
+                "type": "query",
+                "description": "Current page of the collection. Defaults to 1."
+              },
+              {
+                "name": "per_page",
+                "value": "",
+                "type": "query",
+                "description": "Maximum number of items per page. Defaults to 10, maximum 100."
+              },
+              {
+                "name": "search",
+                "value": "",
+                "type": "query",
+                "description": "Limit results to those matching a string."
+              },
+              {
+                "name": "after",
+                "value": "",
+                "type": "query",
+                "description": "Limit response to resources created after a given ISO8601 compliant date."
+              },
+              {
+                "name": "before",
+                "value": "",
+                "type": "query",
+                "description": "Limit response to resources created before a given ISO8601 compliant date."
+              },
+              {
+                "name": "status",
+                "value": "any",
+                "type": "query",
+                "description": "Filter products by publication status. Options: any, draft, pending, private, publish."
+              },
+              {
+                "name": "category",
+                "value": "string-value",
+                "type": "query",
+                "description": "Filter products by category ID."
+              },
+              {
+                "name": "tag",
+                "value": "string-value",
+                "type": "query",
+                "description": "Filter products by tag ID."
+              },
+              {
+                "name": "on_sale",
+                "value": "true",
+                "type": "query",
+                "description": "Limit results to products on sale when true."
+              },
+              {
+                "name": "featured",
+                "value": "true",
+                "type": "query",
+                "description": "Limit results to featured products when true."
+              },
+              {
+                "name": "stock_status",
+                "value": "instock",
+                "type": "query",
+                "description": "Filter by stock status. Options: instock, outofstock, onbackorder."
+              }
+            ]
+          },
+          "docs": "Returns a paginated list of products in the store. Supports filtering by status, category, tag, SKU, featured flag, on-sale flag, price range, stock status, and date ranges. Results are sorted by date by default. Use the page and per_page parameters to paginate through large catalogs."
+        },
+        {
+          "info": {
+            "name": "WooCommerce Create a Product",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://example.com/wp-json/wc/v3/products",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Creates a new product in the store. Requires at minimum a product name. Products can be simple, grouped, external/affiliate, or variable type. Pricing, stock management, shipping, tax settings, categories, tags, images, and attributes are all configurable at creation time."
+        },
+        {
+          "info": {
+            "name": "WooCommerce Retrieve a Product",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://example.com/wp-json/wc/v3/products/:id",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "Unique identifier for the resource."
+              }
+            ]
+          },
+          "docs": "Returns the details of a single product identified by its numeric ID. Includes all product properties such as pricing, stock, images, categories, tags, attributes, and metadata."
+        },
+        {
+          "info": {
+            "name": "WooCommerce Update a Product",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://example.com/wp-json/wc/v3/products/:id",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "Unique identifier for the resource."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Updates an existing product identified by its numeric ID. Only the properties included in the request body are updated; omitted properties retain their current values."
+        },
+        {
+          "info": {
+            "name": "WooCommerce Delete a Product",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://example.com/wp-json/wc/v3/products/:id",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "Unique identifier for the resource."
+              },
+              {
+                "name": "force",
+                "value": "",
+                "type": "query",
+                "description": "Set to true to permanently delete the resource, bypassing the trash."
+              }
+            ]
+          },
+          "docs": "Deletes a product by its numeric ID. By default the product is moved to the trash. Set the force parameter to true to permanently delete the product and bypass the trash."
+        },
+        {
+          "info": {
+            "name": "WooCommerce Batch Create, Update, and Delete Products",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://example.com/wp-json/wc/v3/products/batch",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Performs batch create, update, and delete operations on products in a single request. Pass arrays of product objects under the create, update, and delete keys respectively. Delete accepts an array of product IDs."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Product Variations",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "WooCommerce List All Product Variations",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://example.com/wp-json/wc/v3/products/:product_id/variations",
+            "params": [
+              {
+                "name": "product_id",
+                "value": "",
+                "type": "path",
+                "description": "Unique identifier of the parent product."
+              },
+              {
+                "name": "page",
+                "value": "",
+                "type": "query",
+                "description": "Current page of the collection. Defaults to 1."
+              },
+              {
+                "name": "per_page",
+                "value": "",
+                "type": "query",
+                "description": "Maximum number of items per page. Defaults to 10, maximum 100."
+              }
+            ]
+          },
+          "docs": "Returns all variations for a variable product identified by product_id. Each variation has its own pricing, SKU, stock, image, and attribute combination."
+        },
+        {
+          "info": {
+            "name": "WooCommerce Create a Product Variation",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://example.com/wp-json/wc/v3/products/:product_id/variations",
+            "params": [
+              {
+                "name": "product_id",
+                "value": "",
+                "type": "path",
+                "description": "Unique identifier of the parent product."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Creates a new variation for a variable product. The variation inherits the parent product's attributes and can override price, SKU, stock, weight, dimensions, and image independently."
+        },
+        {
+          "info": {
+            "name": "WooCommerce Retrieve a Product Variation",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://example.com/wp-json/wc/v3/products/:product_id/variations/:id",
+            "params": [
+              {
+                "name": "product_id",
+                "value": "",
+                "type": "path",
+                "description": "Unique identifier of the parent product."
+              },
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "Unique identifier for the resource."
+              }
+            ]
+          },
+          "docs": "Returns the details of a single product variation identified by the parent product ID and the variation ID."
+        },
+        {
+          "info": {
+            "name": "WooCommerce Update a Product Variation",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://example.com/wp-json/wc/v3/products/:product_id/variations/:id",
+            "params": [
+              {
+                "name": "product_id",
+                "value": "",
+                "type": "path",
+                "description": "Unique identifier of the parent product."
+              },
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "Unique identifier for the resource."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Updates an existing variation for a variable product. Only the fields provided in the request body are changed."
+        },
+        {
+          "info": {
+            "name": "WooCommerce Delete a Product Variation",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://example.com/wp-json/wc/v3/products/:product_id/variations/:id",
+            "params": [
+              {
+                "name": "product_id",
+                "value": "",
+                "type": "path",
+                "description": "Unique identifier of the parent product."
+              },
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "Unique identifier for the resource."
+              },
+              {
+                "name": "force",
+                "value": "",
+                "type": "query",
+                "description": "Set to true to permanently delete the resource, bypassing the trash."
+              }
+            ]
+          },
+          "docs": "Deletes a specific variation from a variable product. Set force to true to permanently delete rather than trash."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Product Categories",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "WooCommerce List All Product Categories",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://example.com/wp-json/wc/v3/products/categories",
+            "params": [
+              {
+                "name": "page",
+                "value": "",
+                "type": "query",
+                "description": "Current page of the collection. Defaults to 1."
+              },
+              {
+                "name": "per_page",
+                "value": "",
+                "type": "query",
+                "description": "Maximum number of items per page. Defaults to 10, maximum 100."
+              },
+              {
+                "name": "search",
+                "value": "",
+                "type": "query",
+                "description": "Limit results to those matching a string."
+              },
+              {
+                "name": "hide_empty",
+                "value": "true",
+                "type": "query",
+                "description": "Whether to hide resources not assigned to any products."
+              },
+              {
+                "name": "parent",
+                "value": "1",
+                "type": "query",
+                "description": "Filter categories by parent category ID."
+              }
+            ]
+          },
+          "docs": "Returns all product categories. Supports filtering by parent category, hiding empty categories, and ordering by various fields. Categories are hierarchical and can be nested."
+        },
+        {
+          "info": {
+            "name": "WooCommerce Create a Product Category",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://example.com/wp-json/wc/v3/products/categories",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Creates a new product category. Categories can be nested by supplying a parent ID. A slug is generated automatically from the name if not provided."
+        },
+        {
+          "info": {
+            "name": "WooCommerce Retrieve a Product Category",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://example.com/wp-json/wc/v3/products/categories/:id",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "Unique identifier for the resource."
+              }
+            ]
+          },
+          "docs": "Returns a single product category by its numeric ID."
+        },
+        {
+          "info": {
+            "name": "WooCommerce Update a Product Category",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://example.com/wp-json/wc/v3/products/categories/:id",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "Unique identifier for the resource."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Updates a product category by its numeric ID."
+        },
+        {
+          "info": {
+            "name": "WooCommerce Delete a Product Category",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://example.com/wp-json/wc/v3/products/categories/:id",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "Unique identifier for the resource."
+              },
+              {
+                "name": "force",
+                "value": "",
+                "type": "query",
+                "description": "Set to true to permanently delete the resource, bypassing the trash."
+              }
+            ]
+          },
+          "docs": "Deletes a product category by ID. Set force to true to permanently delete. Requires that no products are assigned to the category, or use force to bypass this restriction."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Orders",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "WooCommerce List All Orders",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://example.com/wp-json/wc/v3/orders",
+            "params": [
+              {
+                "name": "page",
+                "value": "",
+                "type": "query",
+                "description": "Current page of the collection. Defaults to 1."
+              },
+              {
+                "name": "per_page",
+                "value": "",
+                "type": "query",
+                "description": "Maximum number of items per page. Defaults to 10, maximum 100."
+              },
+              {
+                "name": "search",
+                "value": "",
+                "type": "query",
+                "description": "Limit results to those matching a string."
+              },
+              {
+                "name": "after",
+                "value": "",
+                "type": "query",
+                "description": "Limit response to resources created after a given ISO8601 compliant date."
+              },
+              {
+                "name": "before",
+                "value": "",
+                "type": "query",
+                "description": "Limit response to resources created before a given ISO8601 compliant date."
+              },
+              {
+                "name": "status",
+                "value": "any",
+                "type": "query",
+                "description": "Filter orders by status. Options: any, pending, processing, on-hold, completed, cancelled, refunded, failed, trash."
+              },
+              {
+                "name": "customer",
+                "value": "1",
+                "type": "query",
+                "description": "Filter orders by customer ID."
+              },
+              {
+                "name": "product",
+                "value": "1",
+                "type": "query",
+                "description": "Filter orders that contain a specific product ID."
+              }
+            ]
+          },
+          "docs": "Returns a paginated list of orders. Supports filtering by status, customer ID, product ID, date ranges, and more. Orders are sorted by date_created descending by default."
+        },
+        {
+          "info": {
+            "name": "WooCommerce Create an Order",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://example.com/wp-json/wc/v3/orders",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Creates a new order. All order fields including billing, shipping, line items, coupons, shipping lines, and fee lines can be set at creation time. Customer ID is optional; guest checkout is supported."
+        },
+        {
+          "info": {
+            "name": "WooCommerce Retrieve an Order",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://example.com/wp-json/wc/v3/orders/:id",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "Unique identifier for the resource."
+              }
+            ]
+          },
+          "docs": "Returns a single order by its numeric ID including all line items, totals, billing, and shipping details."
+        },
+        {
+          "info": {
+            "name": "WooCommerce Update an Order",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://example.com/wp-json/wc/v3/orders/:id",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "Unique identifier for the resource."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Updates an existing order. Common use cases include changing order status, updating billing or shipping addresses, and modifying line item quantities. Only fields included in the request are changed."
+        },
+        {
+          "info": {
+            "name": "WooCommerce Delete an Order",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://example.com/wp-json/wc/v3/orders/:id",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "Unique identifier for the resource."
+              },
+              {
+                "name": "force",
+                "value": "",
+                "type": "query",
+                "description": "Set to true to permanently delete the resource, bypassing the trash."
+              }
+            ]
+          },
+          "docs": "Deletes an order by its numeric ID. Set force to true to permanently delete rather than moving the order to the trash."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Order Notes",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "WooCommerce List All Order Notes",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://example.com/wp-json/wc/v3/orders/:order_id/notes",
+            "params": [
+              {
+                "name": "order_id",
+                "value": "",
+                "type": "path",
+                "description": "Unique identifier of the parent order."
+              },
+              {
+                "name": "type",
+                "value": "any",
+                "type": "query",
+                "description": "Limit results to a note type. Options: any, customer, internal."
+              }
+            ]
+          },
+          "docs": "Returns all notes associated with a specific order. Notes can be customer-facing or private (internal) and are ordered by date created."
+        },
+        {
+          "info": {
+            "name": "WooCommerce Create an Order Note",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://example.com/wp-json/wc/v3/orders/:order_id/notes",
+            "params": [
+              {
+                "name": "order_id",
+                "value": "",
+                "type": "path",
+                "description": "Unique identifier of the parent order."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Adds a new note to an order. Notes can be marked as customer-facing, causing them to appear in order confirmation emails and the customer's order history."
+        },
+        {
+          "info": {
+            "name": "WooCommerce Retrieve an Order Note",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://example.com/wp-json/wc/v3/orders/:order_id/notes/:id",
+            "params": [
+              {
+                "name": "order_id",
+                "value": "",
+                "type": "path",
+                "description": "Unique identifier of the parent order."
+              },
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "Unique identifier for the resource."
+              }
+            ]
+          },
+          "docs": "Returns a single note for a specific order by note ID."
+        },
+        {
+          "info": {
+            "name": "WooCommerce Delete an Order Note",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://example.com/wp-json/wc/v3/orders/:order_id/notes/:id",
+            "params": [
+              {
+                "name": "order_id",
+                "value": "",
+                "type": "path",
+                "description": "Unique identifier of the parent order."
+              },
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "Unique identifier for the resource."
+              },
+              {
+                "name": "force",
+                "value": "",
+                "type": "query",
+                "description": "Set to true to permanently delete the resource, bypassing the trash."
+              }
+            ]
+          },
+          "docs": "Permanently deletes a specific note from an order."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Order Refunds",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "WooCommerce List All Order Refunds",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://example.com/wp-json/wc/v3/orders/:order_id/refunds",
+            "params": [
+              {
+                "name": "order_id",
+                "value": "",
+                "type": "path",
+                "description": "Unique identifier of the parent order."
+              },
+              {
+                "name": "page",
+                "value": "",
+                "type": "query",
+                "description": "Current page of the collection. Defaults to 1."
+              },
+              {
+                "name": "per_page",
+                "value": "",
+                "type": "query",
+                "description": "Maximum number of items per page. Defaults to 10, maximum 100."
+              }
+            ]
+          },
+          "docs": "Returns all refunds associated with a specific order."
+        },
+        {
+          "info": {
+            "name": "WooCommerce Create an Order Refund",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://example.com/wp-json/wc/v3/orders/:order_id/refunds",
+            "params": [
+              {
+                "name": "order_id",
+                "value": "",
+                "type": "path",
+                "description": "Unique identifier of the parent order."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Creates a refund for a specific order. The refund amount, line item quantities to refund, whether to restock items, and reason can all be specified. Automatic gateway refunds are attempted when supported."
+        },
+        {
+          "info": {
+            "name": "WooCommerce Retrieve an Order Refund",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://example.com/wp-json/wc/v3/orders/:order_id/refunds/:id",
+            "params": [
+              {
+                "name": "order_id",
+                "value": "",
+                "type": "path",
+                "description": "Unique identifier of the parent order."
+              },
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "Unique identifier for the resource."
+              }
+            ]
+          },
+          "docs": "Returns a single refund by its ID for a specific order."
+        },
+        {
+          "info": {
+            "name": "WooCommerce Delete an Order Refund",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://example.com/wp-json/wc/v3/orders/:order_id/refunds/:id",
+            "params": [
+              {
+                "name": "order_id",
+                "value": "",
+                "type": "path",
+                "description": "Unique identifier of the parent order."
+              },
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "Unique identifier for the resource."
+              },
+              {
+                "name": "force",
+                "value": "",
+                "type": "query",
+                "description": "Set to true to permanently delete the resource, bypassing the trash."
+              }
+            ]
+          },
+          "docs": "Permanently deletes a refund from an order."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Customers",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "WooCommerce List All Customers",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://example.com/wp-json/wc/v3/customers",
+            "params": [
+              {
+                "name": "page",
+                "value": "",
+                "type": "query",
+                "description": "Current page of the collection. Defaults to 1."
+              },
+              {
+                "name": "per_page",
+                "value": "",
+                "type": "query",
+                "description": "Maximum number of items per page. Defaults to 10, maximum 100."
+              },
+              {
+                "name": "search",
+                "value": "",
+                "type": "query",
+                "description": "Limit results to those matching a string."
+              },
+              {
+                "name": "role",
+                "value": "string-value",
+                "type": "query",
+                "description": "Filter customers by WordPress user role. Default is customer."
+              },
+              {
+                "name": "email",
+                "value": "user@example.com",
+                "type": "query",
+                "description": "Filter customers by email address."
+              }
+            ]
+          },
+          "docs": "Returns a paginated list of customers. Can be filtered by role, email, search term, and order by various fields such as id, registered date, name, or total spent."
+        },
+        {
+          "info": {
+            "name": "WooCommerce Create a Customer",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://example.com/wp-json/wc/v3/customers",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Creates a new customer account. Requires at minimum an email address and username. Billing and shipping address details can be set at creation time."
+        },
+        {
+          "info": {
+            "name": "WooCommerce Retrieve a Customer",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://example.com/wp-json/wc/v3/customers/:id",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "Unique identifier for the resource."
+              }
+            ]
+          },
+          "docs": "Returns a single customer by numeric ID including billing and shipping addresses and account metadata."
+        },
+        {
+          "info": {
+            "name": "WooCommerce Update a Customer",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://example.com/wp-json/wc/v3/customers/:id",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "Unique identifier for the resource."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Updates a customer record by numeric ID. Only provided fields are changed."
+        },
+        {
+          "info": {
+            "name": "WooCommerce Delete a Customer",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://example.com/wp-json/wc/v3/customers/:id",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "Unique identifier for the resource."
+              },
+              {
+                "name": "force",
+                "value": "",
+                "type": "query",
+                "description": "Set to true to permanently delete the resource, bypassing the trash."
+              },
+              {
+                "name": "reassign",
+                "value": "1",
+                "type": "query",
+                "description": "User ID to reassign posts and links to."
+              }
+            ]
+          },
+          "docs": "Deletes a customer by numeric ID. Set force to true to permanently delete the WordPress user account. Optionally reassign the customer's orders to another customer ID."
+        },
+        {
+          "info": {
+            "name": "WooCommerce Retrieve Customer Downloads",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://example.com/wp-json/wc/v3/customers/:id/downloads",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "Unique identifier for the resource."
+              }
+            ]
+          },
+          "docs": "Returns a list of digital downloads available to the customer, including download links, expiry dates, remaining download counts, and product information."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Coupons",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "WooCommerce List All Coupons",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://example.com/wp-json/wc/v3/coupons",
+            "params": [
+              {
+                "name": "page",
+                "value": "",
+                "type": "query",
+                "description": "Current page of the collection. Defaults to 1."
+              },
+              {
+                "name": "per_page",
+                "value": "",
+                "type": "query",
+                "description": "Maximum number of items per page. Defaults to 10, maximum 100."
+              },
+              {
+                "name": "search",
+                "value": "",
+                "type": "query",
+                "description": "Limit results to those matching a string."
+              },
+              {
+                "name": "after",
+                "value": "",
+                "type": "query",
+                "description": "Limit response to resources created after a given ISO8601 compliant date."
+              },
+              {
+                "name": "before",
+                "value": "",
+                "type": "query",
+                "description": "Limit response to resources created before a given ISO8601 compliant date."
+              },
+              {
+                "name": "code",
+                "value": "string-value",
+                "type": "query",
+                "description": "Filter coupons by coupon code."
+              }
+            ]
+          },
+          "docs": "Returns a paginated list of all coupons. Can be filtered by coupon code, discount type, date ranges, and sorted by various fields."
+        },
+        {
+          "info": {
+            "name": "WooCommerce Create a Coupon",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://example.com/wp-json/wc/v3/coupons",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Creates a new discount coupon. Requires a coupon code. Supports percentage, fixed cart, and fixed product discount types with optional usage limits, expiry dates, and product or category restrictions."
+        },
+        {
+          "info": {
+            "name": "WooCommerce Retrieve a Coupon",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://example.com/wp-json/wc/v3/coupons/:id",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "Unique identifier for the resource."
+              }
+            ]
+          },
+          "docs": "Returns a single coupon by its numeric ID."
+        },
+        {
+          "info": {
+            "name": "WooCommerce Update a Coupon",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://example.com/wp-json/wc/v3/coupons/:id",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "Unique identifier for the resource."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Updates an existing coupon by its numeric ID. Only provided fields are changed."
+        },
+        {
+          "info": {
+            "name": "WooCommerce Delete a Coupon",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://example.com/wp-json/wc/v3/coupons/:id",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "Unique identifier for the resource."
+              },
+              {
+                "name": "force",
+                "value": "",
+                "type": "query",
+                "description": "Set to true to permanently delete the resource, bypassing the trash."
+              }
+            ]
+          },
+          "docs": "Deletes a coupon by its numeric ID. Set force to true to permanently delete."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Webhooks",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "WooCommerce List All Webhooks",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://example.com/wp-json/wc/v3/webhooks",
+            "params": [
+              {
+                "name": "page",
+                "value": "",
+                "type": "query",
+                "description": "Current page of the collection. Defaults to 1."
+              },
+              {
+                "name": "per_page",
+                "value": "",
+                "type": "query",
+                "description": "Maximum number of items per page. Defaults to 10, maximum 100."
+              },
+              {
+                "name": "status",
+                "value": "all",
+                "type": "query",
+                "description": "Filter webhooks by status. Options: all, active, paused, disabled."
+              }
+            ]
+          },
+          "docs": "Returns all configured webhooks. Supports filtering by status (active, paused, disabled) and delivery URL."
+        },
+        {
+          "info": {
+            "name": "WooCommerce Create a Webhook",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://example.com/wp-json/wc/v3/webhooks",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Creates a new webhook. Requires a topic (e.g. order.created) and a delivery URL. An optional secret key is used to generate the HMAC-SHA256 signature included in each delivery."
+        },
+        {
+          "info": {
+            "name": "WooCommerce Retrieve a Webhook",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://example.com/wp-json/wc/v3/webhooks/:id",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "Unique identifier for the resource."
+              }
+            ]
+          },
+          "docs": "Returns a single webhook configuration by its numeric ID."
+        },
+        {
+          "info": {
+            "name": "WooCommerce Update a Webhook",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://example.com/wp-json/wc/v3/webhooks/:id",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "Unique identifier for the resource."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Updates a webhook configuration by its numeric ID."
+        },
+        {
+          "info": {
+            "name": "WooCommerce Delete a Webhook",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://example.com/wp-json/wc/v3/webhooks/:id",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "Unique identifier for the resource."
+              },
+              {
+                "name": "force",
+                "value": "",
+                "type": "query",
+                "description": "Set to true to permanently delete the resource, bypassing the trash."
+              }
+            ]
+          },
+          "docs": "Permanently deletes a webhook by its numeric ID."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Tax Rates",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "WooCommerce List All Tax Rates",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://example.com/wp-json/wc/v3/tax/rates",
+            "params": [
+              {
+                "name": "page",
+                "value": "",
+                "type": "query",
+                "description": "Current page of the collection. Defaults to 1."
+              },
+              {
+                "name": "per_page",
+                "value": "",
+                "type": "query",
+                "description": "Maximum number of items per page. Defaults to 10, maximum 100."
+              },
+              {
+                "name": "class",
+                "value": "string-value",
+                "type": "query",
+                "description": "Filter tax rates by tax class slug. Options: standard, reduced-rate, zero-rate, or any custom class slug."
+              }
+            ]
+          },
+          "docs": "Returns all configured tax rates. Supports filtering by tax class and ordering by priority, order, or ID."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Shipping Zones",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "WooCommerce List All Shipping Zones",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://example.com/wp-json/wc/v3/shipping/zones"
+          },
+          "docs": "Returns all shipping zones configured in the store. Each zone can contain locations (countries, states, postcodes) and shipping methods."
+        },
+        {
+          "info": {
+            "name": "WooCommerce List Shipping Methods for a Zone",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://example.com/wp-json/wc/v3/shipping/zones/:id/methods",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "Unique identifier for the resource."
+              }
+            ]
+          },
+          "docs": "Returns all shipping methods configured for a specific shipping zone, including their settings and enabled status."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Payment Gateways",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "WooCommerce List All Payment Gateways",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://example.com/wp-json/wc/v3/payment_gateways"
+          },
+          "docs": "Returns all payment gateways installed in the store, including their enabled state, settings, and display order."
+        },
+        {
+          "info": {
+            "name": "WooCommerce Retrieve a Payment Gateway",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://example.com/wp-json/wc/v3/payment_gateways/:id",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "Unique identifier for the resource."
+              }
+            ]
+          },
+          "docs": "Returns a single payment gateway by its string ID (e.g. stripe, paypal)."
+        },
+        {
+          "info": {
+            "name": "WooCommerce Update a Payment Gateway",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://example.com/wp-json/wc/v3/payment_gateways/:id",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "Unique identifier for the resource."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Updates the settings or enabled state of a payment gateway."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Reports",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "WooCommerce Retrieve a Sales Report",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://example.com/wp-json/wc/v3/reports/sales",
+            "params": [
+              {
+                "name": "period",
+                "value": "week",
+                "type": "query",
+                "description": "Report period shortcut. Options: week, month, last_month, year."
+              },
+              {
+                "name": "after",
+                "value": "",
+                "type": "query",
+                "description": "Limit response to resources created after a given ISO8601 compliant date."
+              },
+              {
+                "name": "before",
+                "value": "",
+                "type": "query",
+                "description": "Limit response to resources created before a given ISO8601 compliant date."
+              }
+            ]
+          },
+          "docs": "Returns aggregate sales data for a given date period. Includes totals for orders, items, discounts, shipping, refunds, taxes, and net sales. Supports period shortcuts (week, month, last_month, year) and custom date ranges."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "System Status",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "WooCommerce Retrieve System Status",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://example.com/wp-json/wc/v3/system_status"
+          },
+          "docs": "Returns detailed information about the WooCommerce store environment including WordPress version, WooCommerce version, PHP version, active plugins, theme, database tables, and security settings."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}
