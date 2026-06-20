@@ -18,7 +18,7 @@ modified: '2026-05-19'
 specificationVersion: '0.19'
 access: 3rd-Party
 position: Consumer
-image: https://kinlane-productions.s3.amazonaws.com/apis-json/apis-json-logo.jpg
+image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
 apis:
 - aid: woocommerce:rest-api
   name: WooCommerce REST API
