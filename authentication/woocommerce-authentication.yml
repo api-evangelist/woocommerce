@@ -1,0 +1,15 @@
+generated: '2026-07-11'
+method: derived
+source: openapi/woocommerce-rest-api-openapi.yml
+summary:
+  types:
+  - http
+schemes:
+- name: basicAuth
+  type: http
+  scheme: basic
+  description: HTTP Basic Auth using the WooCommerce Consumer Key as the username and Consumer
+    Secret as the password over HTTPS. Over plain HTTP use OAuth 1.0a one-legged authentication
+    instead.
+  sources:
+  - openapi/woocommerce-rest-api-openapi.yml

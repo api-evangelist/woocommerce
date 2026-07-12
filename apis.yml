@@ -130,6 +130,12 @@ apis:
   - type: GraphQLSchema
     url: graphql/woocommerce-schema.graphql
 common:
+- type: VulnerabilityDisclosure
+  url: security/woocommerce-vulnerability-disclosure.yml
+- type: DomainSecurity
+  url: security/woocommerce-domain-security.yml
+- type: Authentication
+  url: authentication/woocommerce-authentication.yml
 - type: PostmanWorkspace
   url: https://www.postman.com/kinlaneapi/woocommerce/overview
 - type: Arazzo
