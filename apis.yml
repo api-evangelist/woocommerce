@@ -130,6 +130,8 @@ apis:
   - type: GraphQLSchema
     url: graphql/woocommerce-schema.graphql
 common:
+- type: AgenticAccess
+  url: agentic-access/woocommerce-agentic-access.yml
 - type: VulnerabilityDisclosure
   url: security/woocommerce-vulnerability-disclosure.yml
 - type: DomainSecurity
