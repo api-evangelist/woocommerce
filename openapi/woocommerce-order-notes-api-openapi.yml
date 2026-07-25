@@ -1,0 +1,287 @@
+openapi: 3.1.0
+info:
+  title: WooCommerce REST Cart Order Notes API
+  description: The WooCommerce REST API is the primary server-side interface for reading and writing WooCommerce store data programmatically. It follows REST conventions, uses JSON for all requests and responses, and is fully integrated with the WordPress REST API under the /wp-json/wc/v3/ namespace. The API covers products, product variations, product categories, product attributes, orders, order notes, order refunds, customers, coupons, tax rates, shipping zones, payment gateways, settings, webhooks, reports, and system status. Authentication uses Consumer Key and Consumer Secret pairs generated in the WooCommerce admin, transmitted over HTTPS via HTTP Basic Auth or OAuth 1.0a over plain HTTP.
+  version: v3
+  contact:
+    name: WooCommerce Developer Support
+    url: https://developer.woocommerce.com/docs/apis/rest-api/
+  termsOfService: https://woocommerce.com/terms-conditions/
+servers:
+- url: https://example.com/wp-json/wc/v3
+  description: Production Server (replace example.com with your store domain)
+security:
+- basicAuth: []
+tags:
+- name: Order Notes
+  description: Manage private and customer-facing notes on orders
+paths:
+  /orders/{order_id}/notes:
+    get:
+      operationId: listOrderNotes
+      summary: WooCommerce List All Order Notes
+      description: Returns all notes associated with a specific order. Notes can be customer-facing or private (internal) and are ordered by date created.
+      tags:
+      - Order Notes
+      parameters:
+      - $ref: '#/components/parameters/order_id'
+      - name: type
+        in: query
+        description: 'Limit results to a note type. Options: any, customer, internal.'
+        required: false
+        schema:
+          type: string
+          enum:
+          - any
+          - customer
+          - internal
+        example: any
+      responses:
+        '200':
+          description: List of order notes
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/OrderNote'
+              examples:
+                listOrderNotes200Example:
+                  summary: Default listOrderNotes 200 response
+                  x-microcks-default: true
+                  value:
+                  - id: 1
+                    date_created: '2026-05-03T14:30:00Z'
+                    note: string-value
+                    customer_note: true
+                    added_by_user: true
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+    post:
+      operationId: createOrderNote
+      summary: WooCommerce Create an Order Note
+      description: Adds a new note to an order. Notes can be marked as customer-facing, causing them to appear in order confirmation emails and the customer's order history.
+      tags:
+      - Order Notes
+      parameters:
+      - $ref: '#/components/parameters/order_id'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/OrderNoteInput'
+      responses:
+        '201':
+          description: Order note created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/OrderNote'
+              examples:
+                createOrderNote201Example:
+                  summary: Default createOrderNote 201 response
+                  x-microcks-default: true
+                  value:
+                    id: 1
+                    date_created: '2026-05-03T14:30:00Z'
+                    note: string-value
+                    customer_note: true
+                    added_by_user: true
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+  /orders/{order_id}/notes/{id}:
+    get:
+      operationId: getOrderNote
+      summary: WooCommerce Retrieve an Order Note
+      description: Returns a single note for a specific order by note ID.
+      tags:
+      - Order Notes
+      parameters:
+      - $ref: '#/components/parameters/order_id'
+      - $ref: '#/components/parameters/id'
+      responses:
+        '200':
+          description: Order note details
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/OrderNote'
+              examples:
+                getOrderNote200Example:
+                  summary: Default getOrderNote 200 response
+                  x-microcks-default: true
+                  value:
+                    id: 1
+                    date_created: '2026-05-03T14:30:00Z'
+                    note: string-value
+                    customer_note: true
+                    added_by_user: true
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+    delete:
+      operationId: deleteOrderNote
+      summary: WooCommerce Delete an Order Note
+      description: Permanently deletes a specific note from an order.
+      tags:
+      - Order Notes
+      parameters:
+      - $ref: '#/components/parameters/order_id'
+      - $ref: '#/components/parameters/id'
+      - $ref: '#/components/parameters/force'
+      responses:
+        '200':
+          description: Order note deleted
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/OrderNote'
+              examples:
+                deleteOrderNote200Example:
+                  summary: Default deleteOrderNote 200 response
+                  x-microcks-default: true
+                  value:
+                    id: 1
+                    date_created: '2026-05-03T14:30:00Z'
+                    note: string-value
+                    customer_note: true
+                    added_by_user: true
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+components:
+  parameters:
+    id:
+      name: id
+      in: path
+      description: Unique identifier for the resource.
+      required: true
+      schema:
+        type: integer
+    order_id:
+      name: order_id
+      in: path
+      description: Unique identifier of the parent order.
+      required: true
+      schema:
+        type: integer
+    force:
+      name: force
+      in: query
+      description: Set to true to permanently delete the resource, bypassing the trash.
+      required: false
+      schema:
+        type: boolean
+        default: false
+  responses:
+    NotFound:
+      description: The requested resource was not found.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    Unauthorized:
+      description: Authentication credentials are missing or invalid.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    BadRequest:
+      description: The request body contains invalid or missing parameters.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+  schemas:
+    OrderNote:
+      type: object
+      description: A note attached to an order.
+      properties:
+        id:
+          type: integer
+          description: Note unique identifier.
+          example: 1
+        date_created:
+          type: string
+          format: date-time
+          description: Date the note was created.
+          example: '2026-05-03T14:30:00Z'
+        note:
+          type: string
+          description: Note text content.
+          example: string-value
+        customer_note:
+          type: boolean
+          description: Whether this note is visible to the customer.
+          example: true
+        added_by_user:
+          type: boolean
+          description: Whether the note was added by a store user (vs system).
+          example: true
+    OrderNoteInput:
+      type: object
+      description: Input for creating an order note.
+      required:
+      - note
+      properties:
+        note:
+          type: string
+          description: Note content.
+          example: string-value
+        customer_note:
+          type: boolean
+          description: Whether to display this note to the customer.
+          default: false
+          example: true
+        added_by_user:
+          type: boolean
+          description: Whether to mark note as added by a user.
+          default: false
+          example: true
+    Error:
+      type: object
+      properties:
+        code:
+          type: string
+          description: Machine-readable error code.
+          example: string-value
+        message:
+          type: string
+          description: Human-readable error message.
+          example: string-value
+        data:
+          type: object
+          description: Additional error context including HTTP status code.
+          properties:
+            status:
+              type: integer
+              description: HTTP status code associated with the error.
+          example:
+            status: 1
+  securitySchemes:
+    basicAuth:
+      type: http
+      scheme: basic
+      description: HTTP Basic Auth using the WooCommerce Consumer Key as the username and Consumer Secret as the password over HTTPS. Over plain HTTP use OAuth 1.0a one-legged authentication instead.
+externalDocs:
+  description: WooCommerce REST API Documentation
+  url: https://woocommerce.github.io/woocommerce-rest-api-docs/

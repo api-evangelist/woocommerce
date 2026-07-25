@@ -1,0 +1,1038 @@
+openapi: 3.1.0
+info:
+  title: WooCommerce REST Cart Orders API
+  description: The WooCommerce REST API is the primary server-side interface for reading and writing WooCommerce store data programmatically. It follows REST conventions, uses JSON for all requests and responses, and is fully integrated with the WordPress REST API under the /wp-json/wc/v3/ namespace. The API covers products, product variations, product categories, product attributes, orders, order notes, order refunds, customers, coupons, tax rates, shipping zones, payment gateways, settings, webhooks, reports, and system status. Authentication uses Consumer Key and Consumer Secret pairs generated in the WooCommerce admin, transmitted over HTTPS via HTTP Basic Auth or OAuth 1.0a over plain HTTP.
+  version: v3
+  contact:
+    name: WooCommerce Developer Support
+    url: https://developer.woocommerce.com/docs/apis/rest-api/
+  termsOfService: https://woocommerce.com/terms-conditions/
+servers:
+- url: https://example.com/wp-json/wc/v3
+  description: Production Server (replace example.com with your store domain)
+security:
+- basicAuth: []
+tags:
+- name: Orders
+  description: Create, retrieve, update, and delete customer orders
+paths:
+  /orders:
+    get:
+      operationId: listOrders
+      summary: WooCommerce List All Orders
+      description: Returns a paginated list of orders. Supports filtering by status, customer ID, product ID, date ranges, and more. Orders are sorted by date_created descending by default.
+      tags:
+      - Orders
+      parameters:
+      - $ref: '#/components/parameters/page'
+      - $ref: '#/components/parameters/per_page'
+      - $ref: '#/components/parameters/search'
+      - $ref: '#/components/parameters/after'
+      - $ref: '#/components/parameters/before'
+      - name: status
+        in: query
+        description: 'Filter orders by status. Options: any, pending, processing, on-hold, completed, cancelled, refunded, failed, trash.'
+        required: false
+        schema:
+          type: string
+          enum:
+          - any
+          - pending
+          - processing
+          - on-hold
+          - completed
+          - cancelled
+          - refunded
+          - failed
+          - trash
+        example: any
+      - name: customer
+        in: query
+        description: Filter orders by customer ID.
+        required: false
+        schema:
+          type: integer
+        example: 1
+      - name: product
+        in: query
+        description: Filter orders that contain a specific product ID.
+        required: false
+        schema:
+          type: integer
+        example: 1
+      responses:
+        '200':
+          description: List of orders
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Order'
+              examples:
+                listOrders200Example:
+                  summary: Default listOrders 200 response
+                  x-microcks-default: true
+                  value:
+                  - id: 1
+                    parent_id: 1
+                    number: string-value
+                    order_key: string-value
+                    status: pending
+                    currency: string-value
+                    date_created: '2026-05-03T14:30:00Z'
+                    date_modified: '2026-05-03T14:30:00Z'
+                    date_completed: '2026-05-03T14:30:00Z'
+                    discount_total: string-value
+                    discount_tax: string-value
+                    shipping_total: string-value
+                    shipping_tax: string-value
+                    cart_tax: string-value
+                    total: string-value
+                    total_tax: string-value
+                    customer_id: 1
+                    customer_note: string-value
+                    billing:
+                      first_name: {}
+                      last_name: {}
+                      company: {}
+                      address_1: {}
+                      address_2: {}
+                      city: {}
+                      state: {}
+                      postcode: {}
+                      country: {}
+                      email: {}
+                      phone: {}
+                    shipping:
+                      first_name: {}
+                      last_name: {}
+                      company: {}
+                      address_1: {}
+                      address_2: {}
+                      city: {}
+                      state: {}
+                      postcode: {}
+                      country: {}
+                      email: {}
+                      phone: {}
+                    payment_method: string-value
+                    payment_method_title: Example Name
+                    transaction_id: '500123'
+                    line_items:
+                    - string-value
+                    meta_data:
+                    - string-value
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+    post:
+      operationId: createOrder
+      summary: WooCommerce Create an Order
+      description: Creates a new order. All order fields including billing, shipping, line items, coupons, shipping lines, and fee lines can be set at creation time. Customer ID is optional; guest checkout is supported.
+      tags:
+      - Orders
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/OrderInput'
+      responses:
+        '201':
+          description: Order created successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Order'
+              examples:
+                createOrder201Example:
+                  summary: Default createOrder 201 response
+                  x-microcks-default: true
+                  value:
+                    id: 1
+                    parent_id: 1
+                    number: string-value
+                    order_key: string-value
+                    status: pending
+                    currency: string-value
+                    date_created: '2026-05-03T14:30:00Z'
+                    date_modified: '2026-05-03T14:30:00Z'
+                    date_completed: '2026-05-03T14:30:00Z'
+                    discount_total: string-value
+                    discount_tax: string-value
+                    shipping_total: string-value
+                    shipping_tax: string-value
+                    cart_tax: string-value
+                    total: string-value
+                    total_tax: string-value
+                    customer_id: 1
+                    customer_note: string-value
+                    billing:
+                      first_name: Example Name
+                      last_name: Example Name
+                      company: string-value
+                      address_1: string-value
+                      address_2: string-value
+                      city: string-value
+                      state: string-value
+                      postcode: string-value
+                      country: string-value
+                      email: user@example.com
+                      phone: string-value
+                    shipping:
+                      first_name: Example Name
+                      last_name: Example Name
+                      company: string-value
+                      address_1: string-value
+                      address_2: string-value
+                      city: string-value
+                      state: string-value
+                      postcode: string-value
+                      country: string-value
+                      email: user@example.com
+                      phone: string-value
+                    payment_method: string-value
+                    payment_method_title: Example Name
+                    transaction_id: '500123'
+                    line_items:
+                    - string-value
+                    meta_data:
+                    - string-value
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+  /orders/{id}:
+    get:
+      operationId: getOrder
+      summary: WooCommerce Retrieve an Order
+      description: Returns a single order by its numeric ID including all line items, totals, billing, and shipping details.
+      tags:
+      - Orders
+      parameters:
+      - $ref: '#/components/parameters/id'
+      responses:
+        '200':
+          description: Order details
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Order'
+              examples:
+                getOrder200Example:
+                  summary: Default getOrder 200 response
+                  x-microcks-default: true
+                  value:
+                    id: 1
+                    parent_id: 1
+                    number: string-value
+                    order_key: string-value
+                    status: pending
+                    currency: string-value
+                    date_created: '2026-05-03T14:30:00Z'
+                    date_modified: '2026-05-03T14:30:00Z'
+                    date_completed: '2026-05-03T14:30:00Z'
+                    discount_total: string-value
+                    discount_tax: string-value
+                    shipping_total: string-value
+                    shipping_tax: string-value
+                    cart_tax: string-value
+                    total: string-value
+                    total_tax: string-value
+                    customer_id: 1
+                    customer_note: string-value
+                    billing:
+                      first_name: Example Name
+                      last_name: Example Name
+                      company: string-value
+                      address_1: string-value
+                      address_2: string-value
+                      city: string-value
+                      state: string-value
+                      postcode: string-value
+                      country: string-value
+                      email: user@example.com
+                      phone: string-value
+                    shipping:
+                      first_name: Example Name
+                      last_name: Example Name
+                      company: string-value
+                      address_1: string-value
+                      address_2: string-value
+                      city: string-value
+                      state: string-value
+                      postcode: string-value
+                      country: string-value
+                      email: user@example.com
+                      phone: string-value
+                    payment_method: string-value
+                    payment_method_title: Example Name
+                    transaction_id: '500123'
+                    line_items:
+                    - string-value
+                    meta_data:
+                    - string-value
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+    put:
+      operationId: updateOrder
+      summary: WooCommerce Update an Order
+      description: Updates an existing order. Common use cases include changing order status, updating billing or shipping addresses, and modifying line item quantities. Only fields included in the request are changed.
+      tags:
+      - Orders
+      parameters:
+      - $ref: '#/components/parameters/id'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/OrderInput'
+      responses:
+        '200':
+          description: Order updated successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Order'
+              examples:
+                updateOrder200Example:
+                  summary: Default updateOrder 200 response
+                  x-microcks-default: true
+                  value:
+                    id: 1
+                    parent_id: 1
+                    number: string-value
+                    order_key: string-value
+                    status: pending
+                    currency: string-value
+                    date_created: '2026-05-03T14:30:00Z'
+                    date_modified: '2026-05-03T14:30:00Z'
+                    date_completed: '2026-05-03T14:30:00Z'
+                    discount_total: string-value
+                    discount_tax: string-value
+                    shipping_total: string-value
+                    shipping_tax: string-value
+                    cart_tax: string-value
+                    total: string-value
+                    total_tax: string-value
+                    customer_id: 1
+                    customer_note: string-value
+                    billing:
+                      first_name: Example Name
+                      last_name: Example Name
+                      company: string-value
+                      address_1: string-value
+                      address_2: string-value
+                      city: string-value
+                      state: string-value
+                      postcode: string-value
+                      country: string-value
+                      email: user@example.com
+                      phone: string-value
+                    shipping:
+                      first_name: Example Name
+                      last_name: Example Name
+                      company: string-value
+                      address_1: string-value
+                      address_2: string-value
+                      city: string-value
+                      state: string-value
+                      postcode: string-value
+                      country: string-value
+                      email: user@example.com
+                      phone: string-value
+                    payment_method: string-value
+                    payment_method_title: Example Name
+                    transaction_id: '500123'
+                    line_items:
+                    - string-value
+                    meta_data:
+                    - string-value
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+    delete:
+      operationId: deleteOrder
+      summary: WooCommerce Delete an Order
+      description: Deletes an order by its numeric ID. Set force to true to permanently delete rather than moving the order to the trash.
+      tags:
+      - Orders
+      parameters:
+      - $ref: '#/components/parameters/id'
+      - $ref: '#/components/parameters/force'
+      responses:
+        '200':
+          description: Order deleted
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Order'
+              examples:
+                deleteOrder200Example:
+                  summary: Default deleteOrder 200 response
+                  x-microcks-default: true
+                  value:
+                    id: 1
+                    parent_id: 1
+                    number: string-value
+                    order_key: string-value
+                    status: pending
+                    currency: string-value
+                    date_created: '2026-05-03T14:30:00Z'
+                    date_modified: '2026-05-03T14:30:00Z'
+                    date_completed: '2026-05-03T14:30:00Z'
+                    discount_total: string-value
+                    discount_tax: string-value
+                    shipping_total: string-value
+                    shipping_tax: string-value
+                    cart_tax: string-value
+                    total: string-value
+                    total_tax: string-value
+                    customer_id: 1
+                    customer_note: string-value
+                    billing:
+                      first_name: Example Name
+                      last_name: Example Name
+                      company: string-value
+                      address_1: string-value
+                      address_2: string-value
+                      city: string-value
+                      state: string-value
+                      postcode: string-value
+                      country: string-value
+                      email: user@example.com
+                      phone: string-value
+                    shipping:
+                      first_name: Example Name
+                      last_name: Example Name
+                      company: string-value
+                      address_1: string-value
+                      address_2: string-value
+                      city: string-value
+                      state: string-value
+                      postcode: string-value
+                      country: string-value
+                      email: user@example.com
+                      phone: string-value
+                    payment_method: string-value
+                    payment_method_title: Example Name
+                    transaction_id: '500123'
+                    line_items:
+                    - string-value
+                    meta_data:
+                    - string-value
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+  /order/{id}:
+    get:
+      operationId: getStoreOrder
+      summary: WooCommerce Retrieve a Customer Order
+      description: Returns a single order by ID. Only returns orders belonging to the currently authenticated customer. Used for order confirmation and account order history pages.
+      tags:
+      - Orders
+      parameters:
+      - $ref: '#/components/parameters/id'
+      responses:
+        '200':
+          description: Customer order details
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/StoreOrder'
+              examples:
+                getStoreOrder200Example:
+                  summary: Default getStoreOrder 200 response
+                  x-microcks-default: true
+                  value:
+                    id: 1
+                    number: string-value
+                    status: active
+                    date_created: '2026-05-03T14:30:00Z'
+                    total: string-value
+                    billing:
+                      first_name: Example Name
+                      last_name: Example Name
+                      company: string-value
+                      address_1: string-value
+                      address_2: string-value
+                      city: string-value
+                      state: string-value
+                      postcode: string-value
+                      country: string-value
+                      email: user@example.com
+                      phone: string-value
+                    shipping:
+                      first_name: Example Name
+                      last_name: Example Name
+                      company: string-value
+                      address_1: string-value
+                      address_2: string-value
+                      city: string-value
+                      state: string-value
+                      postcode: string-value
+                      country: string-value
+                      email: user@example.com
+                      phone: string-value
+                    items:
+                    - id: 1
+                      name: Example Name
+                      quantity: 1
+                      total: string-value
+        '401':
+          $ref: '#/components/responses/Unauthorized_2'
+        '404':
+          $ref: '#/components/responses/NotFound'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+components:
+  schemas:
+    Error_2:
+      type: object
+      description: Error response returned when a request fails.
+      properties:
+        code:
+          type: string
+          description: Machine-readable error code.
+          example: string-value
+        message:
+          type: string
+          description: Human-readable error message.
+          example: string-value
+        data:
+          type: object
+          description: Additional context including HTTP status.
+          properties:
+            status:
+              type: integer
+              description: HTTP status code.
+          example:
+            status: 1
+    StoreAddress:
+      type: object
+      description: A customer billing or shipping address in the Store API context.
+      properties:
+        first_name:
+          type: string
+          description: First name.
+          example: Example Name
+        last_name:
+          type: string
+          description: Last name.
+          example: Example Name
+        company:
+          type: string
+          description: Company name.
+          example: string-value
+        address_1:
+          type: string
+          description: Address line 1.
+          example: string-value
+        address_2:
+          type: string
+          description: Address line 2.
+          example: string-value
+        city:
+          type: string
+          description: City.
+          example: string-value
+        state:
+          type: string
+          description: State or province code.
+          example: string-value
+        postcode:
+          type: string
+          description: Postal code.
+          example: string-value
+        country:
+          type: string
+          description: ISO 3166-1 alpha-2 country code.
+          example: string-value
+        email:
+          type: string
+          format: email
+          description: Email address (billing only).
+          example: user@example.com
+        phone:
+          type: string
+          description: Phone number.
+          example: string-value
+    MetaData:
+      type: object
+      description: Custom metadata key-value entry.
+      properties:
+        id:
+          type: integer
+          description: Metadata unique identifier.
+          example: 1
+        key:
+          type: string
+          description: Metadata key.
+          example: string-value
+        value:
+          type: string
+          description: Metadata value.
+          example: string-value
+    LineItem:
+      type: object
+      description: A product line item within an order.
+      properties:
+        id:
+          type: integer
+          description: Line item unique identifier.
+          example: 1
+        name:
+          type: string
+          description: Product name at time of purchase.
+          example: Example Name
+        product_id:
+          type: integer
+          description: Product ID.
+          example: 1
+        variation_id:
+          type: integer
+          description: Variation ID (0 if not a variation).
+          example: 1
+        quantity:
+          type: integer
+          description: Quantity ordered.
+          example: 1
+        tax_class:
+          type: string
+          description: Tax class used for this line item.
+          example: string-value
+        subtotal:
+          type: string
+          description: Line subtotal (before discounts) as a decimal string.
+          example: string-value
+        subtotal_tax:
+          type: string
+          description: Line subtotal tax as a decimal string.
+          example: string-value
+        total:
+          type: string
+          description: Line total (after discounts) as a decimal string.
+          example: string-value
+        total_tax:
+          type: string
+          description: Line total tax as a decimal string.
+          example: string-value
+        sku:
+          type: string
+          description: Product SKU.
+          example: string-value
+        price:
+          type: number
+          description: Product price at time of purchase.
+          example: 10.5
+        meta_data:
+          type: array
+          description: Metadata for the line item (e.g. variation attributes).
+          items:
+            $ref: '#/components/schemas/MetaData'
+          example:
+          - string-value
+    StoreOrder:
+      type: object
+      description: A customer order retrieved via the Store API.
+      properties:
+        id:
+          type: integer
+          description: Order unique identifier.
+          example: 1
+        number:
+          type: string
+          description: Human-readable order number.
+          example: string-value
+        status:
+          type: string
+          description: Order status.
+          example: active
+        date_created:
+          type: string
+          format: date-time
+          description: Date the order was created.
+          example: '2026-05-03T14:30:00Z'
+        total:
+          type: string
+          description: Order grand total.
+          example: string-value
+        billing:
+          $ref: '#/components/schemas/StoreAddress'
+        shipping:
+          $ref: '#/components/schemas/StoreAddress'
+        items:
+          type: array
+          description: Items in the order.
+          items:
+            type: object
+            properties:
+              id:
+                type: integer
+                description: Line item ID.
+              name:
+                type: string
+                description: Product name.
+              quantity:
+                type: integer
+                description: Quantity ordered.
+              total:
+                type: string
+                description: Line item total.
+          example:
+          - id: 1
+            name: Example Name
+            quantity: 1
+            total: string-value
+    Address:
+      type: object
+      description: Billing or shipping address associated with a customer or order.
+      properties:
+        first_name:
+          type: string
+          description: First name.
+          example: Example Name
+        last_name:
+          type: string
+          description: Last name.
+          example: Example Name
+        company:
+          type: string
+          description: Company name.
+          example: string-value
+        address_1:
+          type: string
+          description: Address line 1.
+          example: string-value
+        address_2:
+          type: string
+          description: Address line 2.
+          example: string-value
+        city:
+          type: string
+          description: City name.
+          example: string-value
+        state:
+          type: string
+          description: ISO code or name of the state, province, or district.
+          example: string-value
+        postcode:
+          type: string
+          description: Postal code.
+          example: string-value
+        country:
+          type: string
+          description: ISO 3166-1 alpha-2 country code.
+          example: string-value
+        email:
+          type: string
+          format: email
+          description: Email address (billing only).
+          example: user@example.com
+        phone:
+          type: string
+          description: Phone number (billing only).
+          example: string-value
+    Order:
+      type: object
+      description: A WooCommerce customer order.
+      properties:
+        id:
+          type: integer
+          description: Order unique identifier.
+          example: 1
+        parent_id:
+          type: integer
+          description: Parent order ID (for order refunds and child orders).
+          example: 1
+        number:
+          type: string
+          description: Order number displayed to customers.
+          example: string-value
+        order_key:
+          type: string
+          description: Order key used to verify order ownership.
+          example: string-value
+        status:
+          type: string
+          description: 'Order status. Options: pending, processing, on-hold, completed, cancelled, refunded, failed, trash.'
+          enum:
+          - pending
+          - processing
+          - on-hold
+          - completed
+          - cancelled
+          - refunded
+          - failed
+          - trash
+          example: pending
+        currency:
+          type: string
+          description: ISO 4217 currency code used for the order.
+          example: string-value
+        date_created:
+          type: string
+          format: date-time
+          description: Date the order was created.
+          example: '2026-05-03T14:30:00Z'
+        date_modified:
+          type: string
+          format: date-time
+          description: Date the order was last modified.
+          example: '2026-05-03T14:30:00Z'
+        date_completed:
+          type: string
+          format: date-time
+          description: Date the order was marked as completed.
+          nullable: true
+          example: '2026-05-03T14:30:00Z'
+        discount_total:
+          type: string
+          description: Total discount applied to the order as a decimal string.
+          example: string-value
+        discount_tax:
+          type: string
+          description: Total discount tax as a decimal string.
+          example: string-value
+        shipping_total:
+          type: string
+          description: Total shipping cost as a decimal string.
+          example: string-value
+        shipping_tax:
+          type: string
+          description: Total shipping tax as a decimal string.
+          example: string-value
+        cart_tax:
+          type: string
+          description: Total cart item taxes as a decimal string.
+          example: string-value
+        total:
+          type: string
+          description: Grand total as a decimal string.
+          example: string-value
+        total_tax:
+          type: string
+          description: Total tax as a decimal string.
+          example: string-value
+        customer_id:
+          type: integer
+          description: Customer ID (0 for guest orders).
+          example: 1
+        customer_note:
+          type: string
+          description: Note left by the customer at checkout.
+          example: string-value
+        billing:
+          $ref: '#/components/schemas/Address'
+        shipping:
+          $ref: '#/components/schemas/Address'
+        payment_method:
+          type: string
+          description: Payment method ID (e.g. stripe, paypal).
+          example: string-value
+        payment_method_title:
+          type: string
+          description: Human-readable payment method name.
+          example: Example Name
+        transaction_id:
+          type: string
+          description: Payment gateway transaction ID.
+          example: '500123'
+        line_items:
+          type: array
+          description: Line items in the order.
+          items:
+            $ref: '#/components/schemas/LineItem'
+          example:
+          - string-value
+        meta_data:
+          type: array
+          description: Custom metadata attached to the order.
+          items:
+            $ref: '#/components/schemas/MetaData'
+          example:
+          - string-value
+    OrderInput:
+      type: object
+      description: Input for creating or updating an order.
+      properties:
+        status:
+          type: string
+          description: Order status.
+          enum:
+          - pending
+          - processing
+          - on-hold
+          - completed
+          - cancelled
+          - refunded
+          - failed
+          example: pending
+        customer_id:
+          type: integer
+          description: Customer ID (0 for guest).
+          example: 1
+        customer_note:
+          type: string
+          description: Note from customer.
+          example: string-value
+        billing:
+          $ref: '#/components/schemas/Address'
+        shipping:
+          $ref: '#/components/schemas/Address'
+        payment_method:
+          type: string
+          description: Payment method ID.
+          example: string-value
+        payment_method_title:
+          type: string
+          description: Payment method display name.
+          example: Example Name
+        line_items:
+          type: array
+          description: Line items to include in the order.
+          items:
+            $ref: '#/components/schemas/LineItem'
+          example:
+          - string-value
+        meta_data:
+          type: array
+          description: Custom metadata.
+          items:
+            $ref: '#/components/schemas/MetaData'
+          example:
+          - string-value
+    Error:
+      type: object
+      properties:
+        code:
+          type: string
+          description: Machine-readable error code.
+          example: string-value
+        message:
+          type: string
+          description: Human-readable error message.
+          example: string-value
+        data:
+          type: object
+          description: Additional error context including HTTP status code.
+          properties:
+            status:
+              type: integer
+              description: HTTP status code associated with the error.
+          example:
+            status: 1
+  parameters:
+    after:
+      name: after
+      in: query
+      description: Limit response to resources created after a given ISO8601 compliant date.
+      required: false
+      schema:
+        type: string
+        format: date-time
+    before:
+      name: before
+      in: query
+      description: Limit response to resources created before a given ISO8601 compliant date.
+      required: false
+      schema:
+        type: string
+        format: date-time
+    search:
+      name: search
+      in: query
+      description: Limit results to those matching a string.
+      required: false
+      schema:
+        type: string
+    page:
+      name: page
+      in: query
+      description: Current page of the collection. Defaults to 1.
+      required: false
+      schema:
+        type: integer
+        minimum: 1
+        default: 1
+    id:
+      name: id
+      in: path
+      description: Unique identifier for the resource.
+      required: true
+      schema:
+        type: integer
+    force:
+      name: force
+      in: query
+      description: Set to true to permanently delete the resource, bypassing the trash.
+      required: false
+      schema:
+        type: boolean
+        default: false
+    per_page:
+      name: per_page
+      in: query
+      description: Maximum number of items per page. Defaults to 10, maximum 100.
+      required: false
+      schema:
+        type: integer
+        minimum: 1
+        maximum: 100
+        default: 10
+  responses:
+    Unauthorized:
+      description: Authentication credentials are missing or invalid.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    NotFound:
+      description: The requested resource was not found.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    BadRequest:
+      description: The request body contains invalid or missing parameters.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    Unauthorized_2:
+      description: The customer must be logged in to access this resource.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error_2'
+  securitySchemes:
+    basicAuth:
+      type: http
+      scheme: basic
+      description: HTTP Basic Auth using the WooCommerce Consumer Key as the username and Consumer Secret as the password over HTTPS. Over plain HTTP use OAuth 1.0a one-legged authentication instead.
+externalDocs:
+  description: WooCommerce REST API Documentation
+  url: https://woocommerce.github.io/woocommerce-rest-api-docs/

@@ -1,0 +1,188 @@
+openapi: 3.1.0
+info:
+  title: WooCommerce REST Cart Shipping Zones API
+  description: The WooCommerce REST API is the primary server-side interface for reading and writing WooCommerce store data programmatically. It follows REST conventions, uses JSON for all requests and responses, and is fully integrated with the WordPress REST API under the /wp-json/wc/v3/ namespace. The API covers products, product variations, product categories, product attributes, orders, order notes, order refunds, customers, coupons, tax rates, shipping zones, payment gateways, settings, webhooks, reports, and system status. Authentication uses Consumer Key and Consumer Secret pairs generated in the WooCommerce admin, transmitted over HTTPS via HTTP Basic Auth or OAuth 1.0a over plain HTTP.
+  version: v3
+  contact:
+    name: WooCommerce Developer Support
+    url: https://developer.woocommerce.com/docs/apis/rest-api/
+  termsOfService: https://woocommerce.com/terms-conditions/
+servers:
+- url: https://example.com/wp-json/wc/v3
+  description: Production Server (replace example.com with your store domain)
+security:
+- basicAuth: []
+tags:
+- name: Shipping Zones
+  description: Manage shipping zones, their locations, and shipping methods
+paths:
+  /shipping/zones:
+    get:
+      operationId: listShippingZones
+      summary: WooCommerce List All Shipping Zones
+      description: Returns all shipping zones configured in the store. Each zone can contain locations (countries, states, postcodes) and shipping methods.
+      tags:
+      - Shipping Zones
+      responses:
+        '200':
+          description: List of shipping zones
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/ShippingZone'
+              examples:
+                listShippingZones200Example:
+                  summary: Default listShippingZones 200 response
+                  x-microcks-default: true
+                  value:
+                  - id: 1
+                    name: Example Name
+                    order: 1
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+  /shipping/zones/{id}/methods:
+    get:
+      operationId: listShippingZoneMethods
+      summary: WooCommerce List Shipping Methods for a Zone
+      description: Returns all shipping methods configured for a specific shipping zone, including their settings and enabled status.
+      tags:
+      - Shipping Zones
+      parameters:
+      - $ref: '#/components/parameters/id'
+      responses:
+        '200':
+          description: List of shipping zone methods
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/ShippingMethod'
+              examples:
+                listShippingZoneMethods200Example:
+                  summary: Default listShippingZoneMethods 200 response
+                  x-microcks-default: true
+                  value:
+                  - id: 1
+                    instance_id: 1
+                    title: Example Name
+                    order: 1
+                    enabled: true
+                    method_id: '500123'
+                    method_title: Example Name
+                    method_description: A sample description
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+components:
+  parameters:
+    id:
+      name: id
+      in: path
+      description: Unique identifier for the resource.
+      required: true
+      schema:
+        type: integer
+  responses:
+    NotFound:
+      description: The requested resource was not found.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    Unauthorized:
+      description: Authentication credentials are missing or invalid.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+  schemas:
+    ShippingMethod:
+      type: object
+      description: A shipping method configured within a shipping zone.
+      properties:
+        id:
+          type: integer
+          description: Shipping method unique identifier.
+          example: 1
+        instance_id:
+          type: integer
+          description: Shipping method instance ID within the zone.
+          example: 1
+        title:
+          type: string
+          description: Shipping method display name.
+          example: Example Name
+        order:
+          type: integer
+          description: Display order within the zone.
+          example: 1
+        enabled:
+          type: boolean
+          description: Whether this shipping method is enabled.
+          example: true
+        method_id:
+          type: string
+          description: Shipping method type ID (e.g. flat_rate, free_shipping, local_pickup).
+          example: '500123'
+        method_title:
+          type: string
+          description: Shipping method type title.
+          example: Example Name
+        method_description:
+          type: string
+          description: Shipping method type description.
+          example: A sample description
+    ShippingZone:
+      type: object
+      description: A shipping zone defining geographic regions with specific shipping methods.
+      properties:
+        id:
+          type: integer
+          description: Shipping zone unique identifier.
+          example: 1
+        name:
+          type: string
+          description: Shipping zone display name.
+          example: Example Name
+        order:
+          type: integer
+          description: Shipping zone display order.
+          example: 1
+    Error:
+      type: object
+      properties:
+        code:
+          type: string
+          description: Machine-readable error code.
+          example: string-value
+        message:
+          type: string
+          description: Human-readable error message.
+          example: string-value
+        data:
+          type: object
+          description: Additional error context including HTTP status code.
+          properties:
+            status:
+              type: integer
+              description: HTTP status code associated with the error.
+          example:
+            status: 1
+  securitySchemes:
+    basicAuth:
+      type: http
+      scheme: basic
+      description: HTTP Basic Auth using the WooCommerce Consumer Key as the username and Consumer Secret as the password over HTTPS. Over plain HTTP use OAuth 1.0a one-legged authentication instead.
+externalDocs:
+  description: WooCommerce REST API Documentation
+  url: https://woocommerce.github.io/woocommerce-rest-api-docs/

@@ -1,0 +1,554 @@
+openapi: 3.1.0
+info:
+  title: WooCommerce REST Cart Product Variations API
+  description: The WooCommerce REST API is the primary server-side interface for reading and writing WooCommerce store data programmatically. It follows REST conventions, uses JSON for all requests and responses, and is fully integrated with the WordPress REST API under the /wp-json/wc/v3/ namespace. The API covers products, product variations, product categories, product attributes, orders, order notes, order refunds, customers, coupons, tax rates, shipping zones, payment gateways, settings, webhooks, reports, and system status. Authentication uses Consumer Key and Consumer Secret pairs generated in the WooCommerce admin, transmitted over HTTPS via HTTP Basic Auth or OAuth 1.0a over plain HTTP.
+  version: v3
+  contact:
+    name: WooCommerce Developer Support
+    url: https://developer.woocommerce.com/docs/apis/rest-api/
+  termsOfService: https://woocommerce.com/terms-conditions/
+servers:
+- url: https://example.com/wp-json/wc/v3
+  description: Production Server (replace example.com with your store domain)
+security:
+- basicAuth: []
+tags:
+- name: Product Variations
+  description: Manage variations of variable products including price, stock, and attributes
+paths:
+  /products/{product_id}/variations:
+    get:
+      operationId: listProductVariations
+      summary: WooCommerce List All Product Variations
+      description: Returns all variations for a variable product identified by product_id. Each variation has its own pricing, SKU, stock, image, and attribute combination.
+      tags:
+      - Product Variations
+      parameters:
+      - $ref: '#/components/parameters/product_id'
+      - $ref: '#/components/parameters/page'
+      - $ref: '#/components/parameters/per_page'
+      responses:
+        '200':
+          description: List of product variations
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/ProductVariation'
+              examples:
+                listProductVariations200Example:
+                  summary: Default listProductVariations 200 response
+                  x-microcks-default: true
+                  value:
+                  - id: 1
+                    sku: string-value
+                    price: string-value
+                    regular_price: string-value
+                    sale_price: string-value
+                    on_sale: true
+                    status: draft
+                    manage_stock: true
+                    stock_quantity: 1
+                    stock_status: instock
+                    image:
+                      id: {}
+                      src: {}
+                      name: {}
+                      alt: {}
+                    attributes:
+                    - id: 1
+                      name: Example Name
+                      option: string-value
+                    meta_data:
+                    - string-value
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+    post:
+      operationId: createProductVariation
+      summary: WooCommerce Create a Product Variation
+      description: Creates a new variation for a variable product. The variation inherits the parent product's attributes and can override price, SKU, stock, weight, dimensions, and image independently.
+      tags:
+      - Product Variations
+      parameters:
+      - $ref: '#/components/parameters/product_id'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ProductVariationInput'
+      responses:
+        '201':
+          description: Variation created successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProductVariation'
+              examples:
+                createProductVariation201Example:
+                  summary: Default createProductVariation 201 response
+                  x-microcks-default: true
+                  value:
+                    id: 1
+                    sku: string-value
+                    price: string-value
+                    regular_price: string-value
+                    sale_price: string-value
+                    on_sale: true
+                    status: draft
+                    manage_stock: true
+                    stock_quantity: 1
+                    stock_status: instock
+                    image:
+                      id: 1
+                      src: https://example.com/path
+                      name: Example Name
+                      alt: string-value
+                    attributes:
+                    - id: 1
+                      name: Example Name
+                      option: string-value
+                    meta_data:
+                    - string-value
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+  /products/{product_id}/variations/{id}:
+    get:
+      operationId: getProductVariation
+      summary: WooCommerce Retrieve a Product Variation
+      description: Returns the details of a single product variation identified by the parent product ID and the variation ID.
+      tags:
+      - Product Variations
+      parameters:
+      - $ref: '#/components/parameters/product_id'
+      - $ref: '#/components/parameters/id'
+      responses:
+        '200':
+          description: Product variation details
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProductVariation'
+              examples:
+                getProductVariation200Example:
+                  summary: Default getProductVariation 200 response
+                  x-microcks-default: true
+                  value:
+                    id: 1
+                    sku: string-value
+                    price: string-value
+                    regular_price: string-value
+                    sale_price: string-value
+                    on_sale: true
+                    status: draft
+                    manage_stock: true
+                    stock_quantity: 1
+                    stock_status: instock
+                    image:
+                      id: 1
+                      src: https://example.com/path
+                      name: Example Name
+                      alt: string-value
+                    attributes:
+                    - id: 1
+                      name: Example Name
+                      option: string-value
+                    meta_data:
+                    - string-value
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+    put:
+      operationId: updateProductVariation
+      summary: WooCommerce Update a Product Variation
+      description: Updates an existing variation for a variable product. Only the fields provided in the request body are changed.
+      tags:
+      - Product Variations
+      parameters:
+      - $ref: '#/components/parameters/product_id'
+      - $ref: '#/components/parameters/id'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ProductVariationInput'
+      responses:
+        '200':
+          description: Variation updated successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProductVariation'
+              examples:
+                updateProductVariation200Example:
+                  summary: Default updateProductVariation 200 response
+                  x-microcks-default: true
+                  value:
+                    id: 1
+                    sku: string-value
+                    price: string-value
+                    regular_price: string-value
+                    sale_price: string-value
+                    on_sale: true
+                    status: draft
+                    manage_stock: true
+                    stock_quantity: 1
+                    stock_status: instock
+                    image:
+                      id: 1
+                      src: https://example.com/path
+                      name: Example Name
+                      alt: string-value
+                    attributes:
+                    - id: 1
+                      name: Example Name
+                      option: string-value
+                    meta_data:
+                    - string-value
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+    delete:
+      operationId: deleteProductVariation
+      summary: WooCommerce Delete a Product Variation
+      description: Deletes a specific variation from a variable product. Set force to true to permanently delete rather than trash.
+      tags:
+      - Product Variations
+      parameters:
+      - $ref: '#/components/parameters/product_id'
+      - $ref: '#/components/parameters/id'
+      - $ref: '#/components/parameters/force'
+      responses:
+        '200':
+          description: Variation deleted successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProductVariation'
+              examples:
+                deleteProductVariation200Example:
+                  summary: Default deleteProductVariation 200 response
+                  x-microcks-default: true
+                  value:
+                    id: 1
+                    sku: string-value
+                    price: string-value
+                    regular_price: string-value
+                    sale_price: string-value
+                    on_sale: true
+                    status: draft
+                    manage_stock: true
+                    stock_quantity: 1
+                    stock_status: instock
+                    image:
+                      id: 1
+                      src: https://example.com/path
+                      name: Example Name
+                      alt: string-value
+                    attributes:
+                    - id: 1
+                      name: Example Name
+                      option: string-value
+                    meta_data:
+                    - string-value
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+components:
+  parameters:
+    page:
+      name: page
+      in: query
+      description: Current page of the collection. Defaults to 1.
+      required: false
+      schema:
+        type: integer
+        minimum: 1
+        default: 1
+    id:
+      name: id
+      in: path
+      description: Unique identifier for the resource.
+      required: true
+      schema:
+        type: integer
+    force:
+      name: force
+      in: query
+      description: Set to true to permanently delete the resource, bypassing the trash.
+      required: false
+      schema:
+        type: boolean
+        default: false
+    per_page:
+      name: per_page
+      in: query
+      description: Maximum number of items per page. Defaults to 10, maximum 100.
+      required: false
+      schema:
+        type: integer
+        minimum: 1
+        maximum: 100
+        default: 10
+    product_id:
+      name: product_id
+      in: path
+      description: Unique identifier of the parent product.
+      required: true
+      schema:
+        type: integer
+  schemas:
+    ProductVariationInput:
+      type: object
+      description: Input for creating or updating a product variation.
+      properties:
+        sku:
+          type: string
+          description: SKU for this variation.
+          example: string-value
+        regular_price:
+          type: string
+          description: Regular price.
+          example: string-value
+        sale_price:
+          type: string
+          description: Sale price.
+          example: string-value
+        status:
+          type: string
+          description: Variation status.
+          enum:
+          - draft
+          - pending
+          - private
+          - publish
+          example: draft
+        manage_stock:
+          type: boolean
+          description: Whether to enable stock management.
+          example: true
+        stock_quantity:
+          type: integer
+          description: Stock quantity.
+          example: 1
+        stock_status:
+          type: string
+          description: Stock status.
+          enum:
+          - instock
+          - outofstock
+          - onbackorder
+          example: instock
+        image:
+          $ref: '#/components/schemas/ProductImage'
+        attributes:
+          type: array
+          description: Attribute options for this variation.
+          items:
+            type: object
+            properties:
+              id:
+                type: integer
+                description: Attribute ID.
+              name:
+                type: string
+                description: Attribute name.
+              option:
+                type: string
+                description: Selected option value.
+          example:
+          - id: 1
+            name: Example Name
+            option: string-value
+    MetaData:
+      type: object
+      description: Custom metadata key-value entry.
+      properties:
+        id:
+          type: integer
+          description: Metadata unique identifier.
+          example: 1
+        key:
+          type: string
+          description: Metadata key.
+          example: string-value
+        value:
+          type: string
+          description: Metadata value.
+          example: string-value
+    ProductImage:
+      type: object
+      description: An image associated with a product.
+      properties:
+        id:
+          type: integer
+          description: Image unique identifier.
+          example: 1
+        src:
+          type: string
+          format: uri
+          description: Image URL.
+          example: https://example.com/path
+        name:
+          type: string
+          description: Image name.
+          example: Example Name
+        alt:
+          type: string
+          description: Image alternative text.
+          example: string-value
+    ProductVariation:
+      type: object
+      description: A variation of a variable product with its own pricing and stock.
+      properties:
+        id:
+          type: integer
+          description: Variation unique identifier.
+          example: 1
+        sku:
+          type: string
+          description: Stock-keeping unit for this variation.
+          example: string-value
+        price:
+          type: string
+          description: Current price as a decimal string.
+          example: string-value
+        regular_price:
+          type: string
+          description: Regular price as a decimal string.
+          example: string-value
+        sale_price:
+          type: string
+          description: Sale price as a decimal string.
+          example: string-value
+        on_sale:
+          type: boolean
+          description: Whether the variation is on sale.
+          example: true
+        status:
+          type: string
+          description: Variation status.
+          enum:
+          - draft
+          - pending
+          - private
+          - publish
+          example: draft
+        manage_stock:
+          type: boolean
+          description: Whether stock is managed for this variation.
+          example: true
+        stock_quantity:
+          type: integer
+          description: Stock quantity for this variation.
+          nullable: true
+          example: 1
+        stock_status:
+          type: string
+          description: Stock status.
+          enum:
+          - instock
+          - outofstock
+          - onbackorder
+          example: instock
+        image:
+          $ref: '#/components/schemas/ProductImage'
+        attributes:
+          type: array
+          description: Specific attribute values that define this variation.
+          items:
+            type: object
+            properties:
+              id:
+                type: integer
+                description: Attribute ID.
+              name:
+                type: string
+                description: Attribute name.
+              option:
+                type: string
+                description: Selected option value for this variation.
+          example:
+          - id: 1
+            name: Example Name
+            option: string-value
+        meta_data:
+          type: array
+          description: Custom metadata for this variation.
+          items:
+            $ref: '#/components/schemas/MetaData'
+          example:
+          - string-value
+    Error:
+      type: object
+      properties:
+        code:
+          type: string
+          description: Machine-readable error code.
+          example: string-value
+        message:
+          type: string
+          description: Human-readable error message.
+          example: string-value
+        data:
+          type: object
+          description: Additional error context including HTTP status code.
+          properties:
+            status:
+              type: integer
+              description: HTTP status code associated with the error.
+          example:
+            status: 1
+  responses:
+    NotFound:
+      description: The requested resource was not found.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    Unauthorized:
+      description: Authentication credentials are missing or invalid.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    BadRequest:
+      description: The request body contains invalid or missing parameters.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+  securitySchemes:
+    basicAuth:
+      type: http
+      scheme: basic
+      description: HTTP Basic Auth using the WooCommerce Consumer Key as the username and Consumer Secret as the password over HTTPS. Over plain HTTP use OAuth 1.0a one-legged authentication instead.
+externalDocs:
+  description: WooCommerce REST API Documentation
+  url: https://woocommerce.github.io/woocommerce-rest-api-docs/

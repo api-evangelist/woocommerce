@@ -1,0 +1,330 @@
+openapi: 3.1.0
+info:
+  title: WooCommerce REST Cart Product Attributes API
+  description: The WooCommerce REST API is the primary server-side interface for reading and writing WooCommerce store data programmatically. It follows REST conventions, uses JSON for all requests and responses, and is fully integrated with the WordPress REST API under the /wp-json/wc/v3/ namespace. The API covers products, product variations, product categories, product attributes, orders, order notes, order refunds, customers, coupons, tax rates, shipping zones, payment gateways, settings, webhooks, reports, and system status. Authentication uses Consumer Key and Consumer Secret pairs generated in the WooCommerce admin, transmitted over HTTPS via HTTP Basic Auth or OAuth 1.0a over plain HTTP.
+  version: v3
+  contact:
+    name: WooCommerce Developer Support
+    url: https://developer.woocommerce.com/docs/apis/rest-api/
+  termsOfService: https://woocommerce.com/terms-conditions/
+servers:
+- url: https://example.com/wp-json/wc/v3
+  description: Production Server (replace example.com with your store domain)
+security:
+- basicAuth: []
+tags:
+- name: Product Attributes
+  description: Retrieve global product attributes and their terms for filtering
+paths:
+  /products/attributes:
+    get:
+      operationId: listStoreProductAttributes
+      summary: WooCommerce List Product Attributes
+      description: Returns all global product attributes registered in the store. Used to build attribute-based filters and variation selectors on the storefront.
+      tags:
+      - Product Attributes
+      parameters:
+      - $ref: '#/components/parameters/page'
+      - $ref: '#/components/parameters/per_page'
+      responses:
+        '200':
+          description: List of product attributes
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/StoreProductAttribute'
+              examples:
+                listStoreProductAttributes200Example:
+                  summary: Default listStoreProductAttributes 200 response
+                  x-microcks-default: true
+                  value:
+                  - id: 1
+                    name: Example Name
+                    taxonomy: string-value
+                    has_archives: true
+                    order: string-value
+                    count: 1
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+  /products/attributes/{id}:
+    get:
+      operationId: getStoreProductAttribute
+      summary: WooCommerce Retrieve a Product Attribute
+      description: Returns a single product attribute by its numeric ID.
+      tags:
+      - Product Attributes
+      parameters:
+      - $ref: '#/components/parameters/id'
+      responses:
+        '200':
+          description: Product attribute details
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/StoreProductAttribute'
+              examples:
+                getStoreProductAttribute200Example:
+                  summary: Default getStoreProductAttribute 200 response
+                  x-microcks-default: true
+                  value:
+                    id: 1
+                    name: Example Name
+                    taxonomy: string-value
+                    has_archives: true
+                    order: string-value
+                    count: 1
+        '404':
+          $ref: '#/components/responses/NotFound'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+  /products/attributes/{id}/terms:
+    get:
+      operationId: listStoreProductAttributeTerms
+      summary: WooCommerce List Product Attribute Terms
+      description: Returns all terms (options) for a specific product attribute. Used to populate attribute-based filter dropdowns and swatches on the storefront.
+      tags:
+      - Product Attributes
+      parameters:
+      - $ref: '#/components/parameters/id'
+      - $ref: '#/components/parameters/page'
+      - $ref: '#/components/parameters/per_page'
+      responses:
+        '200':
+          description: List of attribute terms
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/AttributeTerm'
+              examples:
+                listStoreProductAttributeTerms200Example:
+                  summary: Default listStoreProductAttributeTerms 200 response
+                  x-microcks-default: true
+                  value:
+                  - id: 1
+                    name: Example Name
+                    slug: string-value
+                    description: A sample description
+                    count: 1
+        '404':
+          $ref: '#/components/responses/NotFound'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+  /products/brands:
+    get:
+      operationId: listStoreProductBrands
+      summary: WooCommerce List Product Brands
+      description: Returns all product brands registered in the store. Brand support requires WooCommerce Brands or a compatible extension.
+      tags:
+      - Product Attributes
+      parameters:
+      - $ref: '#/components/parameters/page'
+      - $ref: '#/components/parameters/per_page'
+      responses:
+        '200':
+          description: List of product brands
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/StoreBrand'
+              examples:
+                listStoreProductBrands200Example:
+                  summary: Default listStoreProductBrands 200 response
+                  x-microcks-default: true
+                  value:
+                  - id: 1
+                    name: Example Name
+                    slug: string-value
+                    description: A sample description
+                    image:
+                      id: {}
+                      src: {}
+                      thumbnail: {}
+                      srcset: {}
+                      sizes: {}
+                      name: {}
+                      alt: {}
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+components:
+  parameters:
+    page:
+      name: page
+      in: query
+      description: Current page of the collection.
+      required: false
+      schema:
+        type: integer
+        minimum: 1
+        default: 1
+    id:
+      name: id
+      in: path
+      description: Unique identifier for the resource.
+      required: true
+      schema:
+        type: integer
+    per_page:
+      name: per_page
+      in: query
+      description: Maximum number of items per page (maximum 100).
+      required: false
+      schema:
+        type: integer
+        minimum: 1
+        maximum: 100
+        default: 10
+  schemas:
+    AttributeTerm:
+      type: object
+      description: A term (option value) for a product attribute.
+      properties:
+        id:
+          type: integer
+          description: Term unique identifier.
+          example: 1
+        name:
+          type: string
+          description: Term display name.
+          example: Example Name
+        slug:
+          type: string
+          description: URL-friendly term slug.
+          example: string-value
+        description:
+          type: string
+          description: Term description.
+          example: A sample description
+        count:
+          type: integer
+          description: Number of products using this term.
+          example: 1
+    StoreBrand:
+      type: object
+      description: A product brand.
+      properties:
+        id:
+          type: integer
+          description: Brand unique identifier.
+          example: 1
+        name:
+          type: string
+          description: Brand display name.
+          example: Example Name
+        slug:
+          type: string
+          description: URL-friendly brand slug.
+          example: string-value
+        description:
+          type: string
+          description: Brand description.
+          example: A sample description
+        image:
+          $ref: '#/components/schemas/StoreProductImage'
+    StoreProductImage:
+      type: object
+      description: Product image with thumbnail variants.
+      properties:
+        id:
+          type: integer
+          description: Image attachment ID.
+          example: 1
+        src:
+          type: string
+          format: uri
+          description: Full-size image URL.
+          example: https://example.com/path
+        thumbnail:
+          type: string
+          format: uri
+          description: Thumbnail image URL.
+          example: https://example.com/path
+        srcset:
+          type: string
+          description: Responsive image srcset attribute value.
+          example: string-value
+        sizes:
+          type: string
+          description: Responsive image sizes attribute value.
+          example: string-value
+        name:
+          type: string
+          description: Image file name.
+          example: Example Name
+        alt:
+          type: string
+          description: Image alternative text.
+          example: string-value
+    StoreProductAttribute:
+      type: object
+      description: A global product attribute for filtering and variation selection.
+      properties:
+        id:
+          type: integer
+          description: Attribute unique identifier.
+          example: 1
+        name:
+          type: string
+          description: Attribute label.
+          example: Example Name
+        taxonomy:
+          type: string
+          description: Attribute taxonomy slug (e.g. pa_color).
+          example: string-value
+        has_archives:
+          type: boolean
+          description: Whether the attribute has archive pages.
+          example: true
+        order:
+          type: string
+          description: How terms in this attribute are ordered (menu_order, name, name_num, id).
+          example: string-value
+        count:
+          type: integer
+          description: Number of terms in this attribute.
+          example: 1
+    Error:
+      type: object
+      description: Error response returned when a request fails.
+      properties:
+        code:
+          type: string
+          description: Machine-readable error code.
+          example: string-value
+        message:
+          type: string
+          description: Human-readable error message.
+          example: string-value
+        data:
+          type: object
+          description: Additional context including HTTP status.
+          properties:
+            status:
+              type: integer
+              description: HTTP status code.
+          example:
+            status: 1
+  responses:
+    NotFound:
+      description: The requested resource was not found.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+  securitySchemes:
+    basicAuth:
+      type: http
+      scheme: basic
+      description: HTTP Basic Auth using the WooCommerce Consumer Key as the username and Consumer Secret as the password over HTTPS. Over plain HTTP use OAuth 1.0a one-legged authentication instead.
+externalDocs:
+  description: WooCommerce REST API Documentation
+  url: https://woocommerce.github.io/woocommerce-rest-api-docs/

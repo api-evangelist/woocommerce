@@ -1,0 +1,386 @@
+openapi: 3.1.0
+info:
+  title: WooCommerce REST Cart Webhooks API
+  description: The WooCommerce REST API is the primary server-side interface for reading and writing WooCommerce store data programmatically. It follows REST conventions, uses JSON for all requests and responses, and is fully integrated with the WordPress REST API under the /wp-json/wc/v3/ namespace. The API covers products, product variations, product categories, product attributes, orders, order notes, order refunds, customers, coupons, tax rates, shipping zones, payment gateways, settings, webhooks, reports, and system status. Authentication uses Consumer Key and Consumer Secret pairs generated in the WooCommerce admin, transmitted over HTTPS via HTTP Basic Auth or OAuth 1.0a over plain HTTP.
+  version: v3
+  contact:
+    name: WooCommerce Developer Support
+    url: https://developer.woocommerce.com/docs/apis/rest-api/
+  termsOfService: https://woocommerce.com/terms-conditions/
+servers:
+- url: https://example.com/wp-json/wc/v3
+  description: Production Server (replace example.com with your store domain)
+security:
+- basicAuth: []
+tags:
+- name: Webhooks
+  description: Create and manage webhooks that deliver event notifications to URLs
+paths:
+  /webhooks:
+    get:
+      operationId: listWebhooks
+      summary: WooCommerce List All Webhooks
+      description: Returns all configured webhooks. Supports filtering by status (active, paused, disabled) and delivery URL.
+      tags:
+      - Webhooks
+      parameters:
+      - $ref: '#/components/parameters/page'
+      - $ref: '#/components/parameters/per_page'
+      - name: status
+        in: query
+        description: 'Filter webhooks by status. Options: all, active, paused, disabled.'
+        required: false
+        schema:
+          type: string
+          enum:
+          - all
+          - active
+          - paused
+          - disabled
+        example: all
+      responses:
+        '200':
+          description: List of webhooks
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Webhook'
+              examples:
+                listWebhooks200Example:
+                  summary: Default listWebhooks 200 response
+                  x-microcks-default: true
+                  value:
+                  - id: 1
+                    name: Example Name
+                    status: active
+                    topic: string-value
+                    resource: string-value
+                    event: string-value
+                    delivery_url: https://example.com/path
+                    date_created: '2026-05-03T14:30:00Z'
+                    date_modified: '2026-05-03T14:30:00Z'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+    post:
+      operationId: createWebhook
+      summary: WooCommerce Create a Webhook
+      description: Creates a new webhook. Requires a topic (e.g. order.created) and a delivery URL. An optional secret key is used to generate the HMAC-SHA256 signature included in each delivery.
+      tags:
+      - Webhooks
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/WebhookInput'
+      responses:
+        '201':
+          description: Webhook created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Webhook'
+              examples:
+                createWebhook201Example:
+                  summary: Default createWebhook 201 response
+                  x-microcks-default: true
+                  value:
+                    id: 1
+                    name: Example Name
+                    status: active
+                    topic: string-value
+                    resource: string-value
+                    event: string-value
+                    delivery_url: https://example.com/path
+                    date_created: '2026-05-03T14:30:00Z'
+                    date_modified: '2026-05-03T14:30:00Z'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+  /webhooks/{id}:
+    get:
+      operationId: getWebhook
+      summary: WooCommerce Retrieve a Webhook
+      description: Returns a single webhook configuration by its numeric ID.
+      tags:
+      - Webhooks
+      parameters:
+      - $ref: '#/components/parameters/id'
+      responses:
+        '200':
+          description: Webhook details
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Webhook'
+              examples:
+                getWebhook200Example:
+                  summary: Default getWebhook 200 response
+                  x-microcks-default: true
+                  value:
+                    id: 1
+                    name: Example Name
+                    status: active
+                    topic: string-value
+                    resource: string-value
+                    event: string-value
+                    delivery_url: https://example.com/path
+                    date_created: '2026-05-03T14:30:00Z'
+                    date_modified: '2026-05-03T14:30:00Z'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+    put:
+      operationId: updateWebhook
+      summary: WooCommerce Update a Webhook
+      description: Updates a webhook configuration by its numeric ID.
+      tags:
+      - Webhooks
+      parameters:
+      - $ref: '#/components/parameters/id'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/WebhookInput'
+      responses:
+        '200':
+          description: Webhook updated
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Webhook'
+              examples:
+                updateWebhook200Example:
+                  summary: Default updateWebhook 200 response
+                  x-microcks-default: true
+                  value:
+                    id: 1
+                    name: Example Name
+                    status: active
+                    topic: string-value
+                    resource: string-value
+                    event: string-value
+                    delivery_url: https://example.com/path
+                    date_created: '2026-05-03T14:30:00Z'
+                    date_modified: '2026-05-03T14:30:00Z'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+    delete:
+      operationId: deleteWebhook
+      summary: WooCommerce Delete a Webhook
+      description: Permanently deletes a webhook by its numeric ID.
+      tags:
+      - Webhooks
+      parameters:
+      - $ref: '#/components/parameters/id'
+      - $ref: '#/components/parameters/force'
+      responses:
+        '200':
+          description: Webhook deleted
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Webhook'
+              examples:
+                deleteWebhook200Example:
+                  summary: Default deleteWebhook 200 response
+                  x-microcks-default: true
+                  value:
+                    id: 1
+                    name: Example Name
+                    status: active
+                    topic: string-value
+                    resource: string-value
+                    event: string-value
+                    delivery_url: https://example.com/path
+                    date_created: '2026-05-03T14:30:00Z'
+                    date_modified: '2026-05-03T14:30:00Z'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+components:
+  parameters:
+    page:
+      name: page
+      in: query
+      description: Current page of the collection. Defaults to 1.
+      required: false
+      schema:
+        type: integer
+        minimum: 1
+        default: 1
+    id:
+      name: id
+      in: path
+      description: Unique identifier for the resource.
+      required: true
+      schema:
+        type: integer
+    force:
+      name: force
+      in: query
+      description: Set to true to permanently delete the resource, bypassing the trash.
+      required: false
+      schema:
+        type: boolean
+        default: false
+    per_page:
+      name: per_page
+      in: query
+      description: Maximum number of items per page. Defaults to 10, maximum 100.
+      required: false
+      schema:
+        type: integer
+        minimum: 1
+        maximum: 100
+        default: 10
+  responses:
+    NotFound:
+      description: The requested resource was not found.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    Unauthorized:
+      description: Authentication credentials are missing or invalid.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    BadRequest:
+      description: The request body contains invalid or missing parameters.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+  schemas:
+    Webhook:
+      type: object
+      description: A WooCommerce webhook configuration.
+      properties:
+        id:
+          type: integer
+          description: Webhook unique identifier.
+          example: 1
+        name:
+          type: string
+          description: Friendly name for the webhook.
+          example: Example Name
+        status:
+          type: string
+          description: 'Webhook status. Options: active, paused, disabled.'
+          enum:
+          - active
+          - paused
+          - disabled
+          example: active
+        topic:
+          type: string
+          description: Webhook topic that determines which events trigger the webhook (e.g. order.created, product.updated).
+          example: string-value
+        resource:
+          type: string
+          description: Resource type associated with the topic (e.g. order, product).
+          example: string-value
+        event:
+          type: string
+          description: Event action associated with the topic (e.g. created, updated).
+          example: string-value
+        delivery_url:
+          type: string
+          format: uri
+          description: URL that receives the webhook HTTP POST payload.
+          example: https://example.com/path
+        date_created:
+          type: string
+          format: date-time
+          description: Date the webhook was created.
+          example: '2026-05-03T14:30:00Z'
+        date_modified:
+          type: string
+          format: date-time
+          description: Date the webhook was last modified.
+          example: '2026-05-03T14:30:00Z'
+    WebhookInput:
+      type: object
+      description: Input for creating or updating a webhook.
+      properties:
+        name:
+          type: string
+          description: Friendly webhook name.
+          example: Example Name
+        status:
+          type: string
+          description: Webhook status.
+          enum:
+          - active
+          - paused
+          - disabled
+          example: active
+        topic:
+          type: string
+          description: Event topic that triggers the webhook (e.g. order.created).
+          example: string-value
+        delivery_url:
+          type: string
+          format: uri
+          description: URL to receive POST notifications.
+          example: https://example.com/path
+        secret:
+          type: string
+          description: Secret key used to generate the HMAC-SHA256 payload signature included in the X-WC-Webhook-Signature header.
+          example: string-value
+    Error:
+      type: object
+      properties:
+        code:
+          type: string
+          description: Machine-readable error code.
+          example: string-value
+        message:
+          type: string
+          description: Human-readable error message.
+          example: string-value
+        data:
+          type: object
+          description: Additional error context including HTTP status code.
+          properties:
+            status:
+              type: integer
+              description: HTTP status code associated with the error.
+          example:
+            status: 1
+  securitySchemes:
+    basicAuth:
+      type: http
+      scheme: basic
+      description: HTTP Basic Auth using the WooCommerce Consumer Key as the username and Consumer Secret as the password over HTTPS. Over plain HTTP use OAuth 1.0a one-legged authentication instead.
+externalDocs:
+  description: WooCommerce REST API Documentation
+  url: https://woocommerce.github.io/woocommerce-rest-api-docs/

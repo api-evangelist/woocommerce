@@ -1,0 +1,1837 @@
+openapi: 3.1.0
+info:
+  title: WooCommerce REST Cart API
+  description: The WooCommerce REST API is the primary server-side interface for reading and writing WooCommerce store data programmatically. It follows REST conventions, uses JSON for all requests and responses, and is fully integrated with the WordPress REST API under the /wp-json/wc/v3/ namespace. The API covers products, product variations, product categories, product attributes, orders, order notes, order refunds, customers, coupons, tax rates, shipping zones, payment gateways, settings, webhooks, reports, and system status. Authentication uses Consumer Key and Consumer Secret pairs generated in the WooCommerce admin, transmitted over HTTPS via HTTP Basic Auth or OAuth 1.0a over plain HTTP.
+  version: v3
+  contact:
+    name: WooCommerce Developer Support
+    url: https://developer.woocommerce.com/docs/apis/rest-api/
+  termsOfService: https://woocommerce.com/terms-conditions/
+servers:
+- url: https://example.com/wp-json/wc/v3
+  description: Production Server (replace example.com with your store domain)
+security:
+- basicAuth: []
+tags:
+- name: Cart
+  description: Manage the current shopper's cart session including items, coupons, and shipping
+paths:
+  /cart:
+    get:
+      operationId: getCart
+      summary: WooCommerce Get the Current Cart
+      description: Returns the current customer's cart contents including items, coupons, fees, totals, and available shipping rates. The response also includes a nonce token in the X-WC-Store-API-Nonce header (and body) required for write operations.
+      tags:
+      - Cart
+      responses:
+        '200':
+          description: Cart contents and totals
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Cart'
+              examples:
+                getCart200Example:
+                  summary: Default getCart 200 response
+                  x-microcks-default: true
+                  value:
+                    items:
+                    - string-value
+                    coupons:
+                    - code: string-value
+                      discount_type: standard
+                      totals: {}
+                    fees:
+                    - id: '500123'
+                      name: Example Name
+                      totals: {}
+                    totals:
+                      total_items: string-value
+                      total_items_tax: string-value
+                      total_fees: string-value
+                      total_fees_tax: string-value
+                      total_discount: string-value
+                      total_discount_tax: string-value
+                      total_shipping: string-value
+                      total_shipping_tax: string-value
+                      total_price: string-value
+                      total_tax: string-value
+                      tax_lines:
+                      - name: Example Name
+                        price: string-value
+                        rate: string-value
+                    shipping_rates:
+                    - string-value
+                    billing_address:
+                      first_name: Example Name
+                      last_name: Example Name
+                      company: string-value
+                      address_1: string-value
+                      address_2: string-value
+                      city: string-value
+                      state: string-value
+                      postcode: string-value
+                      country: string-value
+                      email: user@example.com
+                      phone: string-value
+                    shipping_address:
+                      first_name: Example Name
+                      last_name: Example Name
+                      company: string-value
+                      address_1: string-value
+                      address_2: string-value
+                      city: string-value
+                      state: string-value
+                      postcode: string-value
+                      country: string-value
+                      email: user@example.com
+                      phone: string-value
+                    has_calculated_shipping: true
+                    needs_payment: true
+                    needs_shipping: true
+                    items_count: 1
+                    items_weight: 10.5
+                    cross_sells:
+                    - string-value
+                    errors:
+                    - code: string-value
+                      message: string-value
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+  /cart/add-item:
+    post:
+      operationId: addCartItem
+      summary: WooCommerce Add an Item to the Cart
+      description: Adds a product or variation to the cart. Requires a product_id, an optional variation_id, and quantity. Custom item data can be passed via the item_data array. Requires the Nonce header from a prior cart GET.
+      tags:
+      - Cart
+      parameters:
+      - $ref: '#/components/parameters/nonce'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AddCartItemInput'
+      responses:
+        '200':
+          description: Updated cart after adding item
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Cart'
+              examples:
+                addCartItem200Example:
+                  summary: Default addCartItem 200 response
+                  x-microcks-default: true
+                  value:
+                    items:
+                    - string-value
+                    coupons:
+                    - code: string-value
+                      discount_type: standard
+                      totals: {}
+                    fees:
+                    - id: '500123'
+                      name: Example Name
+                      totals: {}
+                    totals:
+                      total_items: string-value
+                      total_items_tax: string-value
+                      total_fees: string-value
+                      total_fees_tax: string-value
+                      total_discount: string-value
+                      total_discount_tax: string-value
+                      total_shipping: string-value
+                      total_shipping_tax: string-value
+                      total_price: string-value
+                      total_tax: string-value
+                      tax_lines:
+                      - name: Example Name
+                        price: string-value
+                        rate: string-value
+                    shipping_rates:
+                    - string-value
+                    billing_address:
+                      first_name: Example Name
+                      last_name: Example Name
+                      company: string-value
+                      address_1: string-value
+                      address_2: string-value
+                      city: string-value
+                      state: string-value
+                      postcode: string-value
+                      country: string-value
+                      email: user@example.com
+                      phone: string-value
+                    shipping_address:
+                      first_name: Example Name
+                      last_name: Example Name
+                      company: string-value
+                      address_1: string-value
+                      address_2: string-value
+                      city: string-value
+                      state: string-value
+                      postcode: string-value
+                      country: string-value
+                      email: user@example.com
+                      phone: string-value
+                    has_calculated_shipping: true
+                    needs_payment: true
+                    needs_shipping: true
+                    items_count: 1
+                    items_weight: 10.5
+                    cross_sells:
+                    - string-value
+                    errors:
+                    - code: string-value
+                      message: string-value
+        '400':
+          $ref: '#/components/responses/BadRequest'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+  /cart/remove-item:
+    post:
+      operationId: removeCartItem
+      summary: WooCommerce Remove an Item from the Cart
+      description: Removes a cart item identified by its unique cart item key. Requires the Nonce header.
+      tags:
+      - Cart
+      parameters:
+      - $ref: '#/components/parameters/nonce'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+              - key
+              properties:
+                key:
+                  type: string
+                  description: The unique cart item key to remove.
+      responses:
+        '200':
+          description: Updated cart after removing item
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Cart'
+              examples:
+                removeCartItem200Example:
+                  summary: Default removeCartItem 200 response
+                  x-microcks-default: true
+                  value:
+                    items:
+                    - string-value
+                    coupons:
+                    - code: string-value
+                      discount_type: standard
+                      totals: {}
+                    fees:
+                    - id: '500123'
+                      name: Example Name
+                      totals: {}
+                    totals:
+                      total_items: string-value
+                      total_items_tax: string-value
+                      total_fees: string-value
+                      total_fees_tax: string-value
+                      total_discount: string-value
+                      total_discount_tax: string-value
+                      total_shipping: string-value
+                      total_shipping_tax: string-value
+                      total_price: string-value
+                      total_tax: string-value
+                      tax_lines:
+                      - name: Example Name
+                        price: string-value
+                        rate: string-value
+                    shipping_rates:
+                    - string-value
+                    billing_address:
+                      first_name: Example Name
+                      last_name: Example Name
+                      company: string-value
+                      address_1: string-value
+                      address_2: string-value
+                      city: string-value
+                      state: string-value
+                      postcode: string-value
+                      country: string-value
+                      email: user@example.com
+                      phone: string-value
+                    shipping_address:
+                      first_name: Example Name
+                      last_name: Example Name
+                      company: string-value
+                      address_1: string-value
+                      address_2: string-value
+                      city: string-value
+                      state: string-value
+                      postcode: string-value
+                      country: string-value
+                      email: user@example.com
+                      phone: string-value
+                    has_calculated_shipping: true
+                    needs_payment: true
+                    needs_shipping: true
+                    items_count: 1
+                    items_weight: 10.5
+                    cross_sells:
+                    - string-value
+                    errors:
+                    - code: string-value
+                      message: string-value
+        '400':
+          $ref: '#/components/responses/BadRequest'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+  /cart/update-item:
+    post:
+      operationId: updateCartItem
+      summary: WooCommerce Update a Cart Item Quantity
+      description: Updates the quantity of a cart item identified by its key. Set quantity to 0 to remove the item. Requires the Nonce header.
+      tags:
+      - Cart
+      parameters:
+      - $ref: '#/components/parameters/nonce'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+              - key
+              - quantity
+              properties:
+                key:
+                  type: string
+                  description: Cart item key to update.
+                quantity:
+                  type: integer
+                  description: New quantity. Set to 0 to remove the item.
+                  minimum: 0
+      responses:
+        '200':
+          description: Updated cart
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Cart'
+              examples:
+                updateCartItem200Example:
+                  summary: Default updateCartItem 200 response
+                  x-microcks-default: true
+                  value:
+                    items:
+                    - string-value
+                    coupons:
+                    - code: string-value
+                      discount_type: standard
+                      totals: {}
+                    fees:
+                    - id: '500123'
+                      name: Example Name
+                      totals: {}
+                    totals:
+                      total_items: string-value
+                      total_items_tax: string-value
+                      total_fees: string-value
+                      total_fees_tax: string-value
+                      total_discount: string-value
+                      total_discount_tax: string-value
+                      total_shipping: string-value
+                      total_shipping_tax: string-value
+                      total_price: string-value
+                      total_tax: string-value
+                      tax_lines:
+                      - name: Example Name
+                        price: string-value
+                        rate: string-value
+                    shipping_rates:
+                    - string-value
+                    billing_address:
+                      first_name: Example Name
+                      last_name: Example Name
+                      company: string-value
+                      address_1: string-value
+                      address_2: string-value
+                      city: string-value
+                      state: string-value
+                      postcode: string-value
+                      country: string-value
+                      email: user@example.com
+                      phone: string-value
+                    shipping_address:
+                      first_name: Example Name
+                      last_name: Example Name
+                      company: string-value
+                      address_1: string-value
+                      address_2: string-value
+                      city: string-value
+                      state: string-value
+                      postcode: string-value
+                      country: string-value
+                      email: user@example.com
+                      phone: string-value
+                    has_calculated_shipping: true
+                    needs_payment: true
+                    needs_shipping: true
+                    items_count: 1
+                    items_weight: 10.5
+                    cross_sells:
+                    - string-value
+                    errors:
+                    - code: string-value
+                      message: string-value
+        '400':
+          $ref: '#/components/responses/BadRequest'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+  /cart/apply-coupon:
+    post:
+      operationId: applyCartCoupon
+      summary: WooCommerce Apply a Coupon to the Cart
+      description: Applies a coupon code to the current cart session. Returns an error if the coupon is invalid, expired, or does not meet usage conditions. Requires the Nonce header.
+      tags:
+      - Cart
+      parameters:
+      - $ref: '#/components/parameters/nonce'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+              - code
+              properties:
+                code:
+                  type: string
+                  description: Coupon code to apply to the cart.
+      responses:
+        '200':
+          description: Updated cart with coupon applied
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Cart'
+              examples:
+                applyCartCoupon200Example:
+                  summary: Default applyCartCoupon 200 response
+                  x-microcks-default: true
+                  value:
+                    items:
+                    - string-value
+                    coupons:
+                    - code: string-value
+                      discount_type: standard
+                      totals: {}
+                    fees:
+                    - id: '500123'
+                      name: Example Name
+                      totals: {}
+                    totals:
+                      total_items: string-value
+                      total_items_tax: string-value
+                      total_fees: string-value
+                      total_fees_tax: string-value
+                      total_discount: string-value
+                      total_discount_tax: string-value
+                      total_shipping: string-value
+                      total_shipping_tax: string-value
+                      total_price: string-value
+                      total_tax: string-value
+                      tax_lines:
+                      - name: Example Name
+                        price: string-value
+                        rate: string-value
+                    shipping_rates:
+                    - string-value
+                    billing_address:
+                      first_name: Example Name
+                      last_name: Example Name
+                      company: string-value
+                      address_1: string-value
+                      address_2: string-value
+                      city: string-value
+                      state: string-value
+                      postcode: string-value
+                      country: string-value
+                      email: user@example.com
+                      phone: string-value
+                    shipping_address:
+                      first_name: Example Name
+                      last_name: Example Name
+                      company: string-value
+                      address_1: string-value
+                      address_2: string-value
+                      city: string-value
+                      state: string-value
+                      postcode: string-value
+                      country: string-value
+                      email: user@example.com
+                      phone: string-value
+                    has_calculated_shipping: true
+                    needs_payment: true
+                    needs_shipping: true
+                    items_count: 1
+                    items_weight: 10.5
+                    cross_sells:
+                    - string-value
+                    errors:
+                    - code: string-value
+                      message: string-value
+        '400':
+          $ref: '#/components/responses/BadRequest'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+  /cart/remove-coupon:
+    post:
+      operationId: removeCartCoupon
+      summary: WooCommerce Remove a Coupon from the Cart
+      description: Removes a previously applied coupon code from the cart. Requires the Nonce header.
+      tags:
+      - Cart
+      parameters:
+      - $ref: '#/components/parameters/nonce'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+              - code
+              properties:
+                code:
+                  type: string
+                  description: Coupon code to remove from the cart.
+      responses:
+        '200':
+          description: Updated cart with coupon removed
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Cart'
+              examples:
+                removeCartCoupon200Example:
+                  summary: Default removeCartCoupon 200 response
+                  x-microcks-default: true
+                  value:
+                    items:
+                    - string-value
+                    coupons:
+                    - code: string-value
+                      discount_type: standard
+                      totals: {}
+                    fees:
+                    - id: '500123'
+                      name: Example Name
+                      totals: {}
+                    totals:
+                      total_items: string-value
+                      total_items_tax: string-value
+                      total_fees: string-value
+                      total_fees_tax: string-value
+                      total_discount: string-value
+                      total_discount_tax: string-value
+                      total_shipping: string-value
+                      total_shipping_tax: string-value
+                      total_price: string-value
+                      total_tax: string-value
+                      tax_lines:
+                      - name: Example Name
+                        price: string-value
+                        rate: string-value
+                    shipping_rates:
+                    - string-value
+                    billing_address:
+                      first_name: Example Name
+                      last_name: Example Name
+                      company: string-value
+                      address_1: string-value
+                      address_2: string-value
+                      city: string-value
+                      state: string-value
+                      postcode: string-value
+                      country: string-value
+                      email: user@example.com
+                      phone: string-value
+                    shipping_address:
+                      first_name: Example Name
+                      last_name: Example Name
+                      company: string-value
+                      address_1: string-value
+                      address_2: string-value
+                      city: string-value
+                      state: string-value
+                      postcode: string-value
+                      country: string-value
+                      email: user@example.com
+                      phone: string-value
+                    has_calculated_shipping: true
+                    needs_payment: true
+                    needs_shipping: true
+                    items_count: 1
+                    items_weight: 10.5
+                    cross_sells:
+                    - string-value
+                    errors:
+                    - code: string-value
+                      message: string-value
+        '400':
+          $ref: '#/components/responses/BadRequest'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+  /cart/update-customer:
+    post:
+      operationId: updateCartCustomer
+      summary: WooCommerce Update Cart Customer Data
+      description: Updates billing and/or shipping address information for the current cart session. Used to recalculate shipping rates and taxes based on the customer's location. Requires the Nonce header.
+      tags:
+      - Cart
+      parameters:
+      - $ref: '#/components/parameters/nonce'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CartCustomerInput'
+      responses:
+        '200':
+          description: Updated cart with recalculated rates
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Cart'
+              examples:
+                updateCartCustomer200Example:
+                  summary: Default updateCartCustomer 200 response
+                  x-microcks-default: true
+                  value:
+                    items:
+                    - string-value
+                    coupons:
+                    - code: string-value
+                      discount_type: standard
+                      totals: {}
+                    fees:
+                    - id: '500123'
+                      name: Example Name
+                      totals: {}
+                    totals:
+                      total_items: string-value
+                      total_items_tax: string-value
+                      total_fees: string-value
+                      total_fees_tax: string-value
+                      total_discount: string-value
+                      total_discount_tax: string-value
+                      total_shipping: string-value
+                      total_shipping_tax: string-value
+                      total_price: string-value
+                      total_tax: string-value
+                      tax_lines:
+                      - name: Example Name
+                        price: string-value
+                        rate: string-value
+                    shipping_rates:
+                    - string-value
+                    billing_address:
+                      first_name: Example Name
+                      last_name: Example Name
+                      company: string-value
+                      address_1: string-value
+                      address_2: string-value
+                      city: string-value
+                      state: string-value
+                      postcode: string-value
+                      country: string-value
+                      email: user@example.com
+                      phone: string-value
+                    shipping_address:
+                      first_name: Example Name
+                      last_name: Example Name
+                      company: string-value
+                      address_1: string-value
+                      address_2: string-value
+                      city: string-value
+                      state: string-value
+                      postcode: string-value
+                      country: string-value
+                      email: user@example.com
+                      phone: string-value
+                    has_calculated_shipping: true
+                    needs_payment: true
+                    needs_shipping: true
+                    items_count: 1
+                    items_weight: 10.5
+                    cross_sells:
+                    - string-value
+                    errors:
+                    - code: string-value
+                      message: string-value
+        '400':
+          $ref: '#/components/responses/BadRequest'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+  /cart/select-shipping-rate:
+    post:
+      operationId: selectCartShippingRate
+      summary: WooCommerce Select a Shipping Rate for the Cart
+      description: Selects a specific shipping rate from those available for the customer's shipping address. Requires the Nonce header.
+      tags:
+      - Cart
+      parameters:
+      - $ref: '#/components/parameters/nonce'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+              - package_id
+              - rate_id
+              properties:
+                package_id:
+                  type: integer
+                  description: The shipping package index to update.
+                rate_id:
+                  type: string
+                  description: The ID of the shipping rate to select.
+      responses:
+        '200':
+          description: Updated cart with selected shipping rate
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Cart'
+              examples:
+                selectCartShippingRate200Example:
+                  summary: Default selectCartShippingRate 200 response
+                  x-microcks-default: true
+                  value:
+                    items:
+                    - string-value
+                    coupons:
+                    - code: string-value
+                      discount_type: standard
+                      totals: {}
+                    fees:
+                    - id: '500123'
+                      name: Example Name
+                      totals: {}
+                    totals:
+                      total_items: string-value
+                      total_items_tax: string-value
+                      total_fees: string-value
+                      total_fees_tax: string-value
+                      total_discount: string-value
+                      total_discount_tax: string-value
+                      total_shipping: string-value
+                      total_shipping_tax: string-value
+                      total_price: string-value
+                      total_tax: string-value
+                      tax_lines:
+                      - name: Example Name
+                        price: string-value
+                        rate: string-value
+                    shipping_rates:
+                    - string-value
+                    billing_address:
+                      first_name: Example Name
+                      last_name: Example Name
+                      company: string-value
+                      address_1: string-value
+                      address_2: string-value
+                      city: string-value
+                      state: string-value
+                      postcode: string-value
+                      country: string-value
+                      email: user@example.com
+                      phone: string-value
+                    shipping_address:
+                      first_name: Example Name
+                      last_name: Example Name
+                      company: string-value
+                      address_1: string-value
+                      address_2: string-value
+                      city: string-value
+                      state: string-value
+                      postcode: string-value
+                      country: string-value
+                      email: user@example.com
+                      phone: string-value
+                    has_calculated_shipping: true
+                    needs_payment: true
+                    needs_shipping: true
+                    items_count: 1
+                    items_weight: 10.5
+                    cross_sells:
+                    - string-value
+                    errors:
+                    - code: string-value
+                      message: string-value
+        '400':
+          $ref: '#/components/responses/BadRequest'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+  /cart/items:
+    get:
+      operationId: listCartItems
+      summary: WooCommerce List Cart Items
+      description: Returns a list of all items currently in the cart session.
+      tags:
+      - Cart
+      responses:
+        '200':
+          description: List of cart items
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/CartItem'
+              examples:
+                listCartItems200Example:
+                  summary: Default listCartItems 200 response
+                  x-microcks-default: true
+                  value:
+                  - key: string-value
+                    id: 1
+                    quantity: 1
+                    variation_id: 1
+                    item_data:
+                    - name: Example Name
+                      value: string-value
+                      display: string-value
+                    prices:
+                      price: {}
+                      regular_price: {}
+                      sale_price: {}
+                      price_range: {}
+                      currency_code: {}
+                      currency_symbol: {}
+                      currency_decimal_separator: {}
+                      currency_thousand_separator: {}
+                      currency_prefix: {}
+                      currency_suffix: {}
+                    name: Example Name
+                    short_description: A sample description
+                    images:
+                    - string-value
+                    low_stock_remaining: 1
+                    sold_individually: true
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+    delete:
+      operationId: clearCartItems
+      summary: WooCommerce Clear All Cart Items
+      description: Removes all items from the current cart. Requires the Nonce header.
+      tags:
+      - Cart
+      parameters:
+      - $ref: '#/components/parameters/nonce'
+      responses:
+        '200':
+          description: Empty cart after clearing
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/CartItem'
+              examples:
+                clearCartItems200Example:
+                  summary: Default clearCartItems 200 response
+                  x-microcks-default: true
+                  value:
+                  - key: string-value
+                    id: 1
+                    quantity: 1
+                    variation_id: 1
+                    item_data:
+                    - name: Example Name
+                      value: string-value
+                      display: string-value
+                    prices:
+                      price: {}
+                      regular_price: {}
+                      sale_price: {}
+                      price_range: {}
+                      currency_code: {}
+                      currency_symbol: {}
+                      currency_decimal_separator: {}
+                      currency_thousand_separator: {}
+                      currency_prefix: {}
+                      currency_suffix: {}
+                    name: Example Name
+                    short_description: A sample description
+                    images:
+                    - string-value
+                    low_stock_remaining: 1
+                    sold_individually: true
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+  /cart/items/{key}:
+    get:
+      operationId: getCartItem
+      summary: WooCommerce Get a Cart Item
+      description: Returns a single cart item by its unique key.
+      tags:
+      - Cart
+      parameters:
+      - $ref: '#/components/parameters/key'
+      responses:
+        '200':
+          description: Cart item details
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CartItem'
+              examples:
+                getCartItem200Example:
+                  summary: Default getCartItem 200 response
+                  x-microcks-default: true
+                  value:
+                    key: string-value
+                    id: 1
+                    quantity: 1
+                    variation_id: 1
+                    item_data:
+                    - name: Example Name
+                      value: string-value
+                      display: string-value
+                    prices:
+                      price: string-value
+                      regular_price: string-value
+                      sale_price: string-value
+                      price_range:
+                        min_amount: string-value
+                        max_amount: string-value
+                      currency_code: string-value
+                      currency_symbol: string-value
+                      currency_decimal_separator: string-value
+                      currency_thousand_separator: string-value
+                      currency_prefix: string-value
+                      currency_suffix: string-value
+                    name: Example Name
+                    short_description: A sample description
+                    images:
+                    - string-value
+                    low_stock_remaining: 1
+                    sold_individually: true
+        '404':
+          $ref: '#/components/responses/NotFound'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+    put:
+      operationId: updateCartItemByKey
+      summary: WooCommerce Update a Cart Item by Key
+      description: Updates the quantity or data of a specific cart item.
+      tags:
+      - Cart
+      parameters:
+      - $ref: '#/components/parameters/key'
+      - $ref: '#/components/parameters/nonce'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                quantity:
+                  type: integer
+                  description: Updated quantity for the cart item.
+                  minimum: 1
+      responses:
+        '200':
+          description: Updated cart item
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CartItem'
+              examples:
+                updateCartItemByKey200Example:
+                  summary: Default updateCartItemByKey 200 response
+                  x-microcks-default: true
+                  value:
+                    key: string-value
+                    id: 1
+                    quantity: 1
+                    variation_id: 1
+                    item_data:
+                    - name: Example Name
+                      value: string-value
+                      display: string-value
+                    prices:
+                      price: string-value
+                      regular_price: string-value
+                      sale_price: string-value
+                      price_range:
+                        min_amount: string-value
+                        max_amount: string-value
+                      currency_code: string-value
+                      currency_symbol: string-value
+                      currency_decimal_separator: string-value
+                      currency_thousand_separator: string-value
+                      currency_prefix: string-value
+                      currency_suffix: string-value
+                    name: Example Name
+                    short_description: A sample description
+                    images:
+                    - string-value
+                    low_stock_remaining: 1
+                    sold_individually: true
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '404':
+          $ref: '#/components/responses/NotFound'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+    delete:
+      operationId: deleteCartItem
+      summary: WooCommerce Delete a Cart Item by Key
+      description: Removes a single cart item identified by its key.
+      tags:
+      - Cart
+      parameters:
+      - $ref: '#/components/parameters/key'
+      - $ref: '#/components/parameters/nonce'
+      responses:
+        '200':
+          description: Cart item deleted
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CartItem'
+              examples:
+                deleteCartItem200Example:
+                  summary: Default deleteCartItem 200 response
+                  x-microcks-default: true
+                  value:
+                    key: string-value
+                    id: 1
+                    quantity: 1
+                    variation_id: 1
+                    item_data:
+                    - name: Example Name
+                      value: string-value
+                      display: string-value
+                    prices:
+                      price: string-value
+                      regular_price: string-value
+                      sale_price: string-value
+                      price_range:
+                        min_amount: string-value
+                        max_amount: string-value
+                      currency_code: string-value
+                      currency_symbol: string-value
+                      currency_decimal_separator: string-value
+                      currency_thousand_separator: string-value
+                      currency_prefix: string-value
+                      currency_suffix: string-value
+                    name: Example Name
+                    short_description: A sample description
+                    images:
+                    - string-value
+                    low_stock_remaining: 1
+                    sold_individually: true
+        '404':
+          $ref: '#/components/responses/NotFound'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+components:
+  schemas:
+    CartTotals:
+      type: object
+      description: Cart financial totals including subtotal, taxes, shipping, and grand total.
+      properties:
+        total_items:
+          type: string
+          description: Subtotal of all items before discounts.
+          example: string-value
+        total_items_tax:
+          type: string
+          description: Total item tax.
+          example: string-value
+        total_fees:
+          type: string
+          description: Total of all cart fees.
+          example: string-value
+        total_fees_tax:
+          type: string
+          description: Total tax on fees.
+          example: string-value
+        total_discount:
+          type: string
+          description: Total discount applied by coupons.
+          example: string-value
+        total_discount_tax:
+          type: string
+          description: Tax on total discount.
+          example: string-value
+        total_shipping:
+          type: string
+          description: Total shipping cost.
+          example: string-value
+        total_shipping_tax:
+          type: string
+          description: Tax on shipping.
+          example: string-value
+        total_price:
+          type: string
+          description: Grand total including tax.
+          example: string-value
+        total_tax:
+          type: string
+          description: Total tax amount.
+          example: string-value
+        tax_lines:
+          type: array
+          description: Individual tax breakdown by rate.
+          items:
+            type: object
+            properties:
+              name:
+                type: string
+                description: Tax rate label.
+              price:
+                type: string
+                description: Tax amount for this rate.
+              rate:
+                type: string
+                description: Tax rate percentage.
+          example:
+          - name: Example Name
+            price: string-value
+            rate: string-value
+    StoreProduct:
+      type: object
+      description: A store product returned by the public Store API.
+      properties:
+        id:
+          type: integer
+          description: Product unique identifier.
+          example: 1
+        name:
+          type: string
+          description: Product name.
+          example: Example Name
+        slug:
+          type: string
+          description: URL-friendly product slug.
+          example: string-value
+        parent:
+          type: integer
+          description: Parent product ID for variations.
+          example: 1
+        type:
+          type: string
+          description: Product type (simple, variable, grouped, external).
+          example: standard
+        variation:
+          type: string
+          description: Variation description for variation-type products.
+          example: string-value
+        permalink:
+          type: string
+          format: uri
+          description: Full URL to the product page.
+          example: https://example.com/path
+        sku:
+          type: string
+          description: Product SKU.
+          example: string-value
+        short_description:
+          type: string
+          description: Short product description (HTML).
+          example: A sample description
+        description:
+          type: string
+          description: Full product description (HTML).
+          example: A sample description
+        on_sale:
+          type: boolean
+          description: Whether the product is on sale.
+          example: true
+        prices:
+          $ref: '#/components/schemas/StoreProductPrice'
+        purchasable:
+          type: boolean
+          description: Whether the product can be purchased.
+          example: true
+        images:
+          type: array
+          description: Product images.
+          items:
+            $ref: '#/components/schemas/StoreProductImage'
+          example:
+          - string-value
+        categories:
+          type: array
+          description: Categories assigned to the product.
+          items:
+            type: object
+            properties:
+              id:
+                type: integer
+                description: Category ID.
+              name:
+                type: string
+                description: Category name.
+              slug:
+                type: string
+                description: Category slug.
+              link:
+                type: string
+                format: uri
+                description: Category archive URL.
+          example:
+          - id: 1
+            name: Example Name
+            slug: string-value
+            link: https://example.com/path
+        tags:
+          type: array
+          description: Tags assigned to the product.
+          items:
+            type: object
+            properties:
+              id:
+                type: integer
+                description: Tag ID.
+              name:
+                type: string
+                description: Tag name.
+              slug:
+                type: string
+                description: Tag slug.
+              link:
+                type: string
+                format: uri
+                description: Tag archive URL.
+          example:
+          - id: 1
+            name: Example Name
+            slug: string-value
+            link: https://example.com/path
+        attributes:
+          type: array
+          description: Product attributes.
+          items:
+            type: object
+            properties:
+              id:
+                type: integer
+                description: Attribute ID.
+              name:
+                type: string
+                description: Attribute name.
+              taxonomy:
+                type: string
+                description: Attribute taxonomy slug.
+              has_variations:
+                type: boolean
+                description: Whether this attribute is used for variations.
+              terms:
+                type: array
+                description: Attribute terms.
+                items:
+                  type: object
+                  properties:
+                    id:
+                      type: integer
+                      description: Term ID.
+                    name:
+                      type: string
+                      description: Term name.
+                    slug:
+                      type: string
+                      description: Term slug.
+          example:
+          - id: 1
+            name: Example Name
+            taxonomy: string-value
+            has_variations: true
+            terms:
+            - id: {}
+              name: {}
+              slug: {}
+        average_rating:
+          type: string
+          description: Average product rating as a decimal string.
+          example: string-value
+        review_count:
+          type: integer
+          description: Number of approved reviews.
+          example: 1
+        is_in_stock:
+          type: boolean
+          description: Whether the product is in stock.
+          example: true
+        low_stock_remaining:
+          type: integer
+          description: Remaining stock quantity when low stock notice is applicable.
+          nullable: true
+          example: 1
+        sold_individually:
+          type: boolean
+          description: Whether the product must be bought individually.
+          example: true
+        add_to_cart:
+          type: object
+          description: Add-to-cart action details.
+          properties:
+            text:
+              type: string
+              description: Button label text.
+            description:
+              type: string
+              description: Accessible button description.
+            url:
+              type: string
+              format: uri
+              description: Add-to-cart URL for non-AJAX contexts.
+          example:
+            text: string-value
+            description: A sample description
+            url: https://example.com/path
+    StoreProductPrice:
+      type: object
+      description: Formatted price information for a product or variation.
+      properties:
+        price:
+          type: string
+          description: Current price as a formatted string with currency symbol.
+          example: string-value
+        regular_price:
+          type: string
+          description: Regular price as a formatted string.
+          example: string-value
+        sale_price:
+          type: string
+          description: Sale price as a formatted string (empty when not on sale).
+          example: string-value
+        price_range:
+          type: object
+          description: Price range for variable products.
+          nullable: true
+          properties:
+            min_amount:
+              type: string
+              description: Minimum variation price.
+            max_amount:
+              type: string
+              description: Maximum variation price.
+          example:
+            min_amount: string-value
+            max_amount: string-value
+        currency_code:
+          type: string
+          description: ISO 4217 currency code.
+          example: string-value
+        currency_symbol:
+          type: string
+          description: Currency symbol.
+          example: string-value
+        currency_decimal_separator:
+          type: string
+          description: Decimal separator character.
+          example: string-value
+        currency_thousand_separator:
+          type: string
+          description: Thousands separator character.
+          example: string-value
+        currency_prefix:
+          type: string
+          description: Currency prefix (e.g. $).
+          example: string-value
+        currency_suffix:
+          type: string
+          description: Currency suffix.
+          example: string-value
+    AddCartItemInput:
+      type: object
+      description: Input for adding an item to the cart.
+      required:
+      - id
+      - quantity
+      properties:
+        id:
+          type: integer
+          description: Product ID to add.
+          example: 1
+        quantity:
+          type: integer
+          description: Quantity to add.
+          minimum: 1
+          example: 1
+        variation_id:
+          type: integer
+          description: Variation ID for variable products.
+          example: 1
+        variation:
+          type: array
+          description: Attribute key-value pairs for the variation.
+          items:
+            type: object
+            properties:
+              attribute:
+                type: string
+                description: Attribute name.
+              value:
+                type: string
+                description: Selected attribute value.
+          example:
+          - attribute: string-value
+            value: string-value
+        item_data:
+          type: array
+          description: Additional custom item data.
+          items:
+            type: object
+            properties:
+              name:
+                type: string
+                description: Data key name.
+              value:
+                type: string
+                description: Data value.
+          example:
+          - name: Example Name
+            value: string-value
+    StoreAddress:
+      type: object
+      description: A customer billing or shipping address in the Store API context.
+      properties:
+        first_name:
+          type: string
+          description: First name.
+          example: Example Name
+        last_name:
+          type: string
+          description: Last name.
+          example: Example Name
+        company:
+          type: string
+          description: Company name.
+          example: string-value
+        address_1:
+          type: string
+          description: Address line 1.
+          example: string-value
+        address_2:
+          type: string
+          description: Address line 2.
+          example: string-value
+        city:
+          type: string
+          description: City.
+          example: string-value
+        state:
+          type: string
+          description: State or province code.
+          example: string-value
+        postcode:
+          type: string
+          description: Postal code.
+          example: string-value
+        country:
+          type: string
+          description: ISO 3166-1 alpha-2 country code.
+          example: string-value
+        email:
+          type: string
+          format: email
+          description: Email address (billing only).
+          example: user@example.com
+        phone:
+          type: string
+          description: Phone number.
+          example: string-value
+    CartShippingRate:
+      type: object
+      description: A shipping rate option available for the cart.
+      properties:
+        package_id:
+          type: integer
+          description: Shipping package index.
+          example: 1
+        name:
+          type: string
+          description: Shipping package name.
+          example: Example Name
+        destination:
+          type: object
+          description: Shipping destination address.
+          properties:
+            address_1:
+              type: string
+              description: Address line 1.
+            address_2:
+              type: string
+              description: Address line 2.
+            city:
+              type: string
+              description: City.
+            state:
+              type: string
+              description: State code.
+            postcode:
+              type: string
+              description: Postcode.
+            country:
+              type: string
+              description: Country code.
+          example:
+            address_1: string-value
+            address_2: string-value
+            city: string-value
+            state: string-value
+            postcode: string-value
+            country: string-value
+        items:
+          type: array
+          description: Cart items in this shipping package.
+          items:
+            type: object
+            properties:
+              key:
+                type: string
+                description: Cart item key.
+              name:
+                type: string
+                description: Product name.
+              quantity:
+                type: integer
+                description: Item quantity.
+          example:
+          - key: string-value
+            name: Example Name
+            quantity: 1
+        shipping_rates:
+          type: array
+          description: Available shipping rates for this package.
+          items:
+            type: object
+            properties:
+              rate_id:
+                type: string
+                description: Shipping rate unique ID.
+              name:
+                type: string
+                description: Shipping rate display name.
+              description:
+                type: string
+                description: Shipping rate description.
+              price:
+                type: string
+                description: Shipping cost as a decimal string.
+              taxes:
+                type: string
+                description: Shipping tax as a decimal string.
+              selected:
+                type: boolean
+                description: Whether this rate is currently selected.
+              meta_data:
+                type: array
+                description: Additional rate metadata.
+                items:
+                  type: object
+          example:
+          - rate_id: '500123'
+            name: Example Name
+            description: A sample description
+            price: string-value
+            taxes: string-value
+            selected: true
+            meta_data:
+            - {}
+    StoreProductImage:
+      type: object
+      description: Product image with thumbnail variants.
+      properties:
+        id:
+          type: integer
+          description: Image attachment ID.
+          example: 1
+        src:
+          type: string
+          format: uri
+          description: Full-size image URL.
+          example: https://example.com/path
+        thumbnail:
+          type: string
+          format: uri
+          description: Thumbnail image URL.
+          example: https://example.com/path
+        srcset:
+          type: string
+          description: Responsive image srcset attribute value.
+          example: string-value
+        sizes:
+          type: string
+          description: Responsive image sizes attribute value.
+          example: string-value
+        name:
+          type: string
+          description: Image file name.
+          example: Example Name
+        alt:
+          type: string
+          description: Image alternative text.
+          example: string-value
+    CartCustomerInput:
+      type: object
+      description: Customer address data for cart shipping/tax calculation.
+      properties:
+        billing_address:
+          $ref: '#/components/schemas/StoreAddress'
+        shipping_address:
+          $ref: '#/components/schemas/StoreAddress'
+    Error:
+      type: object
+      description: Error response returned when a request fails.
+      properties:
+        code:
+          type: string
+          description: Machine-readable error code.
+          example: string-value
+        message:
+          type: string
+          description: Human-readable error message.
+          example: string-value
+        data:
+          type: object
+          description: Additional context including HTTP status.
+          properties:
+            status:
+              type: integer
+              description: HTTP status code.
+          example:
+            status: 1
+    CartItem:
+      type: object
+      description: A product item in the cart.
+      properties:
+        key:
+          type: string
+          description: Unique cart item key.
+          example: string-value
+        id:
+          type: integer
+          description: Product ID.
+          example: 1
+        quantity:
+          type: integer
+          description: Quantity in cart.
+          example: 1
+        variation_id:
+          type: integer
+          description: Variation ID (0 for simple products).
+          example: 1
+        item_data:
+          type: array
+          description: Custom item data (e.g. variation attributes).
+          items:
+            type: object
+            properties:
+              name:
+                type: string
+                description: Data field name.
+              value:
+                type: string
+                description: Data field value.
+              display:
+                type: string
+                description: Formatted display value.
+          example:
+          - name: Example Name
+            value: string-value
+            display: string-value
+        prices:
+          $ref: '#/components/schemas/StoreProductPrice'
+        name:
+          type: string
+          description: Product name at time of cart addition.
+          example: Example Name
+        short_description:
+          type: string
+          description: Product short description.
+          example: A sample description
+        images:
+          type: array
+          description: Product images.
+          items:
+            $ref: '#/components/schemas/StoreProductImage'
+          example:
+          - string-value
+        low_stock_remaining:
+          type: integer
+          description: Low stock quantity threshold remaining.
+          nullable: true
+          example: 1
+        sold_individually:
+          type: boolean
+          description: Whether the product can only be purchased once per order.
+          example: true
+    Cart:
+      type: object
+      description: The current customer's cart state.
+      properties:
+        items:
+          type: array
+          description: Items in the cart.
+          items:
+            $ref: '#/components/schemas/CartItem'
+          example:
+          - string-value
+        coupons:
+          type: array
+          description: Coupons applied to the cart.
+          items:
+            type: object
+            properties:
+              code:
+                type: string
+                description: Coupon code.
+              discount_type:
+                type: string
+                description: Type of discount applied.
+              totals:
+                type: object
+                description: Coupon discount totals.
+          example:
+          - code: string-value
+            discount_type: standard
+            totals: {}
+        fees:
+          type: array
+          description: Additional fees added to the cart.
+          items:
+            type: object
+            properties:
+              id:
+                type: string
+                description: Fee ID.
+              name:
+                type: string
+                description: Fee name.
+              totals:
+                type: object
+                description: Fee amount totals.
+          example:
+          - id: '500123'
+            name: Example Name
+            totals: {}
+        totals:
+          $ref: '#/components/schemas/CartTotals'
+        shipping_rates:
+          type: array
+          description: Available shipping rate packages.
+          items:
+            $ref: '#/components/schemas/CartShippingRate'
+          example:
+          - string-value
+        billing_address:
+          $ref: '#/components/schemas/StoreAddress'
+        shipping_address:
+          $ref: '#/components/schemas/StoreAddress'
+        has_calculated_shipping:
+          type: boolean
+          description: Whether shipping has been calculated for the cart.
+          example: true
+        needs_payment:
+          type: boolean
+          description: Whether the cart total requires payment.
+          example: true
+        needs_shipping:
+          type: boolean
+          description: Whether any items in the cart require shipping.
+          example: true
+        items_count:
+          type: integer
+          description: Total number of items in the cart.
+          example: 1
+        items_weight:
+          type: number
+          description: Total weight of all items in the cart.
+          example: 10.5
+        cross_sells:
+          type: array
+          description: Cross-sell product suggestions.
+          items:
+            $ref: '#/components/schemas/StoreProduct'
+          example:
+          - string-value
+        errors:
+          type: array
+          description: Cart validation errors.
+          items:
+            type: object
+            properties:
+              code:
+                type: string
+                description: Error code.
+              message:
+                type: string
+                description: Error message.
+          example:
+          - code: string-value
+            message: string-value
+  responses:
+    NotFound:
+      description: The requested resource was not found.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    BadRequest:
+      description: The request contains invalid or missing parameters.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+  parameters:
+    key:
+      name: key
+      in: path
+      description: Unique cart item key.
+      required: true
+      schema:
+        type: string
+    nonce:
+      name: Nonce
+      in: header
+      description: Store API nonce token obtained from the X-WC-Store-API-Nonce response header of a prior cart GET request. Required for all cart and checkout write operations to prevent CSRF.
+      required: true
+      schema:
+        type: string
+  securitySchemes:
+    basicAuth:
+      type: http
+      scheme: basic
+      description: HTTP Basic Auth using the WooCommerce Consumer Key as the username and Consumer Secret as the password over HTTPS. Over plain HTTP use OAuth 1.0a one-legged authentication instead.
+externalDocs:
+  description: WooCommerce REST API Documentation
+  url: https://woocommerce.github.io/woocommerce-rest-api-docs/

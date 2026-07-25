@@ -1,0 +1,563 @@
+openapi: 3.1.0
+info:
+  title: WooCommerce REST Cart Coupons API
+  description: The WooCommerce REST API is the primary server-side interface for reading and writing WooCommerce store data programmatically. It follows REST conventions, uses JSON for all requests and responses, and is fully integrated with the WordPress REST API under the /wp-json/wc/v3/ namespace. The API covers products, product variations, product categories, product attributes, orders, order notes, order refunds, customers, coupons, tax rates, shipping zones, payment gateways, settings, webhooks, reports, and system status. Authentication uses Consumer Key and Consumer Secret pairs generated in the WooCommerce admin, transmitted over HTTPS via HTTP Basic Auth or OAuth 1.0a over plain HTTP.
+  version: v3
+  contact:
+    name: WooCommerce Developer Support
+    url: https://developer.woocommerce.com/docs/apis/rest-api/
+  termsOfService: https://woocommerce.com/terms-conditions/
+servers:
+- url: https://example.com/wp-json/wc/v3
+  description: Production Server (replace example.com with your store domain)
+security:
+- basicAuth: []
+tags:
+- name: Coupons
+  description: Create, retrieve, update, and delete discount coupons
+paths:
+  /coupons:
+    get:
+      operationId: listCoupons
+      summary: WooCommerce List All Coupons
+      description: Returns a paginated list of all coupons. Can be filtered by coupon code, discount type, date ranges, and sorted by various fields.
+      tags:
+      - Coupons
+      parameters:
+      - $ref: '#/components/parameters/page'
+      - $ref: '#/components/parameters/per_page'
+      - $ref: '#/components/parameters/search'
+      - $ref: '#/components/parameters/after'
+      - $ref: '#/components/parameters/before'
+      - name: code
+        in: query
+        description: Filter coupons by coupon code.
+        required: false
+        schema:
+          type: string
+        example: string-value
+      responses:
+        '200':
+          description: List of coupons
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Coupon'
+              examples:
+                listCoupons200Example:
+                  summary: Default listCoupons 200 response
+                  x-microcks-default: true
+                  value:
+                  - id: 1
+                    code: string-value
+                    amount: string-value
+                    discount_type: percent
+                    description: A sample description
+                    date_expires: '2026-05-03T14:30:00Z'
+                    usage_count: 1
+                    individual_use: true
+                    product_ids:
+                    - 1
+                    excluded_product_ids:
+                    - 1
+                    usage_limit: 1
+                    usage_limit_per_user: 1
+                    minimum_amount: string-value
+                    maximum_amount: string-value
+                    date_created: '2026-05-03T14:30:00Z'
+                    date_modified: '2026-05-03T14:30:00Z'
+                    meta_data:
+                    - string-value
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+    post:
+      operationId: createCoupon
+      summary: WooCommerce Create a Coupon
+      description: Creates a new discount coupon. Requires a coupon code. Supports percentage, fixed cart, and fixed product discount types with optional usage limits, expiry dates, and product or category restrictions.
+      tags:
+      - Coupons
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CouponInput'
+      responses:
+        '201':
+          description: Coupon created successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Coupon'
+              examples:
+                createCoupon201Example:
+                  summary: Default createCoupon 201 response
+                  x-microcks-default: true
+                  value:
+                    id: 1
+                    code: string-value
+                    amount: string-value
+                    discount_type: percent
+                    description: A sample description
+                    date_expires: '2026-05-03T14:30:00Z'
+                    usage_count: 1
+                    individual_use: true
+                    product_ids:
+                    - 1
+                    excluded_product_ids:
+                    - 1
+                    usage_limit: 1
+                    usage_limit_per_user: 1
+                    minimum_amount: string-value
+                    maximum_amount: string-value
+                    date_created: '2026-05-03T14:30:00Z'
+                    date_modified: '2026-05-03T14:30:00Z'
+                    meta_data:
+                    - string-value
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+  /coupons/{id}:
+    get:
+      operationId: getCoupon
+      summary: WooCommerce Retrieve a Coupon
+      description: Returns a single coupon by its numeric ID.
+      tags:
+      - Coupons
+      parameters:
+      - $ref: '#/components/parameters/id'
+      responses:
+        '200':
+          description: Coupon details
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Coupon'
+              examples:
+                getCoupon200Example:
+                  summary: Default getCoupon 200 response
+                  x-microcks-default: true
+                  value:
+                    id: 1
+                    code: string-value
+                    amount: string-value
+                    discount_type: percent
+                    description: A sample description
+                    date_expires: '2026-05-03T14:30:00Z'
+                    usage_count: 1
+                    individual_use: true
+                    product_ids:
+                    - 1
+                    excluded_product_ids:
+                    - 1
+                    usage_limit: 1
+                    usage_limit_per_user: 1
+                    minimum_amount: string-value
+                    maximum_amount: string-value
+                    date_created: '2026-05-03T14:30:00Z'
+                    date_modified: '2026-05-03T14:30:00Z'
+                    meta_data:
+                    - string-value
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+    put:
+      operationId: updateCoupon
+      summary: WooCommerce Update a Coupon
+      description: Updates an existing coupon by its numeric ID. Only provided fields are changed.
+      tags:
+      - Coupons
+      parameters:
+      - $ref: '#/components/parameters/id'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CouponInput'
+      responses:
+        '200':
+          description: Coupon updated successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Coupon'
+              examples:
+                updateCoupon200Example:
+                  summary: Default updateCoupon 200 response
+                  x-microcks-default: true
+                  value:
+                    id: 1
+                    code: string-value
+                    amount: string-value
+                    discount_type: percent
+                    description: A sample description
+                    date_expires: '2026-05-03T14:30:00Z'
+                    usage_count: 1
+                    individual_use: true
+                    product_ids:
+                    - 1
+                    excluded_product_ids:
+                    - 1
+                    usage_limit: 1
+                    usage_limit_per_user: 1
+                    minimum_amount: string-value
+                    maximum_amount: string-value
+                    date_created: '2026-05-03T14:30:00Z'
+                    date_modified: '2026-05-03T14:30:00Z'
+                    meta_data:
+                    - string-value
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+    delete:
+      operationId: deleteCoupon
+      summary: WooCommerce Delete a Coupon
+      description: Deletes a coupon by its numeric ID. Set force to true to permanently delete.
+      tags:
+      - Coupons
+      parameters:
+      - $ref: '#/components/parameters/id'
+      - $ref: '#/components/parameters/force'
+      responses:
+        '200':
+          description: Coupon deleted
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Coupon'
+              examples:
+                deleteCoupon200Example:
+                  summary: Default deleteCoupon 200 response
+                  x-microcks-default: true
+                  value:
+                    id: 1
+                    code: string-value
+                    amount: string-value
+                    discount_type: percent
+                    description: A sample description
+                    date_expires: '2026-05-03T14:30:00Z'
+                    usage_count: 1
+                    individual_use: true
+                    product_ids:
+                    - 1
+                    excluded_product_ids:
+                    - 1
+                    usage_limit: 1
+                    usage_limit_per_user: 1
+                    minimum_amount: string-value
+                    maximum_amount: string-value
+                    date_created: '2026-05-03T14:30:00Z'
+                    date_modified: '2026-05-03T14:30:00Z'
+                    meta_data:
+                    - string-value
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+components:
+  parameters:
+    page:
+      name: page
+      in: query
+      description: Current page of the collection. Defaults to 1.
+      required: false
+      schema:
+        type: integer
+        minimum: 1
+        default: 1
+    id:
+      name: id
+      in: path
+      description: Unique identifier for the resource.
+      required: true
+      schema:
+        type: integer
+    after:
+      name: after
+      in: query
+      description: Limit response to resources created after a given ISO8601 compliant date.
+      required: false
+      schema:
+        type: string
+        format: date-time
+    force:
+      name: force
+      in: query
+      description: Set to true to permanently delete the resource, bypassing the trash.
+      required: false
+      schema:
+        type: boolean
+        default: false
+    before:
+      name: before
+      in: query
+      description: Limit response to resources created before a given ISO8601 compliant date.
+      required: false
+      schema:
+        type: string
+        format: date-time
+    per_page:
+      name: per_page
+      in: query
+      description: Maximum number of items per page. Defaults to 10, maximum 100.
+      required: false
+      schema:
+        type: integer
+        minimum: 1
+        maximum: 100
+        default: 10
+    search:
+      name: search
+      in: query
+      description: Limit results to those matching a string.
+      required: false
+      schema:
+        type: string
+  responses:
+    NotFound:
+      description: The requested resource was not found.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    Unauthorized:
+      description: Authentication credentials are missing or invalid.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    BadRequest:
+      description: The request body contains invalid or missing parameters.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+  schemas:
+    Coupon:
+      type: object
+      description: A WooCommerce discount coupon.
+      properties:
+        id:
+          type: integer
+          description: Coupon unique identifier.
+          example: 1
+        code:
+          type: string
+          description: Coupon code used at checkout.
+          example: string-value
+        amount:
+          type: string
+          description: The amount of discount as a decimal string.
+          example: string-value
+        discount_type:
+          type: string
+          description: 'Determines the type of discount. Options: percent, fixed_cart, fixed_product.'
+          enum:
+          - percent
+          - fixed_cart
+          - fixed_product
+          example: percent
+        description:
+          type: string
+          description: Coupon description shown in the admin.
+          example: A sample description
+        date_expires:
+          type: string
+          format: date-time
+          description: Date the coupon expires, in the site timezone.
+          nullable: true
+          example: '2026-05-03T14:30:00Z'
+        usage_count:
+          type: integer
+          description: Number of times the coupon has been used.
+          example: 1
+        individual_use:
+          type: boolean
+          description: Whether the coupon can only be used alone (not with other coupons).
+          example: true
+        product_ids:
+          type: array
+          description: List of product IDs the coupon applies to.
+          items:
+            type: integer
+          example:
+          - 1
+        excluded_product_ids:
+          type: array
+          description: List of product IDs the coupon cannot be used for.
+          items:
+            type: integer
+          example:
+          - 1
+        usage_limit:
+          type: integer
+          description: Maximum number of times the coupon can be used in total.
+          nullable: true
+          example: 1
+        usage_limit_per_user:
+          type: integer
+          description: Maximum number of times per customer the coupon can be used.
+          nullable: true
+          example: 1
+        minimum_amount:
+          type: string
+          description: Minimum order amount to use the coupon.
+          example: string-value
+        maximum_amount:
+          type: string
+          description: Maximum order amount to use the coupon.
+          example: string-value
+        date_created:
+          type: string
+          format: date-time
+          description: Date the coupon was created.
+          example: '2026-05-03T14:30:00Z'
+        date_modified:
+          type: string
+          format: date-time
+          description: Date the coupon was last modified.
+          example: '2026-05-03T14:30:00Z'
+        meta_data:
+          type: array
+          description: Custom metadata.
+          items:
+            $ref: '#/components/schemas/MetaData'
+          example:
+          - string-value
+    MetaData:
+      type: object
+      description: Custom metadata key-value entry.
+      properties:
+        id:
+          type: integer
+          description: Metadata unique identifier.
+          example: 1
+        key:
+          type: string
+          description: Metadata key.
+          example: string-value
+        value:
+          type: string
+          description: Metadata value.
+          example: string-value
+    CouponInput:
+      type: object
+      description: Input for creating or updating a coupon.
+      properties:
+        code:
+          type: string
+          description: Coupon code (required for create).
+          example: string-value
+        amount:
+          type: string
+          description: Discount amount as a decimal string.
+          example: string-value
+        discount_type:
+          type: string
+          description: Discount type.
+          enum:
+          - percent
+          - fixed_cart
+          - fixed_product
+          example: percent
+        description:
+          type: string
+          description: Admin description.
+          example: A sample description
+        date_expires:
+          type: string
+          format: date-time
+          description: Expiry date.
+          example: '2026-05-03T14:30:00Z'
+        individual_use:
+          type: boolean
+          description: Whether usable alone.
+          example: true
+        product_ids:
+          type: array
+          description: Applicable product IDs.
+          items:
+            type: integer
+          example:
+          - 1
+        excluded_product_ids:
+          type: array
+          description: Excluded product IDs.
+          items:
+            type: integer
+          example:
+          - 1
+        usage_limit:
+          type: integer
+          description: Total usage limit.
+          example: 1
+        usage_limit_per_user:
+          type: integer
+          description: Per-customer usage limit.
+          example: 1
+        minimum_amount:
+          type: string
+          description: Minimum order amount.
+          example: string-value
+        maximum_amount:
+          type: string
+          description: Maximum order amount.
+          example: string-value
+        meta_data:
+          type: array
+          description: Custom metadata.
+          items:
+            $ref: '#/components/schemas/MetaData'
+          example:
+          - string-value
+    Error:
+      type: object
+      properties:
+        code:
+          type: string
+          description: Machine-readable error code.
+          example: string-value
+        message:
+          type: string
+          description: Human-readable error message.
+          example: string-value
+        data:
+          type: object
+          description: Additional error context including HTTP status code.
+          properties:
+            status:
+              type: integer
+              description: HTTP status code associated with the error.
+          example:
+            status: 1
+  securitySchemes:
+    basicAuth:
+      type: http
+      scheme: basic
+      description: HTTP Basic Auth using the WooCommerce Consumer Key as the username and Consumer Secret as the password over HTTPS. Over plain HTTP use OAuth 1.0a one-legged authentication instead.
+externalDocs:
+  description: WooCommerce REST API Documentation
+  url: https://woocommerce.github.io/woocommerce-rest-api-docs/

@@ -1,0 +1,1111 @@
+openapi: 3.1.0
+info:
+  title: WooCommerce REST Cart Products API
+  description: The WooCommerce REST API is the primary server-side interface for reading and writing WooCommerce store data programmatically. It follows REST conventions, uses JSON for all requests and responses, and is fully integrated with the WordPress REST API under the /wp-json/wc/v3/ namespace. The API covers products, product variations, product categories, product attributes, orders, order notes, order refunds, customers, coupons, tax rates, shipping zones, payment gateways, settings, webhooks, reports, and system status. Authentication uses Consumer Key and Consumer Secret pairs generated in the WooCommerce admin, transmitted over HTTPS via HTTP Basic Auth or OAuth 1.0a over plain HTTP.
+  version: v3
+  contact:
+    name: WooCommerce Developer Support
+    url: https://developer.woocommerce.com/docs/apis/rest-api/
+  termsOfService: https://woocommerce.com/terms-conditions/
+servers:
+- url: https://example.com/wp-json/wc/v3
+  description: Production Server (replace example.com with your store domain)
+security:
+- basicAuth: []
+tags:
+- name: Products
+  description: Create, retrieve, update, and delete store products and their variations
+paths:
+  /products:
+    get:
+      operationId: listProducts
+      summary: WooCommerce List All Products
+      description: Returns a paginated list of products in the store. Supports filtering by status, category, tag, SKU, featured flag, on-sale flag, price range, stock status, and date ranges. Results are sorted by date by default. Use the page and per_page parameters to paginate through large catalogs.
+      tags:
+      - Products
+      parameters:
+      - $ref: '#/components/parameters/page'
+      - $ref: '#/components/parameters/per_page'
+      - $ref: '#/components/parameters/search'
+      - $ref: '#/components/parameters/after'
+      - $ref: '#/components/parameters/before'
+      - name: status
+        in: query
+        description: 'Filter products by publication status. Options: any, draft, pending, private, publish.'
+        required: false
+        schema:
+          type: string
+          enum:
+          - any
+          - draft
+          - pending
+          - private
+          - publish
+        example: any
+      - name: category
+        in: query
+        description: Filter products by category ID.
+        required: false
+        schema:
+          type: string
+        example: string-value
+      - name: tag
+        in: query
+        description: Filter products by tag ID.
+        required: false
+        schema:
+          type: string
+        example: string-value
+      - name: on_sale
+        in: query
+        description: Limit results to products on sale when true.
+        required: false
+        schema:
+          type: boolean
+        example: true
+      - name: featured
+        in: query
+        description: Limit results to featured products when true.
+        required: false
+        schema:
+          type: boolean
+        example: true
+      - name: stock_status
+        in: query
+        description: 'Filter by stock status. Options: instock, outofstock, onbackorder.'
+        required: false
+        schema:
+          type: string
+          enum:
+          - instock
+          - outofstock
+          - onbackorder
+        example: instock
+      responses:
+        '200':
+          description: Successful list of products
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Product'
+              examples:
+                listProducts200Example:
+                  summary: Default listProducts 200 response
+                  x-microcks-default: true
+                  value:
+                  - id: 1
+                    name: Example Name
+                    slug: string-value
+                    permalink: https://example.com/path
+                    type: simple
+                    status: draft
+                    featured: true
+                    description: A sample description
+                    short_description: A sample description
+                    sku: string-value
+                    price: string-value
+                    regular_price: string-value
+                    sale_price: string-value
+                    on_sale: true
+                    purchasable: true
+                    total_sales: 1
+                    virtual: true
+                    downloadable: true
+                    manage_stock: true
+                    stock_quantity: 1
+                    stock_status: instock
+                    weight: string-value
+                    dimensions:
+                      length: string-value
+                      width: string-value
+                      height: string-value
+                    categories:
+                    - id: 1
+                      name: Example Name
+                      slug: string-value
+                    tags:
+                    - id: 1
+                      name: Example Name
+                      slug: string-value
+                    images:
+                    - string-value
+                    attributes:
+                    - string-value
+                    date_created: '2026-05-03T14:30:00Z'
+                    date_modified: '2026-05-03T14:30:00Z'
+                    meta_data:
+                    - string-value
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+    post:
+      operationId: createProduct
+      summary: WooCommerce Create a Product
+      description: Creates a new product in the store. Requires at minimum a product name. Products can be simple, grouped, external/affiliate, or variable type. Pricing, stock management, shipping, tax settings, categories, tags, images, and attributes are all configurable at creation time.
+      tags:
+      - Products
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ProductInput'
+      responses:
+        '201':
+          description: Product created successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Product'
+              examples:
+                createProduct201Example:
+                  summary: Default createProduct 201 response
+                  x-microcks-default: true
+                  value:
+                    id: 1
+                    name: Example Name
+                    slug: string-value
+                    permalink: https://example.com/path
+                    type: simple
+                    status: draft
+                    featured: true
+                    description: A sample description
+                    short_description: A sample description
+                    sku: string-value
+                    price: string-value
+                    regular_price: string-value
+                    sale_price: string-value
+                    on_sale: true
+                    purchasable: true
+                    total_sales: 1
+                    virtual: true
+                    downloadable: true
+                    manage_stock: true
+                    stock_quantity: 1
+                    stock_status: instock
+                    weight: string-value
+                    dimensions:
+                      length: string-value
+                      width: string-value
+                      height: string-value
+                    categories:
+                    - id: 1
+                      name: Example Name
+                      slug: string-value
+                    tags:
+                    - id: 1
+                      name: Example Name
+                      slug: string-value
+                    images:
+                    - string-value
+                    attributes:
+                    - string-value
+                    date_created: '2026-05-03T14:30:00Z'
+                    date_modified: '2026-05-03T14:30:00Z'
+                    meta_data:
+                    - string-value
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+  /products/{id}:
+    get:
+      operationId: getProduct
+      summary: WooCommerce Retrieve a Product
+      description: Returns the details of a single product identified by its numeric ID. Includes all product properties such as pricing, stock, images, categories, tags, attributes, and metadata.
+      tags:
+      - Products
+      parameters:
+      - $ref: '#/components/parameters/id'
+      responses:
+        '200':
+          description: Product details
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Product'
+              examples:
+                getProduct200Example:
+                  summary: Default getProduct 200 response
+                  x-microcks-default: true
+                  value:
+                    id: 1
+                    name: Example Name
+                    slug: string-value
+                    permalink: https://example.com/path
+                    type: simple
+                    status: draft
+                    featured: true
+                    description: A sample description
+                    short_description: A sample description
+                    sku: string-value
+                    price: string-value
+                    regular_price: string-value
+                    sale_price: string-value
+                    on_sale: true
+                    purchasable: true
+                    total_sales: 1
+                    virtual: true
+                    downloadable: true
+                    manage_stock: true
+                    stock_quantity: 1
+                    stock_status: instock
+                    weight: string-value
+                    dimensions:
+                      length: string-value
+                      width: string-value
+                      height: string-value
+                    categories:
+                    - id: 1
+                      name: Example Name
+                      slug: string-value
+                    tags:
+                    - id: 1
+                      name: Example Name
+                      slug: string-value
+                    images:
+                    - string-value
+                    attributes:
+                    - string-value
+                    date_created: '2026-05-03T14:30:00Z'
+                    date_modified: '2026-05-03T14:30:00Z'
+                    meta_data:
+                    - string-value
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+    put:
+      operationId: updateProduct
+      summary: WooCommerce Update a Product
+      description: Updates an existing product identified by its numeric ID. Only the properties included in the request body are updated; omitted properties retain their current values.
+      tags:
+      - Products
+      parameters:
+      - $ref: '#/components/parameters/id'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ProductInput'
+      responses:
+        '200':
+          description: Product updated successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Product'
+              examples:
+                updateProduct200Example:
+                  summary: Default updateProduct 200 response
+                  x-microcks-default: true
+                  value:
+                    id: 1
+                    name: Example Name
+                    slug: string-value
+                    permalink: https://example.com/path
+                    type: simple
+                    status: draft
+                    featured: true
+                    description: A sample description
+                    short_description: A sample description
+                    sku: string-value
+                    price: string-value
+                    regular_price: string-value
+                    sale_price: string-value
+                    on_sale: true
+                    purchasable: true
+                    total_sales: 1
+                    virtual: true
+                    downloadable: true
+                    manage_stock: true
+                    stock_quantity: 1
+                    stock_status: instock
+                    weight: string-value
+                    dimensions:
+                      length: string-value
+                      width: string-value
+                      height: string-value
+                    categories:
+                    - id: 1
+                      name: Example Name
+                      slug: string-value
+                    tags:
+                    - id: 1
+                      name: Example Name
+                      slug: string-value
+                    images:
+                    - string-value
+                    attributes:
+                    - string-value
+                    date_created: '2026-05-03T14:30:00Z'
+                    date_modified: '2026-05-03T14:30:00Z'
+                    meta_data:
+                    - string-value
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+    delete:
+      operationId: deleteProduct
+      summary: WooCommerce Delete a Product
+      description: Deletes a product by its numeric ID. By default the product is moved to the trash. Set the force parameter to true to permanently delete the product and bypass the trash.
+      tags:
+      - Products
+      parameters:
+      - $ref: '#/components/parameters/id'
+      - $ref: '#/components/parameters/force'
+      responses:
+        '200':
+          description: Product deleted successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Product'
+              examples:
+                deleteProduct200Example:
+                  summary: Default deleteProduct 200 response
+                  x-microcks-default: true
+                  value:
+                    id: 1
+                    name: Example Name
+                    slug: string-value
+                    permalink: https://example.com/path
+                    type: simple
+                    status: draft
+                    featured: true
+                    description: A sample description
+                    short_description: A sample description
+                    sku: string-value
+                    price: string-value
+                    regular_price: string-value
+                    sale_price: string-value
+                    on_sale: true
+                    purchasable: true
+                    total_sales: 1
+                    virtual: true
+                    downloadable: true
+                    manage_stock: true
+                    stock_quantity: 1
+                    stock_status: instock
+                    weight: string-value
+                    dimensions:
+                      length: string-value
+                      width: string-value
+                      height: string-value
+                    categories:
+                    - id: 1
+                      name: Example Name
+                      slug: string-value
+                    tags:
+                    - id: 1
+                      name: Example Name
+                      slug: string-value
+                    images:
+                    - string-value
+                    attributes:
+                    - string-value
+                    date_created: '2026-05-03T14:30:00Z'
+                    date_modified: '2026-05-03T14:30:00Z'
+                    meta_data:
+                    - string-value
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+  /products/batch:
+    post:
+      operationId: batchUpdateProducts
+      summary: WooCommerce Batch Create, Update, and Delete Products
+      description: Performs batch create, update, and delete operations on products in a single request. Pass arrays of product objects under the create, update, and delete keys respectively. Delete accepts an array of product IDs.
+      tags:
+      - Products
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/BatchProductRequest'
+      responses:
+        '200':
+          description: Batch operation completed
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BatchProductResponse'
+              examples:
+                batchUpdateProducts200Example:
+                  summary: Default batchUpdateProducts 200 response
+                  x-microcks-default: true
+                  value:
+                    create:
+                    - string-value
+                    update:
+                    - string-value
+                    delete:
+                    - string-value
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+  /products/collection-data:
+    get:
+      operationId: getProductCollectionData
+      summary: WooCommerce Get Product Collection Data
+      description: Returns aggregate data about a product collection including price ranges, attribute counts, and category counts. Used to populate filter widgets on shop and category archive pages without fetching full product records.
+      tags:
+      - Products
+      parameters:
+      - name: calculate_price_range
+        in: query
+        description: Whether to calculate and return the min/max price range.
+        required: false
+        schema:
+          type: boolean
+        example: true
+      - name: calculate_attribute_counts
+        in: query
+        description: Comma-separated list of attribute slugs to count active terms for filter UIs.
+        required: false
+        schema:
+          type: string
+        example: string-value
+      - name: calculate_rating_counts
+        in: query
+        description: Whether to calculate and return review rating counts.
+        required: false
+        schema:
+          type: boolean
+        example: true
+      responses:
+        '200':
+          description: Product collection aggregate data
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProductCollectionData'
+              examples:
+                getProductCollectionData200Example:
+                  summary: Default getProductCollectionData 200 response
+                  x-microcks-default: true
+                  value:
+                    price_range:
+                      min_price: string-value
+                      max_price: string-value
+                    attribute_counts:
+                    - term: 1
+                      count: 1
+                    rating_counts:
+                    - rating: 1
+                      count: 1
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+components:
+  parameters:
+    after:
+      name: after
+      in: query
+      description: Limit response to resources created after a given ISO8601 compliant date.
+      required: false
+      schema:
+        type: string
+        format: date-time
+    before:
+      name: before
+      in: query
+      description: Limit response to resources created before a given ISO8601 compliant date.
+      required: false
+      schema:
+        type: string
+        format: date-time
+    search:
+      name: search
+      in: query
+      description: Limit results to those matching a string.
+      required: false
+      schema:
+        type: string
+    page:
+      name: page
+      in: query
+      description: Current page of the collection. Defaults to 1.
+      required: false
+      schema:
+        type: integer
+        minimum: 1
+        default: 1
+    id:
+      name: id
+      in: path
+      description: Unique identifier for the resource.
+      required: true
+      schema:
+        type: integer
+    force:
+      name: force
+      in: query
+      description: Set to true to permanently delete the resource, bypassing the trash.
+      required: false
+      schema:
+        type: boolean
+        default: false
+    per_page:
+      name: per_page
+      in: query
+      description: Maximum number of items per page. Defaults to 10, maximum 100.
+      required: false
+      schema:
+        type: integer
+        minimum: 1
+        maximum: 100
+        default: 10
+  schemas:
+    ProductInput:
+      type: object
+      description: Input payload for creating or updating a product.
+      properties:
+        name:
+          type: string
+          description: Product name.
+          example: Example Name
+        type:
+          type: string
+          description: Product type.
+          enum:
+          - simple
+          - grouped
+          - external
+          - variable
+          example: simple
+        status:
+          type: string
+          description: Product publication status.
+          enum:
+          - draft
+          - pending
+          - private
+          - publish
+          example: draft
+        featured:
+          type: boolean
+          description: Whether the product is featured.
+          example: true
+        description:
+          type: string
+          description: Full product description.
+          example: A sample description
+        short_description:
+          type: string
+          description: Short product description.
+          example: A sample description
+        sku:
+          type: string
+          description: Stock-keeping unit identifier.
+          example: string-value
+        regular_price:
+          type: string
+          description: Regular price as a decimal string.
+          example: string-value
+        sale_price:
+          type: string
+          description: Sale price as a decimal string.
+          example: string-value
+        virtual:
+          type: boolean
+          description: Whether the product is virtual.
+          example: true
+        downloadable:
+          type: boolean
+          description: Whether the product is downloadable.
+          example: true
+        manage_stock:
+          type: boolean
+          description: Whether to enable stock management.
+          example: true
+        stock_quantity:
+          type: integer
+          description: Stock quantity.
+          example: 1
+        stock_status:
+          type: string
+          description: Stock status.
+          enum:
+          - instock
+          - outofstock
+          - onbackorder
+          example: instock
+        weight:
+          type: string
+          description: Product weight.
+          example: string-value
+        categories:
+          type: array
+          description: Categories to assign to the product.
+          items:
+            type: object
+            properties:
+              id:
+                type: integer
+                description: Category ID.
+          example:
+          - id: 1
+        tags:
+          type: array
+          description: Tags to assign to the product.
+          items:
+            type: object
+            properties:
+              id:
+                type: integer
+                description: Tag ID.
+          example:
+          - id: 1
+        images:
+          type: array
+          description: Images to attach.
+          items:
+            $ref: '#/components/schemas/ProductImage'
+          example:
+          - string-value
+        attributes:
+          type: array
+          description: Product attributes.
+          items:
+            $ref: '#/components/schemas/ProductAttribute'
+          example:
+          - string-value
+        meta_data:
+          type: array
+          description: Custom metadata.
+          items:
+            $ref: '#/components/schemas/MetaData'
+          example:
+          - string-value
+    ProductImage:
+      type: object
+      description: An image associated with a product.
+      properties:
+        id:
+          type: integer
+          description: Image unique identifier.
+          example: 1
+        src:
+          type: string
+          format: uri
+          description: Image URL.
+          example: https://example.com/path
+        name:
+          type: string
+          description: Image name.
+          example: Example Name
+        alt:
+          type: string
+          description: Image alternative text.
+          example: string-value
+    MetaData:
+      type: object
+      description: Custom metadata key-value entry.
+      properties:
+        id:
+          type: integer
+          description: Metadata unique identifier.
+          example: 1
+        key:
+          type: string
+          description: Metadata key.
+          example: string-value
+        value:
+          type: string
+          description: Metadata value.
+          example: string-value
+    BatchProductRequest:
+      type: object
+      description: Batch request for creating, updating, and deleting products.
+      properties:
+        create:
+          type: array
+          description: Array of product objects to create.
+          items:
+            $ref: '#/components/schemas/ProductInput'
+          example:
+          - string-value
+        update:
+          type: array
+          description: Array of product objects with IDs to update.
+          items:
+            $ref: '#/components/schemas/ProductInput'
+          example:
+          - string-value
+        delete:
+          type: array
+          description: Array of product IDs to delete.
+          items:
+            type: integer
+          example:
+          - 1
+    ProductCollectionData:
+      type: object
+      description: Aggregate data about a filtered product collection.
+      properties:
+        price_range:
+          type: object
+          description: Minimum and maximum prices in the collection.
+          nullable: true
+          properties:
+            min_price:
+              type: string
+              description: Minimum product price.
+            max_price:
+              type: string
+              description: Maximum product price.
+          example:
+            min_price: string-value
+            max_price: string-value
+        attribute_counts:
+          type: array
+          description: Term counts for requested attributes.
+          items:
+            type: object
+            properties:
+              term:
+                type: integer
+                description: Term ID.
+              count:
+                type: integer
+                description: Number of products with this term.
+          example:
+          - term: 1
+            count: 1
+        rating_counts:
+          type: array
+          description: Product counts by star rating.
+          items:
+            type: object
+            properties:
+              rating:
+                type: integer
+                description: Star rating value.
+              count:
+                type: integer
+                description: Number of products with this rating.
+          example:
+          - rating: 1
+            count: 1
+    Product:
+      type: object
+      description: A WooCommerce product in the store catalog.
+      properties:
+        id:
+          type: integer
+          description: Product unique identifier.
+          example: 1
+        name:
+          type: string
+          description: Product name.
+          example: Example Name
+        slug:
+          type: string
+          description: URL-friendly product identifier.
+          example: string-value
+        permalink:
+          type: string
+          format: uri
+          description: Product URL on the storefront.
+          example: https://example.com/path
+        type:
+          type: string
+          description: 'Product type. Options: simple, grouped, external, variable.'
+          enum:
+          - simple
+          - grouped
+          - external
+          - variable
+          example: simple
+        status:
+          type: string
+          description: 'Product status. Options: draft, pending, private, publish.'
+          enum:
+          - draft
+          - pending
+          - private
+          - publish
+          example: draft
+        featured:
+          type: boolean
+          description: Whether the product is featured.
+          example: true
+        description:
+          type: string
+          description: Full product description (HTML allowed).
+          example: A sample description
+        short_description:
+          type: string
+          description: Short product description (HTML allowed).
+          example: A sample description
+        sku:
+          type: string
+          description: Stock-keeping unit identifier.
+          example: string-value
+        price:
+          type: string
+          description: Current product price as a decimal string.
+          example: string-value
+        regular_price:
+          type: string
+          description: Regular product price as a decimal string.
+          example: string-value
+        sale_price:
+          type: string
+          description: Sale price as a decimal string. Empty string when not on sale.
+          example: string-value
+        on_sale:
+          type: boolean
+          description: Whether the product is on sale.
+          example: true
+        purchasable:
+          type: boolean
+          description: Whether the product can be bought.
+          example: true
+        total_sales:
+          type: integer
+          description: Total number of sales for the product.
+          example: 1
+        virtual:
+          type: boolean
+          description: Whether the product is virtual (no shipping required).
+          example: true
+        downloadable:
+          type: boolean
+          description: Whether the product is downloadable.
+          example: true
+        manage_stock:
+          type: boolean
+          description: Whether stock management is enabled for this product.
+          example: true
+        stock_quantity:
+          type: integer
+          description: Stock quantity when manage_stock is true.
+          nullable: true
+          example: 1
+        stock_status:
+          type: string
+          description: 'Stock status. Options: instock, outofstock, onbackorder.'
+          enum:
+          - instock
+          - outofstock
+          - onbackorder
+          example: instock
+        weight:
+          type: string
+          description: Product weight as a string in the store weight unit.
+          example: string-value
+        dimensions:
+          type: object
+          description: Product dimensions.
+          properties:
+            length:
+              type: string
+              description: Product length.
+            width:
+              type: string
+              description: Product width.
+            height:
+              type: string
+              description: Product height.
+          example:
+            length: string-value
+            width: string-value
+            height: string-value
+        categories:
+          type: array
+          description: Categories assigned to the product.
+          items:
+            type: object
+            properties:
+              id:
+                type: integer
+                description: Category ID.
+              name:
+                type: string
+                description: Category name.
+              slug:
+                type: string
+                description: Category slug.
+          example:
+          - id: 1
+            name: Example Name
+            slug: string-value
+        tags:
+          type: array
+          description: Tags assigned to the product.
+          items:
+            type: object
+            properties:
+              id:
+                type: integer
+                description: Tag ID.
+              name:
+                type: string
+                description: Tag name.
+              slug:
+                type: string
+                description: Tag slug.
+          example:
+          - id: 1
+            name: Example Name
+            slug: string-value
+        images:
+          type: array
+          description: Images associated with the product.
+          items:
+            $ref: '#/components/schemas/ProductImage'
+          example:
+          - string-value
+        attributes:
+          type: array
+          description: Product attributes for variable products.
+          items:
+            $ref: '#/components/schemas/ProductAttribute'
+          example:
+          - string-value
+        date_created:
+          type: string
+          format: date-time
+          description: Date the product was created, in the site timezone.
+          example: '2026-05-03T14:30:00Z'
+        date_modified:
+          type: string
+          format: date-time
+          description: Date the product was last modified, in the site timezone.
+          example: '2026-05-03T14:30:00Z'
+        meta_data:
+          type: array
+          description: Custom metadata attached to the product.
+          items:
+            $ref: '#/components/schemas/MetaData'
+          example:
+          - string-value
+    BatchProductResponse:
+      type: object
+      description: Response from a batch product operation.
+      properties:
+        create:
+          type: array
+          description: Created products.
+          items:
+            $ref: '#/components/schemas/Product'
+          example:
+          - string-value
+        update:
+          type: array
+          description: Updated products.
+          items:
+            $ref: '#/components/schemas/Product'
+          example:
+          - string-value
+        delete:
+          type: array
+          description: Deleted products.
+          items:
+            $ref: '#/components/schemas/Product'
+          example:
+          - string-value
+    ProductAttribute:
+      type: object
+      description: A product attribute with option values.
+      properties:
+        id:
+          type: integer
+          description: Attribute ID (0 for custom attributes).
+          example: 1
+        name:
+          type: string
+          description: Attribute name.
+          example: Example Name
+        position:
+          type: integer
+          description: Attribute position in the product.
+          example: 1
+        visible:
+          type: boolean
+          description: Whether the attribute is visible on the product page.
+          example: true
+        variation:
+          type: boolean
+          description: Whether the attribute is used to define variations.
+          example: true
+        options:
+          type: array
+          description: List of available options (terms) for this attribute.
+          items:
+            type: string
+          example:
+          - string-value
+    Error:
+      type: object
+      properties:
+        code:
+          type: string
+          description: Machine-readable error code.
+          example: string-value
+        message:
+          type: string
+          description: Human-readable error message.
+          example: string-value
+        data:
+          type: object
+          description: Additional error context including HTTP status code.
+          properties:
+            status:
+              type: integer
+              description: HTTP status code associated with the error.
+          example:
+            status: 1
+  responses:
+    Unauthorized:
+      description: Authentication credentials are missing or invalid.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    NotFound:
+      description: The requested resource was not found.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    BadRequest:
+      description: The request body contains invalid or missing parameters.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+  securitySchemes:
+    basicAuth:
+      type: http
+      scheme: basic
+      description: HTTP Basic Auth using the WooCommerce Consumer Key as the username and Consumer Secret as the password over HTTPS. Over plain HTTP use OAuth 1.0a one-legged authentication instead.
+externalDocs:
+  description: WooCommerce REST API Documentation
+  url: https://woocommerce.github.io/woocommerce-rest-api-docs/

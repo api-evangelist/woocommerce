@@ -1,0 +1,426 @@
+openapi: 3.1.0
+info:
+  title: WooCommerce REST Cart Product Categories API
+  description: The WooCommerce REST API is the primary server-side interface for reading and writing WooCommerce store data programmatically. It follows REST conventions, uses JSON for all requests and responses, and is fully integrated with the WordPress REST API under the /wp-json/wc/v3/ namespace. The API covers products, product variations, product categories, product attributes, orders, order notes, order refunds, customers, coupons, tax rates, shipping zones, payment gateways, settings, webhooks, reports, and system status. Authentication uses Consumer Key and Consumer Secret pairs generated in the WooCommerce admin, transmitted over HTTPS via HTTP Basic Auth or OAuth 1.0a over plain HTTP.
+  version: v3
+  contact:
+    name: WooCommerce Developer Support
+    url: https://developer.woocommerce.com/docs/apis/rest-api/
+  termsOfService: https://woocommerce.com/terms-conditions/
+servers:
+- url: https://example.com/wp-json/wc/v3
+  description: Production Server (replace example.com with your store domain)
+security:
+- basicAuth: []
+tags:
+- name: Product Categories
+  description: Manage product categories used to organize the store catalog
+paths:
+  /products/categories:
+    get:
+      operationId: listProductCategories
+      summary: WooCommerce List All Product Categories
+      description: Returns all product categories. Supports filtering by parent category, hiding empty categories, and ordering by various fields. Categories are hierarchical and can be nested.
+      tags:
+      - Product Categories
+      parameters:
+      - $ref: '#/components/parameters/page'
+      - $ref: '#/components/parameters/per_page'
+      - $ref: '#/components/parameters/search'
+      - name: hide_empty
+        in: query
+        description: Whether to hide resources not assigned to any products.
+        required: false
+        schema:
+          type: boolean
+        example: true
+      - name: parent
+        in: query
+        description: Filter categories by parent category ID.
+        required: false
+        schema:
+          type: integer
+        example: 1
+      responses:
+        '200':
+          description: List of product categories
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/ProductCategory'
+              examples:
+                listProductCategories200Example:
+                  summary: Default listProductCategories 200 response
+                  x-microcks-default: true
+                  value:
+                  - id: 1
+                    name: Example Name
+                    slug: string-value
+                    parent: 1
+                    description: A sample description
+                    display: string-value
+                    image:
+                      id: {}
+                      src: {}
+                      name: {}
+                      alt: {}
+                    menu_order: 1
+                    count: 1
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+    post:
+      operationId: createProductCategory
+      summary: WooCommerce Create a Product Category
+      description: Creates a new product category. Categories can be nested by supplying a parent ID. A slug is generated automatically from the name if not provided.
+      tags:
+      - Product Categories
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ProductCategoryInput'
+      responses:
+        '201':
+          description: Category created successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProductCategory'
+              examples:
+                createProductCategory201Example:
+                  summary: Default createProductCategory 201 response
+                  x-microcks-default: true
+                  value:
+                    id: 1
+                    name: Example Name
+                    slug: string-value
+                    parent: 1
+                    description: A sample description
+                    display: string-value
+                    image:
+                      id: 1
+                      src: https://example.com/path
+                      name: Example Name
+                      alt: string-value
+                    menu_order: 1
+                    count: 1
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+  /products/categories/{id}:
+    get:
+      operationId: getProductCategory
+      summary: WooCommerce Retrieve a Product Category
+      description: Returns a single product category by its numeric ID.
+      tags:
+      - Product Categories
+      parameters:
+      - $ref: '#/components/parameters/id'
+      responses:
+        '200':
+          description: Product category details
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProductCategory'
+              examples:
+                getProductCategory200Example:
+                  summary: Default getProductCategory 200 response
+                  x-microcks-default: true
+                  value:
+                    id: 1
+                    name: Example Name
+                    slug: string-value
+                    parent: 1
+                    description: A sample description
+                    display: string-value
+                    image:
+                      id: 1
+                      src: https://example.com/path
+                      name: Example Name
+                      alt: string-value
+                    menu_order: 1
+                    count: 1
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+    put:
+      operationId: updateProductCategory
+      summary: WooCommerce Update a Product Category
+      description: Updates a product category by its numeric ID.
+      tags:
+      - Product Categories
+      parameters:
+      - $ref: '#/components/parameters/id'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ProductCategoryInput'
+      responses:
+        '200':
+          description: Category updated successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProductCategory'
+              examples:
+                updateProductCategory200Example:
+                  summary: Default updateProductCategory 200 response
+                  x-microcks-default: true
+                  value:
+                    id: 1
+                    name: Example Name
+                    slug: string-value
+                    parent: 1
+                    description: A sample description
+                    display: string-value
+                    image:
+                      id: 1
+                      src: https://example.com/path
+                      name: Example Name
+                      alt: string-value
+                    menu_order: 1
+                    count: 1
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+    delete:
+      operationId: deleteProductCategory
+      summary: WooCommerce Delete a Product Category
+      description: Deletes a product category by ID. Set force to true to permanently delete. Requires that no products are assigned to the category, or use force to bypass this restriction.
+      tags:
+      - Product Categories
+      parameters:
+      - $ref: '#/components/parameters/id'
+      - $ref: '#/components/parameters/force'
+      responses:
+        '200':
+          description: Category deleted
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProductCategory'
+              examples:
+                deleteProductCategory200Example:
+                  summary: Default deleteProductCategory 200 response
+                  x-microcks-default: true
+                  value:
+                    id: 1
+                    name: Example Name
+                    slug: string-value
+                    parent: 1
+                    description: A sample description
+                    display: string-value
+                    image:
+                      id: 1
+                      src: https://example.com/path
+                      name: Example Name
+                      alt: string-value
+                    menu_order: 1
+                    count: 1
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+components:
+  parameters:
+    page:
+      name: page
+      in: query
+      description: Current page of the collection. Defaults to 1.
+      required: false
+      schema:
+        type: integer
+        minimum: 1
+        default: 1
+    id:
+      name: id
+      in: path
+      description: Unique identifier for the resource.
+      required: true
+      schema:
+        type: integer
+    force:
+      name: force
+      in: query
+      description: Set to true to permanently delete the resource, bypassing the trash.
+      required: false
+      schema:
+        type: boolean
+        default: false
+    per_page:
+      name: per_page
+      in: query
+      description: Maximum number of items per page. Defaults to 10, maximum 100.
+      required: false
+      schema:
+        type: integer
+        minimum: 1
+        maximum: 100
+        default: 10
+    search:
+      name: search
+      in: query
+      description: Limit results to those matching a string.
+      required: false
+      schema:
+        type: string
+  responses:
+    NotFound:
+      description: The requested resource was not found.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    Unauthorized:
+      description: Authentication credentials are missing or invalid.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    BadRequest:
+      description: The request body contains invalid or missing parameters.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+  schemas:
+    ProductCategory:
+      type: object
+      description: A product category used to organize the store catalog.
+      properties:
+        id:
+          type: integer
+          description: Category unique identifier.
+          example: 1
+        name:
+          type: string
+          description: Category name.
+          example: Example Name
+        slug:
+          type: string
+          description: URL-friendly category identifier.
+          example: string-value
+        parent:
+          type: integer
+          description: Parent category ID (0 for top-level categories).
+          example: 1
+        description:
+          type: string
+          description: Category description.
+          example: A sample description
+        display:
+          type: string
+          description: 'Category archive display type. Options: default, products, subcategories, both.'
+          example: string-value
+        image:
+          $ref: '#/components/schemas/ProductImage'
+        menu_order:
+          type: integer
+          description: Menu order position for sorting.
+          example: 1
+        count:
+          type: integer
+          description: Number of products in the category.
+          example: 1
+    ProductImage:
+      type: object
+      description: An image associated with a product.
+      properties:
+        id:
+          type: integer
+          description: Image unique identifier.
+          example: 1
+        src:
+          type: string
+          format: uri
+          description: Image URL.
+          example: https://example.com/path
+        name:
+          type: string
+          description: Image name.
+          example: Example Name
+        alt:
+          type: string
+          description: Image alternative text.
+          example: string-value
+    ProductCategoryInput:
+      type: object
+      description: Input for creating or updating a product category.
+      properties:
+        name:
+          type: string
+          description: Category name (required for create).
+          example: Example Name
+        slug:
+          type: string
+          description: URL-friendly category identifier.
+          example: string-value
+        parent:
+          type: integer
+          description: Parent category ID for nested categories.
+          example: 1
+        description:
+          type: string
+          description: Category description.
+          example: A sample description
+        display:
+          type: string
+          description: Category archive display type.
+          enum:
+          - default
+          - products
+          - subcategories
+          - both
+          example: default
+    Error:
+      type: object
+      properties:
+        code:
+          type: string
+          description: Machine-readable error code.
+          example: string-value
+        message:
+          type: string
+          description: Human-readable error message.
+          example: string-value
+        data:
+          type: object
+          description: Additional error context including HTTP status code.
+          properties:
+            status:
+              type: integer
+              description: HTTP status code associated with the error.
+          example:
+            status: 1
+  securitySchemes:
+    basicAuth:
+      type: http
+      scheme: basic
+      description: HTTP Basic Auth using the WooCommerce Consumer Key as the username and Consumer Secret as the password over HTTPS. Over plain HTTP use OAuth 1.0a one-legged authentication instead.
+externalDocs:
+  description: WooCommerce REST API Documentation
+  url: https://woocommerce.github.io/woocommerce-rest-api-docs/
