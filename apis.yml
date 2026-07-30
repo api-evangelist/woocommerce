@@ -13,85 +13,32 @@ tags:
 - Orders
 - Products
 - WordPress
+accessModel:
+  pricing: paid
+  onboarding: self-serve
+  trial: false
+  try_now: false
+  public: false
+  label: Paid · Self-serve signup
+  confidence: high
+  source:
+  - plans
+  - authentication
+  generated: '2026-07-22'
+  method: derived
 created: '2026-05-03'
 modified: '2026-05-19'
 specificationVersion: '0.19'
 access: 3rd-Party
 position: Consumer
-image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
+image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/icons/woocommerce.png
 apis:
-- aid: woocommerce:rest-api
-  name: WooCommerce REST API
-  description: The WooCommerce REST API is the primary server-side interface for reading
-    and writing WooCommerce store data programmatically. It follows REST conventions,
-    uses JSON, and is integrated with the WordPress REST API under /wp-json/wc/v3/.
-    The API covers products, variations, categories, attributes, orders, customers,
-    coupons, tax rates, shipping zones, payment gateways, settings, webhooks, reports,
-    and system status. Authentication uses Consumer Key and Consumer Secret pairs
-    via HTTP Basic Auth or OAuth 1.0a.
-  humanURL: https://developer.woocommerce.com/docs/apis/rest-api/
-  baseURL: https://example.com/wp-json/wc/v3
-  tags:
-  - eCommerce
-  - Orders
-  - Products
-  - REST
-  properties:
-  - type: Documentation
-    url: https://developer.woocommerce.com/docs/apis/rest-api/
-  - type: APIReference
-    url: https://woocommerce.github.io/woocommerce-rest-api-docs/
-  - type: Authentication
-    url: https://woocommerce.github.io/woocommerce-rest-api-docs/#authentication
-  - type: OpenAPI
-    url: openapi/woocommerce-rest-api-openapi.yml
-  - type: JSONSchema
-    url: json-schema/woocommerce-rest-api-order-schema.json
-    title: Order Schema
-  - type: JSONSchema
-    url: json-schema/woocommerce-rest-api-product-schema.json
-    title: Product Schema
-  - type: JSONSchema
-    url: json-schema/woocommerce-rest-api-customer-schema.json
-    title: Customer Schema
-  - type: JSONSchema
-    url: json-schema/woocommerce-rest-api-coupon-schema.json
-    title: Coupon Schema
-- aid: woocommerce:store-api
-  name: WooCommerce Store API
-  description: The WooCommerce Store API provides unauthenticated public REST endpoints
-    for building customer-facing cart, checkout, and product functionality. Accessible
-    under /wp-json/wc/store/v1/, it covers products, categories, attributes, tags,
-    reviews, cart operations, checkout, and customer orders. Write operations require
-    a nonce token from the cart response.
-  humanURL: https://developer.woocommerce.com/docs/apis/store-api/
-  baseURL: https://example.com/wp-json/wc/store/v1
-  tags:
-  - Cart
-  - Checkout
-  - eCommerce
-  - Headless
-  - Products
-  properties:
-  - type: Documentation
-    url: https://developer.woocommerce.com/docs/apis/store-api/
-  - type: OpenAPI
-    url: openapi/woocommerce-store-api-openapi.yml
-  - type: JSONSchema
-    url: json-schema/woocommerce-store-api-cart-schema.json
-    title: Cart Schema
-  - type: JSONSchema
-    url: json-schema/woocommerce-store-api-store-product-schema.json
-    title: Store Product Schema
-  - type: JSONSchema
-    url: json-schema/woocommerce-store-api-checkout-schema.json
-    title: Checkout Schema
 - aid: woocommerce:webhook-events
   name: WooCommerce Webhook Events
-  description: WooCommerce delivers real-time event notifications via HTTP POST webhooks
-    for orders, products, customers, coupons, and subscriptions lifecycle changes.
-    Webhooks are configured in the WooCommerce admin or via the REST API and deliver
-    JSON payloads signed with HMAC-SHA256.
+  description: >-
+    WooCommerce delivers real-time event notifications via HTTP POST webhooks for orders, products, customers,
+    coupons, and subscriptions lifecycle changes. Webhooks are configured in the WooCommerce admin or
+    via the REST API and deliver JSON payloads signed with HMAC-SHA256.
   humanURL: https://woocommerce.com/document/webhooks/
   tags:
   - Events
@@ -106,13 +53,13 @@ apis:
     title: Webhook Schema
 - aid: woocommerce:graphql-api
   name: WooCommerce GraphQL API
-  description: WooCommerce GraphQL support is provided by the WPGraphQL WooCommerce
-    extension (WooGraphQL), an open-source WordPress plugin that exposes the full
-    WooCommerce data model through a GraphQL endpoint at /graphql. The schema covers
-    products (simple, variable, external, grouped), product categories, tags, attributes,
-    variations, cart, coupons, orders, customers, shipping zones, tax rates, payment
-    gateways, refunds, reviews, downloadable items, subscriptions, memberships, and
-    session/nonce management. Both queries and mutations are supported.
+  description: >-
+    WooCommerce GraphQL support is provided by the WPGraphQL WooCommerce extension (WooGraphQL), an open-source
+    WordPress plugin that exposes the full WooCommerce data model through a GraphQL endpoint at /graphql.
+    The schema covers products (simple, variable, external, grouped), product categories, tags, attributes,
+    variations, cart, coupons, orders, customers, shipping zones, tax rates, payment gateways, refunds,
+    reviews, downloadable items, subscriptions, memberships, and session/nonce management. Both queries
+    and mutations are supported.
   humanURL: https://woographql.com/
   baseURL: https://yoursite.com/graphql
   tags:
@@ -129,6 +76,614 @@ apis:
     url: graphql/woocommerce-graphql.md
   - type: GraphQLSchema
     url: graphql/woocommerce-schema.graphql
+- aid: woocommerce:woocommerce-cart-api
+  name: WooCommerce Cart API
+  description: Manage the current shopper's cart session including items, coupons, and shipping
+  humanURL: https://developer.woocommerce.com/docs/apis/rest-api/
+  baseURL: https://example.com/wp-json/wc/v3
+  tags:
+  - Cart
+  properties:
+  - type: OpenAPI
+    url: openapi/woocommerce-cart-api-openapi.yml
+  - type: Documentation
+    url: https://developer.woocommerce.com/docs/apis/rest-api/
+  - type: APIReference
+    url: https://woocommerce.github.io/woocommerce-rest-api-docs/
+  - type: Authentication
+    url: https://woocommerce.github.io/woocommerce-rest-api-docs/#authentication
+  - type: JSONSchema
+    url: json-schema/woocommerce-rest-api-order-schema.json
+  - type: JSONSchema
+    url: json-schema/woocommerce-rest-api-product-schema.json
+  - type: JSONSchema
+    url: json-schema/woocommerce-rest-api-customer-schema.json
+  - type: JSONSchema
+    url: json-schema/woocommerce-rest-api-coupon-schema.json
+  - type: Documentation
+    url: https://developer.woocommerce.com/docs/apis/store-api/
+  - type: JSONSchema
+    url: json-schema/woocommerce-store-api-cart-schema.json
+  - type: JSONSchema
+    url: json-schema/woocommerce-store-api-store-product-schema.json
+  - type: JSONSchema
+    url: json-schema/woocommerce-store-api-checkout-schema.json
+- aid: woocommerce:woocommerce-checkout-api
+  name: WooCommerce Checkout API
+  description: Submit and manage the checkout process for the current shopper
+  humanURL: https://developer.woocommerce.com/docs/apis/rest-api/
+  baseURL: https://example.com/wp-json/wc/v3
+  tags:
+  - Checkout
+  properties:
+  - type: OpenAPI
+    url: openapi/woocommerce-checkout-api-openapi.yml
+  - type: Documentation
+    url: https://developer.woocommerce.com/docs/apis/rest-api/
+  - type: APIReference
+    url: https://woocommerce.github.io/woocommerce-rest-api-docs/
+  - type: Authentication
+    url: https://woocommerce.github.io/woocommerce-rest-api-docs/#authentication
+  - type: JSONSchema
+    url: json-schema/woocommerce-rest-api-order-schema.json
+  - type: JSONSchema
+    url: json-schema/woocommerce-rest-api-product-schema.json
+  - type: JSONSchema
+    url: json-schema/woocommerce-rest-api-customer-schema.json
+  - type: JSONSchema
+    url: json-schema/woocommerce-rest-api-coupon-schema.json
+  - type: Documentation
+    url: https://developer.woocommerce.com/docs/apis/store-api/
+  - type: JSONSchema
+    url: json-schema/woocommerce-store-api-cart-schema.json
+  - type: JSONSchema
+    url: json-schema/woocommerce-store-api-store-product-schema.json
+  - type: JSONSchema
+    url: json-schema/woocommerce-store-api-checkout-schema.json
+- aid: woocommerce:woocommerce-coupons-api
+  name: WooCommerce Coupons API
+  description: Create, retrieve, update, and delete discount coupons
+  humanURL: https://developer.woocommerce.com/docs/apis/rest-api/
+  baseURL: https://example.com/wp-json/wc/v3
+  tags:
+  - Coupons
+  properties:
+  - type: OpenAPI
+    url: openapi/woocommerce-coupons-api-openapi.yml
+  - type: Documentation
+    url: https://developer.woocommerce.com/docs/apis/rest-api/
+  - type: APIReference
+    url: https://woocommerce.github.io/woocommerce-rest-api-docs/
+  - type: Authentication
+    url: https://woocommerce.github.io/woocommerce-rest-api-docs/#authentication
+  - type: JSONSchema
+    url: json-schema/woocommerce-rest-api-order-schema.json
+  - type: JSONSchema
+    url: json-schema/woocommerce-rest-api-product-schema.json
+  - type: JSONSchema
+    url: json-schema/woocommerce-rest-api-customer-schema.json
+  - type: JSONSchema
+    url: json-schema/woocommerce-rest-api-coupon-schema.json
+  - type: Documentation
+    url: https://developer.woocommerce.com/docs/apis/store-api/
+  - type: JSONSchema
+    url: json-schema/woocommerce-store-api-cart-schema.json
+  - type: JSONSchema
+    url: json-schema/woocommerce-store-api-store-product-schema.json
+  - type: JSONSchema
+    url: json-schema/woocommerce-store-api-checkout-schema.json
+- aid: woocommerce:woocommerce-customers-api
+  name: WooCommerce Customers API
+  description: Create, retrieve, update, and delete customer accounts
+  humanURL: https://developer.woocommerce.com/docs/apis/rest-api/
+  baseURL: https://example.com/wp-json/wc/v3
+  tags:
+  - Customers
+  properties:
+  - type: OpenAPI
+    url: openapi/woocommerce-customers-api-openapi.yml
+  - type: Documentation
+    url: https://developer.woocommerce.com/docs/apis/rest-api/
+  - type: APIReference
+    url: https://woocommerce.github.io/woocommerce-rest-api-docs/
+  - type: Authentication
+    url: https://woocommerce.github.io/woocommerce-rest-api-docs/#authentication
+  - type: JSONSchema
+    url: json-schema/woocommerce-rest-api-order-schema.json
+  - type: JSONSchema
+    url: json-schema/woocommerce-rest-api-product-schema.json
+  - type: JSONSchema
+    url: json-schema/woocommerce-rest-api-customer-schema.json
+  - type: JSONSchema
+    url: json-schema/woocommerce-rest-api-coupon-schema.json
+  - type: Documentation
+    url: https://developer.woocommerce.com/docs/apis/store-api/
+  - type: JSONSchema
+    url: json-schema/woocommerce-store-api-cart-schema.json
+  - type: JSONSchema
+    url: json-schema/woocommerce-store-api-store-product-schema.json
+  - type: JSONSchema
+    url: json-schema/woocommerce-store-api-checkout-schema.json
+- aid: woocommerce:woocommerce-order-notes-api
+  name: WooCommerce Order Notes API
+  description: Manage private and customer-facing notes on orders
+  humanURL: https://developer.woocommerce.com/docs/apis/rest-api/
+  baseURL: https://example.com/wp-json/wc/v3
+  tags:
+  - Order Notes
+  properties:
+  - type: OpenAPI
+    url: openapi/woocommerce-order-notes-api-openapi.yml
+  - type: Documentation
+    url: https://developer.woocommerce.com/docs/apis/rest-api/
+  - type: APIReference
+    url: https://woocommerce.github.io/woocommerce-rest-api-docs/
+  - type: Authentication
+    url: https://woocommerce.github.io/woocommerce-rest-api-docs/#authentication
+  - type: JSONSchema
+    url: json-schema/woocommerce-rest-api-order-schema.json
+  - type: JSONSchema
+    url: json-schema/woocommerce-rest-api-product-schema.json
+  - type: JSONSchema
+    url: json-schema/woocommerce-rest-api-customer-schema.json
+  - type: JSONSchema
+    url: json-schema/woocommerce-rest-api-coupon-schema.json
+  - type: Documentation
+    url: https://developer.woocommerce.com/docs/apis/store-api/
+  - type: JSONSchema
+    url: json-schema/woocommerce-store-api-cart-schema.json
+  - type: JSONSchema
+    url: json-schema/woocommerce-store-api-store-product-schema.json
+  - type: JSONSchema
+    url: json-schema/woocommerce-store-api-checkout-schema.json
+- aid: woocommerce:woocommerce-order-refunds-api
+  name: WooCommerce Order Refunds API
+  description: Create and retrieve refunds associated with orders
+  humanURL: https://developer.woocommerce.com/docs/apis/rest-api/
+  baseURL: https://example.com/wp-json/wc/v3
+  tags:
+  - Order Refunds
+  properties:
+  - type: OpenAPI
+    url: openapi/woocommerce-order-refunds-api-openapi.yml
+  - type: Documentation
+    url: https://developer.woocommerce.com/docs/apis/rest-api/
+  - type: APIReference
+    url: https://woocommerce.github.io/woocommerce-rest-api-docs/
+  - type: Authentication
+    url: https://woocommerce.github.io/woocommerce-rest-api-docs/#authentication
+  - type: JSONSchema
+    url: json-schema/woocommerce-rest-api-order-schema.json
+  - type: JSONSchema
+    url: json-schema/woocommerce-rest-api-product-schema.json
+  - type: JSONSchema
+    url: json-schema/woocommerce-rest-api-customer-schema.json
+  - type: JSONSchema
+    url: json-schema/woocommerce-rest-api-coupon-schema.json
+  - type: Documentation
+    url: https://developer.woocommerce.com/docs/apis/store-api/
+  - type: JSONSchema
+    url: json-schema/woocommerce-store-api-cart-schema.json
+  - type: JSONSchema
+    url: json-schema/woocommerce-store-api-store-product-schema.json
+  - type: JSONSchema
+    url: json-schema/woocommerce-store-api-checkout-schema.json
+- aid: woocommerce:woocommerce-orders-api
+  name: WooCommerce Orders API
+  description: Create, retrieve, update, and delete customer orders
+  humanURL: https://developer.woocommerce.com/docs/apis/rest-api/
+  baseURL: https://example.com/wp-json/wc/v3
+  tags:
+  - Orders
+  properties:
+  - type: OpenAPI
+    url: openapi/woocommerce-orders-api-openapi.yml
+  - type: Documentation
+    url: https://developer.woocommerce.com/docs/apis/rest-api/
+  - type: APIReference
+    url: https://woocommerce.github.io/woocommerce-rest-api-docs/
+  - type: Authentication
+    url: https://woocommerce.github.io/woocommerce-rest-api-docs/#authentication
+  - type: JSONSchema
+    url: json-schema/woocommerce-rest-api-order-schema.json
+  - type: JSONSchema
+    url: json-schema/woocommerce-rest-api-product-schema.json
+  - type: JSONSchema
+    url: json-schema/woocommerce-rest-api-customer-schema.json
+  - type: JSONSchema
+    url: json-schema/woocommerce-rest-api-coupon-schema.json
+  - type: Documentation
+    url: https://developer.woocommerce.com/docs/apis/store-api/
+  - type: JSONSchema
+    url: json-schema/woocommerce-store-api-cart-schema.json
+  - type: JSONSchema
+    url: json-schema/woocommerce-store-api-store-product-schema.json
+  - type: JSONSchema
+    url: json-schema/woocommerce-store-api-checkout-schema.json
+- aid: woocommerce:woocommerce-payment-gateways-api
+  name: WooCommerce Payment Gateways API
+  description: Retrieve and configure available payment gateways
+  humanURL: https://developer.woocommerce.com/docs/apis/rest-api/
+  baseURL: https://example.com/wp-json/wc/v3
+  tags:
+  - Payment Gateways
+  properties:
+  - type: OpenAPI
+    url: openapi/woocommerce-payment-gateways-api-openapi.yml
+  - type: Documentation
+    url: https://developer.woocommerce.com/docs/apis/rest-api/
+  - type: APIReference
+    url: https://woocommerce.github.io/woocommerce-rest-api-docs/
+  - type: Authentication
+    url: https://woocommerce.github.io/woocommerce-rest-api-docs/#authentication
+  - type: JSONSchema
+    url: json-schema/woocommerce-rest-api-order-schema.json
+  - type: JSONSchema
+    url: json-schema/woocommerce-rest-api-product-schema.json
+  - type: JSONSchema
+    url: json-schema/woocommerce-rest-api-customer-schema.json
+  - type: JSONSchema
+    url: json-schema/woocommerce-rest-api-coupon-schema.json
+  - type: Documentation
+    url: https://developer.woocommerce.com/docs/apis/store-api/
+  - type: JSONSchema
+    url: json-schema/woocommerce-store-api-cart-schema.json
+  - type: JSONSchema
+    url: json-schema/woocommerce-store-api-store-product-schema.json
+  - type: JSONSchema
+    url: json-schema/woocommerce-store-api-checkout-schema.json
+- aid: woocommerce:woocommerce-product-attributes-api
+  name: WooCommerce Product Attributes API
+  description: Retrieve global product attributes and their terms for filtering
+  humanURL: https://developer.woocommerce.com/docs/apis/rest-api/
+  baseURL: https://example.com/wp-json/wc/v3
+  tags:
+  - Product Attributes
+  properties:
+  - type: OpenAPI
+    url: openapi/woocommerce-product-attributes-api-openapi.yml
+  - type: Documentation
+    url: https://developer.woocommerce.com/docs/apis/rest-api/
+  - type: APIReference
+    url: https://woocommerce.github.io/woocommerce-rest-api-docs/
+  - type: Authentication
+    url: https://woocommerce.github.io/woocommerce-rest-api-docs/#authentication
+  - type: JSONSchema
+    url: json-schema/woocommerce-rest-api-order-schema.json
+  - type: JSONSchema
+    url: json-schema/woocommerce-rest-api-product-schema.json
+  - type: JSONSchema
+    url: json-schema/woocommerce-rest-api-customer-schema.json
+  - type: JSONSchema
+    url: json-schema/woocommerce-rest-api-coupon-schema.json
+  - type: Documentation
+    url: https://developer.woocommerce.com/docs/apis/store-api/
+  - type: JSONSchema
+    url: json-schema/woocommerce-store-api-cart-schema.json
+  - type: JSONSchema
+    url: json-schema/woocommerce-store-api-store-product-schema.json
+  - type: JSONSchema
+    url: json-schema/woocommerce-store-api-checkout-schema.json
+- aid: woocommerce:woocommerce-product-categories-api
+  name: WooCommerce Product Categories API
+  description: Manage product categories used to organize the store catalog
+  humanURL: https://developer.woocommerce.com/docs/apis/rest-api/
+  baseURL: https://example.com/wp-json/wc/v3
+  tags:
+  - Product Categories
+  properties:
+  - type: OpenAPI
+    url: openapi/woocommerce-product-categories-api-openapi.yml
+  - type: Documentation
+    url: https://developer.woocommerce.com/docs/apis/rest-api/
+  - type: APIReference
+    url: https://woocommerce.github.io/woocommerce-rest-api-docs/
+  - type: Authentication
+    url: https://woocommerce.github.io/woocommerce-rest-api-docs/#authentication
+  - type: JSONSchema
+    url: json-schema/woocommerce-rest-api-order-schema.json
+  - type: JSONSchema
+    url: json-schema/woocommerce-rest-api-product-schema.json
+  - type: JSONSchema
+    url: json-schema/woocommerce-rest-api-customer-schema.json
+  - type: JSONSchema
+    url: json-schema/woocommerce-rest-api-coupon-schema.json
+  - type: Documentation
+    url: https://developer.woocommerce.com/docs/apis/store-api/
+  - type: JSONSchema
+    url: json-schema/woocommerce-store-api-cart-schema.json
+  - type: JSONSchema
+    url: json-schema/woocommerce-store-api-store-product-schema.json
+  - type: JSONSchema
+    url: json-schema/woocommerce-store-api-checkout-schema.json
+- aid: woocommerce:woocommerce-product-reviews-api
+  name: WooCommerce Product Reviews API
+  description: Retrieve customer reviews on products
+  humanURL: https://developer.woocommerce.com/docs/apis/rest-api/
+  baseURL: https://example.com/wp-json/wc/v3
+  tags:
+  - Product Reviews
+  properties:
+  - type: OpenAPI
+    url: openapi/woocommerce-product-reviews-api-openapi.yml
+  - type: Documentation
+    url: https://developer.woocommerce.com/docs/apis/rest-api/
+  - type: APIReference
+    url: https://woocommerce.github.io/woocommerce-rest-api-docs/
+  - type: Authentication
+    url: https://woocommerce.github.io/woocommerce-rest-api-docs/#authentication
+  - type: JSONSchema
+    url: json-schema/woocommerce-rest-api-order-schema.json
+  - type: JSONSchema
+    url: json-schema/woocommerce-rest-api-product-schema.json
+  - type: JSONSchema
+    url: json-schema/woocommerce-rest-api-customer-schema.json
+  - type: JSONSchema
+    url: json-schema/woocommerce-rest-api-coupon-schema.json
+  - type: Documentation
+    url: https://developer.woocommerce.com/docs/apis/store-api/
+  - type: JSONSchema
+    url: json-schema/woocommerce-store-api-cart-schema.json
+  - type: JSONSchema
+    url: json-schema/woocommerce-store-api-store-product-schema.json
+  - type: JSONSchema
+    url: json-schema/woocommerce-store-api-checkout-schema.json
+- aid: woocommerce:woocommerce-product-tags-api
+  name: WooCommerce Product Tags API
+  description: Retrieve product tags for filtering
+  humanURL: https://developer.woocommerce.com/docs/apis/rest-api/
+  baseURL: https://example.com/wp-json/wc/v3
+  tags:
+  - Product Tags
+  properties:
+  - type: OpenAPI
+    url: openapi/woocommerce-product-tags-api-openapi.yml
+  - type: Documentation
+    url: https://developer.woocommerce.com/docs/apis/rest-api/
+  - type: APIReference
+    url: https://woocommerce.github.io/woocommerce-rest-api-docs/
+  - type: Authentication
+    url: https://woocommerce.github.io/woocommerce-rest-api-docs/#authentication
+  - type: JSONSchema
+    url: json-schema/woocommerce-rest-api-order-schema.json
+  - type: JSONSchema
+    url: json-schema/woocommerce-rest-api-product-schema.json
+  - type: JSONSchema
+    url: json-schema/woocommerce-rest-api-customer-schema.json
+  - type: JSONSchema
+    url: json-schema/woocommerce-rest-api-coupon-schema.json
+  - type: Documentation
+    url: https://developer.woocommerce.com/docs/apis/store-api/
+  - type: JSONSchema
+    url: json-schema/woocommerce-store-api-cart-schema.json
+  - type: JSONSchema
+    url: json-schema/woocommerce-store-api-store-product-schema.json
+  - type: JSONSchema
+    url: json-schema/woocommerce-store-api-checkout-schema.json
+- aid: woocommerce:woocommerce-product-variations-api
+  name: WooCommerce Product Variations API
+  description: Manage variations of variable products including price, stock, and attributes
+  humanURL: https://developer.woocommerce.com/docs/apis/rest-api/
+  baseURL: https://example.com/wp-json/wc/v3
+  tags:
+  - Product Variations
+  properties:
+  - type: OpenAPI
+    url: openapi/woocommerce-product-variations-api-openapi.yml
+  - type: Documentation
+    url: https://developer.woocommerce.com/docs/apis/rest-api/
+  - type: APIReference
+    url: https://woocommerce.github.io/woocommerce-rest-api-docs/
+  - type: Authentication
+    url: https://woocommerce.github.io/woocommerce-rest-api-docs/#authentication
+  - type: JSONSchema
+    url: json-schema/woocommerce-rest-api-order-schema.json
+  - type: JSONSchema
+    url: json-schema/woocommerce-rest-api-product-schema.json
+  - type: JSONSchema
+    url: json-schema/woocommerce-rest-api-customer-schema.json
+  - type: JSONSchema
+    url: json-schema/woocommerce-rest-api-coupon-schema.json
+  - type: Documentation
+    url: https://developer.woocommerce.com/docs/apis/store-api/
+  - type: JSONSchema
+    url: json-schema/woocommerce-store-api-cart-schema.json
+  - type: JSONSchema
+    url: json-schema/woocommerce-store-api-store-product-schema.json
+  - type: JSONSchema
+    url: json-schema/woocommerce-store-api-checkout-schema.json
+- aid: woocommerce:woocommerce-products-api
+  name: WooCommerce Products API
+  description: Create, retrieve, update, and delete store products and their variations
+  humanURL: https://developer.woocommerce.com/docs/apis/rest-api/
+  baseURL: https://example.com/wp-json/wc/v3
+  tags:
+  - Products
+  properties:
+  - type: OpenAPI
+    url: openapi/woocommerce-products-api-openapi.yml
+  - type: Documentation
+    url: https://developer.woocommerce.com/docs/apis/rest-api/
+  - type: APIReference
+    url: https://woocommerce.github.io/woocommerce-rest-api-docs/
+  - type: Authentication
+    url: https://woocommerce.github.io/woocommerce-rest-api-docs/#authentication
+  - type: JSONSchema
+    url: json-schema/woocommerce-rest-api-order-schema.json
+  - type: JSONSchema
+    url: json-schema/woocommerce-rest-api-product-schema.json
+  - type: JSONSchema
+    url: json-schema/woocommerce-rest-api-customer-schema.json
+  - type: JSONSchema
+    url: json-schema/woocommerce-rest-api-coupon-schema.json
+  - type: Documentation
+    url: https://developer.woocommerce.com/docs/apis/store-api/
+  - type: JSONSchema
+    url: json-schema/woocommerce-store-api-cart-schema.json
+  - type: JSONSchema
+    url: json-schema/woocommerce-store-api-store-product-schema.json
+  - type: JSONSchema
+    url: json-schema/woocommerce-store-api-checkout-schema.json
+- aid: woocommerce:woocommerce-reports-api
+  name: WooCommerce Reports API
+  description: Retrieve aggregated sales, product, and customer report data
+  humanURL: https://developer.woocommerce.com/docs/apis/rest-api/
+  baseURL: https://example.com/wp-json/wc/v3
+  tags:
+  - Reports
+  properties:
+  - type: OpenAPI
+    url: openapi/woocommerce-reports-api-openapi.yml
+  - type: Documentation
+    url: https://developer.woocommerce.com/docs/apis/rest-api/
+  - type: APIReference
+    url: https://woocommerce.github.io/woocommerce-rest-api-docs/
+  - type: Authentication
+    url: https://woocommerce.github.io/woocommerce-rest-api-docs/#authentication
+  - type: JSONSchema
+    url: json-schema/woocommerce-rest-api-order-schema.json
+  - type: JSONSchema
+    url: json-schema/woocommerce-rest-api-product-schema.json
+  - type: JSONSchema
+    url: json-schema/woocommerce-rest-api-customer-schema.json
+  - type: JSONSchema
+    url: json-schema/woocommerce-rest-api-coupon-schema.json
+  - type: Documentation
+    url: https://developer.woocommerce.com/docs/apis/store-api/
+  - type: JSONSchema
+    url: json-schema/woocommerce-store-api-cart-schema.json
+  - type: JSONSchema
+    url: json-schema/woocommerce-store-api-store-product-schema.json
+  - type: JSONSchema
+    url: json-schema/woocommerce-store-api-checkout-schema.json
+- aid: woocommerce:woocommerce-shipping-zones-api
+  name: WooCommerce Shipping Zones API
+  description: Manage shipping zones, their locations, and shipping methods
+  humanURL: https://developer.woocommerce.com/docs/apis/rest-api/
+  baseURL: https://example.com/wp-json/wc/v3
+  tags:
+  - Shipping Zones
+  properties:
+  - type: OpenAPI
+    url: openapi/woocommerce-shipping-zones-api-openapi.yml
+  - type: Documentation
+    url: https://developer.woocommerce.com/docs/apis/rest-api/
+  - type: APIReference
+    url: https://woocommerce.github.io/woocommerce-rest-api-docs/
+  - type: Authentication
+    url: https://woocommerce.github.io/woocommerce-rest-api-docs/#authentication
+  - type: JSONSchema
+    url: json-schema/woocommerce-rest-api-order-schema.json
+  - type: JSONSchema
+    url: json-schema/woocommerce-rest-api-product-schema.json
+  - type: JSONSchema
+    url: json-schema/woocommerce-rest-api-customer-schema.json
+  - type: JSONSchema
+    url: json-schema/woocommerce-rest-api-coupon-schema.json
+  - type: Documentation
+    url: https://developer.woocommerce.com/docs/apis/store-api/
+  - type: JSONSchema
+    url: json-schema/woocommerce-store-api-cart-schema.json
+  - type: JSONSchema
+    url: json-schema/woocommerce-store-api-store-product-schema.json
+  - type: JSONSchema
+    url: json-schema/woocommerce-store-api-checkout-schema.json
+- aid: woocommerce:woocommerce-system-status-api
+  name: WooCommerce System Status API
+  description: Retrieve system environment, active plugins, and store configuration status
+  humanURL: https://developer.woocommerce.com/docs/apis/rest-api/
+  baseURL: https://example.com/wp-json/wc/v3
+  tags:
+  - System Status
+  properties:
+  - type: OpenAPI
+    url: openapi/woocommerce-system-status-api-openapi.yml
+  - type: Documentation
+    url: https://developer.woocommerce.com/docs/apis/rest-api/
+  - type: APIReference
+    url: https://woocommerce.github.io/woocommerce-rest-api-docs/
+  - type: Authentication
+    url: https://woocommerce.github.io/woocommerce-rest-api-docs/#authentication
+  - type: JSONSchema
+    url: json-schema/woocommerce-rest-api-order-schema.json
+  - type: JSONSchema
+    url: json-schema/woocommerce-rest-api-product-schema.json
+  - type: JSONSchema
+    url: json-schema/woocommerce-rest-api-customer-schema.json
+  - type: JSONSchema
+    url: json-schema/woocommerce-rest-api-coupon-schema.json
+  - type: Documentation
+    url: https://developer.woocommerce.com/docs/apis/store-api/
+  - type: JSONSchema
+    url: json-schema/woocommerce-store-api-cart-schema.json
+  - type: JSONSchema
+    url: json-schema/woocommerce-store-api-store-product-schema.json
+  - type: JSONSchema
+    url: json-schema/woocommerce-store-api-checkout-schema.json
+- aid: woocommerce:woocommerce-tax-rates-api
+  name: WooCommerce Tax Rates API
+  description: Manage tax rates and tax classes applied at checkout
+  humanURL: https://developer.woocommerce.com/docs/apis/rest-api/
+  baseURL: https://example.com/wp-json/wc/v3
+  tags:
+  - Tax Rates
+  properties:
+  - type: OpenAPI
+    url: openapi/woocommerce-tax-rates-api-openapi.yml
+  - type: Documentation
+    url: https://developer.woocommerce.com/docs/apis/rest-api/
+  - type: APIReference
+    url: https://woocommerce.github.io/woocommerce-rest-api-docs/
+  - type: Authentication
+    url: https://woocommerce.github.io/woocommerce-rest-api-docs/#authentication
+  - type: JSONSchema
+    url: json-schema/woocommerce-rest-api-order-schema.json
+  - type: JSONSchema
+    url: json-schema/woocommerce-rest-api-product-schema.json
+  - type: JSONSchema
+    url: json-schema/woocommerce-rest-api-customer-schema.json
+  - type: JSONSchema
+    url: json-schema/woocommerce-rest-api-coupon-schema.json
+  - type: Documentation
+    url: https://developer.woocommerce.com/docs/apis/store-api/
+  - type: JSONSchema
+    url: json-schema/woocommerce-store-api-cart-schema.json
+  - type: JSONSchema
+    url: json-schema/woocommerce-store-api-store-product-schema.json
+  - type: JSONSchema
+    url: json-schema/woocommerce-store-api-checkout-schema.json
+- aid: woocommerce:woocommerce-webhooks-api
+  name: WooCommerce Webhooks API
+  description: Create and manage webhooks that deliver event notifications to URLs
+  humanURL: https://developer.woocommerce.com/docs/apis/rest-api/
+  baseURL: https://example.com/wp-json/wc/v3
+  tags:
+  - Webhooks
+  properties:
+  - type: OpenAPI
+    url: openapi/woocommerce-webhooks-api-openapi.yml
+  - type: Documentation
+    url: https://developer.woocommerce.com/docs/apis/rest-api/
+  - type: APIReference
+    url: https://woocommerce.github.io/woocommerce-rest-api-docs/
+  - type: Authentication
+    url: https://woocommerce.github.io/woocommerce-rest-api-docs/#authentication
+  - type: JSONSchema
+    url: json-schema/woocommerce-rest-api-order-schema.json
+  - type: JSONSchema
+    url: json-schema/woocommerce-rest-api-product-schema.json
+  - type: JSONSchema
+    url: json-schema/woocommerce-rest-api-customer-schema.json
+  - type: JSONSchema
+    url: json-schema/woocommerce-rest-api-coupon-schema.json
+  - type: Documentation
+    url: https://developer.woocommerce.com/docs/apis/store-api/
+  - type: JSONSchema
+    url: json-schema/woocommerce-store-api-cart-schema.json
+  - type: JSONSchema
+    url: json-schema/woocommerce-store-api-store-product-schema.json
+  - type: JSONSchema
+    url: json-schema/woocommerce-store-api-checkout-schema.json
 common:
 - type: AgenticAccess
   url: agentic-access/woocommerce-agentic-access.yml
