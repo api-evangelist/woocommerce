@@ -28,7 +28,7 @@ accessModel:
   method: derived
 created: '2026-05-03'
 modified: '2026-05-19'
-specificationVersion: '0.19'
+specificationVersion: '0.23'
 access: 3rd-Party
 position: Consumer
 image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/icons/woocommerce.png
