@@ -1,0 +1,156 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "WooCommerce REST Cart Coupons API",
+    "version": "v3"
+  },
+  "request": {
+    "auth": {
+      "type": "basic",
+      "username": "{{username}}",
+      "password": "{{password}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Coupons",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "WooCommerce List All Coupons",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://example.com/wp-json/wc/v3/coupons",
+            "params": [
+              {
+                "name": "page",
+                "value": "",
+                "type": "query",
+                "description": "Current page of the collection. Defaults to 1."
+              },
+              {
+                "name": "per_page",
+                "value": "",
+                "type": "query",
+                "description": "Maximum number of items per page. Defaults to 10, maximum 100."
+              },
+              {
+                "name": "search",
+                "value": "",
+                "type": "query",
+                "description": "Limit results to those matching a string."
+              },
+              {
+                "name": "after",
+                "value": "",
+                "type": "query",
+                "description": "Limit response to resources created after a given ISO8601 compliant date."
+              },
+              {
+                "name": "before",
+                "value": "",
+                "type": "query",
+                "description": "Limit response to resources created before a given ISO8601 compliant date."
+              },
+              {
+                "name": "code",
+                "value": "string-value",
+                "type": "query",
+                "description": "Filter coupons by coupon code."
+              }
+            ]
+          },
+          "docs": "Returns a paginated list of all coupons. Can be filtered by coupon code, discount type, date ranges, and sorted by various fields."
+        },
+        {
+          "info": {
+            "name": "WooCommerce Create a Coupon",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://example.com/wp-json/wc/v3/coupons",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Creates a new discount coupon. Requires a coupon code. Supports percentage, fixed cart, and fixed product discount types with optional usage limits, expiry dates, and product or category restrictions."
+        },
+        {
+          "info": {
+            "name": "WooCommerce Retrieve a Coupon",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://example.com/wp-json/wc/v3/coupons/:id",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "Unique identifier for the resource."
+              }
+            ]
+          },
+          "docs": "Returns a single coupon by its numeric ID."
+        },
+        {
+          "info": {
+            "name": "WooCommerce Update a Coupon",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://example.com/wp-json/wc/v3/coupons/:id",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "Unique identifier for the resource."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Updates an existing coupon by its numeric ID. Only provided fields are changed."
+        },
+        {
+          "info": {
+            "name": "WooCommerce Delete a Coupon",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://example.com/wp-json/wc/v3/coupons/:id",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "Unique identifier for the resource."
+              },
+              {
+                "name": "force",
+                "value": "",
+                "type": "query",
+                "description": "Set to true to permanently delete the resource, bypassing the trash."
+              }
+            ]
+          },
+          "docs": "Deletes a coupon by its numeric ID. Set force to true to permanently delete."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

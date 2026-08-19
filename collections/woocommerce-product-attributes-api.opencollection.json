@@ -1,0 +1,125 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "WooCommerce REST Cart Product Attributes API",
+    "version": "v3"
+  },
+  "request": {
+    "auth": {
+      "type": "basic",
+      "username": "{{username}}",
+      "password": "{{password}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Product Attributes",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "WooCommerce List Product Attributes",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://example.com/wp-json/wc/v3/products/attributes",
+            "params": [
+              {
+                "name": "page",
+                "value": "",
+                "type": "query",
+                "description": "Current page of the collection."
+              },
+              {
+                "name": "per_page",
+                "value": "",
+                "type": "query",
+                "description": "Maximum number of items per page (maximum 100)."
+              }
+            ]
+          },
+          "docs": "Returns all global product attributes registered in the store. Used to build attribute-based filters and variation selectors on the storefront."
+        },
+        {
+          "info": {
+            "name": "WooCommerce Retrieve a Product Attribute",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://example.com/wp-json/wc/v3/products/attributes/:id",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "Unique identifier for the resource."
+              }
+            ]
+          },
+          "docs": "Returns a single product attribute by its numeric ID."
+        },
+        {
+          "info": {
+            "name": "WooCommerce List Product Attribute Terms",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://example.com/wp-json/wc/v3/products/attributes/:id/terms",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "Unique identifier for the resource."
+              },
+              {
+                "name": "page",
+                "value": "",
+                "type": "query",
+                "description": "Current page of the collection."
+              },
+              {
+                "name": "per_page",
+                "value": "",
+                "type": "query",
+                "description": "Maximum number of items per page (maximum 100)."
+              }
+            ]
+          },
+          "docs": "Returns all terms (options) for a specific product attribute. Used to populate attribute-based filter dropdowns and swatches on the storefront."
+        },
+        {
+          "info": {
+            "name": "WooCommerce List Product Brands",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://example.com/wp-json/wc/v3/products/brands",
+            "params": [
+              {
+                "name": "page",
+                "value": "",
+                "type": "query",
+                "description": "Current page of the collection."
+              },
+              {
+                "name": "per_page",
+                "value": "",
+                "type": "query",
+                "description": "Maximum number of items per page (maximum 100)."
+              }
+            ]
+          },
+          "docs": "Returns all product brands registered in the store. Brand support requires WooCommerce Brands or a compatible extension."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

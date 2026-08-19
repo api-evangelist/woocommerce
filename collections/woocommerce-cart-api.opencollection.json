@@ -1,0 +1,284 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "WooCommerce REST Cart API",
+    "version": "v3"
+  },
+  "request": {
+    "auth": {
+      "type": "basic",
+      "username": "{{username}}",
+      "password": "{{password}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Cart",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "WooCommerce Get the Current Cart",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://example.com/wp-json/wc/v3/cart"
+          },
+          "docs": "Returns the current customer's cart contents including items, coupons, fees, totals, and available shipping rates. The response also includes a nonce token in the X-WC-Store-API-Nonce header (and body) required for write operations."
+        },
+        {
+          "info": {
+            "name": "WooCommerce Add an Item to the Cart",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://example.com/wp-json/wc/v3/cart/add-item",
+            "headers": [
+              {
+                "name": "Nonce",
+                "value": ""
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Adds a product or variation to the cart. Requires a product_id, an optional variation_id, and quantity. Custom item data can be passed via the item_data array. Requires the Nonce header from a prior cart GET."
+        },
+        {
+          "info": {
+            "name": "WooCommerce Remove an Item from the Cart",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://example.com/wp-json/wc/v3/cart/remove-item",
+            "headers": [
+              {
+                "name": "Nonce",
+                "value": ""
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Removes a cart item identified by its unique cart item key. Requires the Nonce header."
+        },
+        {
+          "info": {
+            "name": "WooCommerce Update a Cart Item Quantity",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://example.com/wp-json/wc/v3/cart/update-item",
+            "headers": [
+              {
+                "name": "Nonce",
+                "value": ""
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Updates the quantity of a cart item identified by its key. Set quantity to 0 to remove the item. Requires the Nonce header."
+        },
+        {
+          "info": {
+            "name": "WooCommerce Apply a Coupon to the Cart",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://example.com/wp-json/wc/v3/cart/apply-coupon",
+            "headers": [
+              {
+                "name": "Nonce",
+                "value": ""
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Applies a coupon code to the current cart session. Returns an error if the coupon is invalid, expired, or does not meet usage conditions. Requires the Nonce header."
+        },
+        {
+          "info": {
+            "name": "WooCommerce Remove a Coupon from the Cart",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://example.com/wp-json/wc/v3/cart/remove-coupon",
+            "headers": [
+              {
+                "name": "Nonce",
+                "value": ""
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Removes a previously applied coupon code from the cart. Requires the Nonce header."
+        },
+        {
+          "info": {
+            "name": "WooCommerce Update Cart Customer Data",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://example.com/wp-json/wc/v3/cart/update-customer",
+            "headers": [
+              {
+                "name": "Nonce",
+                "value": ""
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Updates billing and/or shipping address information for the current cart session. Used to recalculate shipping rates and taxes based on the customer's location. Requires the Nonce header."
+        },
+        {
+          "info": {
+            "name": "WooCommerce Select a Shipping Rate for the Cart",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://example.com/wp-json/wc/v3/cart/select-shipping-rate",
+            "headers": [
+              {
+                "name": "Nonce",
+                "value": ""
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Selects a specific shipping rate from those available for the customer's shipping address. Requires the Nonce header."
+        },
+        {
+          "info": {
+            "name": "WooCommerce List Cart Items",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://example.com/wp-json/wc/v3/cart/items"
+          },
+          "docs": "Returns a list of all items currently in the cart session."
+        },
+        {
+          "info": {
+            "name": "WooCommerce Clear All Cart Items",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://example.com/wp-json/wc/v3/cart/items",
+            "headers": [
+              {
+                "name": "Nonce",
+                "value": ""
+              }
+            ]
+          },
+          "docs": "Removes all items from the current cart. Requires the Nonce header."
+        },
+        {
+          "info": {
+            "name": "WooCommerce Get a Cart Item",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://example.com/wp-json/wc/v3/cart/items/:key",
+            "params": [
+              {
+                "name": "key",
+                "value": "",
+                "type": "path",
+                "description": "Unique cart item key."
+              }
+            ]
+          },
+          "docs": "Returns a single cart item by its unique key."
+        },
+        {
+          "info": {
+            "name": "WooCommerce Update a Cart Item by Key",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://example.com/wp-json/wc/v3/cart/items/:key",
+            "headers": [
+              {
+                "name": "Nonce",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "key",
+                "value": "",
+                "type": "path",
+                "description": "Unique cart item key."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Updates the quantity or data of a specific cart item."
+        },
+        {
+          "info": {
+            "name": "WooCommerce Delete a Cart Item by Key",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://example.com/wp-json/wc/v3/cart/items/:key",
+            "headers": [
+              {
+                "name": "Nonce",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "key",
+                "value": "",
+                "type": "path",
+                "description": "Unique cart item key."
+              }
+            ]
+          },
+          "docs": "Removes a single cart item identified by its key."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

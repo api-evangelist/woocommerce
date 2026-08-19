@@ -1,0 +1,2077 @@
+{
+  "item": [
+    {
+      "id": "e1be073b-9c64-469a-b637-e42fcf811950",
+      "name": "Cart",
+      "description": {
+        "content": "Manage the current shopper's cart session including items, coupons, and shipping",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "9a019ae9-2d1c-46df-a8b9-41acf27fd888",
+          "name": "WooCommerce Get the Current Cart",
+          "request": {
+            "name": "WooCommerce Get the Current Cart",
+            "description": {
+              "content": "Returns the current customer's cart contents including items, coupons, fees, totals, and available shipping rates. The response also includes a nonce token in the X-WC-Store-API-Nonce header (and body) required for write operations.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "cart"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "e40d7d60-e362-4972-8b44-f88d90c6cbbd",
+              "name": "Cart contents and totals",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "cart"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"items\": [\n    \"string-value\"\n  ],\n  \"coupons\": [\n    {\n      \"code\": \"string-value\",\n      \"discount_type\": \"standard\",\n      \"totals\": {}\n    }\n  ],\n  \"fees\": [\n    {\n      \"id\": \"500123\",\n      \"name\": \"Example Name\",\n      \"totals\": {}\n    }\n  ],\n  \"totals\": {\n    \"total_items\": \"string-value\",\n    \"total_items_tax\": \"string-value\",\n    \"total_fees\": \"string-value\",\n    \"total_fees_tax\": \"string-value\",\n    \"total_discount\": \"string-value\",\n    \"total_discount_tax\": \"string-value\",\n    \"total_shipping\": \"string-value\",\n    \"total_shipping_tax\": \"string-value\",\n    \"total_price\": \"string-value\",\n    \"total_tax\": \"string-value\",\n    \"tax_lines\": [\n      {\n        \"name\": \"Example Name\",\n        \"price\": \"string-value\",\n        \"rate\": \"string-value\"\n      }\n    ]\n  },\n  \"shipping_rates\": [\n    \"string-value\"\n  ],\n  \"billing_address\": {\n    \"first_name\": \"Example Name\",\n    \"last_name\": \"Example Name\",\n    \"company\": \"string-value\",\n    \"address_1\": \"string-value\",\n    \"address_2\": \"string-value\",\n    \"city\": \"string-value\",\n    \"state\": \"string-value\",\n    \"postcode\": \"string-value\",\n    \"country\": \"string-value\",\n    \"email\": \"user@example.com\",\n    \"phone\": \"string-value\"\n  },\n  \"shipping_address\": {\n    \"first_name\": \"Example Name\",\n    \"last_name\": \"Example Name\",\n    \"company\": \"string-value\",\n    \"address_1\": \"string-value\",\n    \"address_2\": \"string-value\",\n    \"city\": \"string-value\",\n    \"state\": \"string-value\",\n    \"postcode\": \"string-value\",\n    \"country\": \"string-value\",\n    \"email\": \"user@example.com\",\n    \"phone\": \"string-value\"\n  },\n  \"has_calculated_shipping\": true,\n  \"needs_payment\": true,\n  \"needs_shipping\": true,\n  \"items_count\": 1,\n  \"items_weight\": 10.5,\n  \"cross_sells\": [\n    \"string-value\"\n  ],\n  \"errors\": [\n    {\n      \"code\": \"string-value\",\n      \"message\": \"string-value\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "dc183e43-14d3-456a-bb65-941e4510c094",
+          "name": "WooCommerce Add an Item to the Cart",
+          "request": {
+            "name": "WooCommerce Add an Item to the Cart",
+            "description": {
+              "content": "Adds a product or variation to the cart. Requires a product_id, an optional variation_id, and quantity. Custom item data can be passed via the item_data array. Requires the Nonce header from a prior cart GET.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "cart",
+                "add-item"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "disabled": false,
+                "description": "(Required) Store API nonce token obtained from the X-WC-Store-API-Nonce response header of a prior cart GET request. Required for all cart and checkout write operations to prevent CSRF.",
+                "key": "Nonce",
+                "value": "<string>"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"id\": \"<integer>\",\n  \"quantity\": \"<integer>\",\n  \"variation_id\": \"<integer>\",\n  \"variation\": [\n    {\n      \"attribute\": \"<string>\",\n      \"value\": \"<string>\"\n    },\n    {\n      \"attribute\": \"<string>\",\n      \"value\": \"<string>\"\n    }\n  ],\n  \"item_data\": [\n    {\n      \"name\": \"<string>\",\n      \"value\": \"<string>\"\n    },\n    {\n      \"name\": \"<string>\",\n      \"value\": \"<string>\"\n    }\n  ]\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "c28c168f-2822-4d70-b5be-7b54fbc3f6d6",
+              "name": "Updated cart after adding item",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "cart",
+                    "add-item"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) Store API nonce token obtained from the X-WC-Store-API-Nonce response header of a prior cart GET request. Required for all cart and checkout write operations to prevent CSRF.",
+                    "key": "Nonce",
+                    "value": "<string>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"id\": 1,\n  \"quantity\": 1,\n  \"variation_id\": 1,\n  \"variation\": [\n    {\n      \"attribute\": \"string-value\",\n      \"value\": \"string-value\"\n    }\n  ],\n  \"item_data\": [\n    {\n      \"name\": \"Example Name\",\n      \"value\": \"string-value\"\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"items\": [\n    \"string-value\"\n  ],\n  \"coupons\": [\n    {\n      \"code\": \"string-value\",\n      \"discount_type\": \"standard\",\n      \"totals\": {}\n    }\n  ],\n  \"fees\": [\n    {\n      \"id\": \"500123\",\n      \"name\": \"Example Name\",\n      \"totals\": {}\n    }\n  ],\n  \"totals\": {\n    \"total_items\": \"string-value\",\n    \"total_items_tax\": \"string-value\",\n    \"total_fees\": \"string-value\",\n    \"total_fees_tax\": \"string-value\",\n    \"total_discount\": \"string-value\",\n    \"total_discount_tax\": \"string-value\",\n    \"total_shipping\": \"string-value\",\n    \"total_shipping_tax\": \"string-value\",\n    \"total_price\": \"string-value\",\n    \"total_tax\": \"string-value\",\n    \"tax_lines\": [\n      {\n        \"name\": \"Example Name\",\n        \"price\": \"string-value\",\n        \"rate\": \"string-value\"\n      }\n    ]\n  },\n  \"shipping_rates\": [\n    \"string-value\"\n  ],\n  \"billing_address\": {\n    \"first_name\": \"Example Name\",\n    \"last_name\": \"Example Name\",\n    \"company\": \"string-value\",\n    \"address_1\": \"string-value\",\n    \"address_2\": \"string-value\",\n    \"city\": \"string-value\",\n    \"state\": \"string-value\",\n    \"postcode\": \"string-value\",\n    \"country\": \"string-value\",\n    \"email\": \"user@example.com\",\n    \"phone\": \"string-value\"\n  },\n  \"shipping_address\": {\n    \"first_name\": \"Example Name\",\n    \"last_name\": \"Example Name\",\n    \"company\": \"string-value\",\n    \"address_1\": \"string-value\",\n    \"address_2\": \"string-value\",\n    \"city\": \"string-value\",\n    \"state\": \"string-value\",\n    \"postcode\": \"string-value\",\n    \"country\": \"string-value\",\n    \"email\": \"user@example.com\",\n    \"phone\": \"string-value\"\n  },\n  \"has_calculated_shipping\": true,\n  \"needs_payment\": true,\n  \"needs_shipping\": true,\n  \"items_count\": 1,\n  \"items_weight\": 10.5,\n  \"cross_sells\": [\n    \"string-value\"\n  ],\n  \"errors\": [\n    {\n      \"code\": \"string-value\",\n      \"message\": \"string-value\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "ae906907-52c4-4e27-ac79-5832d1a530d1",
+              "name": "The request contains invalid or missing parameters.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "cart",
+                    "add-item"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) Store API nonce token obtained from the X-WC-Store-API-Nonce response header of a prior cart GET request. Required for all cart and checkout write operations to prevent CSRF.",
+                    "key": "Nonce",
+                    "value": "<string>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"id\": 1,\n  \"quantity\": 1,\n  \"variation_id\": 1,\n  \"variation\": [\n    {\n      \"attribute\": \"string-value\",\n      \"value\": \"string-value\"\n    }\n  ],\n  \"item_data\": [\n    {\n      \"name\": \"Example Name\",\n      \"value\": \"string-value\"\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": \"string-value\",\n  \"message\": \"string-value\",\n  \"data\": {\n    \"status\": 1\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "b377041b-8b26-4af2-8022-af504fb1cd78",
+          "name": "WooCommerce Remove an Item from the Cart",
+          "request": {
+            "name": "WooCommerce Remove an Item from the Cart",
+            "description": {
+              "content": "Removes a cart item identified by its unique cart item key. Requires the Nonce header.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "cart",
+                "remove-item"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "disabled": false,
+                "description": "(Required) Store API nonce token obtained from the X-WC-Store-API-Nonce response header of a prior cart GET request. Required for all cart and checkout write operations to prevent CSRF.",
+                "key": "Nonce",
+                "value": "<string>"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"key\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "034f2087-d263-449a-8066-309e49dde4c8",
+              "name": "Updated cart after removing item",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "cart",
+                    "remove-item"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) Store API nonce token obtained from the X-WC-Store-API-Nonce response header of a prior cart GET request. Required for all cart and checkout write operations to prevent CSRF.",
+                    "key": "Nonce",
+                    "value": "<string>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"key\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"items\": [\n    \"string-value\"\n  ],\n  \"coupons\": [\n    {\n      \"code\": \"string-value\",\n      \"discount_type\": \"standard\",\n      \"totals\": {}\n    }\n  ],\n  \"fees\": [\n    {\n      \"id\": \"500123\",\n      \"name\": \"Example Name\",\n      \"totals\": {}\n    }\n  ],\n  \"totals\": {\n    \"total_items\": \"string-value\",\n    \"total_items_tax\": \"string-value\",\n    \"total_fees\": \"string-value\",\n    \"total_fees_tax\": \"string-value\",\n    \"total_discount\": \"string-value\",\n    \"total_discount_tax\": \"string-value\",\n    \"total_shipping\": \"string-value\",\n    \"total_shipping_tax\": \"string-value\",\n    \"total_price\": \"string-value\",\n    \"total_tax\": \"string-value\",\n    \"tax_lines\": [\n      {\n        \"name\": \"Example Name\",\n        \"price\": \"string-value\",\n        \"rate\": \"string-value\"\n      }\n    ]\n  },\n  \"shipping_rates\": [\n    \"string-value\"\n  ],\n  \"billing_address\": {\n    \"first_name\": \"Example Name\",\n    \"last_name\": \"Example Name\",\n    \"company\": \"string-value\",\n    \"address_1\": \"string-value\",\n    \"address_2\": \"string-value\",\n    \"city\": \"string-value\",\n    \"state\": \"string-value\",\n    \"postcode\": \"string-value\",\n    \"country\": \"string-value\",\n    \"email\": \"user@example.com\",\n    \"phone\": \"string-value\"\n  },\n  \"shipping_address\": {\n    \"first_name\": \"Example Name\",\n    \"last_name\": \"Example Name\",\n    \"company\": \"string-value\",\n    \"address_1\": \"string-value\",\n    \"address_2\": \"string-value\",\n    \"city\": \"string-value\",\n    \"state\": \"string-value\",\n    \"postcode\": \"string-value\",\n    \"country\": \"string-value\",\n    \"email\": \"user@example.com\",\n    \"phone\": \"string-value\"\n  },\n  \"has_calculated_shipping\": true,\n  \"needs_payment\": true,\n  \"needs_shipping\": true,\n  \"items_count\": 1,\n  \"items_weight\": 10.5,\n  \"cross_sells\": [\n    \"string-value\"\n  ],\n  \"errors\": [\n    {\n      \"code\": \"string-value\",\n      \"message\": \"string-value\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "8c813fb8-6d18-4c3e-a35a-e2080bc5178c",
+              "name": "The request contains invalid or missing parameters.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "cart",
+                    "remove-item"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) Store API nonce token obtained from the X-WC-Store-API-Nonce response header of a prior cart GET request. Required for all cart and checkout write operations to prevent CSRF.",
+                    "key": "Nonce",
+                    "value": "<string>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"key\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": \"string-value\",\n  \"message\": \"string-value\",\n  \"data\": {\n    \"status\": 1\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "7b300fb9-4b91-4a89-b93d-63f5c1ed01ea",
+          "name": "WooCommerce Update a Cart Item Quantity",
+          "request": {
+            "name": "WooCommerce Update a Cart Item Quantity",
+            "description": {
+              "content": "Updates the quantity of a cart item identified by its key. Set quantity to 0 to remove the item. Requires the Nonce header.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "cart",
+                "update-item"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "disabled": false,
+                "description": "(Required) Store API nonce token obtained from the X-WC-Store-API-Nonce response header of a prior cart GET request. Required for all cart and checkout write operations to prevent CSRF.",
+                "key": "Nonce",
+                "value": "<string>"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"key\": \"<string>\",\n  \"quantity\": \"<integer>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "92a5cb66-464a-48bf-8958-718c2bc3940b",
+              "name": "Updated cart",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "cart",
+                    "update-item"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) Store API nonce token obtained from the X-WC-Store-API-Nonce response header of a prior cart GET request. Required for all cart and checkout write operations to prevent CSRF.",
+                    "key": "Nonce",
+                    "value": "<string>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"key\": \"<string>\",\n  \"quantity\": \"<integer>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"items\": [\n    \"string-value\"\n  ],\n  \"coupons\": [\n    {\n      \"code\": \"string-value\",\n      \"discount_type\": \"standard\",\n      \"totals\": {}\n    }\n  ],\n  \"fees\": [\n    {\n      \"id\": \"500123\",\n      \"name\": \"Example Name\",\n      \"totals\": {}\n    }\n  ],\n  \"totals\": {\n    \"total_items\": \"string-value\",\n    \"total_items_tax\": \"string-value\",\n    \"total_fees\": \"string-value\",\n    \"total_fees_tax\": \"string-value\",\n    \"total_discount\": \"string-value\",\n    \"total_discount_tax\": \"string-value\",\n    \"total_shipping\": \"string-value\",\n    \"total_shipping_tax\": \"string-value\",\n    \"total_price\": \"string-value\",\n    \"total_tax\": \"string-value\",\n    \"tax_lines\": [\n      {\n        \"name\": \"Example Name\",\n        \"price\": \"string-value\",\n        \"rate\": \"string-value\"\n      }\n    ]\n  },\n  \"shipping_rates\": [\n    \"string-value\"\n  ],\n  \"billing_address\": {\n    \"first_name\": \"Example Name\",\n    \"last_name\": \"Example Name\",\n    \"company\": \"string-value\",\n    \"address_1\": \"string-value\",\n    \"address_2\": \"string-value\",\n    \"city\": \"string-value\",\n    \"state\": \"string-value\",\n    \"postcode\": \"string-value\",\n    \"country\": \"string-value\",\n    \"email\": \"user@example.com\",\n    \"phone\": \"string-value\"\n  },\n  \"shipping_address\": {\n    \"first_name\": \"Example Name\",\n    \"last_name\": \"Example Name\",\n    \"company\": \"string-value\",\n    \"address_1\": \"string-value\",\n    \"address_2\": \"string-value\",\n    \"city\": \"string-value\",\n    \"state\": \"string-value\",\n    \"postcode\": \"string-value\",\n    \"country\": \"string-value\",\n    \"email\": \"user@example.com\",\n    \"phone\": \"string-value\"\n  },\n  \"has_calculated_shipping\": true,\n  \"needs_payment\": true,\n  \"needs_shipping\": true,\n  \"items_count\": 1,\n  \"items_weight\": 10.5,\n  \"cross_sells\": [\n    \"string-value\"\n  ],\n  \"errors\": [\n    {\n      \"code\": \"string-value\",\n      \"message\": \"string-value\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "7e1b25a1-839a-4764-8a16-d57baea1f2f7",
+              "name": "The request contains invalid or missing parameters.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "cart",
+                    "update-item"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) Store API nonce token obtained from the X-WC-Store-API-Nonce response header of a prior cart GET request. Required for all cart and checkout write operations to prevent CSRF.",
+                    "key": "Nonce",
+                    "value": "<string>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"key\": \"<string>\",\n  \"quantity\": \"<integer>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": \"string-value\",\n  \"message\": \"string-value\",\n  \"data\": {\n    \"status\": 1\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "250173bf-d900-4527-8077-f73f81392027",
+          "name": "WooCommerce Apply a Coupon to the Cart",
+          "request": {
+            "name": "WooCommerce Apply a Coupon to the Cart",
+            "description": {
+              "content": "Applies a coupon code to the current cart session. Returns an error if the coupon is invalid, expired, or does not meet usage conditions. Requires the Nonce header.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "cart",
+                "apply-coupon"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "disabled": false,
+                "description": "(Required) Store API nonce token obtained from the X-WC-Store-API-Nonce response header of a prior cart GET request. Required for all cart and checkout write operations to prevent CSRF.",
+                "key": "Nonce",
+                "value": "<string>"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"code\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "c3a6143d-8658-4b2c-8669-c1acd982ce59",
+              "name": "Updated cart with coupon applied",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "cart",
+                    "apply-coupon"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) Store API nonce token obtained from the X-WC-Store-API-Nonce response header of a prior cart GET request. Required for all cart and checkout write operations to prevent CSRF.",
+                    "key": "Nonce",
+                    "value": "<string>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"code\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"items\": [\n    \"string-value\"\n  ],\n  \"coupons\": [\n    {\n      \"code\": \"string-value\",\n      \"discount_type\": \"standard\",\n      \"totals\": {}\n    }\n  ],\n  \"fees\": [\n    {\n      \"id\": \"500123\",\n      \"name\": \"Example Name\",\n      \"totals\": {}\n    }\n  ],\n  \"totals\": {\n    \"total_items\": \"string-value\",\n    \"total_items_tax\": \"string-value\",\n    \"total_fees\": \"string-value\",\n    \"total_fees_tax\": \"string-value\",\n    \"total_discount\": \"string-value\",\n    \"total_discount_tax\": \"string-value\",\n    \"total_shipping\": \"string-value\",\n    \"total_shipping_tax\": \"string-value\",\n    \"total_price\": \"string-value\",\n    \"total_tax\": \"string-value\",\n    \"tax_lines\": [\n      {\n        \"name\": \"Example Name\",\n        \"price\": \"string-value\",\n        \"rate\": \"string-value\"\n      }\n    ]\n  },\n  \"shipping_rates\": [\n    \"string-value\"\n  ],\n  \"billing_address\": {\n    \"first_name\": \"Example Name\",\n    \"last_name\": \"Example Name\",\n    \"company\": \"string-value\",\n    \"address_1\": \"string-value\",\n    \"address_2\": \"string-value\",\n    \"city\": \"string-value\",\n    \"state\": \"string-value\",\n    \"postcode\": \"string-value\",\n    \"country\": \"string-value\",\n    \"email\": \"user@example.com\",\n    \"phone\": \"string-value\"\n  },\n  \"shipping_address\": {\n    \"first_name\": \"Example Name\",\n    \"last_name\": \"Example Name\",\n    \"company\": \"string-value\",\n    \"address_1\": \"string-value\",\n    \"address_2\": \"string-value\",\n    \"city\": \"string-value\",\n    \"state\": \"string-value\",\n    \"postcode\": \"string-value\",\n    \"country\": \"string-value\",\n    \"email\": \"user@example.com\",\n    \"phone\": \"string-value\"\n  },\n  \"has_calculated_shipping\": true,\n  \"needs_payment\": true,\n  \"needs_shipping\": true,\n  \"items_count\": 1,\n  \"items_weight\": 10.5,\n  \"cross_sells\": [\n    \"string-value\"\n  ],\n  \"errors\": [\n    {\n      \"code\": \"string-value\",\n      \"message\": \"string-value\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "03acba77-f507-44a7-bd28-cb1f12f4ac28",
+              "name": "The request contains invalid or missing parameters.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "cart",
+                    "apply-coupon"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) Store API nonce token obtained from the X-WC-Store-API-Nonce response header of a prior cart GET request. Required for all cart and checkout write operations to prevent CSRF.",
+                    "key": "Nonce",
+                    "value": "<string>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"code\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": \"string-value\",\n  \"message\": \"string-value\",\n  \"data\": {\n    \"status\": 1\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "1e494bbd-88f4-4e0b-b838-c75624c5e24e",
+          "name": "WooCommerce Remove a Coupon from the Cart",
+          "request": {
+            "name": "WooCommerce Remove a Coupon from the Cart",
+            "description": {
+              "content": "Removes a previously applied coupon code from the cart. Requires the Nonce header.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "cart",
+                "remove-coupon"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "disabled": false,
+                "description": "(Required) Store API nonce token obtained from the X-WC-Store-API-Nonce response header of a prior cart GET request. Required for all cart and checkout write operations to prevent CSRF.",
+                "key": "Nonce",
+                "value": "<string>"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"code\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "c271de94-f2af-4250-b6fb-09949a52fca6",
+              "name": "Updated cart with coupon removed",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "cart",
+                    "remove-coupon"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) Store API nonce token obtained from the X-WC-Store-API-Nonce response header of a prior cart GET request. Required for all cart and checkout write operations to prevent CSRF.",
+                    "key": "Nonce",
+                    "value": "<string>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"code\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"items\": [\n    \"string-value\"\n  ],\n  \"coupons\": [\n    {\n      \"code\": \"string-value\",\n      \"discount_type\": \"standard\",\n      \"totals\": {}\n    }\n  ],\n  \"fees\": [\n    {\n      \"id\": \"500123\",\n      \"name\": \"Example Name\",\n      \"totals\": {}\n    }\n  ],\n  \"totals\": {\n    \"total_items\": \"string-value\",\n    \"total_items_tax\": \"string-value\",\n    \"total_fees\": \"string-value\",\n    \"total_fees_tax\": \"string-value\",\n    \"total_discount\": \"string-value\",\n    \"total_discount_tax\": \"string-value\",\n    \"total_shipping\": \"string-value\",\n    \"total_shipping_tax\": \"string-value\",\n    \"total_price\": \"string-value\",\n    \"total_tax\": \"string-value\",\n    \"tax_lines\": [\n      {\n        \"name\": \"Example Name\",\n        \"price\": \"string-value\",\n        \"rate\": \"string-value\"\n      }\n    ]\n  },\n  \"shipping_rates\": [\n    \"string-value\"\n  ],\n  \"billing_address\": {\n    \"first_name\": \"Example Name\",\n    \"last_name\": \"Example Name\",\n    \"company\": \"string-value\",\n    \"address_1\": \"string-value\",\n    \"address_2\": \"string-value\",\n    \"city\": \"string-value\",\n    \"state\": \"string-value\",\n    \"postcode\": \"string-value\",\n    \"country\": \"string-value\",\n    \"email\": \"user@example.com\",\n    \"phone\": \"string-value\"\n  },\n  \"shipping_address\": {\n    \"first_name\": \"Example Name\",\n    \"last_name\": \"Example Name\",\n    \"company\": \"string-value\",\n    \"address_1\": \"string-value\",\n    \"address_2\": \"string-value\",\n    \"city\": \"string-value\",\n    \"state\": \"string-value\",\n    \"postcode\": \"string-value\",\n    \"country\": \"string-value\",\n    \"email\": \"user@example.com\",\n    \"phone\": \"string-value\"\n  },\n  \"has_calculated_shipping\": true,\n  \"needs_payment\": true,\n  \"needs_shipping\": true,\n  \"items_count\": 1,\n  \"items_weight\": 10.5,\n  \"cross_sells\": [\n    \"string-value\"\n  ],\n  \"errors\": [\n    {\n      \"code\": \"string-value\",\n      \"message\": \"string-value\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "ae6e54ed-8ced-4ca5-a43c-01c138741dc2",
+              "name": "The request contains invalid or missing parameters.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "cart",
+                    "remove-coupon"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) Store API nonce token obtained from the X-WC-Store-API-Nonce response header of a prior cart GET request. Required for all cart and checkout write operations to prevent CSRF.",
+                    "key": "Nonce",
+                    "value": "<string>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"code\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": \"string-value\",\n  \"message\": \"string-value\",\n  \"data\": {\n    \"status\": 1\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "876661c2-94a1-41af-8733-93410d29a6d6",
+          "name": "WooCommerce Update Cart Customer Data",
+          "request": {
+            "name": "WooCommerce Update Cart Customer Data",
+            "description": {
+              "content": "Updates billing and/or shipping address information for the current cart session. Used to recalculate shipping rates and taxes based on the customer's location. Requires the Nonce header.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "cart",
+                "update-customer"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "disabled": false,
+                "description": "(Required) Store API nonce token obtained from the X-WC-Store-API-Nonce response header of a prior cart GET request. Required for all cart and checkout write operations to prevent CSRF.",
+                "key": "Nonce",
+                "value": "<string>"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"billing_address\": {\n    \"first_name\": \"<string>\",\n    \"last_name\": \"<string>\",\n    \"company\": \"<string>\",\n    \"address_1\": \"<string>\",\n    \"address_2\": \"<string>\",\n    \"city\": \"<string>\",\n    \"state\": \"<string>\",\n    \"postcode\": \"<string>\",\n    \"country\": \"<string>\",\n    \"email\": \"<email>\",\n    \"phone\": \"<string>\"\n  },\n  \"shipping_address\": {\n    \"first_name\": \"<string>\",\n    \"last_name\": \"<string>\",\n    \"company\": \"<string>\",\n    \"address_1\": \"<string>\",\n    \"address_2\": \"<string>\",\n    \"city\": \"<string>\",\n    \"state\": \"<string>\",\n    \"postcode\": \"<string>\",\n    \"country\": \"<string>\",\n    \"email\": \"<email>\",\n    \"phone\": \"<string>\"\n  }\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "8ddee089-8710-471b-ac68-99fdbf26b26c",
+              "name": "Updated cart with recalculated rates",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "cart",
+                    "update-customer"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) Store API nonce token obtained from the X-WC-Store-API-Nonce response header of a prior cart GET request. Required for all cart and checkout write operations to prevent CSRF.",
+                    "key": "Nonce",
+                    "value": "<string>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"billing_address\": {\n    \"first_name\": \"Example Name\",\n    \"last_name\": \"Example Name\",\n    \"company\": \"string-value\",\n    \"address_1\": \"string-value\",\n    \"address_2\": \"string-value\",\n    \"city\": \"string-value\",\n    \"state\": \"string-value\",\n    \"postcode\": \"string-value\",\n    \"country\": \"string-value\",\n    \"email\": \"user@example.com\",\n    \"phone\": \"string-value\"\n  },\n  \"shipping_address\": {\n    \"first_name\": \"Example Name\",\n    \"last_name\": \"Example Name\",\n    \"company\": \"string-value\",\n    \"address_1\": \"string-value\",\n    \"address_2\": \"string-value\",\n    \"city\": \"string-value\",\n    \"state\": \"string-value\",\n    \"postcode\": \"string-value\",\n    \"country\": \"string-value\",\n    \"email\": \"user@example.com\",\n    \"phone\": \"string-value\"\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"items\": [\n    \"string-value\"\n  ],\n  \"coupons\": [\n    {\n      \"code\": \"string-value\",\n      \"discount_type\": \"standard\",\n      \"totals\": {}\n    }\n  ],\n  \"fees\": [\n    {\n      \"id\": \"500123\",\n      \"name\": \"Example Name\",\n      \"totals\": {}\n    }\n  ],\n  \"totals\": {\n    \"total_items\": \"string-value\",\n    \"total_items_tax\": \"string-value\",\n    \"total_fees\": \"string-value\",\n    \"total_fees_tax\": \"string-value\",\n    \"total_discount\": \"string-value\",\n    \"total_discount_tax\": \"string-value\",\n    \"total_shipping\": \"string-value\",\n    \"total_shipping_tax\": \"string-value\",\n    \"total_price\": \"string-value\",\n    \"total_tax\": \"string-value\",\n    \"tax_lines\": [\n      {\n        \"name\": \"Example Name\",\n        \"price\": \"string-value\",\n        \"rate\": \"string-value\"\n      }\n    ]\n  },\n  \"shipping_rates\": [\n    \"string-value\"\n  ],\n  \"billing_address\": {\n    \"first_name\": \"Example Name\",\n    \"last_name\": \"Example Name\",\n    \"company\": \"string-value\",\n    \"address_1\": \"string-value\",\n    \"address_2\": \"string-value\",\n    \"city\": \"string-value\",\n    \"state\": \"string-value\",\n    \"postcode\": \"string-value\",\n    \"country\": \"string-value\",\n    \"email\": \"user@example.com\",\n    \"phone\": \"string-value\"\n  },\n  \"shipping_address\": {\n    \"first_name\": \"Example Name\",\n    \"last_name\": \"Example Name\",\n    \"company\": \"string-value\",\n    \"address_1\": \"string-value\",\n    \"address_2\": \"string-value\",\n    \"city\": \"string-value\",\n    \"state\": \"string-value\",\n    \"postcode\": \"string-value\",\n    \"country\": \"string-value\",\n    \"email\": \"user@example.com\",\n    \"phone\": \"string-value\"\n  },\n  \"has_calculated_shipping\": true,\n  \"needs_payment\": true,\n  \"needs_shipping\": true,\n  \"items_count\": 1,\n  \"items_weight\": 10.5,\n  \"cross_sells\": [\n    \"string-value\"\n  ],\n  \"errors\": [\n    {\n      \"code\": \"string-value\",\n      \"message\": \"string-value\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "f5d77d4e-391f-4d69-be3e-d1ee0776459e",
+              "name": "The request contains invalid or missing parameters.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "cart",
+                    "update-customer"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) Store API nonce token obtained from the X-WC-Store-API-Nonce response header of a prior cart GET request. Required for all cart and checkout write operations to prevent CSRF.",
+                    "key": "Nonce",
+                    "value": "<string>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"billing_address\": {\n    \"first_name\": \"Example Name\",\n    \"last_name\": \"Example Name\",\n    \"company\": \"string-value\",\n    \"address_1\": \"string-value\",\n    \"address_2\": \"string-value\",\n    \"city\": \"string-value\",\n    \"state\": \"string-value\",\n    \"postcode\": \"string-value\",\n    \"country\": \"string-value\",\n    \"email\": \"user@example.com\",\n    \"phone\": \"string-value\"\n  },\n  \"shipping_address\": {\n    \"first_name\": \"Example Name\",\n    \"last_name\": \"Example Name\",\n    \"company\": \"string-value\",\n    \"address_1\": \"string-value\",\n    \"address_2\": \"string-value\",\n    \"city\": \"string-value\",\n    \"state\": \"string-value\",\n    \"postcode\": \"string-value\",\n    \"country\": \"string-value\",\n    \"email\": \"user@example.com\",\n    \"phone\": \"string-value\"\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": \"string-value\",\n  \"message\": \"string-value\",\n  \"data\": {\n    \"status\": 1\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "1c587f9c-3b26-4fdc-86a6-316de08b38ea",
+          "name": "WooCommerce Select a Shipping Rate for the Cart",
+          "request": {
+            "name": "WooCommerce Select a Shipping Rate for the Cart",
+            "description": {
+              "content": "Selects a specific shipping rate from those available for the customer's shipping address. Requires the Nonce header.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "cart",
+                "select-shipping-rate"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "disabled": false,
+                "description": "(Required) Store API nonce token obtained from the X-WC-Store-API-Nonce response header of a prior cart GET request. Required for all cart and checkout write operations to prevent CSRF.",
+                "key": "Nonce",
+                "value": "<string>"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"package_id\": \"<integer>\",\n  \"rate_id\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "b8858ab9-238a-450f-80cb-abef2a7b80cb",
+              "name": "Updated cart with selected shipping rate",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "cart",
+                    "select-shipping-rate"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) Store API nonce token obtained from the X-WC-Store-API-Nonce response header of a prior cart GET request. Required for all cart and checkout write operations to prevent CSRF.",
+                    "key": "Nonce",
+                    "value": "<string>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"package_id\": \"<integer>\",\n  \"rate_id\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"items\": [\n    \"string-value\"\n  ],\n  \"coupons\": [\n    {\n      \"code\": \"string-value\",\n      \"discount_type\": \"standard\",\n      \"totals\": {}\n    }\n  ],\n  \"fees\": [\n    {\n      \"id\": \"500123\",\n      \"name\": \"Example Name\",\n      \"totals\": {}\n    }\n  ],\n  \"totals\": {\n    \"total_items\": \"string-value\",\n    \"total_items_tax\": \"string-value\",\n    \"total_fees\": \"string-value\",\n    \"total_fees_tax\": \"string-value\",\n    \"total_discount\": \"string-value\",\n    \"total_discount_tax\": \"string-value\",\n    \"total_shipping\": \"string-value\",\n    \"total_shipping_tax\": \"string-value\",\n    \"total_price\": \"string-value\",\n    \"total_tax\": \"string-value\",\n    \"tax_lines\": [\n      {\n        \"name\": \"Example Name\",\n        \"price\": \"string-value\",\n        \"rate\": \"string-value\"\n      }\n    ]\n  },\n  \"shipping_rates\": [\n    \"string-value\"\n  ],\n  \"billing_address\": {\n    \"first_name\": \"Example Name\",\n    \"last_name\": \"Example Name\",\n    \"company\": \"string-value\",\n    \"address_1\": \"string-value\",\n    \"address_2\": \"string-value\",\n    \"city\": \"string-value\",\n    \"state\": \"string-value\",\n    \"postcode\": \"string-value\",\n    \"country\": \"string-value\",\n    \"email\": \"user@example.com\",\n    \"phone\": \"string-value\"\n  },\n  \"shipping_address\": {\n    \"first_name\": \"Example Name\",\n    \"last_name\": \"Example Name\",\n    \"company\": \"string-value\",\n    \"address_1\": \"string-value\",\n    \"address_2\": \"string-value\",\n    \"city\": \"string-value\",\n    \"state\": \"string-value\",\n    \"postcode\": \"string-value\",\n    \"country\": \"string-value\",\n    \"email\": \"user@example.com\",\n    \"phone\": \"string-value\"\n  },\n  \"has_calculated_shipping\": true,\n  \"needs_payment\": true,\n  \"needs_shipping\": true,\n  \"items_count\": 1,\n  \"items_weight\": 10.5,\n  \"cross_sells\": [\n    \"string-value\"\n  ],\n  \"errors\": [\n    {\n      \"code\": \"string-value\",\n      \"message\": \"string-value\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "8934a314-4a32-491a-b49c-c06ee10e0e32",
+              "name": "The request contains invalid or missing parameters.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "cart",
+                    "select-shipping-rate"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) Store API nonce token obtained from the X-WC-Store-API-Nonce response header of a prior cart GET request. Required for all cart and checkout write operations to prevent CSRF.",
+                    "key": "Nonce",
+                    "value": "<string>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"package_id\": \"<integer>\",\n  \"rate_id\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": \"string-value\",\n  \"message\": \"string-value\",\n  \"data\": {\n    \"status\": 1\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "be4f2f69-c9ae-4ac4-bd46-2bd629bf964d",
+          "name": "WooCommerce List Cart Items",
+          "request": {
+            "name": "WooCommerce List Cart Items",
+            "description": {
+              "content": "Returns a list of all items currently in the cart session.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "cart",
+                "items"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "765e33b1-46fd-4a82-b785-e4b0577890dd",
+              "name": "List of cart items",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "cart",
+                    "items"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "[\n  {\n    \"key\": \"string-value\",\n    \"id\": 1,\n    \"quantity\": 1,\n    \"variation_id\": 1,\n    \"item_data\": [\n      {\n        \"name\": \"Example Name\",\n        \"value\": \"string-value\",\n        \"display\": \"string-value\"\n      }\n    ],\n    \"prices\": {\n      \"price\": {},\n      \"regular_price\": {},\n      \"sale_price\": {},\n      \"price_range\": {},\n      \"currency_code\": {},\n      \"currency_symbol\": {},\n      \"currency_decimal_separator\": {},\n      \"currency_thousand_separator\": {},\n      \"currency_prefix\": {},\n      \"currency_suffix\": {}\n    },\n    \"name\": \"Example Name\",\n    \"short_description\": \"A sample description\",\n    \"images\": [\n      \"string-value\"\n    ],\n    \"low_stock_remaining\": 1,\n    \"sold_individually\": true\n  }\n]",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "d271aff5-7cf9-494c-bcb1-877dc5189efd",
+          "name": "WooCommerce Clear All Cart Items",
+          "request": {
+            "name": "WooCommerce Clear All Cart Items",
+            "description": {
+              "content": "Removes all items from the current cart. Requires the Nonce header.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "cart",
+                "items"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "disabled": false,
+                "description": "(Required) Store API nonce token obtained from the X-WC-Store-API-Nonce response header of a prior cart GET request. Required for all cart and checkout write operations to prevent CSRF.",
+                "key": "Nonce",
+                "value": "<string>"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "DELETE",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "2dbeae36-0d0d-450f-953a-7befe2a56e18",
+              "name": "Empty cart after clearing",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "cart",
+                    "items"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) Store API nonce token obtained from the X-WC-Store-API-Nonce response header of a prior cart GET request. Required for all cart and checkout write operations to prevent CSRF.",
+                    "key": "Nonce",
+                    "value": "<string>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "[\n  {\n    \"key\": \"string-value\",\n    \"id\": 1,\n    \"quantity\": 1,\n    \"variation_id\": 1,\n    \"item_data\": [\n      {\n        \"name\": \"Example Name\",\n        \"value\": \"string-value\",\n        \"display\": \"string-value\"\n      }\n    ],\n    \"prices\": {\n      \"price\": {},\n      \"regular_price\": {},\n      \"sale_price\": {},\n      \"price_range\": {},\n      \"currency_code\": {},\n      \"currency_symbol\": {},\n      \"currency_decimal_separator\": {},\n      \"currency_thousand_separator\": {},\n      \"currency_prefix\": {},\n      \"currency_suffix\": {}\n    },\n    \"name\": \"Example Name\",\n    \"short_description\": \"A sample description\",\n    \"images\": [\n      \"string-value\"\n    ],\n    \"low_stock_remaining\": 1,\n    \"sold_individually\": true\n  }\n]",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "b9951f55-aa40-4385-9edb-5467ab933c0e",
+          "name": "WooCommerce Get a Cart Item",
+          "request": {
+            "name": "WooCommerce Get a Cart Item",
+            "description": {
+              "content": "Returns a single cart item by its unique key.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "cart",
+                "items",
+                ":key"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "key",
+                  "description": "(Required) Unique cart item key."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "d36c9e8b-3d50-462a-95fa-8742585a7f13",
+              "name": "Cart item details",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "cart",
+                    "items",
+                    ":key"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "key",
+                      "description": "(Required) Unique cart item key."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"key\": \"string-value\",\n  \"id\": 1,\n  \"quantity\": 1,\n  \"variation_id\": 1,\n  \"item_data\": [\n    {\n      \"name\": \"Example Name\",\n      \"value\": \"string-value\",\n      \"display\": \"string-value\"\n    }\n  ],\n  \"prices\": {\n    \"price\": \"string-value\",\n    \"regular_price\": \"string-value\",\n    \"sale_price\": \"string-value\",\n    \"price_range\": {\n      \"min_amount\": \"string-value\",\n      \"max_amount\": \"string-value\"\n    },\n    \"currency_code\": \"string-value\",\n    \"currency_symbol\": \"string-value\",\n    \"currency_decimal_separator\": \"string-value\",\n    \"currency_thousand_separator\": \"string-value\",\n    \"currency_prefix\": \"string-value\",\n    \"currency_suffix\": \"string-value\"\n  },\n  \"name\": \"Example Name\",\n  \"short_description\": \"A sample description\",\n  \"images\": [\n    \"string-value\"\n  ],\n  \"low_stock_remaining\": 1,\n  \"sold_individually\": true\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "f692f92b-d159-470d-97b0-3e311f12a146",
+              "name": "The requested resource was not found.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "cart",
+                    "items",
+                    ":key"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "key",
+                      "description": "(Required) Unique cart item key."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": \"string-value\",\n  \"message\": \"string-value\",\n  \"data\": {\n    \"status\": 1\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "24afbe11-2e58-445b-9d66-bdf2e2c875f0",
+          "name": "WooCommerce Update a Cart Item by Key",
+          "request": {
+            "name": "WooCommerce Update a Cart Item by Key",
+            "description": {
+              "content": "Updates the quantity or data of a specific cart item.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "cart",
+                "items",
+                ":key"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "key",
+                  "description": "(Required) Unique cart item key."
+                }
+              ]
+            },
+            "header": [
+              {
+                "disabled": false,
+                "description": "(Required) Store API nonce token obtained from the X-WC-Store-API-Nonce response header of a prior cart GET request. Required for all cart and checkout write operations to prevent CSRF.",
+                "key": "Nonce",
+                "value": "<string>"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "PUT",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"quantity\": \"<integer>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "42bce8bf-5b23-4196-acec-1e6f5b9f3402",
+              "name": "Updated cart item",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "cart",
+                    "items",
+                    ":key"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "key",
+                      "description": "(Required) Unique cart item key."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) Store API nonce token obtained from the X-WC-Store-API-Nonce response header of a prior cart GET request. Required for all cart and checkout write operations to prevent CSRF.",
+                    "key": "Nonce",
+                    "value": "<string>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"quantity\": \"<integer>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"key\": \"string-value\",\n  \"id\": 1,\n  \"quantity\": 1,\n  \"variation_id\": 1,\n  \"item_data\": [\n    {\n      \"name\": \"Example Name\",\n      \"value\": \"string-value\",\n      \"display\": \"string-value\"\n    }\n  ],\n  \"prices\": {\n    \"price\": \"string-value\",\n    \"regular_price\": \"string-value\",\n    \"sale_price\": \"string-value\",\n    \"price_range\": {\n      \"min_amount\": \"string-value\",\n      \"max_amount\": \"string-value\"\n    },\n    \"currency_code\": \"string-value\",\n    \"currency_symbol\": \"string-value\",\n    \"currency_decimal_separator\": \"string-value\",\n    \"currency_thousand_separator\": \"string-value\",\n    \"currency_prefix\": \"string-value\",\n    \"currency_suffix\": \"string-value\"\n  },\n  \"name\": \"Example Name\",\n  \"short_description\": \"A sample description\",\n  \"images\": [\n    \"string-value\"\n  ],\n  \"low_stock_remaining\": 1,\n  \"sold_individually\": true\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "bb1676bd-68fc-42fe-bf55-e2a4cef295c5",
+              "name": "The request contains invalid or missing parameters.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "cart",
+                    "items",
+                    ":key"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "key",
+                      "description": "(Required) Unique cart item key."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) Store API nonce token obtained from the X-WC-Store-API-Nonce response header of a prior cart GET request. Required for all cart and checkout write operations to prevent CSRF.",
+                    "key": "Nonce",
+                    "value": "<string>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"quantity\": \"<integer>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": \"string-value\",\n  \"message\": \"string-value\",\n  \"data\": {\n    \"status\": 1\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "0cfaa2a8-0577-42e0-ae2e-8fed1348274b",
+              "name": "The requested resource was not found.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "cart",
+                    "items",
+                    ":key"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "key",
+                      "description": "(Required) Unique cart item key."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) Store API nonce token obtained from the X-WC-Store-API-Nonce response header of a prior cart GET request. Required for all cart and checkout write operations to prevent CSRF.",
+                    "key": "Nonce",
+                    "value": "<string>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"quantity\": \"<integer>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": \"string-value\",\n  \"message\": \"string-value\",\n  \"data\": {\n    \"status\": 1\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "6ec6243e-4dba-4f4b-8f29-3db900671031",
+          "name": "WooCommerce Delete a Cart Item by Key",
+          "request": {
+            "name": "WooCommerce Delete a Cart Item by Key",
+            "description": {
+              "content": "Removes a single cart item identified by its key.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "cart",
+                "items",
+                ":key"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "key",
+                  "description": "(Required) Unique cart item key."
+                }
+              ]
+            },
+            "header": [
+              {
+                "disabled": false,
+                "description": "(Required) Store API nonce token obtained from the X-WC-Store-API-Nonce response header of a prior cart GET request. Required for all cart and checkout write operations to prevent CSRF.",
+                "key": "Nonce",
+                "value": "<string>"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "DELETE",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "b94addd1-4de9-4bb4-ac65-1605535f021d",
+              "name": "Cart item deleted",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "cart",
+                    "items",
+                    ":key"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "key",
+                      "description": "(Required) Unique cart item key."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) Store API nonce token obtained from the X-WC-Store-API-Nonce response header of a prior cart GET request. Required for all cart and checkout write operations to prevent CSRF.",
+                    "key": "Nonce",
+                    "value": "<string>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"key\": \"string-value\",\n  \"id\": 1,\n  \"quantity\": 1,\n  \"variation_id\": 1,\n  \"item_data\": [\n    {\n      \"name\": \"Example Name\",\n      \"value\": \"string-value\",\n      \"display\": \"string-value\"\n    }\n  ],\n  \"prices\": {\n    \"price\": \"string-value\",\n    \"regular_price\": \"string-value\",\n    \"sale_price\": \"string-value\",\n    \"price_range\": {\n      \"min_amount\": \"string-value\",\n      \"max_amount\": \"string-value\"\n    },\n    \"currency_code\": \"string-value\",\n    \"currency_symbol\": \"string-value\",\n    \"currency_decimal_separator\": \"string-value\",\n    \"currency_thousand_separator\": \"string-value\",\n    \"currency_prefix\": \"string-value\",\n    \"currency_suffix\": \"string-value\"\n  },\n  \"name\": \"Example Name\",\n  \"short_description\": \"A sample description\",\n  \"images\": [\n    \"string-value\"\n  ],\n  \"low_stock_remaining\": 1,\n  \"sold_individually\": true\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "66e90fa2-f0d1-49b4-aa53-f4f8285a2fe4",
+              "name": "The requested resource was not found.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "cart",
+                    "items",
+                    ":key"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "key",
+                      "description": "(Required) Unique cart item key."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) Store API nonce token obtained from the X-WC-Store-API-Nonce response header of a prior cart GET request. Required for all cart and checkout write operations to prevent CSRF.",
+                    "key": "Nonce",
+                    "value": "<string>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": \"string-value\",\n  \"message\": \"string-value\",\n  \"data\": {\n    \"status\": 1\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://example.com/wp-json/wc/v3",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "basic",
+    "basic": [
+      {
+        "key": "username",
+        "value": "{{basicAuthUsername}}"
+      },
+      {
+        "key": "password",
+        "value": "{{basicAuthPassword}}"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "af23d5f2-14e2-40bc-b4c7-558c979f0a9f",
+    "name": "WooCommerce REST Cart API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "The WooCommerce REST API is the primary server-side interface for reading and writing WooCommerce store data programmatically. It follows REST conventions, uses JSON for all requests and responses, and is fully integrated with the WordPress REST API under the /wp-json/wc/v3/ namespace. The API covers products, product variations, product categories, product attributes, orders, order notes, order refunds, customers, coupons, tax rates, shipping zones, payment gateways, settings, webhooks, reports, and system status. Authentication uses Consumer Key and Consumer Secret pairs generated in the WooCommerce admin, transmitted over HTTPS via HTTP Basic Auth or OAuth 1.0a over plain HTTP.\n\nContact Support:\n Name: WooCommerce Developer Support",
+      "type": "text/plain"
+    }
+  }
+}

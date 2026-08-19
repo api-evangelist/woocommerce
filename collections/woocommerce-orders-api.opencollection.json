@@ -1,0 +1,187 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "WooCommerce REST Cart Orders API",
+    "version": "v3"
+  },
+  "request": {
+    "auth": {
+      "type": "basic",
+      "username": "{{username}}",
+      "password": "{{password}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Orders",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "WooCommerce List All Orders",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://example.com/wp-json/wc/v3/orders",
+            "params": [
+              {
+                "name": "page",
+                "value": "",
+                "type": "query",
+                "description": "Current page of the collection. Defaults to 1."
+              },
+              {
+                "name": "per_page",
+                "value": "",
+                "type": "query",
+                "description": "Maximum number of items per page. Defaults to 10, maximum 100."
+              },
+              {
+                "name": "search",
+                "value": "",
+                "type": "query",
+                "description": "Limit results to those matching a string."
+              },
+              {
+                "name": "after",
+                "value": "",
+                "type": "query",
+                "description": "Limit response to resources created after a given ISO8601 compliant date."
+              },
+              {
+                "name": "before",
+                "value": "",
+                "type": "query",
+                "description": "Limit response to resources created before a given ISO8601 compliant date."
+              },
+              {
+                "name": "status",
+                "value": "any",
+                "type": "query",
+                "description": "Filter orders by status. Options: any, pending, processing, on-hold, completed, cancelled, refunded, failed, trash."
+              },
+              {
+                "name": "customer",
+                "value": "1",
+                "type": "query",
+                "description": "Filter orders by customer ID."
+              },
+              {
+                "name": "product",
+                "value": "1",
+                "type": "query",
+                "description": "Filter orders that contain a specific product ID."
+              }
+            ]
+          },
+          "docs": "Returns a paginated list of orders. Supports filtering by status, customer ID, product ID, date ranges, and more. Orders are sorted by date_created descending by default."
+        },
+        {
+          "info": {
+            "name": "WooCommerce Create an Order",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://example.com/wp-json/wc/v3/orders",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Creates a new order. All order fields including billing, shipping, line items, coupons, shipping lines, and fee lines can be set at creation time. Customer ID is optional; guest checkout is supported."
+        },
+        {
+          "info": {
+            "name": "WooCommerce Retrieve an Order",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://example.com/wp-json/wc/v3/orders/:id",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "Unique identifier for the resource."
+              }
+            ]
+          },
+          "docs": "Returns a single order by its numeric ID including all line items, totals, billing, and shipping details."
+        },
+        {
+          "info": {
+            "name": "WooCommerce Update an Order",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://example.com/wp-json/wc/v3/orders/:id",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "Unique identifier for the resource."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Updates an existing order. Common use cases include changing order status, updating billing or shipping addresses, and modifying line item quantities. Only fields included in the request are changed."
+        },
+        {
+          "info": {
+            "name": "WooCommerce Delete an Order",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://example.com/wp-json/wc/v3/orders/:id",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "Unique identifier for the resource."
+              },
+              {
+                "name": "force",
+                "value": "",
+                "type": "query",
+                "description": "Set to true to permanently delete the resource, bypassing the trash."
+              }
+            ]
+          },
+          "docs": "Deletes an order by its numeric ID. Set force to true to permanently delete rather than moving the order to the trash."
+        },
+        {
+          "info": {
+            "name": "WooCommerce Retrieve a Customer Order",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://example.com/wp-json/wc/v3/order/:id",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "Unique identifier for the resource."
+              }
+            ]
+          },
+          "docs": "Returns a single order by ID. Only returns orders belonging to the currently authenticated customer. Used for order confirmation and account order history pages."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

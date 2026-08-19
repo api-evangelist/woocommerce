@@ -1,0 +1,56 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "WooCommerce REST Cart Reports API",
+    "version": "v3"
+  },
+  "request": {
+    "auth": {
+      "type": "basic",
+      "username": "{{username}}",
+      "password": "{{password}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Reports",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "WooCommerce Retrieve a Sales Report",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://example.com/wp-json/wc/v3/reports/sales",
+            "params": [
+              {
+                "name": "period",
+                "value": "week",
+                "type": "query",
+                "description": "Report period shortcut. Options: week, month, last_month, year."
+              },
+              {
+                "name": "after",
+                "value": "",
+                "type": "query",
+                "description": "Limit response to resources created after a given ISO8601 compliant date."
+              },
+              {
+                "name": "before",
+                "value": "",
+                "type": "query",
+                "description": "Limit response to resources created before a given ISO8601 compliant date."
+              }
+            ]
+          },
+          "docs": "Returns aggregate sales data for a given date period. Includes totals for orders, items, discounts, shipping, refunds, taxes, and net sales. Supports period shortcuts (week, month, last_month, year) and custom date ranges."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

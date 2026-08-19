@@ -1,0 +1,36 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "WooCommerce REST Cart System Status API",
+    "version": "v3"
+  },
+  "request": {
+    "auth": {
+      "type": "basic",
+      "username": "{{username}}",
+      "password": "{{password}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "System Status",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "WooCommerce Retrieve System Status",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://example.com/wp-json/wc/v3/system_status"
+          },
+          "docs": "Returns detailed information about the WooCommerce store environment including WordPress version, WooCommerce version, PHP version, active plugins, theme, database tables, and security settings."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

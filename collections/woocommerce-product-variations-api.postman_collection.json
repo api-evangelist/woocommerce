@@ -1,0 +1,1366 @@
+{
+  "item": [
+    {
+      "id": "1fb0880f-6005-4bce-afe3-a1da499279bb",
+      "name": "Product Variations",
+      "description": {
+        "content": "Manage variations of variable products including price, stock, and attributes",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "b5057873-be07-4d01-86f5-44ec267867c5",
+          "name": "WooCommerce List All Product Variations",
+          "request": {
+            "name": "WooCommerce List All Product Variations",
+            "description": {
+              "content": "Returns all variations for a variable product identified by product_id. Each variation has its own pricing, SKU, stock, image, and attribute combination.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "products",
+                ":product_id",
+                "variations"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "page",
+                  "value": "1",
+                  "description": "Current page of the collection. Defaults to 1."
+                },
+                {
+                  "disabled": false,
+                  "key": "per_page",
+                  "value": "10",
+                  "description": "Maximum number of items per page. Defaults to 10, maximum 100."
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<integer>",
+                  "key": "product_id",
+                  "description": "(Required) Unique identifier of the parent product."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "fb60c8fc-04bc-42a9-a5b1-ebf7445f3a4f",
+              "name": "List of product variations",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "products",
+                    ":product_id",
+                    "variations"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "page",
+                      "value": "1"
+                    },
+                    {
+                      "key": "per_page",
+                      "value": "10"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "product_id",
+                      "description": "(Required) Unique identifier of the parent product."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "[\n  {\n    \"id\": 1,\n    \"sku\": \"string-value\",\n    \"price\": \"string-value\",\n    \"regular_price\": \"string-value\",\n    \"sale_price\": \"string-value\",\n    \"on_sale\": true,\n    \"status\": \"draft\",\n    \"manage_stock\": true,\n    \"stock_quantity\": 1,\n    \"stock_status\": \"instock\",\n    \"image\": {\n      \"id\": {},\n      \"src\": {},\n      \"name\": {},\n      \"alt\": {}\n    },\n    \"attributes\": [\n      {\n        \"id\": 1,\n        \"name\": \"Example Name\",\n        \"option\": \"string-value\"\n      }\n    ],\n    \"meta_data\": [\n      \"string-value\"\n    ]\n  }\n]",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "4ad8ff64-b6fc-4282-90c8-feba1ee81571",
+              "name": "Authentication credentials are missing or invalid.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "products",
+                    ":product_id",
+                    "variations"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "page",
+                      "value": "1"
+                    },
+                    {
+                      "key": "per_page",
+                      "value": "10"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "product_id",
+                      "description": "(Required) Unique identifier of the parent product."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": \"string-value\",\n  \"message\": \"string-value\",\n  \"data\": {\n    \"status\": 1\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "e558c138-b8eb-432c-94b0-4a7763983887",
+              "name": "The requested resource was not found.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "products",
+                    ":product_id",
+                    "variations"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "page",
+                      "value": "1"
+                    },
+                    {
+                      "key": "per_page",
+                      "value": "10"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "product_id",
+                      "description": "(Required) Unique identifier of the parent product."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": \"string-value\",\n  \"message\": \"string-value\",\n  \"data\": {\n    \"status\": 1\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "30b8a668-d4aa-47cf-b12b-7f90819ae8c2",
+          "name": "WooCommerce Create a Product Variation",
+          "request": {
+            "name": "WooCommerce Create a Product Variation",
+            "description": {
+              "content": "Creates a new variation for a variable product. The variation inherits the parent product's attributes and can override price, SKU, stock, weight, dimensions, and image independently.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "products",
+                ":product_id",
+                "variations"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<integer>",
+                  "key": "product_id",
+                  "description": "(Required) Unique identifier of the parent product."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"sku\": \"<string>\",\n  \"regular_price\": \"<string>\",\n  \"sale_price\": \"<string>\",\n  \"status\": \"<string>\",\n  \"manage_stock\": \"<boolean>\",\n  \"stock_quantity\": \"<integer>\",\n  \"stock_status\": \"<string>\",\n  \"image\": {\n    \"id\": \"<integer>\",\n    \"src\": \"<uri>\",\n    \"name\": \"<string>\",\n    \"alt\": \"<string>\"\n  },\n  \"attributes\": [\n    {\n      \"id\": \"<integer>\",\n      \"name\": \"<string>\",\n      \"option\": \"<string>\"\n    },\n    {\n      \"id\": \"<integer>\",\n      \"name\": \"<string>\",\n      \"option\": \"<string>\"\n    }\n  ]\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "ad551351-0b3c-4921-bbd4-8d9f65febb5e",
+              "name": "Variation created successfully",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "products",
+                    ":product_id",
+                    "variations"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "product_id",
+                      "description": "(Required) Unique identifier of the parent product."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"sku\": \"string-value\",\n  \"regular_price\": \"string-value\",\n  \"sale_price\": \"string-value\",\n  \"status\": \"draft\",\n  \"manage_stock\": true,\n  \"stock_quantity\": 1,\n  \"stock_status\": \"instock\",\n  \"image\": {\n    \"id\": 1,\n    \"src\": \"https://example.com/path\",\n    \"name\": \"Example Name\",\n    \"alt\": \"string-value\"\n  },\n  \"attributes\": [\n    {\n      \"id\": 1,\n      \"name\": \"Example Name\",\n      \"option\": \"string-value\"\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Created",
+              "code": 201,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": 1,\n  \"sku\": \"string-value\",\n  \"price\": \"string-value\",\n  \"regular_price\": \"string-value\",\n  \"sale_price\": \"string-value\",\n  \"on_sale\": true,\n  \"status\": \"draft\",\n  \"manage_stock\": true,\n  \"stock_quantity\": 1,\n  \"stock_status\": \"instock\",\n  \"image\": {\n    \"id\": 1,\n    \"src\": \"https://example.com/path\",\n    \"name\": \"Example Name\",\n    \"alt\": \"string-value\"\n  },\n  \"attributes\": [\n    {\n      \"id\": 1,\n      \"name\": \"Example Name\",\n      \"option\": \"string-value\"\n    }\n  ],\n  \"meta_data\": [\n    \"string-value\"\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "4c61e378-9509-4dba-9731-82250c3ceaa3",
+              "name": "The request body contains invalid or missing parameters.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "products",
+                    ":product_id",
+                    "variations"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "product_id",
+                      "description": "(Required) Unique identifier of the parent product."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"sku\": \"string-value\",\n  \"regular_price\": \"string-value\",\n  \"sale_price\": \"string-value\",\n  \"status\": \"draft\",\n  \"manage_stock\": true,\n  \"stock_quantity\": 1,\n  \"stock_status\": \"instock\",\n  \"image\": {\n    \"id\": 1,\n    \"src\": \"https://example.com/path\",\n    \"name\": \"Example Name\",\n    \"alt\": \"string-value\"\n  },\n  \"attributes\": [\n    {\n      \"id\": 1,\n      \"name\": \"Example Name\",\n      \"option\": \"string-value\"\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": \"string-value\",\n  \"message\": \"string-value\",\n  \"data\": {\n    \"status\": 1\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "e9e9c57d-4f54-4a02-ab34-c7c8d7f75e82",
+              "name": "Authentication credentials are missing or invalid.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "products",
+                    ":product_id",
+                    "variations"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "product_id",
+                      "description": "(Required) Unique identifier of the parent product."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"sku\": \"string-value\",\n  \"regular_price\": \"string-value\",\n  \"sale_price\": \"string-value\",\n  \"status\": \"draft\",\n  \"manage_stock\": true,\n  \"stock_quantity\": 1,\n  \"stock_status\": \"instock\",\n  \"image\": {\n    \"id\": 1,\n    \"src\": \"https://example.com/path\",\n    \"name\": \"Example Name\",\n    \"alt\": \"string-value\"\n  },\n  \"attributes\": [\n    {\n      \"id\": 1,\n      \"name\": \"Example Name\",\n      \"option\": \"string-value\"\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": \"string-value\",\n  \"message\": \"string-value\",\n  \"data\": {\n    \"status\": 1\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "abe2c9e9-7da8-45fc-8e52-f08ed7e9e9d4",
+          "name": "WooCommerce Retrieve a Product Variation",
+          "request": {
+            "name": "WooCommerce Retrieve a Product Variation",
+            "description": {
+              "content": "Returns the details of a single product variation identified by the parent product ID and the variation ID.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "products",
+                ":product_id",
+                "variations",
+                ":id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<integer>",
+                  "key": "product_id",
+                  "description": "(Required) Unique identifier of the parent product."
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<integer>",
+                  "key": "id",
+                  "description": "(Required) Unique identifier for the resource."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "bc95b046-218a-4401-92c3-fdec398d29ec",
+              "name": "Product variation details",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "products",
+                    ":product_id",
+                    "variations",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "product_id",
+                      "description": "(Required) Unique identifier of the parent product."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "id",
+                      "description": "(Required) Unique identifier for the resource."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": 1,\n  \"sku\": \"string-value\",\n  \"price\": \"string-value\",\n  \"regular_price\": \"string-value\",\n  \"sale_price\": \"string-value\",\n  \"on_sale\": true,\n  \"status\": \"draft\",\n  \"manage_stock\": true,\n  \"stock_quantity\": 1,\n  \"stock_status\": \"instock\",\n  \"image\": {\n    \"id\": 1,\n    \"src\": \"https://example.com/path\",\n    \"name\": \"Example Name\",\n    \"alt\": \"string-value\"\n  },\n  \"attributes\": [\n    {\n      \"id\": 1,\n      \"name\": \"Example Name\",\n      \"option\": \"string-value\"\n    }\n  ],\n  \"meta_data\": [\n    \"string-value\"\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "34c11d10-dceb-45e2-8407-aa462908076e",
+              "name": "Authentication credentials are missing or invalid.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "products",
+                    ":product_id",
+                    "variations",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "product_id",
+                      "description": "(Required) Unique identifier of the parent product."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "id",
+                      "description": "(Required) Unique identifier for the resource."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": \"string-value\",\n  \"message\": \"string-value\",\n  \"data\": {\n    \"status\": 1\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "13830b4c-a929-4708-a61a-94bcd26b0f9b",
+              "name": "The requested resource was not found.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "products",
+                    ":product_id",
+                    "variations",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "product_id",
+                      "description": "(Required) Unique identifier of the parent product."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "id",
+                      "description": "(Required) Unique identifier for the resource."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": \"string-value\",\n  \"message\": \"string-value\",\n  \"data\": {\n    \"status\": 1\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "dc768cb0-7238-4db7-96f4-f2e8d91371bd",
+          "name": "WooCommerce Update a Product Variation",
+          "request": {
+            "name": "WooCommerce Update a Product Variation",
+            "description": {
+              "content": "Updates an existing variation for a variable product. Only the fields provided in the request body are changed.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "products",
+                ":product_id",
+                "variations",
+                ":id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<integer>",
+                  "key": "product_id",
+                  "description": "(Required) Unique identifier of the parent product."
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<integer>",
+                  "key": "id",
+                  "description": "(Required) Unique identifier for the resource."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "PUT",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"sku\": \"<string>\",\n  \"regular_price\": \"<string>\",\n  \"sale_price\": \"<string>\",\n  \"status\": \"<string>\",\n  \"manage_stock\": \"<boolean>\",\n  \"stock_quantity\": \"<integer>\",\n  \"stock_status\": \"<string>\",\n  \"image\": {\n    \"id\": \"<integer>\",\n    \"src\": \"<uri>\",\n    \"name\": \"<string>\",\n    \"alt\": \"<string>\"\n  },\n  \"attributes\": [\n    {\n      \"id\": \"<integer>\",\n      \"name\": \"<string>\",\n      \"option\": \"<string>\"\n    },\n    {\n      \"id\": \"<integer>\",\n      \"name\": \"<string>\",\n      \"option\": \"<string>\"\n    }\n  ]\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "11467663-7200-4944-b965-552a0b70e6f6",
+              "name": "Variation updated successfully",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "products",
+                    ":product_id",
+                    "variations",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "product_id",
+                      "description": "(Required) Unique identifier of the parent product."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "id",
+                      "description": "(Required) Unique identifier for the resource."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"sku\": \"string-value\",\n  \"regular_price\": \"string-value\",\n  \"sale_price\": \"string-value\",\n  \"status\": \"draft\",\n  \"manage_stock\": true,\n  \"stock_quantity\": 1,\n  \"stock_status\": \"instock\",\n  \"image\": {\n    \"id\": 1,\n    \"src\": \"https://example.com/path\",\n    \"name\": \"Example Name\",\n    \"alt\": \"string-value\"\n  },\n  \"attributes\": [\n    {\n      \"id\": 1,\n      \"name\": \"Example Name\",\n      \"option\": \"string-value\"\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": 1,\n  \"sku\": \"string-value\",\n  \"price\": \"string-value\",\n  \"regular_price\": \"string-value\",\n  \"sale_price\": \"string-value\",\n  \"on_sale\": true,\n  \"status\": \"draft\",\n  \"manage_stock\": true,\n  \"stock_quantity\": 1,\n  \"stock_status\": \"instock\",\n  \"image\": {\n    \"id\": 1,\n    \"src\": \"https://example.com/path\",\n    \"name\": \"Example Name\",\n    \"alt\": \"string-value\"\n  },\n  \"attributes\": [\n    {\n      \"id\": 1,\n      \"name\": \"Example Name\",\n      \"option\": \"string-value\"\n    }\n  ],\n  \"meta_data\": [\n    \"string-value\"\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "cc3672e1-d965-4d53-ac30-94e4fe2a4d15",
+              "name": "The request body contains invalid or missing parameters.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "products",
+                    ":product_id",
+                    "variations",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "product_id",
+                      "description": "(Required) Unique identifier of the parent product."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "id",
+                      "description": "(Required) Unique identifier for the resource."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"sku\": \"string-value\",\n  \"regular_price\": \"string-value\",\n  \"sale_price\": \"string-value\",\n  \"status\": \"draft\",\n  \"manage_stock\": true,\n  \"stock_quantity\": 1,\n  \"stock_status\": \"instock\",\n  \"image\": {\n    \"id\": 1,\n    \"src\": \"https://example.com/path\",\n    \"name\": \"Example Name\",\n    \"alt\": \"string-value\"\n  },\n  \"attributes\": [\n    {\n      \"id\": 1,\n      \"name\": \"Example Name\",\n      \"option\": \"string-value\"\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": \"string-value\",\n  \"message\": \"string-value\",\n  \"data\": {\n    \"status\": 1\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "3217930e-454d-4930-a3eb-89af46cd1296",
+              "name": "Authentication credentials are missing or invalid.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "products",
+                    ":product_id",
+                    "variations",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "product_id",
+                      "description": "(Required) Unique identifier of the parent product."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "id",
+                      "description": "(Required) Unique identifier for the resource."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"sku\": \"string-value\",\n  \"regular_price\": \"string-value\",\n  \"sale_price\": \"string-value\",\n  \"status\": \"draft\",\n  \"manage_stock\": true,\n  \"stock_quantity\": 1,\n  \"stock_status\": \"instock\",\n  \"image\": {\n    \"id\": 1,\n    \"src\": \"https://example.com/path\",\n    \"name\": \"Example Name\",\n    \"alt\": \"string-value\"\n  },\n  \"attributes\": [\n    {\n      \"id\": 1,\n      \"name\": \"Example Name\",\n      \"option\": \"string-value\"\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": \"string-value\",\n  \"message\": \"string-value\",\n  \"data\": {\n    \"status\": 1\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "06282b5f-516f-4a61-8481-546666422a52",
+              "name": "The requested resource was not found.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "products",
+                    ":product_id",
+                    "variations",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "product_id",
+                      "description": "(Required) Unique identifier of the parent product."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "id",
+                      "description": "(Required) Unique identifier for the resource."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"sku\": \"string-value\",\n  \"regular_price\": \"string-value\",\n  \"sale_price\": \"string-value\",\n  \"status\": \"draft\",\n  \"manage_stock\": true,\n  \"stock_quantity\": 1,\n  \"stock_status\": \"instock\",\n  \"image\": {\n    \"id\": 1,\n    \"src\": \"https://example.com/path\",\n    \"name\": \"Example Name\",\n    \"alt\": \"string-value\"\n  },\n  \"attributes\": [\n    {\n      \"id\": 1,\n      \"name\": \"Example Name\",\n      \"option\": \"string-value\"\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": \"string-value\",\n  \"message\": \"string-value\",\n  \"data\": {\n    \"status\": 1\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "8327db51-4b8c-4c89-aee3-3ac0612398dc",
+          "name": "WooCommerce Delete a Product Variation",
+          "request": {
+            "name": "WooCommerce Delete a Product Variation",
+            "description": {
+              "content": "Deletes a specific variation from a variable product. Set force to true to permanently delete rather than trash.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "products",
+                ":product_id",
+                "variations",
+                ":id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "force",
+                  "value": "false",
+                  "description": "Set to true to permanently delete the resource, bypassing the trash."
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<integer>",
+                  "key": "product_id",
+                  "description": "(Required) Unique identifier of the parent product."
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<integer>",
+                  "key": "id",
+                  "description": "(Required) Unique identifier for the resource."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "DELETE",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "a3998b66-d850-4ab1-b194-d07089269d4c",
+              "name": "Variation deleted successfully",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "products",
+                    ":product_id",
+                    "variations",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "force",
+                      "value": "false"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "product_id",
+                      "description": "(Required) Unique identifier of the parent product."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "id",
+                      "description": "(Required) Unique identifier for the resource."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": 1,\n  \"sku\": \"string-value\",\n  \"price\": \"string-value\",\n  \"regular_price\": \"string-value\",\n  \"sale_price\": \"string-value\",\n  \"on_sale\": true,\n  \"status\": \"draft\",\n  \"manage_stock\": true,\n  \"stock_quantity\": 1,\n  \"stock_status\": \"instock\",\n  \"image\": {\n    \"id\": 1,\n    \"src\": \"https://example.com/path\",\n    \"name\": \"Example Name\",\n    \"alt\": \"string-value\"\n  },\n  \"attributes\": [\n    {\n      \"id\": 1,\n      \"name\": \"Example Name\",\n      \"option\": \"string-value\"\n    }\n  ],\n  \"meta_data\": [\n    \"string-value\"\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "800ab424-dbe8-43a3-8815-7af746d993ef",
+              "name": "Authentication credentials are missing or invalid.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "products",
+                    ":product_id",
+                    "variations",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "force",
+                      "value": "false"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "product_id",
+                      "description": "(Required) Unique identifier of the parent product."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "id",
+                      "description": "(Required) Unique identifier for the resource."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": \"string-value\",\n  \"message\": \"string-value\",\n  \"data\": {\n    \"status\": 1\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "bf61d035-3b7e-4711-b592-06e12bef949f",
+              "name": "The requested resource was not found.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "products",
+                    ":product_id",
+                    "variations",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "force",
+                      "value": "false"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "product_id",
+                      "description": "(Required) Unique identifier of the parent product."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "id",
+                      "description": "(Required) Unique identifier for the resource."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": \"string-value\",\n  \"message\": \"string-value\",\n  \"data\": {\n    \"status\": 1\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://example.com/wp-json/wc/v3",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "basic",
+    "basic": [
+      {
+        "key": "username",
+        "value": "{{basicAuthUsername}}"
+      },
+      {
+        "key": "password",
+        "value": "{{basicAuthPassword}}"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "f4797893-1e80-4261-960b-cadfed70be79",
+    "name": "WooCommerce REST Cart Product Variations API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "The WooCommerce REST API is the primary server-side interface for reading and writing WooCommerce store data programmatically. It follows REST conventions, uses JSON for all requests and responses, and is fully integrated with the WordPress REST API under the /wp-json/wc/v3/ namespace. The API covers products, product variations, product categories, product attributes, orders, order notes, order refunds, customers, coupons, tax rates, shipping zones, payment gateways, settings, webhooks, reports, and system status. Authentication uses Consumer Key and Consumer Secret pairs generated in the WooCommerce admin, transmitted over HTTPS via HTTP Basic Auth or OAuth 1.0a over plain HTTP.\n\nContact Support:\n Name: WooCommerce Developer Support",
+      "type": "text/plain"
+    }
+  }
+}

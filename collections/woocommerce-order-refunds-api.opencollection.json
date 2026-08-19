@@ -1,0 +1,135 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "WooCommerce REST Cart Order Refunds API",
+    "version": "v3"
+  },
+  "request": {
+    "auth": {
+      "type": "basic",
+      "username": "{{username}}",
+      "password": "{{password}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Order Refunds",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "WooCommerce List All Order Refunds",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://example.com/wp-json/wc/v3/orders/:order_id/refunds",
+            "params": [
+              {
+                "name": "order_id",
+                "value": "",
+                "type": "path",
+                "description": "Unique identifier of the parent order."
+              },
+              {
+                "name": "page",
+                "value": "",
+                "type": "query",
+                "description": "Current page of the collection. Defaults to 1."
+              },
+              {
+                "name": "per_page",
+                "value": "",
+                "type": "query",
+                "description": "Maximum number of items per page. Defaults to 10, maximum 100."
+              }
+            ]
+          },
+          "docs": "Returns all refunds associated with a specific order."
+        },
+        {
+          "info": {
+            "name": "WooCommerce Create an Order Refund",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://example.com/wp-json/wc/v3/orders/:order_id/refunds",
+            "params": [
+              {
+                "name": "order_id",
+                "value": "",
+                "type": "path",
+                "description": "Unique identifier of the parent order."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Creates a refund for a specific order. The refund amount, line item quantities to refund, whether to restock items, and reason can all be specified. Automatic gateway refunds are attempted when supported."
+        },
+        {
+          "info": {
+            "name": "WooCommerce Retrieve an Order Refund",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://example.com/wp-json/wc/v3/orders/:order_id/refunds/:id",
+            "params": [
+              {
+                "name": "order_id",
+                "value": "",
+                "type": "path",
+                "description": "Unique identifier of the parent order."
+              },
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "Unique identifier for the resource."
+              }
+            ]
+          },
+          "docs": "Returns a single refund by its ID for a specific order."
+        },
+        {
+          "info": {
+            "name": "WooCommerce Delete an Order Refund",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://example.com/wp-json/wc/v3/orders/:order_id/refunds/:id",
+            "params": [
+              {
+                "name": "order_id",
+                "value": "",
+                "type": "path",
+                "description": "Unique identifier of the parent order."
+              },
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "Unique identifier for the resource."
+              },
+              {
+                "name": "force",
+                "value": "",
+                "type": "query",
+                "description": "Set to true to permanently delete the resource, bypassing the trash."
+              }
+            ]
+          },
+          "docs": "Permanently deletes a refund from an order."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

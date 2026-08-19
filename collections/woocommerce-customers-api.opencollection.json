@@ -1,0 +1,175 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "WooCommerce REST Cart Customers API",
+    "version": "v3"
+  },
+  "request": {
+    "auth": {
+      "type": "basic",
+      "username": "{{username}}",
+      "password": "{{password}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Customers",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "WooCommerce List All Customers",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://example.com/wp-json/wc/v3/customers",
+            "params": [
+              {
+                "name": "page",
+                "value": "",
+                "type": "query",
+                "description": "Current page of the collection. Defaults to 1."
+              },
+              {
+                "name": "per_page",
+                "value": "",
+                "type": "query",
+                "description": "Maximum number of items per page. Defaults to 10, maximum 100."
+              },
+              {
+                "name": "search",
+                "value": "",
+                "type": "query",
+                "description": "Limit results to those matching a string."
+              },
+              {
+                "name": "role",
+                "value": "string-value",
+                "type": "query",
+                "description": "Filter customers by WordPress user role. Default is customer."
+              },
+              {
+                "name": "email",
+                "value": "user@example.com",
+                "type": "query",
+                "description": "Filter customers by email address."
+              }
+            ]
+          },
+          "docs": "Returns a paginated list of customers. Can be filtered by role, email, search term, and order by various fields such as id, registered date, name, or total spent."
+        },
+        {
+          "info": {
+            "name": "WooCommerce Create a Customer",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://example.com/wp-json/wc/v3/customers",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Creates a new customer account. Requires at minimum an email address and username. Billing and shipping address details can be set at creation time."
+        },
+        {
+          "info": {
+            "name": "WooCommerce Retrieve a Customer",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://example.com/wp-json/wc/v3/customers/:id",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "Unique identifier for the resource."
+              }
+            ]
+          },
+          "docs": "Returns a single customer by numeric ID including billing and shipping addresses and account metadata."
+        },
+        {
+          "info": {
+            "name": "WooCommerce Update a Customer",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://example.com/wp-json/wc/v3/customers/:id",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "Unique identifier for the resource."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Updates a customer record by numeric ID. Only provided fields are changed."
+        },
+        {
+          "info": {
+            "name": "WooCommerce Delete a Customer",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://example.com/wp-json/wc/v3/customers/:id",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "Unique identifier for the resource."
+              },
+              {
+                "name": "force",
+                "value": "",
+                "type": "query",
+                "description": "Set to true to permanently delete the resource, bypassing the trash."
+              },
+              {
+                "name": "reassign",
+                "value": "1",
+                "type": "query",
+                "description": "User ID to reassign posts and links to."
+              }
+            ]
+          },
+          "docs": "Deletes a customer by numeric ID. Set force to true to permanently delete the WordPress user account. Optionally reassign the customer's orders to another customer ID."
+        },
+        {
+          "info": {
+            "name": "WooCommerce Retrieve Customer Downloads",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://example.com/wp-json/wc/v3/customers/:id/downloads",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "Unique identifier for the resource."
+              }
+            ]
+          },
+          "docs": "Returns a list of digital downloads available to the customer, including download links, expiry dates, remaining download counts, and product information."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

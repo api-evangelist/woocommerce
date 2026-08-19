@@ -1,0 +1,147 @@
+{
+  "item": [
+    {
+      "id": "4ef8c487-48c0-48b8-87f0-163a8164c710",
+      "name": "Product Tags",
+      "description": {
+        "content": "Retrieve product tags for filtering",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "5a6e5954-56b8-4b92-b9d3-3380b12cc0c5",
+          "name": "WooCommerce List Product Tags",
+          "request": {
+            "name": "WooCommerce List Product Tags",
+            "description": {
+              "content": "Returns all product tags used in the store catalog.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "products",
+                "tags"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "page",
+                  "value": "1",
+                  "description": "Current page of the collection."
+                },
+                {
+                  "disabled": false,
+                  "key": "per_page",
+                  "value": "10",
+                  "description": "Maximum number of items per page (maximum 100)."
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "00fa24ae-d86a-41e2-8380-bc73898bee45",
+              "name": "List of product tags",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "products",
+                    "tags"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "page",
+                      "value": "1"
+                    },
+                    {
+                      "key": "per_page",
+                      "value": "10"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "[\n  {\n    \"id\": 1,\n    \"name\": \"Example Name\",\n    \"slug\": \"string-value\",\n    \"description\": \"A sample description\",\n    \"count\": 1,\n    \"link\": \"https://example.com/path\"\n  }\n]",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://example.com/wp-json/wc/v3",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "basic",
+    "basic": [
+      {
+        "key": "username",
+        "value": "{{basicAuthUsername}}"
+      },
+      {
+        "key": "password",
+        "value": "{{basicAuthPassword}}"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "5edc9617-e324-4aee-b33c-ccb350e1ceeb",
+    "name": "WooCommerce REST Cart Product Tags API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "The WooCommerce REST API is the primary server-side interface for reading and writing WooCommerce store data programmatically. It follows REST conventions, uses JSON for all requests and responses, and is fully integrated with the WordPress REST API under the /wp-json/wc/v3/ namespace. The API covers products, product variations, product categories, product attributes, orders, order notes, order refunds, customers, coupons, tax rates, shipping zones, payment gateways, settings, webhooks, reports, and system status. Authentication uses Consumer Key and Consumer Secret pairs generated in the WooCommerce admin, transmitted over HTTPS via HTTP Basic Auth or OAuth 1.0a over plain HTTP.\n\nContact Support:\n Name: WooCommerce Developer Support",
+      "type": "text/plain"
+    }
+  }
+}

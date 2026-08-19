@@ -1,0 +1,232 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "WooCommerce REST Cart Products API",
+    "version": "v3"
+  },
+  "request": {
+    "auth": {
+      "type": "basic",
+      "username": "{{username}}",
+      "password": "{{password}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Products",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "WooCommerce List All Products",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://example.com/wp-json/wc/v3/products",
+            "params": [
+              {
+                "name": "page",
+                "value": "",
+                "type": "query",
+                "description": "Current page of the collection. Defaults to 1."
+              },
+              {
+                "name": "per_page",
+                "value": "",
+                "type": "query",
+                "description": "Maximum number of items per page. Defaults to 10, maximum 100."
+              },
+              {
+                "name": "search",
+                "value": "",
+                "type": "query",
+                "description": "Limit results to those matching a string."
+              },
+              {
+                "name": "after",
+                "value": "",
+                "type": "query",
+                "description": "Limit response to resources created after a given ISO8601 compliant date."
+              },
+              {
+                "name": "before",
+                "value": "",
+                "type": "query",
+                "description": "Limit response to resources created before a given ISO8601 compliant date."
+              },
+              {
+                "name": "status",
+                "value": "any",
+                "type": "query",
+                "description": "Filter products by publication status. Options: any, draft, pending, private, publish."
+              },
+              {
+                "name": "category",
+                "value": "string-value",
+                "type": "query",
+                "description": "Filter products by category ID."
+              },
+              {
+                "name": "tag",
+                "value": "string-value",
+                "type": "query",
+                "description": "Filter products by tag ID."
+              },
+              {
+                "name": "on_sale",
+                "value": "true",
+                "type": "query",
+                "description": "Limit results to products on sale when true."
+              },
+              {
+                "name": "featured",
+                "value": "true",
+                "type": "query",
+                "description": "Limit results to featured products when true."
+              },
+              {
+                "name": "stock_status",
+                "value": "instock",
+                "type": "query",
+                "description": "Filter by stock status. Options: instock, outofstock, onbackorder."
+              }
+            ]
+          },
+          "docs": "Returns a paginated list of products in the store. Supports filtering by status, category, tag, SKU, featured flag, on-sale flag, price range, stock status, and date ranges. Results are sorted by date by default. Use the page and per_page parameters to paginate through large catalogs."
+        },
+        {
+          "info": {
+            "name": "WooCommerce Create a Product",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://example.com/wp-json/wc/v3/products",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Creates a new product in the store. Requires at minimum a product name. Products can be simple, grouped, external/affiliate, or variable type. Pricing, stock management, shipping, tax settings, categories, tags, images, and attributes are all configurable at creation time."
+        },
+        {
+          "info": {
+            "name": "WooCommerce Retrieve a Product",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://example.com/wp-json/wc/v3/products/:id",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "Unique identifier for the resource."
+              }
+            ]
+          },
+          "docs": "Returns the details of a single product identified by its numeric ID. Includes all product properties such as pricing, stock, images, categories, tags, attributes, and metadata."
+        },
+        {
+          "info": {
+            "name": "WooCommerce Update a Product",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://example.com/wp-json/wc/v3/products/:id",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "Unique identifier for the resource."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Updates an existing product identified by its numeric ID. Only the properties included in the request body are updated; omitted properties retain their current values."
+        },
+        {
+          "info": {
+            "name": "WooCommerce Delete a Product",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://example.com/wp-json/wc/v3/products/:id",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "Unique identifier for the resource."
+              },
+              {
+                "name": "force",
+                "value": "",
+                "type": "query",
+                "description": "Set to true to permanently delete the resource, bypassing the trash."
+              }
+            ]
+          },
+          "docs": "Deletes a product by its numeric ID. By default the product is moved to the trash. Set the force parameter to true to permanently delete the product and bypass the trash."
+        },
+        {
+          "info": {
+            "name": "WooCommerce Batch Create, Update, and Delete Products",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://example.com/wp-json/wc/v3/products/batch",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Performs batch create, update, and delete operations on products in a single request. Pass arrays of product objects under the create, update, and delete keys respectively. Delete accepts an array of product IDs."
+        },
+        {
+          "info": {
+            "name": "WooCommerce Get Product Collection Data",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://example.com/wp-json/wc/v3/products/collection-data",
+            "params": [
+              {
+                "name": "calculate_price_range",
+                "value": "true",
+                "type": "query",
+                "description": "Whether to calculate and return the min/max price range."
+              },
+              {
+                "name": "calculate_attribute_counts",
+                "value": "string-value",
+                "type": "query",
+                "description": "Comma-separated list of attribute slugs to count active terms for filter UIs."
+              },
+              {
+                "name": "calculate_rating_counts",
+                "value": "true",
+                "type": "query",
+                "description": "Whether to calculate and return review rating counts."
+              }
+            ]
+          },
+          "docs": "Returns aggregate data about a product collection including price ranges, attribute counts, and category counts. Used to populate filter widgets on shop and category archive pages without fetching full product records."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

@@ -1,0 +1,105 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "WooCommerce REST Cart Checkout API",
+    "version": "v3"
+  },
+  "request": {
+    "auth": {
+      "type": "basic",
+      "username": "{{username}}",
+      "password": "{{password}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Checkout",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "WooCommerce Get Checkout Data",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://example.com/wp-json/wc/v3/checkout"
+          },
+          "docs": "Returns the current checkout state including the cart contents, available payment methods, and pre-filled billing and shipping fields from the customer's account."
+        },
+        {
+          "info": {
+            "name": "WooCommerce Process Checkout and Place Order",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://example.com/wp-json/wc/v3/checkout",
+            "headers": [
+              {
+                "name": "Nonce",
+                "value": ""
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Submits the checkout form to create an order and process payment. Requires billing address, payment method, and optional shipping data. Requires the Nonce header. Returns the created order on success or redirects to the payment gateway for hosted gateways."
+        },
+        {
+          "info": {
+            "name": "WooCommerce Get a Checkout Order",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://example.com/wp-json/wc/v3/checkout/:id",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "Unique identifier for the resource."
+              }
+            ]
+          },
+          "docs": "Returns an order placed via checkout identified by its numeric ID. Only accessible for the order owner or a store administrator."
+        },
+        {
+          "info": {
+            "name": "WooCommerce Update a Pending Checkout Order",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://example.com/wp-json/wc/v3/checkout/:id",
+            "headers": [
+              {
+                "name": "Nonce",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "Unique identifier for the resource."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Updates billing, shipping, or payment method on a pending order before payment is confirmed. Requires the Nonce header."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

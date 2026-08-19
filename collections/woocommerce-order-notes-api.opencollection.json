@@ -1,0 +1,129 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "WooCommerce REST Cart Order Notes API",
+    "version": "v3"
+  },
+  "request": {
+    "auth": {
+      "type": "basic",
+      "username": "{{username}}",
+      "password": "{{password}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Order Notes",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "WooCommerce List All Order Notes",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://example.com/wp-json/wc/v3/orders/:order_id/notes",
+            "params": [
+              {
+                "name": "order_id",
+                "value": "",
+                "type": "path",
+                "description": "Unique identifier of the parent order."
+              },
+              {
+                "name": "type",
+                "value": "any",
+                "type": "query",
+                "description": "Limit results to a note type. Options: any, customer, internal."
+              }
+            ]
+          },
+          "docs": "Returns all notes associated with a specific order. Notes can be customer-facing or private (internal) and are ordered by date created."
+        },
+        {
+          "info": {
+            "name": "WooCommerce Create an Order Note",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://example.com/wp-json/wc/v3/orders/:order_id/notes",
+            "params": [
+              {
+                "name": "order_id",
+                "value": "",
+                "type": "path",
+                "description": "Unique identifier of the parent order."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Adds a new note to an order. Notes can be marked as customer-facing, causing them to appear in order confirmation emails and the customer's order history."
+        },
+        {
+          "info": {
+            "name": "WooCommerce Retrieve an Order Note",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://example.com/wp-json/wc/v3/orders/:order_id/notes/:id",
+            "params": [
+              {
+                "name": "order_id",
+                "value": "",
+                "type": "path",
+                "description": "Unique identifier of the parent order."
+              },
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "Unique identifier for the resource."
+              }
+            ]
+          },
+          "docs": "Returns a single note for a specific order by note ID."
+        },
+        {
+          "info": {
+            "name": "WooCommerce Delete an Order Note",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://example.com/wp-json/wc/v3/orders/:order_id/notes/:id",
+            "params": [
+              {
+                "name": "order_id",
+                "value": "",
+                "type": "path",
+                "description": "Unique identifier of the parent order."
+              },
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "Unique identifier for the resource."
+              },
+              {
+                "name": "force",
+                "value": "",
+                "type": "query",
+                "description": "Set to true to permanently delete the resource, bypassing the trash."
+              }
+            ]
+          },
+          "docs": "Permanently deletes a specific note from an order."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

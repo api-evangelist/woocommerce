@@ -1,0 +1,1508 @@
+{
+  "item": [
+    {
+      "id": "75132536-87df-45f6-8682-f521906f0e11",
+      "name": "Products",
+      "description": {
+        "content": "Create, retrieve, update, and delete store products and their variations",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "ee840a1c-517b-4c5a-b214-d0f4359cab14",
+          "name": "WooCommerce List All Products",
+          "request": {
+            "name": "WooCommerce List All Products",
+            "description": {
+              "content": "Returns a paginated list of products in the store. Supports filtering by status, category, tag, SKU, featured flag, on-sale flag, price range, stock status, and date ranges. Results are sorted by date by default. Use the page and per_page parameters to paginate through large catalogs.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "products"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "page",
+                  "value": "1",
+                  "description": "Current page of the collection. Defaults to 1."
+                },
+                {
+                  "disabled": false,
+                  "key": "per_page",
+                  "value": "10",
+                  "description": "Maximum number of items per page. Defaults to 10, maximum 100."
+                },
+                {
+                  "disabled": false,
+                  "key": "search",
+                  "value": "<string>",
+                  "description": "Limit results to those matching a string."
+                },
+                {
+                  "disabled": false,
+                  "key": "after",
+                  "value": "<dateTime>",
+                  "description": "Limit response to resources created after a given ISO8601 compliant date."
+                },
+                {
+                  "disabled": false,
+                  "key": "before",
+                  "value": "<dateTime>",
+                  "description": "Limit response to resources created before a given ISO8601 compliant date."
+                },
+                {
+                  "disabled": false,
+                  "key": "status",
+                  "value": "<string>",
+                  "description": "Filter products by publication status. Options: any, draft, pending, private, publish."
+                },
+                {
+                  "disabled": false,
+                  "key": "category",
+                  "value": "<string>",
+                  "description": "Filter products by category ID."
+                },
+                {
+                  "disabled": false,
+                  "key": "tag",
+                  "value": "<string>",
+                  "description": "Filter products by tag ID."
+                },
+                {
+                  "disabled": false,
+                  "key": "on_sale",
+                  "value": "<boolean>",
+                  "description": "Limit results to products on sale when true."
+                },
+                {
+                  "disabled": false,
+                  "key": "featured",
+                  "value": "<boolean>",
+                  "description": "Limit results to featured products when true."
+                },
+                {
+                  "disabled": false,
+                  "key": "stock_status",
+                  "value": "<string>",
+                  "description": "Filter by stock status. Options: instock, outofstock, onbackorder."
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "4a455a80-9bb1-4b3c-9a10-5b4f1e875a84",
+              "name": "Successful list of products",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "products"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "page",
+                      "value": "1"
+                    },
+                    {
+                      "key": "per_page",
+                      "value": "10"
+                    },
+                    {
+                      "key": "search",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "after",
+                      "value": "<dateTime>"
+                    },
+                    {
+                      "key": "before",
+                      "value": "<dateTime>"
+                    },
+                    {
+                      "key": "status",
+                      "value": "any"
+                    },
+                    {
+                      "key": "category",
+                      "value": "string-value"
+                    },
+                    {
+                      "key": "tag",
+                      "value": "string-value"
+                    },
+                    {
+                      "key": "on_sale",
+                      "value": "true"
+                    },
+                    {
+                      "key": "featured",
+                      "value": "true"
+                    },
+                    {
+                      "key": "stock_status",
+                      "value": "instock"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "[\n  {\n    \"id\": 1,\n    \"name\": \"Example Name\",\n    \"slug\": \"string-value\",\n    \"permalink\": \"https://example.com/path\",\n    \"type\": \"simple\",\n    \"status\": \"draft\",\n    \"featured\": true,\n    \"description\": \"A sample description\",\n    \"short_description\": \"A sample description\",\n    \"sku\": \"string-value\",\n    \"price\": \"string-value\",\n    \"regular_price\": \"string-value\",\n    \"sale_price\": \"string-value\",\n    \"on_sale\": true,\n    \"purchasable\": true,\n    \"total_sales\": 1,\n    \"virtual\": true,\n    \"downloadable\": true,\n    \"manage_stock\": true,\n    \"stock_quantity\": 1,\n    \"stock_status\": \"instock\",\n    \"weight\": \"string-value\",\n    \"dimensions\": {\n      \"length\": \"string-value\",\n      \"width\": \"string-value\",\n      \"height\": \"string-value\"\n    },\n    \"categories\": [\n      {\n        \"id\": 1,\n        \"name\": \"Example Name\",\n        \"slug\": \"string-value\"\n      }\n    ],\n    \"tags\": [\n      {\n        \"id\": 1,\n        \"name\": \"Example Name\",\n        \"slug\": \"string-value\"\n      }\n    ],\n    \"images\": [\n      \"string-value\"\n    ],\n    \"attributes\": [\n      \"string-value\"\n    ],\n    \"date_created\": \"2026-05-03T14:30:00Z\",\n    \"date_modified\": \"2026-05-03T14:30:00Z\",\n    \"meta_data\": [\n      \"string-value\"\n    ]\n  }\n]",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "bbf7e6c5-4d05-4310-be88-ea84cad4390c",
+              "name": "Authentication credentials are missing or invalid.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "products"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "page",
+                      "value": "1"
+                    },
+                    {
+                      "key": "per_page",
+                      "value": "10"
+                    },
+                    {
+                      "key": "search",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "after",
+                      "value": "<dateTime>"
+                    },
+                    {
+                      "key": "before",
+                      "value": "<dateTime>"
+                    },
+                    {
+                      "key": "status",
+                      "value": "any"
+                    },
+                    {
+                      "key": "category",
+                      "value": "string-value"
+                    },
+                    {
+                      "key": "tag",
+                      "value": "string-value"
+                    },
+                    {
+                      "key": "on_sale",
+                      "value": "true"
+                    },
+                    {
+                      "key": "featured",
+                      "value": "true"
+                    },
+                    {
+                      "key": "stock_status",
+                      "value": "instock"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": \"string-value\",\n  \"message\": \"string-value\",\n  \"data\": {\n    \"status\": 1\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "25eed978-cd2b-4367-b6a3-793c61323e49",
+          "name": "WooCommerce Create a Product",
+          "request": {
+            "name": "WooCommerce Create a Product",
+            "description": {
+              "content": "Creates a new product in the store. Requires at minimum a product name. Products can be simple, grouped, external/affiliate, or variable type. Pricing, stock management, shipping, tax settings, categories, tags, images, and attributes are all configurable at creation time.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "products"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"<string>\",\n  \"type\": \"<string>\",\n  \"status\": \"<string>\",\n  \"featured\": \"<boolean>\",\n  \"description\": \"<string>\",\n  \"short_description\": \"<string>\",\n  \"sku\": \"<string>\",\n  \"regular_price\": \"<string>\",\n  \"sale_price\": \"<string>\",\n  \"virtual\": \"<boolean>\",\n  \"downloadable\": \"<boolean>\",\n  \"manage_stock\": \"<boolean>\",\n  \"stock_quantity\": \"<integer>\",\n  \"stock_status\": \"<string>\",\n  \"weight\": \"<string>\",\n  \"categories\": [\n    {\n      \"id\": \"<integer>\"\n    },\n    {\n      \"id\": \"<integer>\"\n    }\n  ],\n  \"tags\": [\n    {\n      \"id\": \"<integer>\"\n    },\n    {\n      \"id\": \"<integer>\"\n    }\n  ],\n  \"images\": [\n    {\n      \"id\": \"<integer>\",\n      \"src\": \"<uri>\",\n      \"name\": \"<string>\",\n      \"alt\": \"<string>\"\n    },\n    {\n      \"id\": \"<integer>\",\n      \"src\": \"<uri>\",\n      \"name\": \"<string>\",\n      \"alt\": \"<string>\"\n    }\n  ],\n  \"attributes\": [\n    {\n      \"id\": \"<integer>\",\n      \"name\": \"<string>\",\n      \"position\": \"<integer>\",\n      \"visible\": \"<boolean>\",\n      \"variation\": \"<boolean>\",\n      \"options\": [\n        \"<string>\",\n        \"<string>\"\n      ]\n    },\n    {\n      \"id\": \"<integer>\",\n      \"name\": \"<string>\",\n      \"position\": \"<integer>\",\n      \"visible\": \"<boolean>\",\n      \"variation\": \"<boolean>\",\n      \"options\": [\n        \"<string>\",\n        \"<string>\"\n      ]\n    }\n  ],\n  \"meta_data\": [\n    {\n      \"id\": \"<integer>\",\n      \"key\": \"<string>\",\n      \"value\": \"<string>\"\n    },\n    {\n      \"id\": \"<integer>\",\n      \"key\": \"<string>\",\n      \"value\": \"<string>\"\n    }\n  ]\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "cd2a78cd-e35f-4177-9744-973916ff1701",
+              "name": "Product created successfully",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "products"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"Example Name\",\n  \"type\": \"simple\",\n  \"status\": \"draft\",\n  \"featured\": true,\n  \"description\": \"A sample description\",\n  \"short_description\": \"A sample description\",\n  \"sku\": \"string-value\",\n  \"regular_price\": \"string-value\",\n  \"sale_price\": \"string-value\",\n  \"virtual\": true,\n  \"downloadable\": true,\n  \"manage_stock\": true,\n  \"stock_quantity\": 1,\n  \"stock_status\": \"instock\",\n  \"weight\": \"string-value\",\n  \"categories\": [\n    {\n      \"id\": 1\n    }\n  ],\n  \"tags\": [\n    {\n      \"id\": 1\n    }\n  ],\n  \"images\": [\n    {\n      \"id\": 1,\n      \"src\": \"https://example.com/path\",\n      \"name\": \"Example Name\",\n      \"alt\": \"string-value\"\n    },\n    {\n      \"id\": 1,\n      \"src\": \"https://example.com/path\",\n      \"name\": \"Example Name\",\n      \"alt\": \"string-value\"\n    }\n  ],\n  \"attributes\": [\n    {\n      \"id\": 1,\n      \"name\": \"Example Name\",\n      \"position\": 1,\n      \"visible\": true,\n      \"variation\": true,\n      \"options\": [\n        \"string-value\"\n      ]\n    },\n    {\n      \"id\": 1,\n      \"name\": \"Example Name\",\n      \"position\": 1,\n      \"visible\": true,\n      \"variation\": true,\n      \"options\": [\n        \"string-value\"\n      ]\n    }\n  ],\n  \"meta_data\": [\n    {\n      \"id\": 1,\n      \"key\": \"string-value\",\n      \"value\": \"string-value\"\n    },\n    {\n      \"id\": 1,\n      \"key\": \"string-value\",\n      \"value\": \"string-value\"\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Created",
+              "code": 201,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": 1,\n  \"name\": \"Example Name\",\n  \"slug\": \"string-value\",\n  \"permalink\": \"https://example.com/path\",\n  \"type\": \"simple\",\n  \"status\": \"draft\",\n  \"featured\": true,\n  \"description\": \"A sample description\",\n  \"short_description\": \"A sample description\",\n  \"sku\": \"string-value\",\n  \"price\": \"string-value\",\n  \"regular_price\": \"string-value\",\n  \"sale_price\": \"string-value\",\n  \"on_sale\": true,\n  \"purchasable\": true,\n  \"total_sales\": 1,\n  \"virtual\": true,\n  \"downloadable\": true,\n  \"manage_stock\": true,\n  \"stock_quantity\": 1,\n  \"stock_status\": \"instock\",\n  \"weight\": \"string-value\",\n  \"dimensions\": {\n    \"length\": \"string-value\",\n    \"width\": \"string-value\",\n    \"height\": \"string-value\"\n  },\n  \"categories\": [\n    {\n      \"id\": 1,\n      \"name\": \"Example Name\",\n      \"slug\": \"string-value\"\n    }\n  ],\n  \"tags\": [\n    {\n      \"id\": 1,\n      \"name\": \"Example Name\",\n      \"slug\": \"string-value\"\n    }\n  ],\n  \"images\": [\n    \"string-value\"\n  ],\n  \"attributes\": [\n    \"string-value\"\n  ],\n  \"date_created\": \"2026-05-03T14:30:00Z\",\n  \"date_modified\": \"2026-05-03T14:30:00Z\",\n  \"meta_data\": [\n    \"string-value\"\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "41530cca-991a-4a1e-9ddf-8001bbd9a49b",
+              "name": "The request body contains invalid or missing parameters.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "products"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"Example Name\",\n  \"type\": \"simple\",\n  \"status\": \"draft\",\n  \"featured\": true,\n  \"description\": \"A sample description\",\n  \"short_description\": \"A sample description\",\n  \"sku\": \"string-value\",\n  \"regular_price\": \"string-value\",\n  \"sale_price\": \"string-value\",\n  \"virtual\": true,\n  \"downloadable\": true,\n  \"manage_stock\": true,\n  \"stock_quantity\": 1,\n  \"stock_status\": \"instock\",\n  \"weight\": \"string-value\",\n  \"categories\": [\n    {\n      \"id\": 1\n    }\n  ],\n  \"tags\": [\n    {\n      \"id\": 1\n    }\n  ],\n  \"images\": [\n    {\n      \"id\": 1,\n      \"src\": \"https://example.com/path\",\n      \"name\": \"Example Name\",\n      \"alt\": \"string-value\"\n    },\n    {\n      \"id\": 1,\n      \"src\": \"https://example.com/path\",\n      \"name\": \"Example Name\",\n      \"alt\": \"string-value\"\n    }\n  ],\n  \"attributes\": [\n    {\n      \"id\": 1,\n      \"name\": \"Example Name\",\n      \"position\": 1,\n      \"visible\": true,\n      \"variation\": true,\n      \"options\": [\n        \"string-value\"\n      ]\n    },\n    {\n      \"id\": 1,\n      \"name\": \"Example Name\",\n      \"position\": 1,\n      \"visible\": true,\n      \"variation\": true,\n      \"options\": [\n        \"string-value\"\n      ]\n    }\n  ],\n  \"meta_data\": [\n    {\n      \"id\": 1,\n      \"key\": \"string-value\",\n      \"value\": \"string-value\"\n    },\n    {\n      \"id\": 1,\n      \"key\": \"string-value\",\n      \"value\": \"string-value\"\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": \"string-value\",\n  \"message\": \"string-value\",\n  \"data\": {\n    \"status\": 1\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "17e954cd-9b34-47ff-8586-1be3dc65a2ce",
+              "name": "Authentication credentials are missing or invalid.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "products"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"Example Name\",\n  \"type\": \"simple\",\n  \"status\": \"draft\",\n  \"featured\": true,\n  \"description\": \"A sample description\",\n  \"short_description\": \"A sample description\",\n  \"sku\": \"string-value\",\n  \"regular_price\": \"string-value\",\n  \"sale_price\": \"string-value\",\n  \"virtual\": true,\n  \"downloadable\": true,\n  \"manage_stock\": true,\n  \"stock_quantity\": 1,\n  \"stock_status\": \"instock\",\n  \"weight\": \"string-value\",\n  \"categories\": [\n    {\n      \"id\": 1\n    }\n  ],\n  \"tags\": [\n    {\n      \"id\": 1\n    }\n  ],\n  \"images\": [\n    {\n      \"id\": 1,\n      \"src\": \"https://example.com/path\",\n      \"name\": \"Example Name\",\n      \"alt\": \"string-value\"\n    },\n    {\n      \"id\": 1,\n      \"src\": \"https://example.com/path\",\n      \"name\": \"Example Name\",\n      \"alt\": \"string-value\"\n    }\n  ],\n  \"attributes\": [\n    {\n      \"id\": 1,\n      \"name\": \"Example Name\",\n      \"position\": 1,\n      \"visible\": true,\n      \"variation\": true,\n      \"options\": [\n        \"string-value\"\n      ]\n    },\n    {\n      \"id\": 1,\n      \"name\": \"Example Name\",\n      \"position\": 1,\n      \"visible\": true,\n      \"variation\": true,\n      \"options\": [\n        \"string-value\"\n      ]\n    }\n  ],\n  \"meta_data\": [\n    {\n      \"id\": 1,\n      \"key\": \"string-value\",\n      \"value\": \"string-value\"\n    },\n    {\n      \"id\": 1,\n      \"key\": \"string-value\",\n      \"value\": \"string-value\"\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": \"string-value\",\n  \"message\": \"string-value\",\n  \"data\": {\n    \"status\": 1\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "3cd78a09-81f0-4c28-9411-2ec297f927d0",
+          "name": "WooCommerce Retrieve a Product",
+          "request": {
+            "name": "WooCommerce Retrieve a Product",
+            "description": {
+              "content": "Returns the details of a single product identified by its numeric ID. Includes all product properties such as pricing, stock, images, categories, tags, attributes, and metadata.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "products",
+                ":id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<integer>",
+                  "key": "id",
+                  "description": "(Required) Unique identifier for the resource."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "feddfe2a-1880-4f5b-b745-f25f94409f58",
+              "name": "Product details",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "products",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "id",
+                      "description": "(Required) Unique identifier for the resource."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": 1,\n  \"name\": \"Example Name\",\n  \"slug\": \"string-value\",\n  \"permalink\": \"https://example.com/path\",\n  \"type\": \"simple\",\n  \"status\": \"draft\",\n  \"featured\": true,\n  \"description\": \"A sample description\",\n  \"short_description\": \"A sample description\",\n  \"sku\": \"string-value\",\n  \"price\": \"string-value\",\n  \"regular_price\": \"string-value\",\n  \"sale_price\": \"string-value\",\n  \"on_sale\": true,\n  \"purchasable\": true,\n  \"total_sales\": 1,\n  \"virtual\": true,\n  \"downloadable\": true,\n  \"manage_stock\": true,\n  \"stock_quantity\": 1,\n  \"stock_status\": \"instock\",\n  \"weight\": \"string-value\",\n  \"dimensions\": {\n    \"length\": \"string-value\",\n    \"width\": \"string-value\",\n    \"height\": \"string-value\"\n  },\n  \"categories\": [\n    {\n      \"id\": 1,\n      \"name\": \"Example Name\",\n      \"slug\": \"string-value\"\n    }\n  ],\n  \"tags\": [\n    {\n      \"id\": 1,\n      \"name\": \"Example Name\",\n      \"slug\": \"string-value\"\n    }\n  ],\n  \"images\": [\n    \"string-value\"\n  ],\n  \"attributes\": [\n    \"string-value\"\n  ],\n  \"date_created\": \"2026-05-03T14:30:00Z\",\n  \"date_modified\": \"2026-05-03T14:30:00Z\",\n  \"meta_data\": [\n    \"string-value\"\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "c01e16c9-6a4d-458d-92d7-98891a7430b0",
+              "name": "Authentication credentials are missing or invalid.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "products",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "id",
+                      "description": "(Required) Unique identifier for the resource."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": \"string-value\",\n  \"message\": \"string-value\",\n  \"data\": {\n    \"status\": 1\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "2c196332-5237-49da-83a2-1afd9b5f240f",
+              "name": "The requested resource was not found.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "products",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "id",
+                      "description": "(Required) Unique identifier for the resource."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": \"string-value\",\n  \"message\": \"string-value\",\n  \"data\": {\n    \"status\": 1\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "219ee6b2-3bb8-4270-8025-7f795b95a53e",
+          "name": "WooCommerce Update a Product",
+          "request": {
+            "name": "WooCommerce Update a Product",
+            "description": {
+              "content": "Updates an existing product identified by its numeric ID. Only the properties included in the request body are updated; omitted properties retain their current values.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "products",
+                ":id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<integer>",
+                  "key": "id",
+                  "description": "(Required) Unique identifier for the resource."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "PUT",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"<string>\",\n  \"type\": \"<string>\",\n  \"status\": \"<string>\",\n  \"featured\": \"<boolean>\",\n  \"description\": \"<string>\",\n  \"short_description\": \"<string>\",\n  \"sku\": \"<string>\",\n  \"regular_price\": \"<string>\",\n  \"sale_price\": \"<string>\",\n  \"virtual\": \"<boolean>\",\n  \"downloadable\": \"<boolean>\",\n  \"manage_stock\": \"<boolean>\",\n  \"stock_quantity\": \"<integer>\",\n  \"stock_status\": \"<string>\",\n  \"weight\": \"<string>\",\n  \"categories\": [\n    {\n      \"id\": \"<integer>\"\n    },\n    {\n      \"id\": \"<integer>\"\n    }\n  ],\n  \"tags\": [\n    {\n      \"id\": \"<integer>\"\n    },\n    {\n      \"id\": \"<integer>\"\n    }\n  ],\n  \"images\": [\n    {\n      \"id\": \"<integer>\",\n      \"src\": \"<uri>\",\n      \"name\": \"<string>\",\n      \"alt\": \"<string>\"\n    },\n    {\n      \"id\": \"<integer>\",\n      \"src\": \"<uri>\",\n      \"name\": \"<string>\",\n      \"alt\": \"<string>\"\n    }\n  ],\n  \"attributes\": [\n    {\n      \"id\": \"<integer>\",\n      \"name\": \"<string>\",\n      \"position\": \"<integer>\",\n      \"visible\": \"<boolean>\",\n      \"variation\": \"<boolean>\",\n      \"options\": [\n        \"<string>\",\n        \"<string>\"\n      ]\n    },\n    {\n      \"id\": \"<integer>\",\n      \"name\": \"<string>\",\n      \"position\": \"<integer>\",\n      \"visible\": \"<boolean>\",\n      \"variation\": \"<boolean>\",\n      \"options\": [\n        \"<string>\",\n        \"<string>\"\n      ]\n    }\n  ],\n  \"meta_data\": [\n    {\n      \"id\": \"<integer>\",\n      \"key\": \"<string>\",\n      \"value\": \"<string>\"\n    },\n    {\n      \"id\": \"<integer>\",\n      \"key\": \"<string>\",\n      \"value\": \"<string>\"\n    }\n  ]\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "8551907f-d028-4c21-8f42-7832676cca52",
+              "name": "Product updated successfully",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "products",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "id",
+                      "description": "(Required) Unique identifier for the resource."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"Example Name\",\n  \"type\": \"simple\",\n  \"status\": \"draft\",\n  \"featured\": true,\n  \"description\": \"A sample description\",\n  \"short_description\": \"A sample description\",\n  \"sku\": \"string-value\",\n  \"regular_price\": \"string-value\",\n  \"sale_price\": \"string-value\",\n  \"virtual\": true,\n  \"downloadable\": true,\n  \"manage_stock\": true,\n  \"stock_quantity\": 1,\n  \"stock_status\": \"instock\",\n  \"weight\": \"string-value\",\n  \"categories\": [\n    {\n      \"id\": 1\n    }\n  ],\n  \"tags\": [\n    {\n      \"id\": 1\n    }\n  ],\n  \"images\": [\n    {\n      \"id\": 1,\n      \"src\": \"https://example.com/path\",\n      \"name\": \"Example Name\",\n      \"alt\": \"string-value\"\n    },\n    {\n      \"id\": 1,\n      \"src\": \"https://example.com/path\",\n      \"name\": \"Example Name\",\n      \"alt\": \"string-value\"\n    }\n  ],\n  \"attributes\": [\n    {\n      \"id\": 1,\n      \"name\": \"Example Name\",\n      \"position\": 1,\n      \"visible\": true,\n      \"variation\": true,\n      \"options\": [\n        \"string-value\"\n      ]\n    },\n    {\n      \"id\": 1,\n      \"name\": \"Example Name\",\n      \"position\": 1,\n      \"visible\": true,\n      \"variation\": true,\n      \"options\": [\n        \"string-value\"\n      ]\n    }\n  ],\n  \"meta_data\": [\n    {\n      \"id\": 1,\n      \"key\": \"string-value\",\n      \"value\": \"string-value\"\n    },\n    {\n      \"id\": 1,\n      \"key\": \"string-value\",\n      \"value\": \"string-value\"\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": 1,\n  \"name\": \"Example Name\",\n  \"slug\": \"string-value\",\n  \"permalink\": \"https://example.com/path\",\n  \"type\": \"simple\",\n  \"status\": \"draft\",\n  \"featured\": true,\n  \"description\": \"A sample description\",\n  \"short_description\": \"A sample description\",\n  \"sku\": \"string-value\",\n  \"price\": \"string-value\",\n  \"regular_price\": \"string-value\",\n  \"sale_price\": \"string-value\",\n  \"on_sale\": true,\n  \"purchasable\": true,\n  \"total_sales\": 1,\n  \"virtual\": true,\n  \"downloadable\": true,\n  \"manage_stock\": true,\n  \"stock_quantity\": 1,\n  \"stock_status\": \"instock\",\n  \"weight\": \"string-value\",\n  \"dimensions\": {\n    \"length\": \"string-value\",\n    \"width\": \"string-value\",\n    \"height\": \"string-value\"\n  },\n  \"categories\": [\n    {\n      \"id\": 1,\n      \"name\": \"Example Name\",\n      \"slug\": \"string-value\"\n    }\n  ],\n  \"tags\": [\n    {\n      \"id\": 1,\n      \"name\": \"Example Name\",\n      \"slug\": \"string-value\"\n    }\n  ],\n  \"images\": [\n    \"string-value\"\n  ],\n  \"attributes\": [\n    \"string-value\"\n  ],\n  \"date_created\": \"2026-05-03T14:30:00Z\",\n  \"date_modified\": \"2026-05-03T14:30:00Z\",\n  \"meta_data\": [\n    \"string-value\"\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "c88d30f1-b9e2-40e2-8767-56e959591415",
+              "name": "The request body contains invalid or missing parameters.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "products",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "id",
+                      "description": "(Required) Unique identifier for the resource."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"Example Name\",\n  \"type\": \"simple\",\n  \"status\": \"draft\",\n  \"featured\": true,\n  \"description\": \"A sample description\",\n  \"short_description\": \"A sample description\",\n  \"sku\": \"string-value\",\n  \"regular_price\": \"string-value\",\n  \"sale_price\": \"string-value\",\n  \"virtual\": true,\n  \"downloadable\": true,\n  \"manage_stock\": true,\n  \"stock_quantity\": 1,\n  \"stock_status\": \"instock\",\n  \"weight\": \"string-value\",\n  \"categories\": [\n    {\n      \"id\": 1\n    }\n  ],\n  \"tags\": [\n    {\n      \"id\": 1\n    }\n  ],\n  \"images\": [\n    {\n      \"id\": 1,\n      \"src\": \"https://example.com/path\",\n      \"name\": \"Example Name\",\n      \"alt\": \"string-value\"\n    },\n    {\n      \"id\": 1,\n      \"src\": \"https://example.com/path\",\n      \"name\": \"Example Name\",\n      \"alt\": \"string-value\"\n    }\n  ],\n  \"attributes\": [\n    {\n      \"id\": 1,\n      \"name\": \"Example Name\",\n      \"position\": 1,\n      \"visible\": true,\n      \"variation\": true,\n      \"options\": [\n        \"string-value\"\n      ]\n    },\n    {\n      \"id\": 1,\n      \"name\": \"Example Name\",\n      \"position\": 1,\n      \"visible\": true,\n      \"variation\": true,\n      \"options\": [\n        \"string-value\"\n      ]\n    }\n  ],\n  \"meta_data\": [\n    {\n      \"id\": 1,\n      \"key\": \"string-value\",\n      \"value\": \"string-value\"\n    },\n    {\n      \"id\": 1,\n      \"key\": \"string-value\",\n      \"value\": \"string-value\"\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": \"string-value\",\n  \"message\": \"string-value\",\n  \"data\": {\n    \"status\": 1\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "1704370c-4411-49c6-8ee8-eec24caa796b",
+              "name": "Authentication credentials are missing or invalid.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "products",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "id",
+                      "description": "(Required) Unique identifier for the resource."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"Example Name\",\n  \"type\": \"simple\",\n  \"status\": \"draft\",\n  \"featured\": true,\n  \"description\": \"A sample description\",\n  \"short_description\": \"A sample description\",\n  \"sku\": \"string-value\",\n  \"regular_price\": \"string-value\",\n  \"sale_price\": \"string-value\",\n  \"virtual\": true,\n  \"downloadable\": true,\n  \"manage_stock\": true,\n  \"stock_quantity\": 1,\n  \"stock_status\": \"instock\",\n  \"weight\": \"string-value\",\n  \"categories\": [\n    {\n      \"id\": 1\n    }\n  ],\n  \"tags\": [\n    {\n      \"id\": 1\n    }\n  ],\n  \"images\": [\n    {\n      \"id\": 1,\n      \"src\": \"https://example.com/path\",\n      \"name\": \"Example Name\",\n      \"alt\": \"string-value\"\n    },\n    {\n      \"id\": 1,\n      \"src\": \"https://example.com/path\",\n      \"name\": \"Example Name\",\n      \"alt\": \"string-value\"\n    }\n  ],\n  \"attributes\": [\n    {\n      \"id\": 1,\n      \"name\": \"Example Name\",\n      \"position\": 1,\n      \"visible\": true,\n      \"variation\": true,\n      \"options\": [\n        \"string-value\"\n      ]\n    },\n    {\n      \"id\": 1,\n      \"name\": \"Example Name\",\n      \"position\": 1,\n      \"visible\": true,\n      \"variation\": true,\n      \"options\": [\n        \"string-value\"\n      ]\n    }\n  ],\n  \"meta_data\": [\n    {\n      \"id\": 1,\n      \"key\": \"string-value\",\n      \"value\": \"string-value\"\n    },\n    {\n      \"id\": 1,\n      \"key\": \"string-value\",\n      \"value\": \"string-value\"\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": \"string-value\",\n  \"message\": \"string-value\",\n  \"data\": {\n    \"status\": 1\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "a96562a2-15f8-4aca-9922-e6400926551e",
+              "name": "The requested resource was not found.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "products",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "id",
+                      "description": "(Required) Unique identifier for the resource."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"Example Name\",\n  \"type\": \"simple\",\n  \"status\": \"draft\",\n  \"featured\": true,\n  \"description\": \"A sample description\",\n  \"short_description\": \"A sample description\",\n  \"sku\": \"string-value\",\n  \"regular_price\": \"string-value\",\n  \"sale_price\": \"string-value\",\n  \"virtual\": true,\n  \"downloadable\": true,\n  \"manage_stock\": true,\n  \"stock_quantity\": 1,\n  \"stock_status\": \"instock\",\n  \"weight\": \"string-value\",\n  \"categories\": [\n    {\n      \"id\": 1\n    }\n  ],\n  \"tags\": [\n    {\n      \"id\": 1\n    }\n  ],\n  \"images\": [\n    {\n      \"id\": 1,\n      \"src\": \"https://example.com/path\",\n      \"name\": \"Example Name\",\n      \"alt\": \"string-value\"\n    },\n    {\n      \"id\": 1,\n      \"src\": \"https://example.com/path\",\n      \"name\": \"Example Name\",\n      \"alt\": \"string-value\"\n    }\n  ],\n  \"attributes\": [\n    {\n      \"id\": 1,\n      \"name\": \"Example Name\",\n      \"position\": 1,\n      \"visible\": true,\n      \"variation\": true,\n      \"options\": [\n        \"string-value\"\n      ]\n    },\n    {\n      \"id\": 1,\n      \"name\": \"Example Name\",\n      \"position\": 1,\n      \"visible\": true,\n      \"variation\": true,\n      \"options\": [\n        \"string-value\"\n      ]\n    }\n  ],\n  \"meta_data\": [\n    {\n      \"id\": 1,\n      \"key\": \"string-value\",\n      \"value\": \"string-value\"\n    },\n    {\n      \"id\": 1,\n      \"key\": \"string-value\",\n      \"value\": \"string-value\"\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": \"string-value\",\n  \"message\": \"string-value\",\n  \"data\": {\n    \"status\": 1\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "de813e78-ac34-4139-be44-071edc3ef170",
+          "name": "WooCommerce Delete a Product",
+          "request": {
+            "name": "WooCommerce Delete a Product",
+            "description": {
+              "content": "Deletes a product by its numeric ID. By default the product is moved to the trash. Set the force parameter to true to permanently delete the product and bypass the trash.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "products",
+                ":id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "force",
+                  "value": "false",
+                  "description": "Set to true to permanently delete the resource, bypassing the trash."
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<integer>",
+                  "key": "id",
+                  "description": "(Required) Unique identifier for the resource."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "DELETE",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "7c4b9dce-337f-477a-8145-d4528d2a9269",
+              "name": "Product deleted successfully",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "products",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "force",
+                      "value": "false"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "id",
+                      "description": "(Required) Unique identifier for the resource."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": 1,\n  \"name\": \"Example Name\",\n  \"slug\": \"string-value\",\n  \"permalink\": \"https://example.com/path\",\n  \"type\": \"simple\",\n  \"status\": \"draft\",\n  \"featured\": true,\n  \"description\": \"A sample description\",\n  \"short_description\": \"A sample description\",\n  \"sku\": \"string-value\",\n  \"price\": \"string-value\",\n  \"regular_price\": \"string-value\",\n  \"sale_price\": \"string-value\",\n  \"on_sale\": true,\n  \"purchasable\": true,\n  \"total_sales\": 1,\n  \"virtual\": true,\n  \"downloadable\": true,\n  \"manage_stock\": true,\n  \"stock_quantity\": 1,\n  \"stock_status\": \"instock\",\n  \"weight\": \"string-value\",\n  \"dimensions\": {\n    \"length\": \"string-value\",\n    \"width\": \"string-value\",\n    \"height\": \"string-value\"\n  },\n  \"categories\": [\n    {\n      \"id\": 1,\n      \"name\": \"Example Name\",\n      \"slug\": \"string-value\"\n    }\n  ],\n  \"tags\": [\n    {\n      \"id\": 1,\n      \"name\": \"Example Name\",\n      \"slug\": \"string-value\"\n    }\n  ],\n  \"images\": [\n    \"string-value\"\n  ],\n  \"attributes\": [\n    \"string-value\"\n  ],\n  \"date_created\": \"2026-05-03T14:30:00Z\",\n  \"date_modified\": \"2026-05-03T14:30:00Z\",\n  \"meta_data\": [\n    \"string-value\"\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "98828650-a240-4cd6-8fb9-62dd66f86ad2",
+              "name": "Authentication credentials are missing or invalid.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "products",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "force",
+                      "value": "false"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "id",
+                      "description": "(Required) Unique identifier for the resource."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": \"string-value\",\n  \"message\": \"string-value\",\n  \"data\": {\n    \"status\": 1\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "7aa82edf-3bd4-48da-9c7f-0365011f9e6e",
+              "name": "The requested resource was not found.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "products",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "force",
+                      "value": "false"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "id",
+                      "description": "(Required) Unique identifier for the resource."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": \"string-value\",\n  \"message\": \"string-value\",\n  \"data\": {\n    \"status\": 1\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "9c308c8e-2bd3-4020-81d1-6a0cc7fc291d",
+          "name": "WooCommerce Batch Create, Update, and Delete Products",
+          "request": {
+            "name": "WooCommerce Batch Create, Update, and Delete Products",
+            "description": {
+              "content": "Performs batch create, update, and delete operations on products in a single request. Pass arrays of product objects under the create, update, and delete keys respectively. Delete accepts an array of product IDs.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "products",
+                "batch"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"create\": [\n    {\n      \"name\": \"<string>\",\n      \"type\": \"<string>\",\n      \"status\": \"<string>\",\n      \"featured\": \"<boolean>\",\n      \"description\": \"<string>\",\n      \"short_description\": \"<string>\",\n      \"sku\": \"<string>\",\n      \"regular_price\": \"<string>\",\n      \"sale_price\": \"<string>\",\n      \"virtual\": \"<boolean>\",\n      \"downloadable\": \"<boolean>\",\n      \"manage_stock\": \"<boolean>\",\n      \"stock_quantity\": \"<integer>\",\n      \"stock_status\": \"<string>\",\n      \"weight\": \"<string>\",\n      \"categories\": [\n        {\n          \"id\": \"<integer>\"\n        },\n        {\n          \"id\": \"<integer>\"\n        }\n      ],\n      \"tags\": [\n        {\n          \"id\": \"<integer>\"\n        },\n        {\n          \"id\": \"<integer>\"\n        }\n      ],\n      \"images\": [\n        {\n          \"id\": \"<integer>\",\n          \"src\": \"<uri>\",\n          \"name\": \"<string>\",\n          \"alt\": \"<string>\"\n        },\n        {\n          \"id\": \"<integer>\",\n          \"src\": \"<uri>\",\n          \"name\": \"<string>\",\n          \"alt\": \"<string>\"\n        }\n      ],\n      \"attributes\": [\n        {\n          \"id\": \"<integer>\",\n          \"name\": \"<string>\",\n          \"position\": \"<integer>\",\n          \"visible\": \"<boolean>\",\n          \"variation\": \"<boolean>\",\n          \"options\": [\n            \"<string>\",\n            \"<string>\"\n          ]\n        },\n        {\n          \"id\": \"<integer>\",\n          \"name\": \"<string>\",\n          \"position\": \"<integer>\",\n          \"visible\": \"<boolean>\",\n          \"variation\": \"<boolean>\",\n          \"options\": [\n            \"<string>\",\n            \"<string>\"\n          ]\n        }\n      ],\n      \"meta_data\": [\n        {\n          \"id\": \"<integer>\",\n          \"key\": \"<string>\",\n          \"value\": \"<string>\"\n        },\n        {\n          \"id\": \"<integer>\",\n          \"key\": \"<string>\",\n          \"value\": \"<string>\"\n        }\n      ]\n    },\n    {\n      \"name\": \"<string>\",\n      \"type\": \"<string>\",\n      \"status\": \"<string>\",\n      \"featured\": \"<boolean>\",\n      \"description\": \"<string>\",\n      \"short_description\": \"<string>\",\n      \"sku\": \"<string>\",\n      \"regular_price\": \"<string>\",\n      \"sale_price\": \"<string>\",\n      \"virtual\": \"<boolean>\",\n      \"downloadable\": \"<boolean>\",\n      \"manage_stock\": \"<boolean>\",\n      \"stock_quantity\": \"<integer>\",\n      \"stock_status\": \"<string>\",\n      \"weight\": \"<string>\",\n      \"categories\": [\n        {\n          \"id\": \"<integer>\"\n        },\n        {\n          \"id\": \"<integer>\"\n        }\n      ],\n      \"tags\": [\n        {\n          \"id\": \"<integer>\"\n        },\n        {\n          \"id\": \"<integer>\"\n        }\n      ],\n      \"images\": [\n        {\n          \"id\": \"<integer>\",\n          \"src\": \"<uri>\",\n          \"name\": \"<string>\",\n          \"alt\": \"<string>\"\n        },\n        {\n          \"id\": \"<integer>\",\n          \"src\": \"<uri>\",\n          \"name\": \"<string>\",\n          \"alt\": \"<string>\"\n        }\n      ],\n      \"attributes\": [\n        {\n          \"id\": \"<integer>\",\n          \"name\": \"<string>\",\n          \"position\": \"<integer>\",\n          \"visible\": \"<boolean>\",\n          \"variation\": \"<boolean>\",\n          \"options\": [\n            \"<string>\",\n            \"<string>\"\n          ]\n        },\n        {\n          \"id\": \"<integer>\",\n          \"name\": \"<string>\",\n          \"position\": \"<integer>\",\n          \"visible\": \"<boolean>\",\n          \"variation\": \"<boolean>\",\n          \"options\": [\n            \"<string>\",\n            \"<string>\"\n          ]\n        }\n      ],\n      \"meta_data\": [\n        {\n          \"id\": \"<integer>\",\n          \"key\": \"<string>\",\n          \"value\": \"<string>\"\n        },\n        {\n          \"id\": \"<integer>\",\n          \"key\": \"<string>\",\n          \"value\": \"<string>\"\n        }\n      ]\n    }\n  ],\n  \"update\": [\n    {\n      \"name\": \"<string>\",\n      \"type\": \"<string>\",\n      \"status\": \"<string>\",\n      \"featured\": \"<boolean>\",\n      \"description\": \"<string>\",\n      \"short_description\": \"<string>\",\n      \"sku\": \"<string>\",\n      \"regular_price\": \"<string>\",\n      \"sale_price\": \"<string>\",\n      \"virtual\": \"<boolean>\",\n      \"downloadable\": \"<boolean>\",\n      \"manage_stock\": \"<boolean>\",\n      \"stock_quantity\": \"<integer>\",\n      \"stock_status\": \"<string>\",\n      \"weight\": \"<string>\",\n      \"categories\": [\n        {\n          \"id\": \"<integer>\"\n        },\n        {\n          \"id\": \"<integer>\"\n        }\n      ],\n      \"tags\": [\n        {\n          \"id\": \"<integer>\"\n        },\n        {\n          \"id\": \"<integer>\"\n        }\n      ],\n      \"images\": [\n        {\n          \"id\": \"<integer>\",\n          \"src\": \"<uri>\",\n          \"name\": \"<string>\",\n          \"alt\": \"<string>\"\n        },\n        {\n          \"id\": \"<integer>\",\n          \"src\": \"<uri>\",\n          \"name\": \"<string>\",\n          \"alt\": \"<string>\"\n        }\n      ],\n      \"attributes\": [\n        {\n          \"id\": \"<integer>\",\n          \"name\": \"<string>\",\n          \"position\": \"<integer>\",\n          \"visible\": \"<boolean>\",\n          \"variation\": \"<boolean>\",\n          \"options\": [\n            \"<string>\",\n            \"<string>\"\n          ]\n        },\n        {\n          \"id\": \"<integer>\",\n          \"name\": \"<string>\",\n          \"position\": \"<integer>\",\n          \"visible\": \"<boolean>\",\n          \"variation\": \"<boolean>\",\n          \"options\": [\n            \"<string>\",\n            \"<string>\"\n          ]\n        }\n      ],\n      \"meta_data\": [\n        {\n          \"id\": \"<integer>\",\n          \"key\": \"<string>\",\n          \"value\": \"<string>\"\n        },\n        {\n          \"id\": \"<integer>\",\n          \"key\": \"<string>\",\n          \"value\": \"<string>\"\n        }\n      ]\n    },\n    {\n      \"name\": \"<string>\",\n      \"type\": \"<string>\",\n      \"status\": \"<string>\",\n      \"featured\": \"<boolean>\",\n      \"description\": \"<string>\",\n      \"short_description\": \"<string>\",\n      \"sku\": \"<string>\",\n      \"regular_price\": \"<string>\",\n      \"sale_price\": \"<string>\",\n      \"virtual\": \"<boolean>\",\n      \"downloadable\": \"<boolean>\",\n      \"manage_stock\": \"<boolean>\",\n      \"stock_quantity\": \"<integer>\",\n      \"stock_status\": \"<string>\",\n      \"weight\": \"<string>\",\n      \"categories\": [\n        {\n          \"id\": \"<integer>\"\n        },\n        {\n          \"id\": \"<integer>\"\n        }\n      ],\n      \"tags\": [\n        {\n          \"id\": \"<integer>\"\n        },\n        {\n          \"id\": \"<integer>\"\n        }\n      ],\n      \"images\": [\n        {\n          \"id\": \"<integer>\",\n          \"src\": \"<uri>\",\n          \"name\": \"<string>\",\n          \"alt\": \"<string>\"\n        },\n        {\n          \"id\": \"<integer>\",\n          \"src\": \"<uri>\",\n          \"name\": \"<string>\",\n          \"alt\": \"<string>\"\n        }\n      ],\n      \"attributes\": [\n        {\n          \"id\": \"<integer>\",\n          \"name\": \"<string>\",\n          \"position\": \"<integer>\",\n          \"visible\": \"<boolean>\",\n          \"variation\": \"<boolean>\",\n          \"options\": [\n            \"<string>\",\n            \"<string>\"\n          ]\n        },\n        {\n          \"id\": \"<integer>\",\n          \"name\": \"<string>\",\n          \"position\": \"<integer>\",\n          \"visible\": \"<boolean>\",\n          \"variation\": \"<boolean>\",\n          \"options\": [\n            \"<string>\",\n            \"<string>\"\n          ]\n        }\n      ],\n      \"meta_data\": [\n        {\n          \"id\": \"<integer>\",\n          \"key\": \"<string>\",\n          \"value\": \"<string>\"\n        },\n        {\n          \"id\": \"<integer>\",\n          \"key\": \"<string>\",\n          \"value\": \"<string>\"\n        }\n      ]\n    }\n  ],\n  \"delete\": [\n    \"<integer>\",\n    \"<integer>\"\n  ]\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "24c152aa-faec-4d25-b3d1-0587576c28ee",
+              "name": "Batch operation completed",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "products",
+                    "batch"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"create\": [\n    {\n      \"name\": \"Example Name\",\n      \"type\": \"simple\",\n      \"status\": \"draft\",\n      \"featured\": true,\n      \"description\": \"A sample description\",\n      \"short_description\": \"A sample description\",\n      \"sku\": \"string-value\",\n      \"regular_price\": \"string-value\",\n      \"sale_price\": \"string-value\",\n      \"virtual\": true,\n      \"downloadable\": true,\n      \"manage_stock\": true,\n      \"stock_quantity\": 1,\n      \"stock_status\": \"instock\",\n      \"weight\": \"string-value\",\n      \"categories\": [\n        {\n          \"id\": 1\n        }\n      ],\n      \"tags\": [\n        {\n          \"id\": 1\n        }\n      ],\n      \"images\": [\n        {\n          \"id\": 1,\n          \"src\": \"https://example.com/path\",\n          \"name\": \"Example Name\",\n          \"alt\": \"string-value\"\n        },\n        {\n          \"id\": 1,\n          \"src\": \"https://example.com/path\",\n          \"name\": \"Example Name\",\n          \"alt\": \"string-value\"\n        }\n      ],\n      \"attributes\": [\n        {\n          \"id\": 1,\n          \"name\": \"Example Name\",\n          \"position\": 1,\n          \"visible\": true,\n          \"variation\": true,\n          \"options\": [\n            \"string-value\"\n          ]\n        },\n        {\n          \"id\": 1,\n          \"name\": \"Example Name\",\n          \"position\": 1,\n          \"visible\": true,\n          \"variation\": true,\n          \"options\": [\n            \"string-value\"\n          ]\n        }\n      ],\n      \"meta_data\": [\n        {\n          \"id\": 1,\n          \"key\": \"string-value\",\n          \"value\": \"string-value\"\n        },\n        {\n          \"id\": 1,\n          \"key\": \"string-value\",\n          \"value\": \"string-value\"\n        }\n      ]\n    },\n    {\n      \"name\": \"Example Name\",\n      \"type\": \"simple\",\n      \"status\": \"draft\",\n      \"featured\": true,\n      \"description\": \"A sample description\",\n      \"short_description\": \"A sample description\",\n      \"sku\": \"string-value\",\n      \"regular_price\": \"string-value\",\n      \"sale_price\": \"string-value\",\n      \"virtual\": true,\n      \"downloadable\": true,\n      \"manage_stock\": true,\n      \"stock_quantity\": 1,\n      \"stock_status\": \"instock\",\n      \"weight\": \"string-value\",\n      \"categories\": [\n        {\n          \"id\": 1\n        }\n      ],\n      \"tags\": [\n        {\n          \"id\": 1\n        }\n      ],\n      \"images\": [\n        {\n          \"id\": 1,\n          \"src\": \"https://example.com/path\",\n          \"name\": \"Example Name\",\n          \"alt\": \"string-value\"\n        },\n        {\n          \"id\": 1,\n          \"src\": \"https://example.com/path\",\n          \"name\": \"Example Name\",\n          \"alt\": \"string-value\"\n        }\n      ],\n      \"attributes\": [\n        {\n          \"id\": 1,\n          \"name\": \"Example Name\",\n          \"position\": 1,\n          \"visible\": true,\n          \"variation\": true,\n          \"options\": [\n            \"string-value\"\n          ]\n        },\n        {\n          \"id\": 1,\n          \"name\": \"Example Name\",\n          \"position\": 1,\n          \"visible\": true,\n          \"variation\": true,\n          \"options\": [\n            \"string-value\"\n          ]\n        }\n      ],\n      \"meta_data\": [\n        {\n          \"id\": 1,\n          \"key\": \"string-value\",\n          \"value\": \"string-value\"\n        },\n        {\n          \"id\": 1,\n          \"key\": \"string-value\",\n          \"value\": \"string-value\"\n        }\n      ]\n    }\n  ],\n  \"update\": [\n    {\n      \"name\": \"Example Name\",\n      \"type\": \"simple\",\n      \"status\": \"draft\",\n      \"featured\": true,\n      \"description\": \"A sample description\",\n      \"short_description\": \"A sample description\",\n      \"sku\": \"string-value\",\n      \"regular_price\": \"string-value\",\n      \"sale_price\": \"string-value\",\n      \"virtual\": true,\n      \"downloadable\": true,\n      \"manage_stock\": true,\n      \"stock_quantity\": 1,\n      \"stock_status\": \"instock\",\n      \"weight\": \"string-value\",\n      \"categories\": [\n        {\n          \"id\": 1\n        }\n      ],\n      \"tags\": [\n        {\n          \"id\": 1\n        }\n      ],\n      \"images\": [\n        {\n          \"id\": 1,\n          \"src\": \"https://example.com/path\",\n          \"name\": \"Example Name\",\n          \"alt\": \"string-value\"\n        },\n        {\n          \"id\": 1,\n          \"src\": \"https://example.com/path\",\n          \"name\": \"Example Name\",\n          \"alt\": \"string-value\"\n        }\n      ],\n      \"attributes\": [\n        {\n          \"id\": 1,\n          \"name\": \"Example Name\",\n          \"position\": 1,\n          \"visible\": true,\n          \"variation\": true,\n          \"options\": [\n            \"string-value\"\n          ]\n        },\n        {\n          \"id\": 1,\n          \"name\": \"Example Name\",\n          \"position\": 1,\n          \"visible\": true,\n          \"variation\": true,\n          \"options\": [\n            \"string-value\"\n          ]\n        }\n      ],\n      \"meta_data\": [\n        {\n          \"id\": 1,\n          \"key\": \"string-value\",\n          \"value\": \"string-value\"\n        },\n        {\n          \"id\": 1,\n          \"key\": \"string-value\",\n          \"value\": \"string-value\"\n        }\n      ]\n    },\n    {\n      \"name\": \"Example Name\",\n      \"type\": \"simple\",\n      \"status\": \"draft\",\n      \"featured\": true,\n      \"description\": \"A sample description\",\n      \"short_description\": \"A sample description\",\n      \"sku\": \"string-value\",\n      \"regular_price\": \"string-value\",\n      \"sale_price\": \"string-value\",\n      \"virtual\": true,\n      \"downloadable\": true,\n      \"manage_stock\": true,\n      \"stock_quantity\": 1,\n      \"stock_status\": \"instock\",\n      \"weight\": \"string-value\",\n      \"categories\": [\n        {\n          \"id\": 1\n        }\n      ],\n      \"tags\": [\n        {\n          \"id\": 1\n        }\n      ],\n      \"images\": [\n        {\n          \"id\": 1,\n          \"src\": \"https://example.com/path\",\n          \"name\": \"Example Name\",\n          \"alt\": \"string-value\"\n        },\n        {\n          \"id\": 1,\n          \"src\": \"https://example.com/path\",\n          \"name\": \"Example Name\",\n          \"alt\": \"string-value\"\n        }\n      ],\n      \"attributes\": [\n        {\n          \"id\": 1,\n          \"name\": \"Example Name\",\n          \"position\": 1,\n          \"visible\": true,\n          \"variation\": true,\n          \"options\": [\n            \"string-value\"\n          ]\n        },\n        {\n          \"id\": 1,\n          \"name\": \"Example Name\",\n          \"position\": 1,\n          \"visible\": true,\n          \"variation\": true,\n          \"options\": [\n            \"string-value\"\n          ]\n        }\n      ],\n      \"meta_data\": [\n        {\n          \"id\": 1,\n          \"key\": \"string-value\",\n          \"value\": \"string-value\"\n        },\n        {\n          \"id\": 1,\n          \"key\": \"string-value\",\n          \"value\": \"string-value\"\n        }\n      ]\n    }\n  ],\n  \"delete\": [\n    1\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"create\": [\n    \"string-value\"\n  ],\n  \"update\": [\n    \"string-value\"\n  ],\n  \"delete\": [\n    \"string-value\"\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "74e5a080-52d8-4504-90a0-78682fb0fbbc",
+              "name": "Authentication credentials are missing or invalid.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "products",
+                    "batch"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"create\": [\n    {\n      \"name\": \"Example Name\",\n      \"type\": \"simple\",\n      \"status\": \"draft\",\n      \"featured\": true,\n      \"description\": \"A sample description\",\n      \"short_description\": \"A sample description\",\n      \"sku\": \"string-value\",\n      \"regular_price\": \"string-value\",\n      \"sale_price\": \"string-value\",\n      \"virtual\": true,\n      \"downloadable\": true,\n      \"manage_stock\": true,\n      \"stock_quantity\": 1,\n      \"stock_status\": \"instock\",\n      \"weight\": \"string-value\",\n      \"categories\": [\n        {\n          \"id\": 1\n        }\n      ],\n      \"tags\": [\n        {\n          \"id\": 1\n        }\n      ],\n      \"images\": [\n        {\n          \"id\": 1,\n          \"src\": \"https://example.com/path\",\n          \"name\": \"Example Name\",\n          \"alt\": \"string-value\"\n        },\n        {\n          \"id\": 1,\n          \"src\": \"https://example.com/path\",\n          \"name\": \"Example Name\",\n          \"alt\": \"string-value\"\n        }\n      ],\n      \"attributes\": [\n        {\n          \"id\": 1,\n          \"name\": \"Example Name\",\n          \"position\": 1,\n          \"visible\": true,\n          \"variation\": true,\n          \"options\": [\n            \"string-value\"\n          ]\n        },\n        {\n          \"id\": 1,\n          \"name\": \"Example Name\",\n          \"position\": 1,\n          \"visible\": true,\n          \"variation\": true,\n          \"options\": [\n            \"string-value\"\n          ]\n        }\n      ],\n      \"meta_data\": [\n        {\n          \"id\": 1,\n          \"key\": \"string-value\",\n          \"value\": \"string-value\"\n        },\n        {\n          \"id\": 1,\n          \"key\": \"string-value\",\n          \"value\": \"string-value\"\n        }\n      ]\n    },\n    {\n      \"name\": \"Example Name\",\n      \"type\": \"simple\",\n      \"status\": \"draft\",\n      \"featured\": true,\n      \"description\": \"A sample description\",\n      \"short_description\": \"A sample description\",\n      \"sku\": \"string-value\",\n      \"regular_price\": \"string-value\",\n      \"sale_price\": \"string-value\",\n      \"virtual\": true,\n      \"downloadable\": true,\n      \"manage_stock\": true,\n      \"stock_quantity\": 1,\n      \"stock_status\": \"instock\",\n      \"weight\": \"string-value\",\n      \"categories\": [\n        {\n          \"id\": 1\n        }\n      ],\n      \"tags\": [\n        {\n          \"id\": 1\n        }\n      ],\n      \"images\": [\n        {\n          \"id\": 1,\n          \"src\": \"https://example.com/path\",\n          \"name\": \"Example Name\",\n          \"alt\": \"string-value\"\n        },\n        {\n          \"id\": 1,\n          \"src\": \"https://example.com/path\",\n          \"name\": \"Example Name\",\n          \"alt\": \"string-value\"\n        }\n      ],\n      \"attributes\": [\n        {\n          \"id\": 1,\n          \"name\": \"Example Name\",\n          \"position\": 1,\n          \"visible\": true,\n          \"variation\": true,\n          \"options\": [\n            \"string-value\"\n          ]\n        },\n        {\n          \"id\": 1,\n          \"name\": \"Example Name\",\n          \"position\": 1,\n          \"visible\": true,\n          \"variation\": true,\n          \"options\": [\n            \"string-value\"\n          ]\n        }\n      ],\n      \"meta_data\": [\n        {\n          \"id\": 1,\n          \"key\": \"string-value\",\n          \"value\": \"string-value\"\n        },\n        {\n          \"id\": 1,\n          \"key\": \"string-value\",\n          \"value\": \"string-value\"\n        }\n      ]\n    }\n  ],\n  \"update\": [\n    {\n      \"name\": \"Example Name\",\n      \"type\": \"simple\",\n      \"status\": \"draft\",\n      \"featured\": true,\n      \"description\": \"A sample description\",\n      \"short_description\": \"A sample description\",\n      \"sku\": \"string-value\",\n      \"regular_price\": \"string-value\",\n      \"sale_price\": \"string-value\",\n      \"virtual\": true,\n      \"downloadable\": true,\n      \"manage_stock\": true,\n      \"stock_quantity\": 1,\n      \"stock_status\": \"instock\",\n      \"weight\": \"string-value\",\n      \"categories\": [\n        {\n          \"id\": 1\n        }\n      ],\n      \"tags\": [\n        {\n          \"id\": 1\n        }\n      ],\n      \"images\": [\n        {\n          \"id\": 1,\n          \"src\": \"https://example.com/path\",\n          \"name\": \"Example Name\",\n          \"alt\": \"string-value\"\n        },\n        {\n          \"id\": 1,\n          \"src\": \"https://example.com/path\",\n          \"name\": \"Example Name\",\n          \"alt\": \"string-value\"\n        }\n      ],\n      \"attributes\": [\n        {\n          \"id\": 1,\n          \"name\": \"Example Name\",\n          \"position\": 1,\n          \"visible\": true,\n          \"variation\": true,\n          \"options\": [\n            \"string-value\"\n          ]\n        },\n        {\n          \"id\": 1,\n          \"name\": \"Example Name\",\n          \"position\": 1,\n          \"visible\": true,\n          \"variation\": true,\n          \"options\": [\n            \"string-value\"\n          ]\n        }\n      ],\n      \"meta_data\": [\n        {\n          \"id\": 1,\n          \"key\": \"string-value\",\n          \"value\": \"string-value\"\n        },\n        {\n          \"id\": 1,\n          \"key\": \"string-value\",\n          \"value\": \"string-value\"\n        }\n      ]\n    },\n    {\n      \"name\": \"Example Name\",\n      \"type\": \"simple\",\n      \"status\": \"draft\",\n      \"featured\": true,\n      \"description\": \"A sample description\",\n      \"short_description\": \"A sample description\",\n      \"sku\": \"string-value\",\n      \"regular_price\": \"string-value\",\n      \"sale_price\": \"string-value\",\n      \"virtual\": true,\n      \"downloadable\": true,\n      \"manage_stock\": true,\n      \"stock_quantity\": 1,\n      \"stock_status\": \"instock\",\n      \"weight\": \"string-value\",\n      \"categories\": [\n        {\n          \"id\": 1\n        }\n      ],\n      \"tags\": [\n        {\n          \"id\": 1\n        }\n      ],\n      \"images\": [\n        {\n          \"id\": 1,\n          \"src\": \"https://example.com/path\",\n          \"name\": \"Example Name\",\n          \"alt\": \"string-value\"\n        },\n        {\n          \"id\": 1,\n          \"src\": \"https://example.com/path\",\n          \"name\": \"Example Name\",\n          \"alt\": \"string-value\"\n        }\n      ],\n      \"attributes\": [\n        {\n          \"id\": 1,\n          \"name\": \"Example Name\",\n          \"position\": 1,\n          \"visible\": true,\n          \"variation\": true,\n          \"options\": [\n            \"string-value\"\n          ]\n        },\n        {\n          \"id\": 1,\n          \"name\": \"Example Name\",\n          \"position\": 1,\n          \"visible\": true,\n          \"variation\": true,\n          \"options\": [\n            \"string-value\"\n          ]\n        }\n      ],\n      \"meta_data\": [\n        {\n          \"id\": 1,\n          \"key\": \"string-value\",\n          \"value\": \"string-value\"\n        },\n        {\n          \"id\": 1,\n          \"key\": \"string-value\",\n          \"value\": \"string-value\"\n        }\n      ]\n    }\n  ],\n  \"delete\": [\n    1\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": \"string-value\",\n  \"message\": \"string-value\",\n  \"data\": {\n    \"status\": 1\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "177f40f2-4e69-468a-887a-2c2d5ee6cfcb",
+          "name": "WooCommerce Get Product Collection Data",
+          "request": {
+            "name": "WooCommerce Get Product Collection Data",
+            "description": {
+              "content": "Returns aggregate data about a product collection including price ranges, attribute counts, and category counts. Used to populate filter widgets on shop and category archive pages without fetching full product records.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "products",
+                "collection-data"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "calculate_price_range",
+                  "value": "<boolean>",
+                  "description": "Whether to calculate and return the min/max price range."
+                },
+                {
+                  "disabled": false,
+                  "key": "calculate_attribute_counts",
+                  "value": "<string>",
+                  "description": "Comma-separated list of attribute slugs to count active terms for filter UIs."
+                },
+                {
+                  "disabled": false,
+                  "key": "calculate_rating_counts",
+                  "value": "<boolean>",
+                  "description": "Whether to calculate and return review rating counts."
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "9a92caaa-65ce-4b52-a117-2a330e0514ce",
+              "name": "Product collection aggregate data",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "products",
+                    "collection-data"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "calculate_price_range",
+                      "value": "true"
+                    },
+                    {
+                      "key": "calculate_attribute_counts",
+                      "value": "string-value"
+                    },
+                    {
+                      "key": "calculate_rating_counts",
+                      "value": "true"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"price_range\": {\n    \"min_price\": \"string-value\",\n    \"max_price\": \"string-value\"\n  },\n  \"attribute_counts\": [\n    {\n      \"term\": 1,\n      \"count\": 1\n    }\n  ],\n  \"rating_counts\": [\n    {\n      \"rating\": 1,\n      \"count\": 1\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://example.com/wp-json/wc/v3",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "basic",
+    "basic": [
+      {
+        "key": "username",
+        "value": "{{basicAuthUsername}}"
+      },
+      {
+        "key": "password",
+        "value": "{{basicAuthPassword}}"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "dc860c28-a987-4a5b-b736-bbf090e79e72",
+    "name": "WooCommerce REST Cart Products API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "The WooCommerce REST API is the primary server-side interface for reading and writing WooCommerce store data programmatically. It follows REST conventions, uses JSON for all requests and responses, and is fully integrated with the WordPress REST API under the /wp-json/wc/v3/ namespace. The API covers products, product variations, product categories, product attributes, orders, order notes, order refunds, customers, coupons, tax rates, shipping zones, payment gateways, settings, webhooks, reports, and system status. Authentication uses Consumer Key and Consumer Secret pairs generated in the WooCommerce admin, transmitted over HTTPS via HTTP Basic Auth or OAuth 1.0a over plain HTTP.\n\nContact Support:\n Name: WooCommerce Developer Support",
+      "type": "text/plain"
+    }
+  }
+}

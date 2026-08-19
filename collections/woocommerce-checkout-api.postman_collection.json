@@ -1,0 +1,757 @@
+{
+  "item": [
+    {
+      "id": "637bcdf7-5077-49ab-9371-789b31f8cb32",
+      "name": "Checkout",
+      "description": {
+        "content": "Submit and manage the checkout process for the current shopper",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "e1380484-7101-41c5-b1b3-3bc2e7f99997",
+          "name": "WooCommerce Get Checkout Data",
+          "request": {
+            "name": "WooCommerce Get Checkout Data",
+            "description": {
+              "content": "Returns the current checkout state including the cart contents, available payment methods, and pre-filled billing and shipping fields from the customer's account.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "checkout"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "16f233ee-147b-44c3-a5b0-d73fa5042e44",
+              "name": "Checkout data",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "checkout"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"order_id\": 1,\n  \"billing_address\": {\n    \"first_name\": \"Example Name\",\n    \"last_name\": \"Example Name\",\n    \"company\": \"string-value\",\n    \"address_1\": \"string-value\",\n    \"address_2\": \"string-value\",\n    \"city\": \"string-value\",\n    \"state\": \"string-value\",\n    \"postcode\": \"string-value\",\n    \"country\": \"string-value\",\n    \"email\": \"user@example.com\",\n    \"phone\": \"string-value\"\n  },\n  \"shipping_address\": {\n    \"first_name\": \"Example Name\",\n    \"last_name\": \"Example Name\",\n    \"company\": \"string-value\",\n    \"address_1\": \"string-value\",\n    \"address_2\": \"string-value\",\n    \"city\": \"string-value\",\n    \"state\": \"string-value\",\n    \"postcode\": \"string-value\",\n    \"country\": \"string-value\",\n    \"email\": \"user@example.com\",\n    \"phone\": \"string-value\"\n  },\n  \"payment_methods\": [\n    {\n      \"id\": \"500123\",\n      \"title\": \"Example Name\",\n      \"description\": \"A sample description\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "b61bf3f7-0c7c-49a7-848a-02e4b26e4e10",
+          "name": "WooCommerce Process Checkout and Place Order",
+          "request": {
+            "name": "WooCommerce Process Checkout and Place Order",
+            "description": {
+              "content": "Submits the checkout form to create an order and process payment. Requires billing address, payment method, and optional shipping data. Requires the Nonce header. Returns the created order on success or redirects to the payment gateway for hosted gateways.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "checkout"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "disabled": false,
+                "description": "(Required) Store API nonce token obtained from the X-WC-Store-API-Nonce response header of a prior cart GET request. Required for all cart and checkout write operations to prevent CSRF.",
+                "key": "Nonce",
+                "value": "<string>"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"billing_address\": {\n    \"first_name\": \"<string>\",\n    \"last_name\": \"<string>\",\n    \"company\": \"<string>\",\n    \"address_1\": \"<string>\",\n    \"address_2\": \"<string>\",\n    \"city\": \"<string>\",\n    \"state\": \"<string>\",\n    \"postcode\": \"<string>\",\n    \"country\": \"<string>\",\n    \"email\": \"<email>\",\n    \"phone\": \"<string>\"\n  },\n  \"payment_method\": \"<string>\",\n  \"shipping_address\": {\n    \"first_name\": \"<string>\",\n    \"last_name\": \"<string>\",\n    \"company\": \"<string>\",\n    \"address_1\": \"<string>\",\n    \"address_2\": \"<string>\",\n    \"city\": \"<string>\",\n    \"state\": \"<string>\",\n    \"postcode\": \"<string>\",\n    \"country\": \"<string>\",\n    \"email\": \"<email>\",\n    \"phone\": \"<string>\"\n  },\n  \"customer_note\": \"<string>\",\n  \"create_account\": \"<boolean>\",\n  \"payment_data\": [\n    {\n      \"key\": \"<string>\",\n      \"value\": \"<string>\"\n    },\n    {\n      \"key\": \"<string>\",\n      \"value\": \"<string>\"\n    }\n  ]\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "763db4e4-baf4-4716-870f-7537d878f17e",
+              "name": "Order created and payment initiated",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "checkout"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) Store API nonce token obtained from the X-WC-Store-API-Nonce response header of a prior cart GET request. Required for all cart and checkout write operations to prevent CSRF.",
+                    "key": "Nonce",
+                    "value": "<string>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"billing_address\": {\n    \"first_name\": \"Example Name\",\n    \"last_name\": \"Example Name\",\n    \"company\": \"string-value\",\n    \"address_1\": \"string-value\",\n    \"address_2\": \"string-value\",\n    \"city\": \"string-value\",\n    \"state\": \"string-value\",\n    \"postcode\": \"string-value\",\n    \"country\": \"string-value\",\n    \"email\": \"user@example.com\",\n    \"phone\": \"string-value\"\n  },\n  \"payment_method\": \"string-value\",\n  \"shipping_address\": {\n    \"first_name\": \"Example Name\",\n    \"last_name\": \"Example Name\",\n    \"company\": \"string-value\",\n    \"address_1\": \"string-value\",\n    \"address_2\": \"string-value\",\n    \"city\": \"string-value\",\n    \"state\": \"string-value\",\n    \"postcode\": \"string-value\",\n    \"country\": \"string-value\",\n    \"email\": \"user@example.com\",\n    \"phone\": \"string-value\"\n  },\n  \"customer_note\": \"string-value\",\n  \"create_account\": true,\n  \"payment_data\": [\n    {\n      \"key\": \"string-value\",\n      \"value\": \"string-value\"\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": 1,\n  \"status\": \"active\",\n  \"order_key\": \"string-value\",\n  \"order_number\": \"string-value\",\n  \"customer_note\": \"string-value\",\n  \"billing_address\": {\n    \"first_name\": \"Example Name\",\n    \"last_name\": \"Example Name\",\n    \"company\": \"string-value\",\n    \"address_1\": \"string-value\",\n    \"address_2\": \"string-value\",\n    \"city\": \"string-value\",\n    \"state\": \"string-value\",\n    \"postcode\": \"string-value\",\n    \"country\": \"string-value\",\n    \"email\": \"user@example.com\",\n    \"phone\": \"string-value\"\n  },\n  \"shipping_address\": {\n    \"first_name\": \"Example Name\",\n    \"last_name\": \"Example Name\",\n    \"company\": \"string-value\",\n    \"address_1\": \"string-value\",\n    \"address_2\": \"string-value\",\n    \"city\": \"string-value\",\n    \"state\": \"string-value\",\n    \"postcode\": \"string-value\",\n    \"country\": \"string-value\",\n    \"email\": \"user@example.com\",\n    \"phone\": \"string-value\"\n  },\n  \"payment_method\": \"string-value\",\n  \"payment_result\": {\n    \"payment_status\": \"active\",\n    \"payment_details\": [\n      {}\n    ],\n    \"redirect_url\": \"https://example.com/path\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "b727445b-eda0-4697-8724-72b181b849da",
+              "name": "The request contains invalid or missing parameters.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "checkout"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) Store API nonce token obtained from the X-WC-Store-API-Nonce response header of a prior cart GET request. Required for all cart and checkout write operations to prevent CSRF.",
+                    "key": "Nonce",
+                    "value": "<string>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"billing_address\": {\n    \"first_name\": \"Example Name\",\n    \"last_name\": \"Example Name\",\n    \"company\": \"string-value\",\n    \"address_1\": \"string-value\",\n    \"address_2\": \"string-value\",\n    \"city\": \"string-value\",\n    \"state\": \"string-value\",\n    \"postcode\": \"string-value\",\n    \"country\": \"string-value\",\n    \"email\": \"user@example.com\",\n    \"phone\": \"string-value\"\n  },\n  \"payment_method\": \"string-value\",\n  \"shipping_address\": {\n    \"first_name\": \"Example Name\",\n    \"last_name\": \"Example Name\",\n    \"company\": \"string-value\",\n    \"address_1\": \"string-value\",\n    \"address_2\": \"string-value\",\n    \"city\": \"string-value\",\n    \"state\": \"string-value\",\n    \"postcode\": \"string-value\",\n    \"country\": \"string-value\",\n    \"email\": \"user@example.com\",\n    \"phone\": \"string-value\"\n  },\n  \"customer_note\": \"string-value\",\n  \"create_account\": true,\n  \"payment_data\": [\n    {\n      \"key\": \"string-value\",\n      \"value\": \"string-value\"\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": \"string-value\",\n  \"message\": \"string-value\",\n  \"data\": {\n    \"status\": 1\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "15ef87d1-069a-4785-bdcb-47dd0d7376bb",
+              "name": "Payment required or payment processing failed.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "checkout"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) Store API nonce token obtained from the X-WC-Store-API-Nonce response header of a prior cart GET request. Required for all cart and checkout write operations to prevent CSRF.",
+                    "key": "Nonce",
+                    "value": "<string>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"billing_address\": {\n    \"first_name\": \"Example Name\",\n    \"last_name\": \"Example Name\",\n    \"company\": \"string-value\",\n    \"address_1\": \"string-value\",\n    \"address_2\": \"string-value\",\n    \"city\": \"string-value\",\n    \"state\": \"string-value\",\n    \"postcode\": \"string-value\",\n    \"country\": \"string-value\",\n    \"email\": \"user@example.com\",\n    \"phone\": \"string-value\"\n  },\n  \"payment_method\": \"string-value\",\n  \"shipping_address\": {\n    \"first_name\": \"Example Name\",\n    \"last_name\": \"Example Name\",\n    \"company\": \"string-value\",\n    \"address_1\": \"string-value\",\n    \"address_2\": \"string-value\",\n    \"city\": \"string-value\",\n    \"state\": \"string-value\",\n    \"postcode\": \"string-value\",\n    \"country\": \"string-value\",\n    \"email\": \"user@example.com\",\n    \"phone\": \"string-value\"\n  },\n  \"customer_note\": \"string-value\",\n  \"create_account\": true,\n  \"payment_data\": [\n    {\n      \"key\": \"string-value\",\n      \"value\": \"string-value\"\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Payment Required",
+              "code": 402,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": \"string-value\",\n  \"message\": \"string-value\",\n  \"data\": {\n    \"status\": 1\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "e97c37a1-22a5-48b6-9f3f-702bfe66dbae",
+          "name": "WooCommerce Get a Checkout Order",
+          "request": {
+            "name": "WooCommerce Get a Checkout Order",
+            "description": {
+              "content": "Returns an order placed via checkout identified by its numeric ID. Only accessible for the order owner or a store administrator.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "checkout",
+                ":id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<integer>",
+                  "key": "id",
+                  "description": "(Required) Unique identifier for the resource."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "0c3ec562-e99a-4d22-9922-673383f6b2b6",
+              "name": "Checkout order details",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "checkout",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "id",
+                      "description": "(Required) Unique identifier for the resource."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": 1,\n  \"status\": \"active\",\n  \"order_key\": \"string-value\",\n  \"order_number\": \"string-value\",\n  \"customer_note\": \"string-value\",\n  \"billing_address\": {\n    \"first_name\": \"Example Name\",\n    \"last_name\": \"Example Name\",\n    \"company\": \"string-value\",\n    \"address_1\": \"string-value\",\n    \"address_2\": \"string-value\",\n    \"city\": \"string-value\",\n    \"state\": \"string-value\",\n    \"postcode\": \"string-value\",\n    \"country\": \"string-value\",\n    \"email\": \"user@example.com\",\n    \"phone\": \"string-value\"\n  },\n  \"shipping_address\": {\n    \"first_name\": \"Example Name\",\n    \"last_name\": \"Example Name\",\n    \"company\": \"string-value\",\n    \"address_1\": \"string-value\",\n    \"address_2\": \"string-value\",\n    \"city\": \"string-value\",\n    \"state\": \"string-value\",\n    \"postcode\": \"string-value\",\n    \"country\": \"string-value\",\n    \"email\": \"user@example.com\",\n    \"phone\": \"string-value\"\n  },\n  \"payment_method\": \"string-value\",\n  \"payment_result\": {\n    \"payment_status\": \"active\",\n    \"payment_details\": [\n      {}\n    ],\n    \"redirect_url\": \"https://example.com/path\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "e9d6ac29-c88d-4c59-83f3-8b5356b2ea59",
+              "name": "The requested resource was not found.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "checkout",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "id",
+                      "description": "(Required) Unique identifier for the resource."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": \"string-value\",\n  \"message\": \"string-value\",\n  \"data\": {\n    \"status\": 1\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "f98cc3ef-bb0d-4290-91c3-d9192ec36af2",
+          "name": "WooCommerce Update a Pending Checkout Order",
+          "request": {
+            "name": "WooCommerce Update a Pending Checkout Order",
+            "description": {
+              "content": "Updates billing, shipping, or payment method on a pending order before payment is confirmed. Requires the Nonce header.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "checkout",
+                ":id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<integer>",
+                  "key": "id",
+                  "description": "(Required) Unique identifier for the resource."
+                }
+              ]
+            },
+            "header": [
+              {
+                "disabled": false,
+                "description": "(Required) Store API nonce token obtained from the X-WC-Store-API-Nonce response header of a prior cart GET request. Required for all cart and checkout write operations to prevent CSRF.",
+                "key": "Nonce",
+                "value": "<string>"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "PUT",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"billing_address\": {\n    \"first_name\": \"<string>\",\n    \"last_name\": \"<string>\",\n    \"company\": \"<string>\",\n    \"address_1\": \"<string>\",\n    \"address_2\": \"<string>\",\n    \"city\": \"<string>\",\n    \"state\": \"<string>\",\n    \"postcode\": \"<string>\",\n    \"country\": \"<string>\",\n    \"email\": \"<email>\",\n    \"phone\": \"<string>\"\n  },\n  \"payment_method\": \"<string>\",\n  \"shipping_address\": {\n    \"first_name\": \"<string>\",\n    \"last_name\": \"<string>\",\n    \"company\": \"<string>\",\n    \"address_1\": \"<string>\",\n    \"address_2\": \"<string>\",\n    \"city\": \"<string>\",\n    \"state\": \"<string>\",\n    \"postcode\": \"<string>\",\n    \"country\": \"<string>\",\n    \"email\": \"<email>\",\n    \"phone\": \"<string>\"\n  },\n  \"customer_note\": \"<string>\",\n  \"create_account\": \"<boolean>\",\n  \"payment_data\": [\n    {\n      \"key\": \"<string>\",\n      \"value\": \"<string>\"\n    },\n    {\n      \"key\": \"<string>\",\n      \"value\": \"<string>\"\n    }\n  ]\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "d5f49dc0-ee5a-43e7-9a71-e940c301ff0d",
+              "name": "Updated checkout order",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "checkout",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "id",
+                      "description": "(Required) Unique identifier for the resource."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) Store API nonce token obtained from the X-WC-Store-API-Nonce response header of a prior cart GET request. Required for all cart and checkout write operations to prevent CSRF.",
+                    "key": "Nonce",
+                    "value": "<string>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"billing_address\": {\n    \"first_name\": \"Example Name\",\n    \"last_name\": \"Example Name\",\n    \"company\": \"string-value\",\n    \"address_1\": \"string-value\",\n    \"address_2\": \"string-value\",\n    \"city\": \"string-value\",\n    \"state\": \"string-value\",\n    \"postcode\": \"string-value\",\n    \"country\": \"string-value\",\n    \"email\": \"user@example.com\",\n    \"phone\": \"string-value\"\n  },\n  \"payment_method\": \"string-value\",\n  \"shipping_address\": {\n    \"first_name\": \"Example Name\",\n    \"last_name\": \"Example Name\",\n    \"company\": \"string-value\",\n    \"address_1\": \"string-value\",\n    \"address_2\": \"string-value\",\n    \"city\": \"string-value\",\n    \"state\": \"string-value\",\n    \"postcode\": \"string-value\",\n    \"country\": \"string-value\",\n    \"email\": \"user@example.com\",\n    \"phone\": \"string-value\"\n  },\n  \"customer_note\": \"string-value\",\n  \"create_account\": true,\n  \"payment_data\": [\n    {\n      \"key\": \"string-value\",\n      \"value\": \"string-value\"\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": 1,\n  \"status\": \"active\",\n  \"order_key\": \"string-value\",\n  \"order_number\": \"string-value\",\n  \"customer_note\": \"string-value\",\n  \"billing_address\": {\n    \"first_name\": \"Example Name\",\n    \"last_name\": \"Example Name\",\n    \"company\": \"string-value\",\n    \"address_1\": \"string-value\",\n    \"address_2\": \"string-value\",\n    \"city\": \"string-value\",\n    \"state\": \"string-value\",\n    \"postcode\": \"string-value\",\n    \"country\": \"string-value\",\n    \"email\": \"user@example.com\",\n    \"phone\": \"string-value\"\n  },\n  \"shipping_address\": {\n    \"first_name\": \"Example Name\",\n    \"last_name\": \"Example Name\",\n    \"company\": \"string-value\",\n    \"address_1\": \"string-value\",\n    \"address_2\": \"string-value\",\n    \"city\": \"string-value\",\n    \"state\": \"string-value\",\n    \"postcode\": \"string-value\",\n    \"country\": \"string-value\",\n    \"email\": \"user@example.com\",\n    \"phone\": \"string-value\"\n  },\n  \"payment_method\": \"string-value\",\n  \"payment_result\": {\n    \"payment_status\": \"active\",\n    \"payment_details\": [\n      {}\n    ],\n    \"redirect_url\": \"https://example.com/path\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "aed77a16-fd3c-4f9d-896b-c1f2ddab0ae9",
+              "name": "The request contains invalid or missing parameters.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "checkout",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "id",
+                      "description": "(Required) Unique identifier for the resource."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) Store API nonce token obtained from the X-WC-Store-API-Nonce response header of a prior cart GET request. Required for all cart and checkout write operations to prevent CSRF.",
+                    "key": "Nonce",
+                    "value": "<string>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"billing_address\": {\n    \"first_name\": \"Example Name\",\n    \"last_name\": \"Example Name\",\n    \"company\": \"string-value\",\n    \"address_1\": \"string-value\",\n    \"address_2\": \"string-value\",\n    \"city\": \"string-value\",\n    \"state\": \"string-value\",\n    \"postcode\": \"string-value\",\n    \"country\": \"string-value\",\n    \"email\": \"user@example.com\",\n    \"phone\": \"string-value\"\n  },\n  \"payment_method\": \"string-value\",\n  \"shipping_address\": {\n    \"first_name\": \"Example Name\",\n    \"last_name\": \"Example Name\",\n    \"company\": \"string-value\",\n    \"address_1\": \"string-value\",\n    \"address_2\": \"string-value\",\n    \"city\": \"string-value\",\n    \"state\": \"string-value\",\n    \"postcode\": \"string-value\",\n    \"country\": \"string-value\",\n    \"email\": \"user@example.com\",\n    \"phone\": \"string-value\"\n  },\n  \"customer_note\": \"string-value\",\n  \"create_account\": true,\n  \"payment_data\": [\n    {\n      \"key\": \"string-value\",\n      \"value\": \"string-value\"\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": \"string-value\",\n  \"message\": \"string-value\",\n  \"data\": {\n    \"status\": 1\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "c593311d-51c1-4d05-83d2-8f5a61865fe6",
+              "name": "The requested resource was not found.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "checkout",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "id",
+                      "description": "(Required) Unique identifier for the resource."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) Store API nonce token obtained from the X-WC-Store-API-Nonce response header of a prior cart GET request. Required for all cart and checkout write operations to prevent CSRF.",
+                    "key": "Nonce",
+                    "value": "<string>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"billing_address\": {\n    \"first_name\": \"Example Name\",\n    \"last_name\": \"Example Name\",\n    \"company\": \"string-value\",\n    \"address_1\": \"string-value\",\n    \"address_2\": \"string-value\",\n    \"city\": \"string-value\",\n    \"state\": \"string-value\",\n    \"postcode\": \"string-value\",\n    \"country\": \"string-value\",\n    \"email\": \"user@example.com\",\n    \"phone\": \"string-value\"\n  },\n  \"payment_method\": \"string-value\",\n  \"shipping_address\": {\n    \"first_name\": \"Example Name\",\n    \"last_name\": \"Example Name\",\n    \"company\": \"string-value\",\n    \"address_1\": \"string-value\",\n    \"address_2\": \"string-value\",\n    \"city\": \"string-value\",\n    \"state\": \"string-value\",\n    \"postcode\": \"string-value\",\n    \"country\": \"string-value\",\n    \"email\": \"user@example.com\",\n    \"phone\": \"string-value\"\n  },\n  \"customer_note\": \"string-value\",\n  \"create_account\": true,\n  \"payment_data\": [\n    {\n      \"key\": \"string-value\",\n      \"value\": \"string-value\"\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": \"string-value\",\n  \"message\": \"string-value\",\n  \"data\": {\n    \"status\": 1\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://example.com/wp-json/wc/v3",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "basic",
+    "basic": [
+      {
+        "key": "username",
+        "value": "{{basicAuthUsername}}"
+      },
+      {
+        "key": "password",
+        "value": "{{basicAuthPassword}}"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "4b115016-0eee-4c96-865e-0d1b1f709469",
+    "name": "WooCommerce REST Cart Checkout API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "The WooCommerce REST API is the primary server-side interface for reading and writing WooCommerce store data programmatically. It follows REST conventions, uses JSON for all requests and responses, and is fully integrated with the WordPress REST API under the /wp-json/wc/v3/ namespace. The API covers products, product variations, product categories, product attributes, orders, order notes, order refunds, customers, coupons, tax rates, shipping zones, payment gateways, settings, webhooks, reports, and system status. Authentication uses Consumer Key and Consumer Secret pairs generated in the WooCommerce admin, transmitted over HTTPS via HTTP Basic Auth or OAuth 1.0a over plain HTTP.\n\nContact Support:\n Name: WooCommerce Developer Support",
+      "type": "text/plain"
+    }
+  }
+}

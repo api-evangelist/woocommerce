@@ -1,0 +1,150 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "WooCommerce REST Cart Product Categories API",
+    "version": "v3"
+  },
+  "request": {
+    "auth": {
+      "type": "basic",
+      "username": "{{username}}",
+      "password": "{{password}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Product Categories",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "WooCommerce List All Product Categories",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://example.com/wp-json/wc/v3/products/categories",
+            "params": [
+              {
+                "name": "page",
+                "value": "",
+                "type": "query",
+                "description": "Current page of the collection. Defaults to 1."
+              },
+              {
+                "name": "per_page",
+                "value": "",
+                "type": "query",
+                "description": "Maximum number of items per page. Defaults to 10, maximum 100."
+              },
+              {
+                "name": "search",
+                "value": "",
+                "type": "query",
+                "description": "Limit results to those matching a string."
+              },
+              {
+                "name": "hide_empty",
+                "value": "true",
+                "type": "query",
+                "description": "Whether to hide resources not assigned to any products."
+              },
+              {
+                "name": "parent",
+                "value": "1",
+                "type": "query",
+                "description": "Filter categories by parent category ID."
+              }
+            ]
+          },
+          "docs": "Returns all product categories. Supports filtering by parent category, hiding empty categories, and ordering by various fields. Categories are hierarchical and can be nested."
+        },
+        {
+          "info": {
+            "name": "WooCommerce Create a Product Category",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://example.com/wp-json/wc/v3/products/categories",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Creates a new product category. Categories can be nested by supplying a parent ID. A slug is generated automatically from the name if not provided."
+        },
+        {
+          "info": {
+            "name": "WooCommerce Retrieve a Product Category",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://example.com/wp-json/wc/v3/products/categories/:id",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "Unique identifier for the resource."
+              }
+            ]
+          },
+          "docs": "Returns a single product category by its numeric ID."
+        },
+        {
+          "info": {
+            "name": "WooCommerce Update a Product Category",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://example.com/wp-json/wc/v3/products/categories/:id",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "Unique identifier for the resource."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Updates a product category by its numeric ID."
+        },
+        {
+          "info": {
+            "name": "WooCommerce Delete a Product Category",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://example.com/wp-json/wc/v3/products/categories/:id",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "Unique identifier for the resource."
+              },
+              {
+                "name": "force",
+                "value": "",
+                "type": "query",
+                "description": "Set to true to permanently delete the resource, bypassing the trash."
+              }
+            ]
+          },
+          "docs": "Deletes a product category by ID. Set force to true to permanently delete. Requires that no products are assigned to the category, or use force to bypass this restriction."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

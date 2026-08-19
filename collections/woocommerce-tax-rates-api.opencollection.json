@@ -1,0 +1,56 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "WooCommerce REST Cart Tax Rates API",
+    "version": "v3"
+  },
+  "request": {
+    "auth": {
+      "type": "basic",
+      "username": "{{username}}",
+      "password": "{{password}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Tax Rates",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "WooCommerce List All Tax Rates",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://example.com/wp-json/wc/v3/tax/rates",
+            "params": [
+              {
+                "name": "page",
+                "value": "",
+                "type": "query",
+                "description": "Current page of the collection. Defaults to 1."
+              },
+              {
+                "name": "per_page",
+                "value": "",
+                "type": "query",
+                "description": "Maximum number of items per page. Defaults to 10, maximum 100."
+              },
+              {
+                "name": "class",
+                "value": "string-value",
+                "type": "query",
+                "description": "Filter tax rates by tax class slug. Options: standard, reduced-rate, zero-rate, or any custom class slug."
+              }
+            ]
+          },
+          "docs": "Returns all configured tax rates. Supports filtering by tax class and ordering by priority, order, or ID."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

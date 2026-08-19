@@ -1,0 +1,1401 @@
+{
+  "item": [
+    {
+      "id": "efd945e1-47a4-4025-a57b-d2f08e1cb0e1",
+      "name": "Orders",
+      "description": {
+        "content": "Create, retrieve, update, and delete customer orders",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "d14ed3f6-1b3b-4928-8cfc-7780149bac0d",
+          "name": "WooCommerce List All Orders",
+          "request": {
+            "name": "WooCommerce List All Orders",
+            "description": {
+              "content": "Returns a paginated list of orders. Supports filtering by status, customer ID, product ID, date ranges, and more. Orders are sorted by date_created descending by default.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "orders"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "page",
+                  "value": "1",
+                  "description": "Current page of the collection. Defaults to 1."
+                },
+                {
+                  "disabled": false,
+                  "key": "per_page",
+                  "value": "10",
+                  "description": "Maximum number of items per page. Defaults to 10, maximum 100."
+                },
+                {
+                  "disabled": false,
+                  "key": "search",
+                  "value": "<string>",
+                  "description": "Limit results to those matching a string."
+                },
+                {
+                  "disabled": false,
+                  "key": "after",
+                  "value": "<dateTime>",
+                  "description": "Limit response to resources created after a given ISO8601 compliant date."
+                },
+                {
+                  "disabled": false,
+                  "key": "before",
+                  "value": "<dateTime>",
+                  "description": "Limit response to resources created before a given ISO8601 compliant date."
+                },
+                {
+                  "disabled": false,
+                  "key": "status",
+                  "value": "<string>",
+                  "description": "Filter orders by status. Options: any, pending, processing, on-hold, completed, cancelled, refunded, failed, trash."
+                },
+                {
+                  "disabled": false,
+                  "key": "customer",
+                  "value": "<integer>",
+                  "description": "Filter orders by customer ID."
+                },
+                {
+                  "disabled": false,
+                  "key": "product",
+                  "value": "<integer>",
+                  "description": "Filter orders that contain a specific product ID."
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "31a94f56-7796-4ac8-b54d-61eed114927a",
+              "name": "List of orders",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "orders"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "page",
+                      "value": "1"
+                    },
+                    {
+                      "key": "per_page",
+                      "value": "10"
+                    },
+                    {
+                      "key": "search",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "after",
+                      "value": "<dateTime>"
+                    },
+                    {
+                      "key": "before",
+                      "value": "<dateTime>"
+                    },
+                    {
+                      "key": "status",
+                      "value": "any"
+                    },
+                    {
+                      "key": "customer",
+                      "value": "1"
+                    },
+                    {
+                      "key": "product",
+                      "value": "1"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "[\n  {\n    \"id\": 1,\n    \"parent_id\": 1,\n    \"number\": \"string-value\",\n    \"order_key\": \"string-value\",\n    \"status\": \"pending\",\n    \"currency\": \"string-value\",\n    \"date_created\": \"2026-05-03T14:30:00Z\",\n    \"date_modified\": \"2026-05-03T14:30:00Z\",\n    \"date_completed\": \"2026-05-03T14:30:00Z\",\n    \"discount_total\": \"string-value\",\n    \"discount_tax\": \"string-value\",\n    \"shipping_total\": \"string-value\",\n    \"shipping_tax\": \"string-value\",\n    \"cart_tax\": \"string-value\",\n    \"total\": \"string-value\",\n    \"total_tax\": \"string-value\",\n    \"customer_id\": 1,\n    \"customer_note\": \"string-value\",\n    \"billing\": {\n      \"first_name\": {},\n      \"last_name\": {},\n      \"company\": {},\n      \"address_1\": {},\n      \"address_2\": {},\n      \"city\": {},\n      \"state\": {},\n      \"postcode\": {},\n      \"country\": {},\n      \"email\": {},\n      \"phone\": {}\n    },\n    \"shipping\": {\n      \"first_name\": {},\n      \"last_name\": {},\n      \"company\": {},\n      \"address_1\": {},\n      \"address_2\": {},\n      \"city\": {},\n      \"state\": {},\n      \"postcode\": {},\n      \"country\": {},\n      \"email\": {},\n      \"phone\": {}\n    },\n    \"payment_method\": \"string-value\",\n    \"payment_method_title\": \"Example Name\",\n    \"transaction_id\": \"500123\",\n    \"line_items\": [\n      \"string-value\"\n    ],\n    \"meta_data\": [\n      \"string-value\"\n    ]\n  }\n]",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "16b38b59-9363-4087-b141-65ccc2481446",
+              "name": "Authentication credentials are missing or invalid.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "orders"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "page",
+                      "value": "1"
+                    },
+                    {
+                      "key": "per_page",
+                      "value": "10"
+                    },
+                    {
+                      "key": "search",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "after",
+                      "value": "<dateTime>"
+                    },
+                    {
+                      "key": "before",
+                      "value": "<dateTime>"
+                    },
+                    {
+                      "key": "status",
+                      "value": "any"
+                    },
+                    {
+                      "key": "customer",
+                      "value": "1"
+                    },
+                    {
+                      "key": "product",
+                      "value": "1"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": \"string-value\",\n  \"message\": \"string-value\",\n  \"data\": {\n    \"status\": 1\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "65d7230c-64a1-4d80-acc6-69f90adef6bc",
+          "name": "WooCommerce Create an Order",
+          "request": {
+            "name": "WooCommerce Create an Order",
+            "description": {
+              "content": "Creates a new order. All order fields including billing, shipping, line items, coupons, shipping lines, and fee lines can be set at creation time. Customer ID is optional; guest checkout is supported.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "orders"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"status\": \"<string>\",\n  \"customer_id\": \"<integer>\",\n  \"customer_note\": \"<string>\",\n  \"billing\": {\n    \"first_name\": \"<string>\",\n    \"last_name\": \"<string>\",\n    \"company\": \"<string>\",\n    \"address_1\": \"<string>\",\n    \"address_2\": \"<string>\",\n    \"city\": \"<string>\",\n    \"state\": \"<string>\",\n    \"postcode\": \"<string>\",\n    \"country\": \"<string>\",\n    \"email\": \"<email>\",\n    \"phone\": \"<string>\"\n  },\n  \"shipping\": {\n    \"first_name\": \"<string>\",\n    \"last_name\": \"<string>\",\n    \"company\": \"<string>\",\n    \"address_1\": \"<string>\",\n    \"address_2\": \"<string>\",\n    \"city\": \"<string>\",\n    \"state\": \"<string>\",\n    \"postcode\": \"<string>\",\n    \"country\": \"<string>\",\n    \"email\": \"<email>\",\n    \"phone\": \"<string>\"\n  },\n  \"payment_method\": \"<string>\",\n  \"payment_method_title\": \"<string>\",\n  \"line_items\": [\n    {\n      \"id\": \"<integer>\",\n      \"name\": \"<string>\",\n      \"product_id\": \"<integer>\",\n      \"variation_id\": \"<integer>\",\n      \"quantity\": \"<integer>\",\n      \"tax_class\": \"<string>\",\n      \"subtotal\": \"<string>\",\n      \"subtotal_tax\": \"<string>\",\n      \"total\": \"<string>\",\n      \"total_tax\": \"<string>\",\n      \"sku\": \"<string>\",\n      \"price\": \"<number>\",\n      \"meta_data\": [\n        {\n          \"id\": \"<integer>\",\n          \"key\": \"<string>\",\n          \"value\": \"<string>\"\n        },\n        {\n          \"id\": \"<integer>\",\n          \"key\": \"<string>\",\n          \"value\": \"<string>\"\n        }\n      ]\n    },\n    {\n      \"id\": \"<integer>\",\n      \"name\": \"<string>\",\n      \"product_id\": \"<integer>\",\n      \"variation_id\": \"<integer>\",\n      \"quantity\": \"<integer>\",\n      \"tax_class\": \"<string>\",\n      \"subtotal\": \"<string>\",\n      \"subtotal_tax\": \"<string>\",\n      \"total\": \"<string>\",\n      \"total_tax\": \"<string>\",\n      \"sku\": \"<string>\",\n      \"price\": \"<number>\",\n      \"meta_data\": [\n        {\n          \"id\": \"<integer>\",\n          \"key\": \"<string>\",\n          \"value\": \"<string>\"\n        },\n        {\n          \"id\": \"<integer>\",\n          \"key\": \"<string>\",\n          \"value\": \"<string>\"\n        }\n      ]\n    }\n  ],\n  \"meta_data\": [\n    {\n      \"id\": \"<integer>\",\n      \"key\": \"<string>\",\n      \"value\": \"<string>\"\n    },\n    {\n      \"id\": \"<integer>\",\n      \"key\": \"<string>\",\n      \"value\": \"<string>\"\n    }\n  ]\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "6c7c0a9f-2d29-4f57-ad4b-c8eac3812a6c",
+              "name": "Order created successfully",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "orders"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"status\": \"pending\",\n  \"customer_id\": 1,\n  \"customer_note\": \"string-value\",\n  \"billing\": {\n    \"first_name\": \"Example Name\",\n    \"last_name\": \"Example Name\",\n    \"company\": \"string-value\",\n    \"address_1\": \"string-value\",\n    \"address_2\": \"string-value\",\n    \"city\": \"string-value\",\n    \"state\": \"string-value\",\n    \"postcode\": \"string-value\",\n    \"country\": \"string-value\",\n    \"email\": \"user@example.com\",\n    \"phone\": \"string-value\"\n  },\n  \"shipping\": {\n    \"first_name\": \"Example Name\",\n    \"last_name\": \"Example Name\",\n    \"company\": \"string-value\",\n    \"address_1\": \"string-value\",\n    \"address_2\": \"string-value\",\n    \"city\": \"string-value\",\n    \"state\": \"string-value\",\n    \"postcode\": \"string-value\",\n    \"country\": \"string-value\",\n    \"email\": \"user@example.com\",\n    \"phone\": \"string-value\"\n  },\n  \"payment_method\": \"string-value\",\n  \"payment_method_title\": \"Example Name\",\n  \"line_items\": [\n    {\n      \"id\": 1,\n      \"name\": \"Example Name\",\n      \"product_id\": 1,\n      \"variation_id\": 1,\n      \"quantity\": 1,\n      \"tax_class\": \"string-value\",\n      \"subtotal\": \"string-value\",\n      \"subtotal_tax\": \"string-value\",\n      \"total\": \"string-value\",\n      \"total_tax\": \"string-value\",\n      \"sku\": \"string-value\",\n      \"price\": 10.5,\n      \"meta_data\": [\n        {\n          \"id\": 1,\n          \"key\": \"string-value\",\n          \"value\": \"string-value\"\n        },\n        {\n          \"id\": 1,\n          \"key\": \"string-value\",\n          \"value\": \"string-value\"\n        }\n      ]\n    },\n    {\n      \"id\": 1,\n      \"name\": \"Example Name\",\n      \"product_id\": 1,\n      \"variation_id\": 1,\n      \"quantity\": 1,\n      \"tax_class\": \"string-value\",\n      \"subtotal\": \"string-value\",\n      \"subtotal_tax\": \"string-value\",\n      \"total\": \"string-value\",\n      \"total_tax\": \"string-value\",\n      \"sku\": \"string-value\",\n      \"price\": 10.5,\n      \"meta_data\": [\n        {\n          \"id\": 1,\n          \"key\": \"string-value\",\n          \"value\": \"string-value\"\n        },\n        {\n          \"id\": 1,\n          \"key\": \"string-value\",\n          \"value\": \"string-value\"\n        }\n      ]\n    }\n  ],\n  \"meta_data\": [\n    {\n      \"id\": 1,\n      \"key\": \"string-value\",\n      \"value\": \"string-value\"\n    },\n    {\n      \"id\": 1,\n      \"key\": \"string-value\",\n      \"value\": \"string-value\"\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Created",
+              "code": 201,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": 1,\n  \"parent_id\": 1,\n  \"number\": \"string-value\",\n  \"order_key\": \"string-value\",\n  \"status\": \"pending\",\n  \"currency\": \"string-value\",\n  \"date_created\": \"2026-05-03T14:30:00Z\",\n  \"date_modified\": \"2026-05-03T14:30:00Z\",\n  \"date_completed\": \"2026-05-03T14:30:00Z\",\n  \"discount_total\": \"string-value\",\n  \"discount_tax\": \"string-value\",\n  \"shipping_total\": \"string-value\",\n  \"shipping_tax\": \"string-value\",\n  \"cart_tax\": \"string-value\",\n  \"total\": \"string-value\",\n  \"total_tax\": \"string-value\",\n  \"customer_id\": 1,\n  \"customer_note\": \"string-value\",\n  \"billing\": {\n    \"first_name\": \"Example Name\",\n    \"last_name\": \"Example Name\",\n    \"company\": \"string-value\",\n    \"address_1\": \"string-value\",\n    \"address_2\": \"string-value\",\n    \"city\": \"string-value\",\n    \"state\": \"string-value\",\n    \"postcode\": \"string-value\",\n    \"country\": \"string-value\",\n    \"email\": \"user@example.com\",\n    \"phone\": \"string-value\"\n  },\n  \"shipping\": {\n    \"first_name\": \"Example Name\",\n    \"last_name\": \"Example Name\",\n    \"company\": \"string-value\",\n    \"address_1\": \"string-value\",\n    \"address_2\": \"string-value\",\n    \"city\": \"string-value\",\n    \"state\": \"string-value\",\n    \"postcode\": \"string-value\",\n    \"country\": \"string-value\",\n    \"email\": \"user@example.com\",\n    \"phone\": \"string-value\"\n  },\n  \"payment_method\": \"string-value\",\n  \"payment_method_title\": \"Example Name\",\n  \"transaction_id\": \"500123\",\n  \"line_items\": [\n    \"string-value\"\n  ],\n  \"meta_data\": [\n    \"string-value\"\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "016ea306-e736-49b5-8d0a-0b1c997a6c6c",
+              "name": "The request body contains invalid or missing parameters.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "orders"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"status\": \"pending\",\n  \"customer_id\": 1,\n  \"customer_note\": \"string-value\",\n  \"billing\": {\n    \"first_name\": \"Example Name\",\n    \"last_name\": \"Example Name\",\n    \"company\": \"string-value\",\n    \"address_1\": \"string-value\",\n    \"address_2\": \"string-value\",\n    \"city\": \"string-value\",\n    \"state\": \"string-value\",\n    \"postcode\": \"string-value\",\n    \"country\": \"string-value\",\n    \"email\": \"user@example.com\",\n    \"phone\": \"string-value\"\n  },\n  \"shipping\": {\n    \"first_name\": \"Example Name\",\n    \"last_name\": \"Example Name\",\n    \"company\": \"string-value\",\n    \"address_1\": \"string-value\",\n    \"address_2\": \"string-value\",\n    \"city\": \"string-value\",\n    \"state\": \"string-value\",\n    \"postcode\": \"string-value\",\n    \"country\": \"string-value\",\n    \"email\": \"user@example.com\",\n    \"phone\": \"string-value\"\n  },\n  \"payment_method\": \"string-value\",\n  \"payment_method_title\": \"Example Name\",\n  \"line_items\": [\n    {\n      \"id\": 1,\n      \"name\": \"Example Name\",\n      \"product_id\": 1,\n      \"variation_id\": 1,\n      \"quantity\": 1,\n      \"tax_class\": \"string-value\",\n      \"subtotal\": \"string-value\",\n      \"subtotal_tax\": \"string-value\",\n      \"total\": \"string-value\",\n      \"total_tax\": \"string-value\",\n      \"sku\": \"string-value\",\n      \"price\": 10.5,\n      \"meta_data\": [\n        {\n          \"id\": 1,\n          \"key\": \"string-value\",\n          \"value\": \"string-value\"\n        },\n        {\n          \"id\": 1,\n          \"key\": \"string-value\",\n          \"value\": \"string-value\"\n        }\n      ]\n    },\n    {\n      \"id\": 1,\n      \"name\": \"Example Name\",\n      \"product_id\": 1,\n      \"variation_id\": 1,\n      \"quantity\": 1,\n      \"tax_class\": \"string-value\",\n      \"subtotal\": \"string-value\",\n      \"subtotal_tax\": \"string-value\",\n      \"total\": \"string-value\",\n      \"total_tax\": \"string-value\",\n      \"sku\": \"string-value\",\n      \"price\": 10.5,\n      \"meta_data\": [\n        {\n          \"id\": 1,\n          \"key\": \"string-value\",\n          \"value\": \"string-value\"\n        },\n        {\n          \"id\": 1,\n          \"key\": \"string-value\",\n          \"value\": \"string-value\"\n        }\n      ]\n    }\n  ],\n  \"meta_data\": [\n    {\n      \"id\": 1,\n      \"key\": \"string-value\",\n      \"value\": \"string-value\"\n    },\n    {\n      \"id\": 1,\n      \"key\": \"string-value\",\n      \"value\": \"string-value\"\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": \"string-value\",\n  \"message\": \"string-value\",\n  \"data\": {\n    \"status\": 1\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "c3c92e51-5294-49ac-b4a3-396a955f87c5",
+              "name": "Authentication credentials are missing or invalid.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "orders"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"status\": \"pending\",\n  \"customer_id\": 1,\n  \"customer_note\": \"string-value\",\n  \"billing\": {\n    \"first_name\": \"Example Name\",\n    \"last_name\": \"Example Name\",\n    \"company\": \"string-value\",\n    \"address_1\": \"string-value\",\n    \"address_2\": \"string-value\",\n    \"city\": \"string-value\",\n    \"state\": \"string-value\",\n    \"postcode\": \"string-value\",\n    \"country\": \"string-value\",\n    \"email\": \"user@example.com\",\n    \"phone\": \"string-value\"\n  },\n  \"shipping\": {\n    \"first_name\": \"Example Name\",\n    \"last_name\": \"Example Name\",\n    \"company\": \"string-value\",\n    \"address_1\": \"string-value\",\n    \"address_2\": \"string-value\",\n    \"city\": \"string-value\",\n    \"state\": \"string-value\",\n    \"postcode\": \"string-value\",\n    \"country\": \"string-value\",\n    \"email\": \"user@example.com\",\n    \"phone\": \"string-value\"\n  },\n  \"payment_method\": \"string-value\",\n  \"payment_method_title\": \"Example Name\",\n  \"line_items\": [\n    {\n      \"id\": 1,\n      \"name\": \"Example Name\",\n      \"product_id\": 1,\n      \"variation_id\": 1,\n      \"quantity\": 1,\n      \"tax_class\": \"string-value\",\n      \"subtotal\": \"string-value\",\n      \"subtotal_tax\": \"string-value\",\n      \"total\": \"string-value\",\n      \"total_tax\": \"string-value\",\n      \"sku\": \"string-value\",\n      \"price\": 10.5,\n      \"meta_data\": [\n        {\n          \"id\": 1,\n          \"key\": \"string-value\",\n          \"value\": \"string-value\"\n        },\n        {\n          \"id\": 1,\n          \"key\": \"string-value\",\n          \"value\": \"string-value\"\n        }\n      ]\n    },\n    {\n      \"id\": 1,\n      \"name\": \"Example Name\",\n      \"product_id\": 1,\n      \"variation_id\": 1,\n      \"quantity\": 1,\n      \"tax_class\": \"string-value\",\n      \"subtotal\": \"string-value\",\n      \"subtotal_tax\": \"string-value\",\n      \"total\": \"string-value\",\n      \"total_tax\": \"string-value\",\n      \"sku\": \"string-value\",\n      \"price\": 10.5,\n      \"meta_data\": [\n        {\n          \"id\": 1,\n          \"key\": \"string-value\",\n          \"value\": \"string-value\"\n        },\n        {\n          \"id\": 1,\n          \"key\": \"string-value\",\n          \"value\": \"string-value\"\n        }\n      ]\n    }\n  ],\n  \"meta_data\": [\n    {\n      \"id\": 1,\n      \"key\": \"string-value\",\n      \"value\": \"string-value\"\n    },\n    {\n      \"id\": 1,\n      \"key\": \"string-value\",\n      \"value\": \"string-value\"\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": \"string-value\",\n  \"message\": \"string-value\",\n  \"data\": {\n    \"status\": 1\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "d29d8c97-5d9d-4399-be3e-fa43067c376f",
+          "name": "WooCommerce Retrieve an Order",
+          "request": {
+            "name": "WooCommerce Retrieve an Order",
+            "description": {
+              "content": "Returns a single order by its numeric ID including all line items, totals, billing, and shipping details.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "orders",
+                ":id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<integer>",
+                  "key": "id",
+                  "description": "(Required) Unique identifier for the resource."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "831d8a92-d925-4b5a-9527-66514b438c32",
+              "name": "Order details",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "orders",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "id",
+                      "description": "(Required) Unique identifier for the resource."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": 1,\n  \"parent_id\": 1,\n  \"number\": \"string-value\",\n  \"order_key\": \"string-value\",\n  \"status\": \"pending\",\n  \"currency\": \"string-value\",\n  \"date_created\": \"2026-05-03T14:30:00Z\",\n  \"date_modified\": \"2026-05-03T14:30:00Z\",\n  \"date_completed\": \"2026-05-03T14:30:00Z\",\n  \"discount_total\": \"string-value\",\n  \"discount_tax\": \"string-value\",\n  \"shipping_total\": \"string-value\",\n  \"shipping_tax\": \"string-value\",\n  \"cart_tax\": \"string-value\",\n  \"total\": \"string-value\",\n  \"total_tax\": \"string-value\",\n  \"customer_id\": 1,\n  \"customer_note\": \"string-value\",\n  \"billing\": {\n    \"first_name\": \"Example Name\",\n    \"last_name\": \"Example Name\",\n    \"company\": \"string-value\",\n    \"address_1\": \"string-value\",\n    \"address_2\": \"string-value\",\n    \"city\": \"string-value\",\n    \"state\": \"string-value\",\n    \"postcode\": \"string-value\",\n    \"country\": \"string-value\",\n    \"email\": \"user@example.com\",\n    \"phone\": \"string-value\"\n  },\n  \"shipping\": {\n    \"first_name\": \"Example Name\",\n    \"last_name\": \"Example Name\",\n    \"company\": \"string-value\",\n    \"address_1\": \"string-value\",\n    \"address_2\": \"string-value\",\n    \"city\": \"string-value\",\n    \"state\": \"string-value\",\n    \"postcode\": \"string-value\",\n    \"country\": \"string-value\",\n    \"email\": \"user@example.com\",\n    \"phone\": \"string-value\"\n  },\n  \"payment_method\": \"string-value\",\n  \"payment_method_title\": \"Example Name\",\n  \"transaction_id\": \"500123\",\n  \"line_items\": [\n    \"string-value\"\n  ],\n  \"meta_data\": [\n    \"string-value\"\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "0a7c9605-8dc9-4820-abb2-b893b2f73ae3",
+              "name": "Authentication credentials are missing or invalid.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "orders",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "id",
+                      "description": "(Required) Unique identifier for the resource."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": \"string-value\",\n  \"message\": \"string-value\",\n  \"data\": {\n    \"status\": 1\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "8fd051a2-df51-4435-881d-04a9393ec237",
+              "name": "The requested resource was not found.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "orders",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "id",
+                      "description": "(Required) Unique identifier for the resource."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": \"string-value\",\n  \"message\": \"string-value\",\n  \"data\": {\n    \"status\": 1\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "ac8ccea1-e2b6-4838-b6d4-27b54e6775ed",
+          "name": "WooCommerce Update an Order",
+          "request": {
+            "name": "WooCommerce Update an Order",
+            "description": {
+              "content": "Updates an existing order. Common use cases include changing order status, updating billing or shipping addresses, and modifying line item quantities. Only fields included in the request are changed.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "orders",
+                ":id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<integer>",
+                  "key": "id",
+                  "description": "(Required) Unique identifier for the resource."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "PUT",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"status\": \"<string>\",\n  \"customer_id\": \"<integer>\",\n  \"customer_note\": \"<string>\",\n  \"billing\": {\n    \"first_name\": \"<string>\",\n    \"last_name\": \"<string>\",\n    \"company\": \"<string>\",\n    \"address_1\": \"<string>\",\n    \"address_2\": \"<string>\",\n    \"city\": \"<string>\",\n    \"state\": \"<string>\",\n    \"postcode\": \"<string>\",\n    \"country\": \"<string>\",\n    \"email\": \"<email>\",\n    \"phone\": \"<string>\"\n  },\n  \"shipping\": {\n    \"first_name\": \"<string>\",\n    \"last_name\": \"<string>\",\n    \"company\": \"<string>\",\n    \"address_1\": \"<string>\",\n    \"address_2\": \"<string>\",\n    \"city\": \"<string>\",\n    \"state\": \"<string>\",\n    \"postcode\": \"<string>\",\n    \"country\": \"<string>\",\n    \"email\": \"<email>\",\n    \"phone\": \"<string>\"\n  },\n  \"payment_method\": \"<string>\",\n  \"payment_method_title\": \"<string>\",\n  \"line_items\": [\n    {\n      \"id\": \"<integer>\",\n      \"name\": \"<string>\",\n      \"product_id\": \"<integer>\",\n      \"variation_id\": \"<integer>\",\n      \"quantity\": \"<integer>\",\n      \"tax_class\": \"<string>\",\n      \"subtotal\": \"<string>\",\n      \"subtotal_tax\": \"<string>\",\n      \"total\": \"<string>\",\n      \"total_tax\": \"<string>\",\n      \"sku\": \"<string>\",\n      \"price\": \"<number>\",\n      \"meta_data\": [\n        {\n          \"id\": \"<integer>\",\n          \"key\": \"<string>\",\n          \"value\": \"<string>\"\n        },\n        {\n          \"id\": \"<integer>\",\n          \"key\": \"<string>\",\n          \"value\": \"<string>\"\n        }\n      ]\n    },\n    {\n      \"id\": \"<integer>\",\n      \"name\": \"<string>\",\n      \"product_id\": \"<integer>\",\n      \"variation_id\": \"<integer>\",\n      \"quantity\": \"<integer>\",\n      \"tax_class\": \"<string>\",\n      \"subtotal\": \"<string>\",\n      \"subtotal_tax\": \"<string>\",\n      \"total\": \"<string>\",\n      \"total_tax\": \"<string>\",\n      \"sku\": \"<string>\",\n      \"price\": \"<number>\",\n      \"meta_data\": [\n        {\n          \"id\": \"<integer>\",\n          \"key\": \"<string>\",\n          \"value\": \"<string>\"\n        },\n        {\n          \"id\": \"<integer>\",\n          \"key\": \"<string>\",\n          \"value\": \"<string>\"\n        }\n      ]\n    }\n  ],\n  \"meta_data\": [\n    {\n      \"id\": \"<integer>\",\n      \"key\": \"<string>\",\n      \"value\": \"<string>\"\n    },\n    {\n      \"id\": \"<integer>\",\n      \"key\": \"<string>\",\n      \"value\": \"<string>\"\n    }\n  ]\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "aedec334-10d1-47f3-860a-c41bb43c6728",
+              "name": "Order updated successfully",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "orders",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "id",
+                      "description": "(Required) Unique identifier for the resource."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"status\": \"pending\",\n  \"customer_id\": 1,\n  \"customer_note\": \"string-value\",\n  \"billing\": {\n    \"first_name\": \"Example Name\",\n    \"last_name\": \"Example Name\",\n    \"company\": \"string-value\",\n    \"address_1\": \"string-value\",\n    \"address_2\": \"string-value\",\n    \"city\": \"string-value\",\n    \"state\": \"string-value\",\n    \"postcode\": \"string-value\",\n    \"country\": \"string-value\",\n    \"email\": \"user@example.com\",\n    \"phone\": \"string-value\"\n  },\n  \"shipping\": {\n    \"first_name\": \"Example Name\",\n    \"last_name\": \"Example Name\",\n    \"company\": \"string-value\",\n    \"address_1\": \"string-value\",\n    \"address_2\": \"string-value\",\n    \"city\": \"string-value\",\n    \"state\": \"string-value\",\n    \"postcode\": \"string-value\",\n    \"country\": \"string-value\",\n    \"email\": \"user@example.com\",\n    \"phone\": \"string-value\"\n  },\n  \"payment_method\": \"string-value\",\n  \"payment_method_title\": \"Example Name\",\n  \"line_items\": [\n    {\n      \"id\": 1,\n      \"name\": \"Example Name\",\n      \"product_id\": 1,\n      \"variation_id\": 1,\n      \"quantity\": 1,\n      \"tax_class\": \"string-value\",\n      \"subtotal\": \"string-value\",\n      \"subtotal_tax\": \"string-value\",\n      \"total\": \"string-value\",\n      \"total_tax\": \"string-value\",\n      \"sku\": \"string-value\",\n      \"price\": 10.5,\n      \"meta_data\": [\n        {\n          \"id\": 1,\n          \"key\": \"string-value\",\n          \"value\": \"string-value\"\n        },\n        {\n          \"id\": 1,\n          \"key\": \"string-value\",\n          \"value\": \"string-value\"\n        }\n      ]\n    },\n    {\n      \"id\": 1,\n      \"name\": \"Example Name\",\n      \"product_id\": 1,\n      \"variation_id\": 1,\n      \"quantity\": 1,\n      \"tax_class\": \"string-value\",\n      \"subtotal\": \"string-value\",\n      \"subtotal_tax\": \"string-value\",\n      \"total\": \"string-value\",\n      \"total_tax\": \"string-value\",\n      \"sku\": \"string-value\",\n      \"price\": 10.5,\n      \"meta_data\": [\n        {\n          \"id\": 1,\n          \"key\": \"string-value\",\n          \"value\": \"string-value\"\n        },\n        {\n          \"id\": 1,\n          \"key\": \"string-value\",\n          \"value\": \"string-value\"\n        }\n      ]\n    }\n  ],\n  \"meta_data\": [\n    {\n      \"id\": 1,\n      \"key\": \"string-value\",\n      \"value\": \"string-value\"\n    },\n    {\n      \"id\": 1,\n      \"key\": \"string-value\",\n      \"value\": \"string-value\"\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": 1,\n  \"parent_id\": 1,\n  \"number\": \"string-value\",\n  \"order_key\": \"string-value\",\n  \"status\": \"pending\",\n  \"currency\": \"string-value\",\n  \"date_created\": \"2026-05-03T14:30:00Z\",\n  \"date_modified\": \"2026-05-03T14:30:00Z\",\n  \"date_completed\": \"2026-05-03T14:30:00Z\",\n  \"discount_total\": \"string-value\",\n  \"discount_tax\": \"string-value\",\n  \"shipping_total\": \"string-value\",\n  \"shipping_tax\": \"string-value\",\n  \"cart_tax\": \"string-value\",\n  \"total\": \"string-value\",\n  \"total_tax\": \"string-value\",\n  \"customer_id\": 1,\n  \"customer_note\": \"string-value\",\n  \"billing\": {\n    \"first_name\": \"Example Name\",\n    \"last_name\": \"Example Name\",\n    \"company\": \"string-value\",\n    \"address_1\": \"string-value\",\n    \"address_2\": \"string-value\",\n    \"city\": \"string-value\",\n    \"state\": \"string-value\",\n    \"postcode\": \"string-value\",\n    \"country\": \"string-value\",\n    \"email\": \"user@example.com\",\n    \"phone\": \"string-value\"\n  },\n  \"shipping\": {\n    \"first_name\": \"Example Name\",\n    \"last_name\": \"Example Name\",\n    \"company\": \"string-value\",\n    \"address_1\": \"string-value\",\n    \"address_2\": \"string-value\",\n    \"city\": \"string-value\",\n    \"state\": \"string-value\",\n    \"postcode\": \"string-value\",\n    \"country\": \"string-value\",\n    \"email\": \"user@example.com\",\n    \"phone\": \"string-value\"\n  },\n  \"payment_method\": \"string-value\",\n  \"payment_method_title\": \"Example Name\",\n  \"transaction_id\": \"500123\",\n  \"line_items\": [\n    \"string-value\"\n  ],\n  \"meta_data\": [\n    \"string-value\"\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "b359dfbb-fa7e-48b8-8aaf-2a8ccb9bb11f",
+              "name": "The request body contains invalid or missing parameters.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "orders",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "id",
+                      "description": "(Required) Unique identifier for the resource."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"status\": \"pending\",\n  \"customer_id\": 1,\n  \"customer_note\": \"string-value\",\n  \"billing\": {\n    \"first_name\": \"Example Name\",\n    \"last_name\": \"Example Name\",\n    \"company\": \"string-value\",\n    \"address_1\": \"string-value\",\n    \"address_2\": \"string-value\",\n    \"city\": \"string-value\",\n    \"state\": \"string-value\",\n    \"postcode\": \"string-value\",\n    \"country\": \"string-value\",\n    \"email\": \"user@example.com\",\n    \"phone\": \"string-value\"\n  },\n  \"shipping\": {\n    \"first_name\": \"Example Name\",\n    \"last_name\": \"Example Name\",\n    \"company\": \"string-value\",\n    \"address_1\": \"string-value\",\n    \"address_2\": \"string-value\",\n    \"city\": \"string-value\",\n    \"state\": \"string-value\",\n    \"postcode\": \"string-value\",\n    \"country\": \"string-value\",\n    \"email\": \"user@example.com\",\n    \"phone\": \"string-value\"\n  },\n  \"payment_method\": \"string-value\",\n  \"payment_method_title\": \"Example Name\",\n  \"line_items\": [\n    {\n      \"id\": 1,\n      \"name\": \"Example Name\",\n      \"product_id\": 1,\n      \"variation_id\": 1,\n      \"quantity\": 1,\n      \"tax_class\": \"string-value\",\n      \"subtotal\": \"string-value\",\n      \"subtotal_tax\": \"string-value\",\n      \"total\": \"string-value\",\n      \"total_tax\": \"string-value\",\n      \"sku\": \"string-value\",\n      \"price\": 10.5,\n      \"meta_data\": [\n        {\n          \"id\": 1,\n          \"key\": \"string-value\",\n          \"value\": \"string-value\"\n        },\n        {\n          \"id\": 1,\n          \"key\": \"string-value\",\n          \"value\": \"string-value\"\n        }\n      ]\n    },\n    {\n      \"id\": 1,\n      \"name\": \"Example Name\",\n      \"product_id\": 1,\n      \"variation_id\": 1,\n      \"quantity\": 1,\n      \"tax_class\": \"string-value\",\n      \"subtotal\": \"string-value\",\n      \"subtotal_tax\": \"string-value\",\n      \"total\": \"string-value\",\n      \"total_tax\": \"string-value\",\n      \"sku\": \"string-value\",\n      \"price\": 10.5,\n      \"meta_data\": [\n        {\n          \"id\": 1,\n          \"key\": \"string-value\",\n          \"value\": \"string-value\"\n        },\n        {\n          \"id\": 1,\n          \"key\": \"string-value\",\n          \"value\": \"string-value\"\n        }\n      ]\n    }\n  ],\n  \"meta_data\": [\n    {\n      \"id\": 1,\n      \"key\": \"string-value\",\n      \"value\": \"string-value\"\n    },\n    {\n      \"id\": 1,\n      \"key\": \"string-value\",\n      \"value\": \"string-value\"\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": \"string-value\",\n  \"message\": \"string-value\",\n  \"data\": {\n    \"status\": 1\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "3fed5381-5976-4e62-a963-738705a8ad33",
+              "name": "Authentication credentials are missing or invalid.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "orders",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "id",
+                      "description": "(Required) Unique identifier for the resource."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"status\": \"pending\",\n  \"customer_id\": 1,\n  \"customer_note\": \"string-value\",\n  \"billing\": {\n    \"first_name\": \"Example Name\",\n    \"last_name\": \"Example Name\",\n    \"company\": \"string-value\",\n    \"address_1\": \"string-value\",\n    \"address_2\": \"string-value\",\n    \"city\": \"string-value\",\n    \"state\": \"string-value\",\n    \"postcode\": \"string-value\",\n    \"country\": \"string-value\",\n    \"email\": \"user@example.com\",\n    \"phone\": \"string-value\"\n  },\n  \"shipping\": {\n    \"first_name\": \"Example Name\",\n    \"last_name\": \"Example Name\",\n    \"company\": \"string-value\",\n    \"address_1\": \"string-value\",\n    \"address_2\": \"string-value\",\n    \"city\": \"string-value\",\n    \"state\": \"string-value\",\n    \"postcode\": \"string-value\",\n    \"country\": \"string-value\",\n    \"email\": \"user@example.com\",\n    \"phone\": \"string-value\"\n  },\n  \"payment_method\": \"string-value\",\n  \"payment_method_title\": \"Example Name\",\n  \"line_items\": [\n    {\n      \"id\": 1,\n      \"name\": \"Example Name\",\n      \"product_id\": 1,\n      \"variation_id\": 1,\n      \"quantity\": 1,\n      \"tax_class\": \"string-value\",\n      \"subtotal\": \"string-value\",\n      \"subtotal_tax\": \"string-value\",\n      \"total\": \"string-value\",\n      \"total_tax\": \"string-value\",\n      \"sku\": \"string-value\",\n      \"price\": 10.5,\n      \"meta_data\": [\n        {\n          \"id\": 1,\n          \"key\": \"string-value\",\n          \"value\": \"string-value\"\n        },\n        {\n          \"id\": 1,\n          \"key\": \"string-value\",\n          \"value\": \"string-value\"\n        }\n      ]\n    },\n    {\n      \"id\": 1,\n      \"name\": \"Example Name\",\n      \"product_id\": 1,\n      \"variation_id\": 1,\n      \"quantity\": 1,\n      \"tax_class\": \"string-value\",\n      \"subtotal\": \"string-value\",\n      \"subtotal_tax\": \"string-value\",\n      \"total\": \"string-value\",\n      \"total_tax\": \"string-value\",\n      \"sku\": \"string-value\",\n      \"price\": 10.5,\n      \"meta_data\": [\n        {\n          \"id\": 1,\n          \"key\": \"string-value\",\n          \"value\": \"string-value\"\n        },\n        {\n          \"id\": 1,\n          \"key\": \"string-value\",\n          \"value\": \"string-value\"\n        }\n      ]\n    }\n  ],\n  \"meta_data\": [\n    {\n      \"id\": 1,\n      \"key\": \"string-value\",\n      \"value\": \"string-value\"\n    },\n    {\n      \"id\": 1,\n      \"key\": \"string-value\",\n      \"value\": \"string-value\"\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": \"string-value\",\n  \"message\": \"string-value\",\n  \"data\": {\n    \"status\": 1\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "a293067a-60df-405b-a3b9-22eace7c2796",
+              "name": "The requested resource was not found.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "orders",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "id",
+                      "description": "(Required) Unique identifier for the resource."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"status\": \"pending\",\n  \"customer_id\": 1,\n  \"customer_note\": \"string-value\",\n  \"billing\": {\n    \"first_name\": \"Example Name\",\n    \"last_name\": \"Example Name\",\n    \"company\": \"string-value\",\n    \"address_1\": \"string-value\",\n    \"address_2\": \"string-value\",\n    \"city\": \"string-value\",\n    \"state\": \"string-value\",\n    \"postcode\": \"string-value\",\n    \"country\": \"string-value\",\n    \"email\": \"user@example.com\",\n    \"phone\": \"string-value\"\n  },\n  \"shipping\": {\n    \"first_name\": \"Example Name\",\n    \"last_name\": \"Example Name\",\n    \"company\": \"string-value\",\n    \"address_1\": \"string-value\",\n    \"address_2\": \"string-value\",\n    \"city\": \"string-value\",\n    \"state\": \"string-value\",\n    \"postcode\": \"string-value\",\n    \"country\": \"string-value\",\n    \"email\": \"user@example.com\",\n    \"phone\": \"string-value\"\n  },\n  \"payment_method\": \"string-value\",\n  \"payment_method_title\": \"Example Name\",\n  \"line_items\": [\n    {\n      \"id\": 1,\n      \"name\": \"Example Name\",\n      \"product_id\": 1,\n      \"variation_id\": 1,\n      \"quantity\": 1,\n      \"tax_class\": \"string-value\",\n      \"subtotal\": \"string-value\",\n      \"subtotal_tax\": \"string-value\",\n      \"total\": \"string-value\",\n      \"total_tax\": \"string-value\",\n      \"sku\": \"string-value\",\n      \"price\": 10.5,\n      \"meta_data\": [\n        {\n          \"id\": 1,\n          \"key\": \"string-value\",\n          \"value\": \"string-value\"\n        },\n        {\n          \"id\": 1,\n          \"key\": \"string-value\",\n          \"value\": \"string-value\"\n        }\n      ]\n    },\n    {\n      \"id\": 1,\n      \"name\": \"Example Name\",\n      \"product_id\": 1,\n      \"variation_id\": 1,\n      \"quantity\": 1,\n      \"tax_class\": \"string-value\",\n      \"subtotal\": \"string-value\",\n      \"subtotal_tax\": \"string-value\",\n      \"total\": \"string-value\",\n      \"total_tax\": \"string-value\",\n      \"sku\": \"string-value\",\n      \"price\": 10.5,\n      \"meta_data\": [\n        {\n          \"id\": 1,\n          \"key\": \"string-value\",\n          \"value\": \"string-value\"\n        },\n        {\n          \"id\": 1,\n          \"key\": \"string-value\",\n          \"value\": \"string-value\"\n        }\n      ]\n    }\n  ],\n  \"meta_data\": [\n    {\n      \"id\": 1,\n      \"key\": \"string-value\",\n      \"value\": \"string-value\"\n    },\n    {\n      \"id\": 1,\n      \"key\": \"string-value\",\n      \"value\": \"string-value\"\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": \"string-value\",\n  \"message\": \"string-value\",\n  \"data\": {\n    \"status\": 1\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "149e4c68-cca4-49fb-959b-1fcee1c167ed",
+          "name": "WooCommerce Delete an Order",
+          "request": {
+            "name": "WooCommerce Delete an Order",
+            "description": {
+              "content": "Deletes an order by its numeric ID. Set force to true to permanently delete rather than moving the order to the trash.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "orders",
+                ":id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "force",
+                  "value": "false",
+                  "description": "Set to true to permanently delete the resource, bypassing the trash."
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<integer>",
+                  "key": "id",
+                  "description": "(Required) Unique identifier for the resource."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "DELETE",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "bb9a0a9f-f59f-439b-a93f-b1c53ed9b0dc",
+              "name": "Order deleted",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "orders",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "force",
+                      "value": "false"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "id",
+                      "description": "(Required) Unique identifier for the resource."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": 1,\n  \"parent_id\": 1,\n  \"number\": \"string-value\",\n  \"order_key\": \"string-value\",\n  \"status\": \"pending\",\n  \"currency\": \"string-value\",\n  \"date_created\": \"2026-05-03T14:30:00Z\",\n  \"date_modified\": \"2026-05-03T14:30:00Z\",\n  \"date_completed\": \"2026-05-03T14:30:00Z\",\n  \"discount_total\": \"string-value\",\n  \"discount_tax\": \"string-value\",\n  \"shipping_total\": \"string-value\",\n  \"shipping_tax\": \"string-value\",\n  \"cart_tax\": \"string-value\",\n  \"total\": \"string-value\",\n  \"total_tax\": \"string-value\",\n  \"customer_id\": 1,\n  \"customer_note\": \"string-value\",\n  \"billing\": {\n    \"first_name\": \"Example Name\",\n    \"last_name\": \"Example Name\",\n    \"company\": \"string-value\",\n    \"address_1\": \"string-value\",\n    \"address_2\": \"string-value\",\n    \"city\": \"string-value\",\n    \"state\": \"string-value\",\n    \"postcode\": \"string-value\",\n    \"country\": \"string-value\",\n    \"email\": \"user@example.com\",\n    \"phone\": \"string-value\"\n  },\n  \"shipping\": {\n    \"first_name\": \"Example Name\",\n    \"last_name\": \"Example Name\",\n    \"company\": \"string-value\",\n    \"address_1\": \"string-value\",\n    \"address_2\": \"string-value\",\n    \"city\": \"string-value\",\n    \"state\": \"string-value\",\n    \"postcode\": \"string-value\",\n    \"country\": \"string-value\",\n    \"email\": \"user@example.com\",\n    \"phone\": \"string-value\"\n  },\n  \"payment_method\": \"string-value\",\n  \"payment_method_title\": \"Example Name\",\n  \"transaction_id\": \"500123\",\n  \"line_items\": [\n    \"string-value\"\n  ],\n  \"meta_data\": [\n    \"string-value\"\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "b6c04ee7-d508-4711-9ea2-0863c0284f9e",
+              "name": "Authentication credentials are missing or invalid.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "orders",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "force",
+                      "value": "false"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "id",
+                      "description": "(Required) Unique identifier for the resource."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": \"string-value\",\n  \"message\": \"string-value\",\n  \"data\": {\n    \"status\": 1\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "864e5f90-14b1-47b0-b5f7-4ff5c3ff9b5c",
+              "name": "The requested resource was not found.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "orders",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "force",
+                      "value": "false"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "id",
+                      "description": "(Required) Unique identifier for the resource."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": \"string-value\",\n  \"message\": \"string-value\",\n  \"data\": {\n    \"status\": 1\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "8c0410bf-b5e6-4403-9a70-f9635ca1fdbd",
+          "name": "WooCommerce Retrieve a Customer Order",
+          "request": {
+            "name": "WooCommerce Retrieve a Customer Order",
+            "description": {
+              "content": "Returns a single order by ID. Only returns orders belonging to the currently authenticated customer. Used for order confirmation and account order history pages.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "order",
+                ":id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<integer>",
+                  "key": "id",
+                  "description": "(Required) Unique identifier for the resource."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "7bca185d-e395-4f0b-b241-a58ddb4fb794",
+              "name": "Customer order details",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "order",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "id",
+                      "description": "(Required) Unique identifier for the resource."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": 1,\n  \"number\": \"string-value\",\n  \"status\": \"active\",\n  \"date_created\": \"2026-05-03T14:30:00Z\",\n  \"total\": \"string-value\",\n  \"billing\": {\n    \"first_name\": \"Example Name\",\n    \"last_name\": \"Example Name\",\n    \"company\": \"string-value\",\n    \"address_1\": \"string-value\",\n    \"address_2\": \"string-value\",\n    \"city\": \"string-value\",\n    \"state\": \"string-value\",\n    \"postcode\": \"string-value\",\n    \"country\": \"string-value\",\n    \"email\": \"user@example.com\",\n    \"phone\": \"string-value\"\n  },\n  \"shipping\": {\n    \"first_name\": \"Example Name\",\n    \"last_name\": \"Example Name\",\n    \"company\": \"string-value\",\n    \"address_1\": \"string-value\",\n    \"address_2\": \"string-value\",\n    \"city\": \"string-value\",\n    \"state\": \"string-value\",\n    \"postcode\": \"string-value\",\n    \"country\": \"string-value\",\n    \"email\": \"user@example.com\",\n    \"phone\": \"string-value\"\n  },\n  \"items\": [\n    {\n      \"id\": 1,\n      \"name\": \"Example Name\",\n      \"quantity\": 1,\n      \"total\": \"string-value\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "74e727d9-8d54-4efd-91f9-9210026ffa2e",
+              "name": "The customer must be logged in to access this resource.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "order",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "id",
+                      "description": "(Required) Unique identifier for the resource."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": \"string-value\",\n  \"message\": \"string-value\",\n  \"data\": {\n    \"status\": 1\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "8fd3df13-d2bb-4506-b25d-dddd77fef655",
+              "name": "The requested resource was not found.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "order",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "id",
+                      "description": "(Required) Unique identifier for the resource."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": \"string-value\",\n  \"message\": \"string-value\",\n  \"data\": {\n    \"status\": 1\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://example.com/wp-json/wc/v3",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "basic",
+    "basic": [
+      {
+        "key": "username",
+        "value": "{{basicAuthUsername}}"
+      },
+      {
+        "key": "password",
+        "value": "{{basicAuthPassword}}"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "95f2f0ae-f29f-4ee6-b759-4161e1d1bb8c",
+    "name": "WooCommerce REST Cart Orders API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "The WooCommerce REST API is the primary server-side interface for reading and writing WooCommerce store data programmatically. It follows REST conventions, uses JSON for all requests and responses, and is fully integrated with the WordPress REST API under the /wp-json/wc/v3/ namespace. The API covers products, product variations, product categories, product attributes, orders, order notes, order refunds, customers, coupons, tax rates, shipping zones, payment gateways, settings, webhooks, reports, and system status. Authentication uses Consumer Key and Consumer Secret pairs generated in the WooCommerce admin, transmitted over HTTPS via HTTP Basic Auth or OAuth 1.0a over plain HTTP.\n\nContact Support:\n Name: WooCommerce Developer Support",
+      "type": "text/plain"
+    }
+  }
+}

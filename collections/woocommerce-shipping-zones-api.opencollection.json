@@ -1,0 +1,55 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "WooCommerce REST Cart Shipping Zones API",
+    "version": "v3"
+  },
+  "request": {
+    "auth": {
+      "type": "basic",
+      "username": "{{username}}",
+      "password": "{{password}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Shipping Zones",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "WooCommerce List All Shipping Zones",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://example.com/wp-json/wc/v3/shipping/zones"
+          },
+          "docs": "Returns all shipping zones configured in the store. Each zone can contain locations (countries, states, postcodes) and shipping methods."
+        },
+        {
+          "info": {
+            "name": "WooCommerce List Shipping Methods for a Zone",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://example.com/wp-json/wc/v3/shipping/zones/:id/methods",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "Unique identifier for the resource."
+              }
+            ]
+          },
+          "docs": "Returns all shipping methods configured for a specific shipping zone, including their settings and enabled status."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}
