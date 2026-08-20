@@ -8,6 +8,12 @@ description: WooCommerce is the world's most popular open-source eCommerce platf
 type: Index
 url: https://raw.githubusercontent.com/api-evangelist/woocommerce/refs/heads/main/apis.yml
 tags:
+- E-Commerce
+- Open-Source
+- Order
+- Product
+- WordPress
+tags_raw:
 - eCommerce
 - Open Source
 - Orders
@@ -41,6 +47,9 @@ apis:
     via the REST API and deliver JSON payloads signed with HMAC-SHA256.
   humanURL: https://woocommerce.com/document/webhooks/
   tags:
+  - Event
+  - Webhook
+  tags_raw:
   - Events
   - Webhooks
   properties:
@@ -63,6 +72,11 @@ apis:
   humanURL: https://woographql.com/
   baseURL: https://yoursite.com/graphql
   tags:
+  - E-Commerce
+  - GraphQL
+  - Headless
+  - WordPress
+  tags_raw:
   - eCommerce
   - GraphQL
   - Headless
@@ -274,6 +288,8 @@ apis:
   humanURL: https://developer.woocommerce.com/docs/apis/rest-api/
   baseURL: https://example.com/wp-json/wc/v3
   tags:
+  - Order
+  tags_raw:
   - Orders
   properties:
   - type: OpenAPI
@@ -498,6 +514,8 @@ apis:
   humanURL: https://developer.woocommerce.com/docs/apis/rest-api/
   baseURL: https://example.com/wp-json/wc/v3
   tags:
+  - Product
+  tags_raw:
   - Products
   properties:
   - type: OpenAPI
@@ -658,6 +676,8 @@ apis:
   humanURL: https://developer.woocommerce.com/docs/apis/rest-api/
   baseURL: https://example.com/wp-json/wc/v3
   tags:
+  - Webhook
+  tags_raw:
   - Webhooks
   properties:
   - type: OpenAPI
