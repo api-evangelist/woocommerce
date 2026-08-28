@@ -10,8 +10,8 @@ info:
     be read and executed without opening the underlying OpenAPI description.
   version: 1.0.0
 sourceDescriptions:
-- name: woocommerceRestApi
-  url: ../openapi/woocommerce-rest-api-openapi.yml
+- name: couponsApi
+  url: ../openapi/woocommerce-coupons-api-openapi.yml
   type: openapi
 workflows:
 - workflowId: upsert-coupon-by-code

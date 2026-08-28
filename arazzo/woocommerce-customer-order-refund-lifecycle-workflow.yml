@@ -10,8 +10,14 @@ info:
     and executed without opening the underlying OpenAPI description.
   version: 1.0.0
 sourceDescriptions:
-- name: woocommerceRestApi
-  url: ../openapi/woocommerce-rest-api-openapi.yml
+- name: customersApi
+  url: ../openapi/woocommerce-customers-api-openapi.yml
+  type: openapi
+- name: orderRefundsApi
+  url: ../openapi/woocommerce-order-refunds-api-openapi.yml
+  type: openapi
+- name: ordersApi
+  url: ../openapi/woocommerce-orders-api-openapi.yml
   type: openapi
 workflows:
 - workflowId: customer-order-refund-lifecycle

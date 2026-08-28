@@ -11,8 +11,8 @@ info:
     OpenAPI description.
   version: 1.0.0
 sourceDescriptions:
-- name: woocommerceRestApi
-  url: ../openapi/woocommerce-rest-api-openapi.yml
+- name: webhooksApi
+  url: ../openapi/woocommerce-webhooks-api-openapi.yml
   type: openapi
 workflows:
 - workflowId: register-order-webhook

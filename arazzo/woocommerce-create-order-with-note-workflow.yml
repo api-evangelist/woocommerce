@@ -10,8 +10,11 @@ info:
     opening the underlying OpenAPI description.
   version: 1.0.0
 sourceDescriptions:
-- name: woocommerceRestApi
-  url: ../openapi/woocommerce-rest-api-openapi.yml
+- name: orderNotesApi
+  url: ../openapi/woocommerce-order-notes-api-openapi.yml
+  type: openapi
+- name: ordersApi
+  url: ../openapi/woocommerce-orders-api-openapi.yml
   type: openapi
 workflows:
 - workflowId: create-order-with-note

@@ -11,8 +11,14 @@ info:
     description.
   version: 1.0.0
 sourceDescriptions:
-- name: woocommerceRestApi
-  url: ../openapi/woocommerce-rest-api-openapi.yml
+- name: orderNotesApi
+  url: ../openapi/woocommerce-order-notes-api-openapi.yml
+  type: openapi
+- name: orderRefundsApi
+  url: ../openapi/woocommerce-order-refunds-api-openapi.yml
+  type: openapi
+- name: ordersApi
+  url: ../openapi/woocommerce-orders-api-openapi.yml
   type: openapi
 workflows:
 - workflowId: guest-order-note-refund

@@ -10,8 +10,8 @@ info:
     be read and executed without opening the underlying OpenAPI description.
   version: 1.0.0
 sourceDescriptions:
-- name: woocommerceRestApi
-  url: ../openapi/woocommerce-rest-api-openapi.yml
+- name: customersApi
+  url: ../openapi/woocommerce-customers-api-openapi.yml
   type: openapi
 workflows:
 - workflowId: upsert-customer-by-email

@@ -11,8 +11,8 @@ info:
     description.
   version: 1.0.0
 sourceDescriptions:
-- name: woocommerceRestApi
-  url: ../openapi/woocommerce-rest-api-openapi.yml
+- name: productCategoriesApi
+  url: ../openapi/woocommerce-product-categories-api-openapi.yml
   type: openapi
 workflows:
 - workflowId: upsert-category
