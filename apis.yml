@@ -8,13 +8,14 @@ description: WooCommerce is the world's most popular open-source eCommerce platf
 type: Index
 url: https://raw.githubusercontent.com/api-evangelist/woocommerce/refs/heads/main/apis.yml
 tags:
+- WooCommerce
 - E-Commerce
 - Open-Source
 - Order
 - Product
 - WordPress
-- WooCommerce
 tags_raw:
+- WooCommerce
 - eCommerce
 - Open Source
 - Orders
