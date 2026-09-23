@@ -1,17 +1,14 @@
-openapi: 3.1.0
+openapi: 3.2.0
 info:
-  title: WooCommerce REST Cart Products API
-  description: The WooCommerce REST API is the primary server-side interface for reading and writing WooCommerce store data programmatically. It follows REST conventions, uses JSON for all requests and responses, and is fully integrated with the WordPress REST API under the /wp-json/wc/v3/ namespace. The API covers products, product variations, product categories, product attributes, orders, order notes, order refunds, customers, coupons, tax rates, shipping zones, payment gateways, settings, webhooks, reports, and system status. Authentication uses Consumer Key and Consumer Secret pairs generated in the WooCommerce admin, transmitted over HTTPS via HTTP Basic Auth or OAuth 1.0a over plain HTTP.
-  version: v3
-  contact:
-    name: WooCommerce Developer Support
-    url: https://developer.woocommerce.com/docs/apis/rest-api/
+  title: Woocommerce Products API
   termsOfService: https://woocommerce.com/terms-conditions/
+  version: '1.0'
+  description: 'Operations tagged Products across 2 of this provider''s published API definitions: woocommerce-rest-api-openapi.yml, woocommerce-store-api-openapi.yml. Each path carries the servers of the definition it was published in.'
 servers:
 - url: https://example.com/wp-json/wc/v3
   description: Production Server (replace example.com with your store domain)
-security:
-- basicAuth: []
+- url: https://example.com/wp-json/wc/store/v1
+  description: Production Server (replace example.com with your store domain)
 tags:
 - name: Products
   description: Create, retrieve, update, and delete store products and their variations
@@ -142,6 +139,8 @@ paths:
       x-microcks-operation:
         delay: 0
         dispatcher: FALLBACK
+      security:
+      - basicAuth: []
     post:
       operationId: createProduct
       summary: WooCommerce Create a Product
@@ -215,6 +214,11 @@ paths:
       x-microcks-operation:
         delay: 0
         dispatcher: FALLBACK
+      security:
+      - basicAuth: []
+    servers:
+    - url: https://example.com/wp-json/wc/v3
+      description: Production Server (replace example.com with your store domain)
   /products/{id}:
     get:
       operationId: getProduct
@@ -285,6 +289,8 @@ paths:
       x-microcks-operation:
         delay: 0
         dispatcher: FALLBACK
+      security:
+      - basicAuth: []
     put:
       operationId: updateProduct
       summary: WooCommerce Update a Product
@@ -362,6 +368,8 @@ paths:
       x-microcks-operation:
         delay: 0
         dispatcher: FALLBACK
+      security:
+      - basicAuth: []
     delete:
       operationId: deleteProduct
       summary: WooCommerce Delete a Product
@@ -432,6 +440,11 @@ paths:
       x-microcks-operation:
         delay: 0
         dispatcher: FALLBACK
+      security:
+      - basicAuth: []
+    servers:
+    - url: https://example.com/wp-json/wc/v3
+      description: Production Server (replace example.com with your store domain)
   /products/batch:
     post:
       operationId: batchUpdateProducts
@@ -468,6 +481,11 @@ paths:
       x-microcks-operation:
         delay: 0
         dispatcher: FALLBACK
+      security:
+      - basicAuth: []
+    servers:
+    - url: https://example.com/wp-json/wc/v3
+      description: Production Server (replace example.com with your store domain)
   /products/collection-data:
     get:
       operationId: getProductCollectionData
@@ -521,24 +539,11 @@ paths:
       x-microcks-operation:
         delay: 0
         dispatcher: FALLBACK
+    servers:
+    - url: https://example.com/wp-json/wc/store/v1
+      description: Production Server (replace example.com with your store domain)
 components:
   parameters:
-    after:
-      name: after
-      in: query
-      description: Limit response to resources created after a given ISO8601 compliant date.
-      required: false
-      schema:
-        type: string
-        format: date-time
-    before:
-      name: before
-      in: query
-      description: Limit response to resources created before a given ISO8601 compliant date.
-      required: false
-      schema:
-        type: string
-        format: date-time
     search:
       name: search
       in: query
@@ -546,6 +551,14 @@ components:
       required: false
       schema:
         type: string
+    force:
+      name: force
+      in: query
+      description: Set to true to permanently delete the resource, bypassing the trash.
+      required: false
+      schema:
+        type: boolean
+        default: false
     page:
       name: page
       in: query
@@ -562,14 +575,14 @@ components:
       required: true
       schema:
         type: integer
-    force:
-      name: force
+    after:
+      name: after
       in: query
-      description: Set to true to permanently delete the resource, bypassing the trash.
+      description: Limit response to resources created after a given ISO8601 compliant date.
       required: false
       schema:
-        type: boolean
-        default: false
+        type: string
+        format: date-time
     per_page:
       name: per_page
       in: query
@@ -580,7 +593,61 @@ components:
         minimum: 1
         maximum: 100
         default: 10
+    before:
+      name: before
+      in: query
+      description: Limit response to resources created before a given ISO8601 compliant date.
+      required: false
+      schema:
+        type: string
+        format: date-time
+    search_2:
+      name: search
+      in: query
+      description: Search term to filter results.
+      required: false
+      schema:
+        type: string
+    page_2:
+      name: page
+      in: query
+      description: Current page of the collection.
+      required: false
+      schema:
+        type: integer
+        minimum: 1
+        default: 1
+    per_page_2:
+      name: per_page
+      in: query
+      description: Maximum number of items per page (maximum 100).
+      required: false
+      schema:
+        type: integer
+        minimum: 1
+        maximum: 100
+        default: 10
   schemas:
+    Error:
+      type: object
+      properties:
+        code:
+          type: string
+          description: Machine-readable error code.
+          example: string-value
+        message:
+          type: string
+          description: Human-readable error message.
+          example: string-value
+        data:
+          type: object
+          description: Additional error context including HTTP status code.
+          properties:
+            status:
+              type: integer
+              description: HTTP status code associated with the error.
+          example:
+            status: 1
     ProductInput:
       type: object
       description: Input payload for creating or updating a product.
@@ -723,95 +790,62 @@ components:
           type: string
           description: Image alternative text.
           example: string-value
-    MetaData:
+    ProductAttribute:
       type: object
-      description: Custom metadata key-value entry.
+      description: A product attribute with option values.
       properties:
         id:
           type: integer
-          description: Metadata unique identifier.
+          description: Attribute ID (0 for custom attributes).
           example: 1
-        key:
+        name:
           type: string
-          description: Metadata key.
-          example: string-value
-        value:
-          type: string
-          description: Metadata value.
-          example: string-value
-    BatchProductRequest:
+          description: Attribute name.
+          example: Example Name
+        position:
+          type: integer
+          description: Attribute position in the product.
+          example: 1
+        visible:
+          type: boolean
+          description: Whether the attribute is visible on the product page.
+          example: true
+        variation:
+          type: boolean
+          description: Whether the attribute is used to define variations.
+          example: true
+        options:
+          type: array
+          description: List of available options (terms) for this attribute.
+          items:
+            type: string
+          example:
+          - string-value
+    BatchProductResponse:
       type: object
-      description: Batch request for creating, updating, and deleting products.
+      description: Response from a batch product operation.
       properties:
         create:
           type: array
-          description: Array of product objects to create.
+          description: Created products.
           items:
-            $ref: '#/components/schemas/ProductInput'
+            $ref: '#/components/schemas/Product'
           example:
           - string-value
         update:
           type: array
-          description: Array of product objects with IDs to update.
+          description: Updated products.
           items:
-            $ref: '#/components/schemas/ProductInput'
+            $ref: '#/components/schemas/Product'
           example:
           - string-value
         delete:
           type: array
-          description: Array of product IDs to delete.
+          description: Deleted products.
           items:
-            type: integer
+            $ref: '#/components/schemas/Product'
           example:
-          - 1
-    ProductCollectionData:
-      type: object
-      description: Aggregate data about a filtered product collection.
-      properties:
-        price_range:
-          type: object
-          description: Minimum and maximum prices in the collection.
-          nullable: true
-          properties:
-            min_price:
-              type: string
-              description: Minimum product price.
-            max_price:
-              type: string
-              description: Maximum product price.
-          example:
-            min_price: string-value
-            max_price: string-value
-        attribute_counts:
-          type: array
-          description: Term counts for requested attributes.
-          items:
-            type: object
-            properties:
-              term:
-                type: integer
-                description: Term ID.
-              count:
-                type: integer
-                description: Number of products with this term.
-          example:
-          - term: 1
-            count: 1
-        rating_counts:
-          type: array
-          description: Product counts by star rating.
-          items:
-            type: object
-            properties:
-              rating:
-                type: integer
-                description: Star rating value.
-              count:
-                type: integer
-                description: Number of products with this rating.
-          example:
-          - rating: 1
-            count: 1
+          - string-value
     Product:
       type: object
       description: A WooCommerce product in the store catalog.
@@ -1006,64 +1040,50 @@ components:
             $ref: '#/components/schemas/MetaData'
           example:
           - string-value
-    BatchProductResponse:
+    BatchProductRequest:
       type: object
-      description: Response from a batch product operation.
+      description: Batch request for creating, updating, and deleting products.
       properties:
         create:
           type: array
-          description: Created products.
+          description: Array of product objects to create.
           items:
-            $ref: '#/components/schemas/Product'
+            $ref: '#/components/schemas/ProductInput'
           example:
           - string-value
         update:
           type: array
-          description: Updated products.
+          description: Array of product objects with IDs to update.
           items:
-            $ref: '#/components/schemas/Product'
+            $ref: '#/components/schemas/ProductInput'
           example:
           - string-value
         delete:
           type: array
-          description: Deleted products.
+          description: Array of product IDs to delete.
           items:
-            $ref: '#/components/schemas/Product'
+            type: integer
           example:
-          - string-value
-    ProductAttribute:
+          - 1
+    MetaData:
       type: object
-      description: A product attribute with option values.
+      description: Custom metadata key-value entry.
       properties:
         id:
           type: integer
-          description: Attribute ID (0 for custom attributes).
+          description: Metadata unique identifier.
           example: 1
-        name:
+        key:
           type: string
-          description: Attribute name.
-          example: Example Name
-        position:
-          type: integer
-          description: Attribute position in the product.
-          example: 1
-        visible:
-          type: boolean
-          description: Whether the attribute is visible on the product page.
-          example: true
-        variation:
-          type: boolean
-          description: Whether the attribute is used to define variations.
-          example: true
-        options:
-          type: array
-          description: List of available options (terms) for this attribute.
-          items:
-            type: string
-          example:
-          - string-value
-    Error:
+          description: Metadata key.
+          example: string-value
+        value:
+          type: string
+          description: Metadata value.
+          example: string-value
+    Error_2:
       type: object
+      description: Error response returned when a request fails.
       properties:
         code:
           type: string
@@ -1075,22 +1095,343 @@ components:
           example: string-value
         data:
           type: object
-          description: Additional error context including HTTP status code.
+          description: Additional context including HTTP status.
           properties:
             status:
               type: integer
-              description: HTTP status code associated with the error.
+              description: HTTP status code.
           example:
             status: 1
+    StoreProductImage:
+      type: object
+      description: Product image with thumbnail variants.
+      properties:
+        id:
+          type: integer
+          description: Image attachment ID.
+          example: 1
+        src:
+          type: string
+          format: uri
+          description: Full-size image URL.
+          example: https://example.com/path
+        thumbnail:
+          type: string
+          format: uri
+          description: Thumbnail image URL.
+          example: https://example.com/path
+        srcset:
+          type: string
+          description: Responsive image srcset attribute value.
+          example: string-value
+        sizes:
+          type: string
+          description: Responsive image sizes attribute value.
+          example: string-value
+        name:
+          type: string
+          description: Image file name.
+          example: Example Name
+        alt:
+          type: string
+          description: Image alternative text.
+          example: string-value
+    ProductCollectionData:
+      type: object
+      description: Aggregate data about a filtered product collection.
+      properties:
+        price_range:
+          type: object
+          description: Minimum and maximum prices in the collection.
+          nullable: true
+          properties:
+            min_price:
+              type: string
+              description: Minimum product price.
+            max_price:
+              type: string
+              description: Maximum product price.
+          example:
+            min_price: string-value
+            max_price: string-value
+        attribute_counts:
+          type: array
+          description: Term counts for requested attributes.
+          items:
+            type: object
+            properties:
+              term:
+                type: integer
+                description: Term ID.
+              count:
+                type: integer
+                description: Number of products with this term.
+          example:
+          - term: 1
+            count: 1
+        rating_counts:
+          type: array
+          description: Product counts by star rating.
+          items:
+            type: object
+            properties:
+              rating:
+                type: integer
+                description: Star rating value.
+              count:
+                type: integer
+                description: Number of products with this rating.
+          example:
+          - rating: 1
+            count: 1
+    StoreProductPrice:
+      type: object
+      description: Formatted price information for a product or variation.
+      properties:
+        price:
+          type: string
+          description: Current price as a formatted string with currency symbol.
+          example: string-value
+        regular_price:
+          type: string
+          description: Regular price as a formatted string.
+          example: string-value
+        sale_price:
+          type: string
+          description: Sale price as a formatted string (empty when not on sale).
+          example: string-value
+        price_range:
+          type: object
+          description: Price range for variable products.
+          nullable: true
+          properties:
+            min_amount:
+              type: string
+              description: Minimum variation price.
+            max_amount:
+              type: string
+              description: Maximum variation price.
+          example:
+            min_amount: string-value
+            max_amount: string-value
+        currency_code:
+          type: string
+          description: ISO 4217 currency code.
+          example: string-value
+        currency_symbol:
+          type: string
+          description: Currency symbol.
+          example: string-value
+        currency_decimal_separator:
+          type: string
+          description: Decimal separator character.
+          example: string-value
+        currency_thousand_separator:
+          type: string
+          description: Thousands separator character.
+          example: string-value
+        currency_prefix:
+          type: string
+          description: Currency prefix (e.g. $).
+          example: string-value
+        currency_suffix:
+          type: string
+          description: Currency suffix.
+          example: string-value
+    StoreProduct:
+      type: object
+      description: A store product returned by the public Store API.
+      properties:
+        id:
+          type: integer
+          description: Product unique identifier.
+          example: 1
+        name:
+          type: string
+          description: Product name.
+          example: Example Name
+        slug:
+          type: string
+          description: URL-friendly product slug.
+          example: string-value
+        parent:
+          type: integer
+          description: Parent product ID for variations.
+          example: 1
+        type:
+          type: string
+          description: Product type (simple, variable, grouped, external).
+          example: standard
+        variation:
+          type: string
+          description: Variation description for variation-type products.
+          example: string-value
+        permalink:
+          type: string
+          format: uri
+          description: Full URL to the product page.
+          example: https://example.com/path
+        sku:
+          type: string
+          description: Product SKU.
+          example: string-value
+        short_description:
+          type: string
+          description: Short product description (HTML).
+          example: A sample description
+        description:
+          type: string
+          description: Full product description (HTML).
+          example: A sample description
+        on_sale:
+          type: boolean
+          description: Whether the product is on sale.
+          example: true
+        prices:
+          $ref: '#/components/schemas/StoreProductPrice'
+        purchasable:
+          type: boolean
+          description: Whether the product can be purchased.
+          example: true
+        images:
+          type: array
+          description: Product images.
+          items:
+            $ref: '#/components/schemas/StoreProductImage'
+          example:
+          - string-value
+        categories:
+          type: array
+          description: Categories assigned to the product.
+          items:
+            type: object
+            properties:
+              id:
+                type: integer
+                description: Category ID.
+              name:
+                type: string
+                description: Category name.
+              slug:
+                type: string
+                description: Category slug.
+              link:
+                type: string
+                format: uri
+                description: Category archive URL.
+          example:
+          - id: 1
+            name: Example Name
+            slug: string-value
+            link: https://example.com/path
+        tags:
+          type: array
+          description: Tags assigned to the product.
+          items:
+            type: object
+            properties:
+              id:
+                type: integer
+                description: Tag ID.
+              name:
+                type: string
+                description: Tag name.
+              slug:
+                type: string
+                description: Tag slug.
+              link:
+                type: string
+                format: uri
+                description: Tag archive URL.
+          example:
+          - id: 1
+            name: Example Name
+            slug: string-value
+            link: https://example.com/path
+        attributes:
+          type: array
+          description: Product attributes.
+          items:
+            type: object
+            properties:
+              id:
+                type: integer
+                description: Attribute ID.
+              name:
+                type: string
+                description: Attribute name.
+              taxonomy:
+                type: string
+                description: Attribute taxonomy slug.
+              has_variations:
+                type: boolean
+                description: Whether this attribute is used for variations.
+              terms:
+                type: array
+                description: Attribute terms.
+                items:
+                  type: object
+                  properties:
+                    id:
+                      type: integer
+                      description: Term ID.
+                    name:
+                      type: string
+                      description: Term name.
+                    slug:
+                      type: string
+                      description: Term slug.
+          example:
+          - id: 1
+            name: Example Name
+            taxonomy: string-value
+            has_variations: true
+            terms:
+            - id: {}
+              name: {}
+              slug: {}
+        average_rating:
+          type: string
+          description: Average product rating as a decimal string.
+          example: string-value
+        review_count:
+          type: integer
+          description: Number of approved reviews.
+          example: 1
+        is_in_stock:
+          type: boolean
+          description: Whether the product is in stock.
+          example: true
+        low_stock_remaining:
+          type: integer
+          description: Remaining stock quantity when low stock notice is applicable.
+          nullable: true
+          example: 1
+        sold_individually:
+          type: boolean
+          description: Whether the product must be bought individually.
+          example: true
+        add_to_cart:
+          type: object
+          description: Add-to-cart action details.
+          properties:
+            text:
+              type: string
+              description: Button label text.
+            description:
+              type: string
+              description: Accessible button description.
+            url:
+              type: string
+              format: uri
+              description: Add-to-cart URL for non-AJAX contexts.
+          example:
+            text: string-value
+            description: A sample description
+            url: https://example.com/path
   responses:
     Unauthorized:
       description: Authentication credentials are missing or invalid.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
-    NotFound:
-      description: The requested resource was not found.
       content:
         application/json:
           schema:
@@ -1101,11 +1442,17 @@ components:
         application/json:
           schema:
             $ref: '#/components/schemas/Error'
+    NotFound:
+      description: The requested resource was not found.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
   securitySchemes:
     basicAuth:
       type: http
       scheme: basic
       description: HTTP Basic Auth using the WooCommerce Consumer Key as the username and Consumer Secret as the password over HTTPS. Over plain HTTP use OAuth 1.0a one-legged authentication instead.
-externalDocs:
-  description: WooCommerce REST API Documentation
-  url: https://woocommerce.github.io/woocommerce-rest-api-docs/
+x-refined-from:
+- woocommerce-rest-api-openapi.yml
+- woocommerce-store-api-openapi.yml

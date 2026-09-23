@@ -1,17 +1,15 @@
-openapi: 3.1.0
+openapi: 3.2.0
 info:
-  title: WooCommerce REST Cart Product Reviews API
-  description: The WooCommerce REST API is the primary server-side interface for reading and writing WooCommerce store data programmatically. It follows REST conventions, uses JSON for all requests and responses, and is fully integrated with the WordPress REST API under the /wp-json/wc/v3/ namespace. The API covers products, product variations, product categories, product attributes, orders, order notes, order refunds, customers, coupons, tax rates, shipping zones, payment gateways, settings, webhooks, reports, and system status. Authentication uses Consumer Key and Consumer Secret pairs generated in the WooCommerce admin, transmitted over HTTPS via HTTP Basic Auth or OAuth 1.0a over plain HTTP.
-  version: v3
+  title: WooCommerce Store Product Reviews API
+  description: The WooCommerce Store API provides unauthenticated public REST endpoints for building customer-facing cart, checkout, and product functionality.
+  version: v1
   contact:
     name: WooCommerce Developer Support
-    url: https://developer.woocommerce.com/docs/apis/rest-api/
+    url: https://developer.woocommerce.com/docs/apis/store-api/
   termsOfService: https://woocommerce.com/terms-conditions/
 servers:
-- url: https://example.com/wp-json/wc/v3
+- url: https://example.com/wp-json/wc/store/v1
   description: Production Server (replace example.com with your store domain)
-security:
-- basicAuth: []
 tags:
 - name: Product Reviews
   description: Retrieve customer reviews on products
@@ -123,11 +121,6 @@ components:
         minimum: 1
         maximum: 100
         default: 10
-  securitySchemes:
-    basicAuth:
-      type: http
-      scheme: basic
-      description: HTTP Basic Auth using the WooCommerce Consumer Key as the username and Consumer Secret as the password over HTTPS. Over plain HTTP use OAuth 1.0a one-legged authentication instead.
 externalDocs:
-  description: WooCommerce REST API Documentation
-  url: https://woocommerce.github.io/woocommerce-rest-api-docs/
+  description: WooCommerce Store API Documentation
+  url: https://developer.woocommerce.com/docs/apis/store-api/
