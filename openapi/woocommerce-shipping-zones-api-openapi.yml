@@ -157,6 +157,14 @@ components:
           type: string
           description: Shipping method type description.
           example: A sample description
+  parameters:
+    id:
+      name: id
+      in: path
+      description: Unique identifier for the resource.
+      required: true
+      schema:
+        type: integer
   responses:
     Unauthorized:
       description: Authentication credentials are missing or invalid.
@@ -170,14 +178,6 @@ components:
         application/json:
           schema:
             $ref: '#/components/schemas/Error'
-  parameters:
-    id:
-      name: id
-      in: path
-      description: Unique identifier for the resource.
-      required: true
-      schema:
-        type: integer
   securitySchemes:
     basicAuth:
       type: http

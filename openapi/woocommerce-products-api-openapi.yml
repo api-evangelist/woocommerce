@@ -543,111 +543,48 @@ paths:
     - url: https://example.com/wp-json/wc/store/v1
       description: Production Server (replace example.com with your store domain)
 components:
-  parameters:
-    search:
-      name: search
-      in: query
-      description: Limit results to those matching a string.
-      required: false
-      schema:
-        type: string
-    force:
-      name: force
-      in: query
-      description: Set to true to permanently delete the resource, bypassing the trash.
-      required: false
-      schema:
-        type: boolean
-        default: false
-    page:
-      name: page
-      in: query
-      description: Current page of the collection. Defaults to 1.
-      required: false
-      schema:
-        type: integer
-        minimum: 1
-        default: 1
-    id:
-      name: id
-      in: path
-      description: Unique identifier for the resource.
-      required: true
-      schema:
-        type: integer
-    after:
-      name: after
-      in: query
-      description: Limit response to resources created after a given ISO8601 compliant date.
-      required: false
-      schema:
-        type: string
-        format: date-time
-    per_page:
-      name: per_page
-      in: query
-      description: Maximum number of items per page. Defaults to 10, maximum 100.
-      required: false
-      schema:
-        type: integer
-        minimum: 1
-        maximum: 100
-        default: 10
-    before:
-      name: before
-      in: query
-      description: Limit response to resources created before a given ISO8601 compliant date.
-      required: false
-      schema:
-        type: string
-        format: date-time
-    search_2:
-      name: search
-      in: query
-      description: Search term to filter results.
-      required: false
-      schema:
-        type: string
-    page_2:
-      name: page
-      in: query
-      description: Current page of the collection.
-      required: false
-      schema:
-        type: integer
-        minimum: 1
-        default: 1
-    per_page_2:
-      name: per_page
-      in: query
-      description: Maximum number of items per page (maximum 100).
-      required: false
-      schema:
-        type: integer
-        minimum: 1
-        maximum: 100
-        default: 10
   schemas:
-    Error:
+    MetaData:
       type: object
+      description: Custom metadata key-value entry.
       properties:
-        code:
+        id:
+          type: integer
+          description: Metadata unique identifier.
+          example: 1
+        key:
           type: string
-          description: Machine-readable error code.
+          description: Metadata key.
           example: string-value
-        message:
+        value:
           type: string
-          description: Human-readable error message.
+          description: Metadata value.
           example: string-value
-        data:
-          type: object
-          description: Additional error context including HTTP status code.
-          properties:
-            status:
-              type: integer
-              description: HTTP status code associated with the error.
+    BatchProductResponse:
+      type: object
+      description: Response from a batch product operation.
+      properties:
+        create:
+          type: array
+          description: Created products.
+          items:
+            $ref: '#/components/schemas/Product'
           example:
-            status: 1
+          - string-value
+        update:
+          type: array
+          description: Updated products.
+          items:
+            $ref: '#/components/schemas/Product'
+          example:
+          - string-value
+        delete:
+          type: array
+          description: Deleted products.
+          items:
+            $ref: '#/components/schemas/Product'
+          example:
+          - string-value
     ProductInput:
       type: object
       description: Input payload for creating or updating a product.
@@ -767,83 +704,6 @@ components:
           description: Custom metadata.
           items:
             $ref: '#/components/schemas/MetaData'
-          example:
-          - string-value
-    ProductImage:
-      type: object
-      description: An image associated with a product.
-      properties:
-        id:
-          type: integer
-          description: Image unique identifier.
-          example: 1
-        src:
-          type: string
-          format: uri
-          description: Image URL.
-          example: https://example.com/path
-        name:
-          type: string
-          description: Image name.
-          example: Example Name
-        alt:
-          type: string
-          description: Image alternative text.
-          example: string-value
-    ProductAttribute:
-      type: object
-      description: A product attribute with option values.
-      properties:
-        id:
-          type: integer
-          description: Attribute ID (0 for custom attributes).
-          example: 1
-        name:
-          type: string
-          description: Attribute name.
-          example: Example Name
-        position:
-          type: integer
-          description: Attribute position in the product.
-          example: 1
-        visible:
-          type: boolean
-          description: Whether the attribute is visible on the product page.
-          example: true
-        variation:
-          type: boolean
-          description: Whether the attribute is used to define variations.
-          example: true
-        options:
-          type: array
-          description: List of available options (terms) for this attribute.
-          items:
-            type: string
-          example:
-          - string-value
-    BatchProductResponse:
-      type: object
-      description: Response from a batch product operation.
-      properties:
-        create:
-          type: array
-          description: Created products.
-          items:
-            $ref: '#/components/schemas/Product'
-          example:
-          - string-value
-        update:
-          type: array
-          description: Updated products.
-          items:
-            $ref: '#/components/schemas/Product'
-          example:
-          - string-value
-        delete:
-          type: array
-          description: Deleted products.
-          items:
-            $ref: '#/components/schemas/Product'
           example:
           - string-value
     Product:
@@ -1040,6 +900,26 @@ components:
             $ref: '#/components/schemas/MetaData'
           example:
           - string-value
+    Error:
+      type: object
+      properties:
+        code:
+          type: string
+          description: Machine-readable error code.
+          example: string-value
+        message:
+          type: string
+          description: Human-readable error message.
+          example: string-value
+        data:
+          type: object
+          description: Additional error context including HTTP status code.
+          properties:
+            status:
+              type: integer
+              description: HTTP status code associated with the error.
+          example:
+            status: 1
     BatchProductRequest:
       type: object
       description: Batch request for creating, updating, and deleting products.
@@ -1065,178 +945,57 @@ components:
             type: integer
           example:
           - 1
-    MetaData:
+    ProductAttribute:
       type: object
-      description: Custom metadata key-value entry.
+      description: A product attribute with option values.
       properties:
         id:
           type: integer
-          description: Metadata unique identifier.
+          description: Attribute ID (0 for custom attributes).
           example: 1
-        key:
+        name:
           type: string
-          description: Metadata key.
-          example: string-value
-        value:
-          type: string
-          description: Metadata value.
-          example: string-value
-    Error_2:
-      type: object
-      description: Error response returned when a request fails.
-      properties:
-        code:
-          type: string
-          description: Machine-readable error code.
-          example: string-value
-        message:
-          type: string
-          description: Human-readable error message.
-          example: string-value
-        data:
-          type: object
-          description: Additional context including HTTP status.
-          properties:
-            status:
-              type: integer
-              description: HTTP status code.
+          description: Attribute name.
+          example: Example Name
+        position:
+          type: integer
+          description: Attribute position in the product.
+          example: 1
+        visible:
+          type: boolean
+          description: Whether the attribute is visible on the product page.
+          example: true
+        variation:
+          type: boolean
+          description: Whether the attribute is used to define variations.
+          example: true
+        options:
+          type: array
+          description: List of available options (terms) for this attribute.
+          items:
+            type: string
           example:
-            status: 1
-    StoreProductImage:
+          - string-value
+    ProductImage:
       type: object
-      description: Product image with thumbnail variants.
+      description: An image associated with a product.
       properties:
         id:
           type: integer
-          description: Image attachment ID.
+          description: Image unique identifier.
           example: 1
         src:
           type: string
           format: uri
-          description: Full-size image URL.
+          description: Image URL.
           example: https://example.com/path
-        thumbnail:
-          type: string
-          format: uri
-          description: Thumbnail image URL.
-          example: https://example.com/path
-        srcset:
-          type: string
-          description: Responsive image srcset attribute value.
-          example: string-value
-        sizes:
-          type: string
-          description: Responsive image sizes attribute value.
-          example: string-value
         name:
           type: string
-          description: Image file name.
+          description: Image name.
           example: Example Name
         alt:
           type: string
           description: Image alternative text.
-          example: string-value
-    ProductCollectionData:
-      type: object
-      description: Aggregate data about a filtered product collection.
-      properties:
-        price_range:
-          type: object
-          description: Minimum and maximum prices in the collection.
-          nullable: true
-          properties:
-            min_price:
-              type: string
-              description: Minimum product price.
-            max_price:
-              type: string
-              description: Maximum product price.
-          example:
-            min_price: string-value
-            max_price: string-value
-        attribute_counts:
-          type: array
-          description: Term counts for requested attributes.
-          items:
-            type: object
-            properties:
-              term:
-                type: integer
-                description: Term ID.
-              count:
-                type: integer
-                description: Number of products with this term.
-          example:
-          - term: 1
-            count: 1
-        rating_counts:
-          type: array
-          description: Product counts by star rating.
-          items:
-            type: object
-            properties:
-              rating:
-                type: integer
-                description: Star rating value.
-              count:
-                type: integer
-                description: Number of products with this rating.
-          example:
-          - rating: 1
-            count: 1
-    StoreProductPrice:
-      type: object
-      description: Formatted price information for a product or variation.
-      properties:
-        price:
-          type: string
-          description: Current price as a formatted string with currency symbol.
-          example: string-value
-        regular_price:
-          type: string
-          description: Regular price as a formatted string.
-          example: string-value
-        sale_price:
-          type: string
-          description: Sale price as a formatted string (empty when not on sale).
-          example: string-value
-        price_range:
-          type: object
-          description: Price range for variable products.
-          nullable: true
-          properties:
-            min_amount:
-              type: string
-              description: Minimum variation price.
-            max_amount:
-              type: string
-              description: Maximum variation price.
-          example:
-            min_amount: string-value
-            max_amount: string-value
-        currency_code:
-          type: string
-          description: ISO 4217 currency code.
-          example: string-value
-        currency_symbol:
-          type: string
-          description: Currency symbol.
-          example: string-value
-        currency_decimal_separator:
-          type: string
-          description: Decimal separator character.
-          example: string-value
-        currency_thousand_separator:
-          type: string
-          description: Thousands separator character.
-          example: string-value
-        currency_prefix:
-          type: string
-          description: Currency prefix (e.g. $).
-          example: string-value
-        currency_suffix:
-          type: string
-          description: Currency suffix.
           example: string-value
     StoreProduct:
       type: object
@@ -1429,15 +1188,256 @@ components:
             text: string-value
             description: A sample description
             url: https://example.com/path
+    StoreProductPrice:
+      type: object
+      description: Formatted price information for a product or variation.
+      properties:
+        price:
+          type: string
+          description: Current price as a formatted string with currency symbol.
+          example: string-value
+        regular_price:
+          type: string
+          description: Regular price as a formatted string.
+          example: string-value
+        sale_price:
+          type: string
+          description: Sale price as a formatted string (empty when not on sale).
+          example: string-value
+        price_range:
+          type: object
+          description: Price range for variable products.
+          nullable: true
+          properties:
+            min_amount:
+              type: string
+              description: Minimum variation price.
+            max_amount:
+              type: string
+              description: Maximum variation price.
+          example:
+            min_amount: string-value
+            max_amount: string-value
+        currency_code:
+          type: string
+          description: ISO 4217 currency code.
+          example: string-value
+        currency_symbol:
+          type: string
+          description: Currency symbol.
+          example: string-value
+        currency_decimal_separator:
+          type: string
+          description: Decimal separator character.
+          example: string-value
+        currency_thousand_separator:
+          type: string
+          description: Thousands separator character.
+          example: string-value
+        currency_prefix:
+          type: string
+          description: Currency prefix (e.g. $).
+          example: string-value
+        currency_suffix:
+          type: string
+          description: Currency suffix.
+          example: string-value
+    Error_2:
+      type: object
+      description: Error response returned when a request fails.
+      properties:
+        code:
+          type: string
+          description: Machine-readable error code.
+          example: string-value
+        message:
+          type: string
+          description: Human-readable error message.
+          example: string-value
+        data:
+          type: object
+          description: Additional context including HTTP status.
+          properties:
+            status:
+              type: integer
+              description: HTTP status code.
+          example:
+            status: 1
+    StoreProductImage:
+      type: object
+      description: Product image with thumbnail variants.
+      properties:
+        id:
+          type: integer
+          description: Image attachment ID.
+          example: 1
+        src:
+          type: string
+          format: uri
+          description: Full-size image URL.
+          example: https://example.com/path
+        thumbnail:
+          type: string
+          format: uri
+          description: Thumbnail image URL.
+          example: https://example.com/path
+        srcset:
+          type: string
+          description: Responsive image srcset attribute value.
+          example: string-value
+        sizes:
+          type: string
+          description: Responsive image sizes attribute value.
+          example: string-value
+        name:
+          type: string
+          description: Image file name.
+          example: Example Name
+        alt:
+          type: string
+          description: Image alternative text.
+          example: string-value
+    ProductCollectionData:
+      type: object
+      description: Aggregate data about a filtered product collection.
+      properties:
+        price_range:
+          type: object
+          description: Minimum and maximum prices in the collection.
+          nullable: true
+          properties:
+            min_price:
+              type: string
+              description: Minimum product price.
+            max_price:
+              type: string
+              description: Maximum product price.
+          example:
+            min_price: string-value
+            max_price: string-value
+        attribute_counts:
+          type: array
+          description: Term counts for requested attributes.
+          items:
+            type: object
+            properties:
+              term:
+                type: integer
+                description: Term ID.
+              count:
+                type: integer
+                description: Number of products with this term.
+          example:
+          - term: 1
+            count: 1
+        rating_counts:
+          type: array
+          description: Product counts by star rating.
+          items:
+            type: object
+            properties:
+              rating:
+                type: integer
+                description: Star rating value.
+              count:
+                type: integer
+                description: Number of products with this rating.
+          example:
+          - rating: 1
+            count: 1
+  parameters:
+    page:
+      name: page
+      in: query
+      description: Current page of the collection. Defaults to 1.
+      required: false
+      schema:
+        type: integer
+        minimum: 1
+        default: 1
+    per_page:
+      name: per_page
+      in: query
+      description: Maximum number of items per page. Defaults to 10, maximum 100.
+      required: false
+      schema:
+        type: integer
+        minimum: 1
+        maximum: 100
+        default: 10
+    id:
+      name: id
+      in: path
+      description: Unique identifier for the resource.
+      required: true
+      schema:
+        type: integer
+    force:
+      name: force
+      in: query
+      description: Set to true to permanently delete the resource, bypassing the trash.
+      required: false
+      schema:
+        type: boolean
+        default: false
+    search:
+      name: search
+      in: query
+      description: Limit results to those matching a string.
+      required: false
+      schema:
+        type: string
+    after:
+      name: after
+      in: query
+      description: Limit response to resources created after a given ISO8601 compliant date.
+      required: false
+      schema:
+        type: string
+        format: date-time
+    before:
+      name: before
+      in: query
+      description: Limit response to resources created before a given ISO8601 compliant date.
+      required: false
+      schema:
+        type: string
+        format: date-time
+    page_2:
+      name: page
+      in: query
+      description: Current page of the collection.
+      required: false
+      schema:
+        type: integer
+        minimum: 1
+        default: 1
+    per_page_2:
+      name: per_page
+      in: query
+      description: Maximum number of items per page (maximum 100).
+      required: false
+      schema:
+        type: integer
+        minimum: 1
+        maximum: 100
+        default: 10
+    search_2:
+      name: search
+      in: query
+      description: Search term to filter results.
+      required: false
+      schema:
+        type: string
   responses:
-    Unauthorized:
-      description: Authentication credentials are missing or invalid.
+    BadRequest:
+      description: The request body contains invalid or missing parameters.
       content:
         application/json:
           schema:
             $ref: '#/components/schemas/Error'
-    BadRequest:
-      description: The request body contains invalid or missing parameters.
+    Unauthorized:
+      description: Authentication credentials are missing or invalid.
       content:
         application/json:
           schema:

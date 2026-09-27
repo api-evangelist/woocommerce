@@ -10,7 +10,7 @@ url: https://raw.githubusercontent.com/api-evangelist/woocommerce/refs/heads/mai
 tags:
 - WooCommerce
 - E-Commerce
-- Open-Source
+- Open Source
 - Order
 - Product
 - WordPress
@@ -21,16 +21,22 @@ tags_raw:
 - Orders
 - Products
 - WordPress
+- Open-Source
 deliveryModel:
-  model: library
-  open_source: false
+  model: unknown
+  license_evidence:
+    repo: woocommerce/woocommerce
+    spdx: NOASSERTION
+    stars: 10534
+  open_source: unknown
   commercial: false
   callable_host: false
-  label: Library · distributed through package registries, no callable service
+  label: Delivery model not determined — needs a product licence on record
   confidence: low
   source:
   - openapi
-  generated: '2026-08-28'
+  - repository-unlicensed
+  generated: '2026-09-25'
   method: derived
 accessModel:
   pricing: paid

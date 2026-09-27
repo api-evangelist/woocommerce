@@ -225,6 +225,41 @@ paths:
         delay: 0
         dispatcher: FALLBACK
 components:
+  parameters:
+    page:
+      name: page
+      in: query
+      description: Current page of the collection. Defaults to 1.
+      required: false
+      schema:
+        type: integer
+        minimum: 1
+        default: 1
+    per_page:
+      name: per_page
+      in: query
+      description: Maximum number of items per page. Defaults to 10, maximum 100.
+      required: false
+      schema:
+        type: integer
+        minimum: 1
+        maximum: 100
+        default: 10
+    id:
+      name: id
+      in: path
+      description: Unique identifier for the resource.
+      required: true
+      schema:
+        type: integer
+    force:
+      name: force
+      in: query
+      description: Set to true to permanently delete the resource, bypassing the trash.
+      required: false
+      schema:
+        type: boolean
+        default: false
   schemas:
     Error:
       type: object
@@ -322,41 +357,6 @@ components:
           format: date-time
           description: Date the webhook was last modified.
           example: '2026-05-03T14:30:00Z'
-  parameters:
-    force:
-      name: force
-      in: query
-      description: Set to true to permanently delete the resource, bypassing the trash.
-      required: false
-      schema:
-        type: boolean
-        default: false
-    page:
-      name: page
-      in: query
-      description: Current page of the collection. Defaults to 1.
-      required: false
-      schema:
-        type: integer
-        minimum: 1
-        default: 1
-    id:
-      name: id
-      in: path
-      description: Unique identifier for the resource.
-      required: true
-      schema:
-        type: integer
-    per_page:
-      name: per_page
-      in: query
-      description: Maximum number of items per page. Defaults to 10, maximum 100.
-      required: false
-      schema:
-        type: integer
-        minimum: 1
-        maximum: 100
-        default: 10
   responses:
     BadRequest:
       description: The request body contains invalid or missing parameters.

@@ -139,13 +139,6 @@ components:
           description: Sales totals grouped by the totals_grouped_by interval.
           additionalProperties: true
           example: {}
-  responses:
-    Unauthorized:
-      description: Authentication credentials are missing or invalid.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
   parameters:
     after:
       name: after
@@ -163,6 +156,13 @@ components:
       schema:
         type: string
         format: date-time
+  responses:
+    Unauthorized:
+      description: Authentication credentials are missing or invalid.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
   securitySchemes:
     basicAuth:
       type: http

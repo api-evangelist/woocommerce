@@ -214,6 +214,14 @@ components:
           description: Gateway settings as a key-value map. Each setting has id, label, description, type, value, and tip properties.
           additionalProperties: true
           example: {}
+  parameters:
+    id:
+      name: id
+      in: path
+      description: Unique identifier for the resource.
+      required: true
+      schema:
+        type: integer
   responses:
     BadRequest:
       description: The request body contains invalid or missing parameters.
@@ -233,14 +241,6 @@ components:
         application/json:
           schema:
             $ref: '#/components/schemas/Error'
-  parameters:
-    id:
-      name: id
-      in: path
-      description: Unique identifier for the resource.
-      required: true
-      schema:
-        type: integer
   securitySchemes:
     basicAuth:
       type: http

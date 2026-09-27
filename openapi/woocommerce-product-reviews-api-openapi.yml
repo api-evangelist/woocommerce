@@ -65,6 +65,26 @@ paths:
         delay: 0
         dispatcher: FALLBACK
 components:
+  parameters:
+    page:
+      name: page
+      in: query
+      description: Current page of the collection.
+      required: false
+      schema:
+        type: integer
+        minimum: 1
+        default: 1
+    per_page:
+      name: per_page
+      in: query
+      description: Maximum number of items per page (maximum 100).
+      required: false
+      schema:
+        type: integer
+        minimum: 1
+        maximum: 100
+        default: 10
   schemas:
     StoreReview:
       type: object
@@ -101,26 +121,6 @@ components:
           type: boolean
           description: Whether the reviewer purchased the product.
           example: true
-  parameters:
-    page:
-      name: page
-      in: query
-      description: Current page of the collection.
-      required: false
-      schema:
-        type: integer
-        minimum: 1
-        default: 1
-    per_page:
-      name: per_page
-      in: query
-      description: Maximum number of items per page (maximum 100).
-      required: false
-      schema:
-        type: integer
-        minimum: 1
-        maximum: 100
-        default: 10
 externalDocs:
   description: WooCommerce Store API Documentation
   url: https://developer.woocommerce.com/docs/apis/store-api/

@@ -1060,208 +1060,6 @@ paths:
         dispatcher: FALLBACK
 components:
   schemas:
-    StoreAddress:
-      type: object
-      description: A customer billing or shipping address in the Store API context.
-      properties:
-        first_name:
-          type: string
-          description: First name.
-          example: Example Name
-        last_name:
-          type: string
-          description: Last name.
-          example: Example Name
-        company:
-          type: string
-          description: Company name.
-          example: string-value
-        address_1:
-          type: string
-          description: Address line 1.
-          example: string-value
-        address_2:
-          type: string
-          description: Address line 2.
-          example: string-value
-        city:
-          type: string
-          description: City.
-          example: string-value
-        state:
-          type: string
-          description: State or province code.
-          example: string-value
-        postcode:
-          type: string
-          description: Postal code.
-          example: string-value
-        country:
-          type: string
-          description: ISO 3166-1 alpha-2 country code.
-          example: string-value
-        email:
-          type: string
-          format: email
-          description: Email address (billing only).
-          example: user@example.com
-        phone:
-          type: string
-          description: Phone number.
-          example: string-value
-    Error:
-      type: object
-      description: Error response returned when a request fails.
-      properties:
-        code:
-          type: string
-          description: Machine-readable error code.
-          example: string-value
-        message:
-          type: string
-          description: Human-readable error message.
-          example: string-value
-        data:
-          type: object
-          description: Additional context including HTTP status.
-          properties:
-            status:
-              type: integer
-              description: HTTP status code.
-          example:
-            status: 1
-    StoreProductImage:
-      type: object
-      description: Product image with thumbnail variants.
-      properties:
-        id:
-          type: integer
-          description: Image attachment ID.
-          example: 1
-        src:
-          type: string
-          format: uri
-          description: Full-size image URL.
-          example: https://example.com/path
-        thumbnail:
-          type: string
-          format: uri
-          description: Thumbnail image URL.
-          example: https://example.com/path
-        srcset:
-          type: string
-          description: Responsive image srcset attribute value.
-          example: string-value
-        sizes:
-          type: string
-          description: Responsive image sizes attribute value.
-          example: string-value
-        name:
-          type: string
-          description: Image file name.
-          example: Example Name
-        alt:
-          type: string
-          description: Image alternative text.
-          example: string-value
-    CartShippingRate:
-      type: object
-      description: A shipping rate option available for the cart.
-      properties:
-        package_id:
-          type: integer
-          description: Shipping package index.
-          example: 1
-        name:
-          type: string
-          description: Shipping package name.
-          example: Example Name
-        destination:
-          type: object
-          description: Shipping destination address.
-          properties:
-            address_1:
-              type: string
-              description: Address line 1.
-            address_2:
-              type: string
-              description: Address line 2.
-            city:
-              type: string
-              description: City.
-            state:
-              type: string
-              description: State code.
-            postcode:
-              type: string
-              description: Postcode.
-            country:
-              type: string
-              description: Country code.
-          example:
-            address_1: string-value
-            address_2: string-value
-            city: string-value
-            state: string-value
-            postcode: string-value
-            country: string-value
-        items:
-          type: array
-          description: Cart items in this shipping package.
-          items:
-            type: object
-            properties:
-              key:
-                type: string
-                description: Cart item key.
-              name:
-                type: string
-                description: Product name.
-              quantity:
-                type: integer
-                description: Item quantity.
-          example:
-          - key: string-value
-            name: Example Name
-            quantity: 1
-        shipping_rates:
-          type: array
-          description: Available shipping rates for this package.
-          items:
-            type: object
-            properties:
-              rate_id:
-                type: string
-                description: Shipping rate unique ID.
-              name:
-                type: string
-                description: Shipping rate display name.
-              description:
-                type: string
-                description: Shipping rate description.
-              price:
-                type: string
-                description: Shipping cost as a decimal string.
-              taxes:
-                type: string
-                description: Shipping tax as a decimal string.
-              selected:
-                type: boolean
-                description: Whether this rate is currently selected.
-              meta_data:
-                type: array
-                description: Additional rate metadata.
-                items:
-                  type: object
-          example:
-          - rate_id: '500123'
-            name: Example Name
-            description: A sample description
-            price: string-value
-            taxes: string-value
-            selected: true
-            meta_data:
-            - {}
     CartTotals:
       type: object
       description: Cart financial totals including subtotal, taxes, shipping, and grand total.
@@ -1325,233 +1123,89 @@ components:
           - name: Example Name
             price: string-value
             rate: string-value
-    Cart:
+    StoreAddress:
       type: object
-      description: The current customer's cart state.
+      description: A customer billing or shipping address in the Store API context.
       properties:
-        items:
-          type: array
-          description: Items in the cart.
-          items:
-            $ref: '#/components/schemas/CartItem'
-          example:
-          - string-value
-        coupons:
-          type: array
-          description: Coupons applied to the cart.
-          items:
-            type: object
-            properties:
-              code:
-                type: string
-                description: Coupon code.
-              discount_type:
-                type: string
-                description: Type of discount applied.
-              totals:
-                type: object
-                description: Coupon discount totals.
-          example:
-          - code: string-value
-            discount_type: standard
-            totals: {}
-        fees:
-          type: array
-          description: Additional fees added to the cart.
-          items:
-            type: object
-            properties:
-              id:
-                type: string
-                description: Fee ID.
-              name:
-                type: string
-                description: Fee name.
-              totals:
-                type: object
-                description: Fee amount totals.
-          example:
-          - id: '500123'
-            name: Example Name
-            totals: {}
-        totals:
-          $ref: '#/components/schemas/CartTotals'
-        shipping_rates:
-          type: array
-          description: Available shipping rate packages.
-          items:
-            $ref: '#/components/schemas/CartShippingRate'
-          example:
-          - string-value
-        billing_address:
-          $ref: '#/components/schemas/StoreAddress'
-        shipping_address:
-          $ref: '#/components/schemas/StoreAddress'
-        has_calculated_shipping:
-          type: boolean
-          description: Whether shipping has been calculated for the cart.
-          example: true
-        needs_payment:
-          type: boolean
-          description: Whether the cart total requires payment.
-          example: true
-        needs_shipping:
-          type: boolean
-          description: Whether any items in the cart require shipping.
-          example: true
-        items_count:
-          type: integer
-          description: Total number of items in the cart.
-          example: 1
-        items_weight:
-          type: number
-          description: Total weight of all items in the cart.
-          example: 10.5
-        cross_sells:
-          type: array
-          description: Cross-sell product suggestions.
-          items:
-            $ref: '#/components/schemas/StoreProduct'
-          example:
-          - string-value
-        errors:
-          type: array
-          description: Cart validation errors.
-          items:
-            type: object
-            properties:
-              code:
-                type: string
-                description: Error code.
-              message:
-                type: string
-                description: Error message.
-          example:
-          - code: string-value
-            message: string-value
-    CartCustomerInput:
-      type: object
-      description: Customer address data for cart shipping/tax calculation.
-      properties:
-        billing_address:
-          $ref: '#/components/schemas/StoreAddress'
-        shipping_address:
-          $ref: '#/components/schemas/StoreAddress'
-    CartItem:
-      type: object
-      description: A product item in the cart.
-      properties:
-        key:
+        first_name:
           type: string
-          description: Unique cart item key.
+          description: First name.
+          example: Example Name
+        last_name:
+          type: string
+          description: Last name.
+          example: Example Name
+        company:
+          type: string
+          description: Company name.
           example: string-value
+        address_1:
+          type: string
+          description: Address line 1.
+          example: string-value
+        address_2:
+          type: string
+          description: Address line 2.
+          example: string-value
+        city:
+          type: string
+          description: City.
+          example: string-value
+        state:
+          type: string
+          description: State or province code.
+          example: string-value
+        postcode:
+          type: string
+          description: Postal code.
+          example: string-value
+        country:
+          type: string
+          description: ISO 3166-1 alpha-2 country code.
+          example: string-value
+        email:
+          type: string
+          format: email
+          description: Email address (billing only).
+          example: user@example.com
+        phone:
+          type: string
+          description: Phone number.
+          example: string-value
+    StoreProductImage:
+      type: object
+      description: Product image with thumbnail variants.
+      properties:
         id:
           type: integer
-          description: Product ID.
+          description: Image attachment ID.
           example: 1
-        quantity:
-          type: integer
-          description: Quantity in cart.
-          example: 1
-        variation_id:
-          type: integer
-          description: Variation ID (0 for simple products).
-          example: 1
-        item_data:
-          type: array
-          description: Custom item data (e.g. variation attributes).
-          items:
-            type: object
-            properties:
-              name:
-                type: string
-                description: Data field name.
-              value:
-                type: string
-                description: Data field value.
-              display:
-                type: string
-                description: Formatted display value.
-          example:
-          - name: Example Name
-            value: string-value
-            display: string-value
-        prices:
-          $ref: '#/components/schemas/StoreProductPrice'
+        src:
+          type: string
+          format: uri
+          description: Full-size image URL.
+          example: https://example.com/path
+        thumbnail:
+          type: string
+          format: uri
+          description: Thumbnail image URL.
+          example: https://example.com/path
+        srcset:
+          type: string
+          description: Responsive image srcset attribute value.
+          example: string-value
+        sizes:
+          type: string
+          description: Responsive image sizes attribute value.
+          example: string-value
         name:
           type: string
-          description: Product name at time of cart addition.
+          description: Image file name.
           example: Example Name
-        short_description:
+        alt:
           type: string
-          description: Product short description.
-          example: A sample description
-        images:
-          type: array
-          description: Product images.
-          items:
-            $ref: '#/components/schemas/StoreProductImage'
-          example:
-          - string-value
-        low_stock_remaining:
-          type: integer
-          description: Low stock quantity threshold remaining.
-          nullable: true
-          example: 1
-        sold_individually:
-          type: boolean
-          description: Whether the product can only be purchased once per order.
-          example: true
-    AddCartItemInput:
-      type: object
-      description: Input for adding an item to the cart.
-      required:
-      - id
-      - quantity
-      properties:
-        id:
-          type: integer
-          description: Product ID to add.
-          example: 1
-        quantity:
-          type: integer
-          description: Quantity to add.
-          minimum: 1
-          example: 1
-        variation_id:
-          type: integer
-          description: Variation ID for variable products.
-          example: 1
-        variation:
-          type: array
-          description: Attribute key-value pairs for the variation.
-          items:
-            type: object
-            properties:
-              attribute:
-                type: string
-                description: Attribute name.
-              value:
-                type: string
-                description: Selected attribute value.
-          example:
-          - attribute: string-value
-            value: string-value
-        item_data:
-          type: array
-          description: Additional custom item data.
-          items:
-            type: object
-            properties:
-              name:
-                type: string
-                description: Data key name.
-              value:
-                type: string
-                description: Data value.
-          example:
-          - name: Example Name
-            value: string-value
+          description: Image alternative text.
+          example: string-value
     StoreProductPrice:
       type: object
       description: Formatted price information for a product or variation.
@@ -1606,6 +1260,27 @@ components:
           type: string
           description: Currency suffix.
           example: string-value
+    Error:
+      type: object
+      description: Error response returned when a request fails.
+      properties:
+        code:
+          type: string
+          description: Machine-readable error code.
+          example: string-value
+        message:
+          type: string
+          description: Human-readable error message.
+          example: string-value
+        data:
+          type: object
+          description: Additional context including HTTP status.
+          properties:
+            status:
+              type: integer
+              description: HTTP status code.
+          example:
+            status: 1
     StoreProduct:
       type: object
       description: A store product returned by the public Store API.
@@ -1797,6 +1472,346 @@ components:
             text: string-value
             description: A sample description
             url: https://example.com/path
+    Cart:
+      type: object
+      description: The current customer's cart state.
+      properties:
+        items:
+          type: array
+          description: Items in the cart.
+          items:
+            $ref: '#/components/schemas/CartItem'
+          example:
+          - string-value
+        coupons:
+          type: array
+          description: Coupons applied to the cart.
+          items:
+            type: object
+            properties:
+              code:
+                type: string
+                description: Coupon code.
+              discount_type:
+                type: string
+                description: Type of discount applied.
+              totals:
+                type: object
+                description: Coupon discount totals.
+          example:
+          - code: string-value
+            discount_type: standard
+            totals: {}
+        fees:
+          type: array
+          description: Additional fees added to the cart.
+          items:
+            type: object
+            properties:
+              id:
+                type: string
+                description: Fee ID.
+              name:
+                type: string
+                description: Fee name.
+              totals:
+                type: object
+                description: Fee amount totals.
+          example:
+          - id: '500123'
+            name: Example Name
+            totals: {}
+        totals:
+          $ref: '#/components/schemas/CartTotals'
+        shipping_rates:
+          type: array
+          description: Available shipping rate packages.
+          items:
+            $ref: '#/components/schemas/CartShippingRate'
+          example:
+          - string-value
+        billing_address:
+          $ref: '#/components/schemas/StoreAddress'
+        shipping_address:
+          $ref: '#/components/schemas/StoreAddress'
+        has_calculated_shipping:
+          type: boolean
+          description: Whether shipping has been calculated for the cart.
+          example: true
+        needs_payment:
+          type: boolean
+          description: Whether the cart total requires payment.
+          example: true
+        needs_shipping:
+          type: boolean
+          description: Whether any items in the cart require shipping.
+          example: true
+        items_count:
+          type: integer
+          description: Total number of items in the cart.
+          example: 1
+        items_weight:
+          type: number
+          description: Total weight of all items in the cart.
+          example: 10.5
+        cross_sells:
+          type: array
+          description: Cross-sell product suggestions.
+          items:
+            $ref: '#/components/schemas/StoreProduct'
+          example:
+          - string-value
+        errors:
+          type: array
+          description: Cart validation errors.
+          items:
+            type: object
+            properties:
+              code:
+                type: string
+                description: Error code.
+              message:
+                type: string
+                description: Error message.
+          example:
+          - code: string-value
+            message: string-value
+    CartItem:
+      type: object
+      description: A product item in the cart.
+      properties:
+        key:
+          type: string
+          description: Unique cart item key.
+          example: string-value
+        id:
+          type: integer
+          description: Product ID.
+          example: 1
+        quantity:
+          type: integer
+          description: Quantity in cart.
+          example: 1
+        variation_id:
+          type: integer
+          description: Variation ID (0 for simple products).
+          example: 1
+        item_data:
+          type: array
+          description: Custom item data (e.g. variation attributes).
+          items:
+            type: object
+            properties:
+              name:
+                type: string
+                description: Data field name.
+              value:
+                type: string
+                description: Data field value.
+              display:
+                type: string
+                description: Formatted display value.
+          example:
+          - name: Example Name
+            value: string-value
+            display: string-value
+        prices:
+          $ref: '#/components/schemas/StoreProductPrice'
+        name:
+          type: string
+          description: Product name at time of cart addition.
+          example: Example Name
+        short_description:
+          type: string
+          description: Product short description.
+          example: A sample description
+        images:
+          type: array
+          description: Product images.
+          items:
+            $ref: '#/components/schemas/StoreProductImage'
+          example:
+          - string-value
+        low_stock_remaining:
+          type: integer
+          description: Low stock quantity threshold remaining.
+          nullable: true
+          example: 1
+        sold_individually:
+          type: boolean
+          description: Whether the product can only be purchased once per order.
+          example: true
+    CartShippingRate:
+      type: object
+      description: A shipping rate option available for the cart.
+      properties:
+        package_id:
+          type: integer
+          description: Shipping package index.
+          example: 1
+        name:
+          type: string
+          description: Shipping package name.
+          example: Example Name
+        destination:
+          type: object
+          description: Shipping destination address.
+          properties:
+            address_1:
+              type: string
+              description: Address line 1.
+            address_2:
+              type: string
+              description: Address line 2.
+            city:
+              type: string
+              description: City.
+            state:
+              type: string
+              description: State code.
+            postcode:
+              type: string
+              description: Postcode.
+            country:
+              type: string
+              description: Country code.
+          example:
+            address_1: string-value
+            address_2: string-value
+            city: string-value
+            state: string-value
+            postcode: string-value
+            country: string-value
+        items:
+          type: array
+          description: Cart items in this shipping package.
+          items:
+            type: object
+            properties:
+              key:
+                type: string
+                description: Cart item key.
+              name:
+                type: string
+                description: Product name.
+              quantity:
+                type: integer
+                description: Item quantity.
+          example:
+          - key: string-value
+            name: Example Name
+            quantity: 1
+        shipping_rates:
+          type: array
+          description: Available shipping rates for this package.
+          items:
+            type: object
+            properties:
+              rate_id:
+                type: string
+                description: Shipping rate unique ID.
+              name:
+                type: string
+                description: Shipping rate display name.
+              description:
+                type: string
+                description: Shipping rate description.
+              price:
+                type: string
+                description: Shipping cost as a decimal string.
+              taxes:
+                type: string
+                description: Shipping tax as a decimal string.
+              selected:
+                type: boolean
+                description: Whether this rate is currently selected.
+              meta_data:
+                type: array
+                description: Additional rate metadata.
+                items:
+                  type: object
+          example:
+          - rate_id: '500123'
+            name: Example Name
+            description: A sample description
+            price: string-value
+            taxes: string-value
+            selected: true
+            meta_data:
+            - {}
+    AddCartItemInput:
+      type: object
+      description: Input for adding an item to the cart.
+      required:
+      - id
+      - quantity
+      properties:
+        id:
+          type: integer
+          description: Product ID to add.
+          example: 1
+        quantity:
+          type: integer
+          description: Quantity to add.
+          minimum: 1
+          example: 1
+        variation_id:
+          type: integer
+          description: Variation ID for variable products.
+          example: 1
+        variation:
+          type: array
+          description: Attribute key-value pairs for the variation.
+          items:
+            type: object
+            properties:
+              attribute:
+                type: string
+                description: Attribute name.
+              value:
+                type: string
+                description: Selected attribute value.
+          example:
+          - attribute: string-value
+            value: string-value
+        item_data:
+          type: array
+          description: Additional custom item data.
+          items:
+            type: object
+            properties:
+              name:
+                type: string
+                description: Data key name.
+              value:
+                type: string
+                description: Data value.
+          example:
+          - name: Example Name
+            value: string-value
+    CartCustomerInput:
+      type: object
+      description: Customer address data for cart shipping/tax calculation.
+      properties:
+        billing_address:
+          $ref: '#/components/schemas/StoreAddress'
+        shipping_address:
+          $ref: '#/components/schemas/StoreAddress'
+  parameters:
+    key:
+      name: key
+      in: path
+      description: Unique cart item key.
+      required: true
+      schema:
+        type: string
+    nonce:
+      name: Nonce
+      in: header
+      description: Store API nonce token obtained from the X-WC-Store-API-Nonce response header of a prior cart GET request. Required for all cart and checkout write operations to prevent CSRF.
+      required: true
+      schema:
+        type: string
   responses:
     BadRequest:
       description: The request contains invalid or missing parameters.
@@ -1810,21 +1825,6 @@ components:
         application/json:
           schema:
             $ref: '#/components/schemas/Error'
-  parameters:
-    nonce:
-      name: Nonce
-      in: header
-      description: Store API nonce token obtained from the X-WC-Store-API-Nonce response header of a prior cart GET request. Required for all cart and checkout write operations to prevent CSRF.
-      required: true
-      schema:
-        type: string
-    key:
-      name: key
-      in: path
-      description: Unique cart item key.
-      required: true
-      schema:
-        type: string
 externalDocs:
   description: WooCommerce Store API Documentation
   url: https://developer.woocommerce.com/docs/apis/store-api/
