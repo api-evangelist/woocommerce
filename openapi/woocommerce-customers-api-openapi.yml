@@ -497,6 +497,55 @@ components:
           example:
             name: Example Name
             file: https://example.com/path
+    Address:
+      type: object
+      description: Billing or shipping address associated with a customer or order.
+      properties:
+        first_name:
+          type: string
+          description: First name.
+          example: Example Name
+        last_name:
+          type: string
+          description: Last name.
+          example: Example Name
+        company:
+          type: string
+          description: Company name.
+          example: string-value
+        address_1:
+          type: string
+          description: Address line 1.
+          example: string-value
+        address_2:
+          type: string
+          description: Address line 2.
+          example: string-value
+        city:
+          type: string
+          description: City name.
+          example: string-value
+        state:
+          type: string
+          description: ISO code or name of the state, province, or district.
+          example: string-value
+        postcode:
+          type: string
+          description: Postal code.
+          example: string-value
+        country:
+          type: string
+          description: ISO 3166-1 alpha-2 country code.
+          example: string-value
+        email:
+          type: string
+          format: email
+          description: Email address (billing only).
+          example: user@example.com
+        phone:
+          type: string
+          description: Phone number (billing only).
+          example: string-value
     Error:
       type: object
       properties:
@@ -517,6 +566,42 @@ components:
               description: HTTP status code associated with the error.
           example:
             status: 1
+    CustomerInput:
+      type: object
+      description: Input for creating or updating a customer.
+      properties:
+        email:
+          type: string
+          format: email
+          description: Customer email address.
+          example: user@example.com
+        first_name:
+          type: string
+          description: Customer first name.
+          example: Example Name
+        last_name:
+          type: string
+          description: Customer last name.
+          example: Example Name
+        username:
+          type: string
+          description: Customer login username.
+          example: Example Name
+        password:
+          type: string
+          description: Customer account password (write only, not returned).
+          example: string-value
+        billing:
+          $ref: '#/components/schemas/Address'
+        shipping:
+          $ref: '#/components/schemas/Address'
+        meta_data:
+          type: array
+          description: Custom metadata.
+          items:
+            $ref: '#/components/schemas/MetaData'
+          example:
+          - string-value
     Customer:
       type: object
       description: A WooCommerce customer account.
@@ -584,92 +669,29 @@ components:
             $ref: '#/components/schemas/MetaData'
           example:
           - string-value
-    CustomerInput:
-      type: object
-      description: Input for creating or updating a customer.
-      properties:
-        email:
-          type: string
-          format: email
-          description: Customer email address.
-          example: user@example.com
-        first_name:
-          type: string
-          description: Customer first name.
-          example: Example Name
-        last_name:
-          type: string
-          description: Customer last name.
-          example: Example Name
-        username:
-          type: string
-          description: Customer login username.
-          example: Example Name
-        password:
-          type: string
-          description: Customer account password (write only, not returned).
-          example: string-value
-        billing:
-          $ref: '#/components/schemas/Address'
-        shipping:
-          $ref: '#/components/schemas/Address'
-        meta_data:
-          type: array
-          description: Custom metadata.
-          items:
-            $ref: '#/components/schemas/MetaData'
-          example:
-          - string-value
-    Address:
-      type: object
-      description: Billing or shipping address associated with a customer or order.
-      properties:
-        first_name:
-          type: string
-          description: First name.
-          example: Example Name
-        last_name:
-          type: string
-          description: Last name.
-          example: Example Name
-        company:
-          type: string
-          description: Company name.
-          example: string-value
-        address_1:
-          type: string
-          description: Address line 1.
-          example: string-value
-        address_2:
-          type: string
-          description: Address line 2.
-          example: string-value
-        city:
-          type: string
-          description: City name.
-          example: string-value
-        state:
-          type: string
-          description: ISO code or name of the state, province, or district.
-          example: string-value
-        postcode:
-          type: string
-          description: Postal code.
-          example: string-value
-        country:
-          type: string
-          description: ISO 3166-1 alpha-2 country code.
-          example: string-value
-        email:
-          type: string
-          format: email
-          description: Email address (billing only).
-          example: user@example.com
-        phone:
-          type: string
-          description: Phone number (billing only).
-          example: string-value
   parameters:
+    force:
+      name: force
+      in: query
+      description: Set to true to permanently delete the resource, bypassing the trash.
+      required: false
+      schema:
+        type: boolean
+        default: false
+    id:
+      name: id
+      in: path
+      description: Unique identifier for the resource.
+      required: true
+      schema:
+        type: integer
+    search:
+      name: search
+      in: query
+      description: Limit results to those matching a string.
+      required: false
+      schema:
+        type: string
     page:
       name: page
       in: query
@@ -689,35 +711,7 @@ components:
         minimum: 1
         maximum: 100
         default: 10
-    id:
-      name: id
-      in: path
-      description: Unique identifier for the resource.
-      required: true
-      schema:
-        type: integer
-    force:
-      name: force
-      in: query
-      description: Set to true to permanently delete the resource, bypassing the trash.
-      required: false
-      schema:
-        type: boolean
-        default: false
-    search:
-      name: search
-      in: query
-      description: Limit results to those matching a string.
-      required: false
-      schema:
-        type: string
   responses:
-    BadRequest:
-      description: The request body contains invalid or missing parameters.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
     Unauthorized:
       description: Authentication credentials are missing or invalid.
       content:
@@ -726,6 +720,12 @@ components:
             $ref: '#/components/schemas/Error'
     NotFound:
       description: The requested resource was not found.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    BadRequest:
+      description: The request body contains invalid or missing parameters.
       content:
         application/json:
           schema:

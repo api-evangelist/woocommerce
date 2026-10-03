@@ -69,6 +69,30 @@ paths:
         delay: 0
         dispatcher: FALLBACK
 components:
+  responses:
+    Unauthorized:
+      description: Authentication credentials are missing or invalid.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+  parameters:
+    after:
+      name: after
+      in: query
+      description: Limit response to resources created after a given ISO8601 compliant date.
+      required: false
+      schema:
+        type: string
+        format: date-time
+    before:
+      name: before
+      in: query
+      description: Limit response to resources created before a given ISO8601 compliant date.
+      required: false
+      schema:
+        type: string
+        format: date-time
   schemas:
     Error:
       type: object
@@ -139,30 +163,6 @@ components:
           description: Sales totals grouped by the totals_grouped_by interval.
           additionalProperties: true
           example: {}
-  parameters:
-    after:
-      name: after
-      in: query
-      description: Limit response to resources created after a given ISO8601 compliant date.
-      required: false
-      schema:
-        type: string
-        format: date-time
-    before:
-      name: before
-      in: query
-      description: Limit response to resources created before a given ISO8601 compliant date.
-      required: false
-      schema:
-        type: string
-        format: date-time
-  responses:
-    Unauthorized:
-      description: Authentication credentials are missing or invalid.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
   securitySchemes:
     basicAuth:
       type: http

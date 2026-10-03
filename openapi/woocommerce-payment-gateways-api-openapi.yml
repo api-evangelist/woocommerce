@@ -136,7 +136,39 @@ paths:
         delay: 0
         dispatcher: FALLBACK
 components:
+  responses:
+    Unauthorized:
+      description: Authentication credentials are missing or invalid.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    NotFound:
+      description: The requested resource was not found.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    BadRequest:
+      description: The request body contains invalid or missing parameters.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
   schemas:
+    PaymentGatewayInput:
+      type: object
+      description: Input for updating a payment gateway.
+      properties:
+        enabled:
+          type: boolean
+          description: Whether to enable the gateway.
+          example: true
+        settings:
+          type: object
+          description: Gateway settings to update.
+          additionalProperties: true
+          example: {}
     Error:
       type: object
       properties:
@@ -157,19 +189,6 @@ components:
               description: HTTP status code associated with the error.
           example:
             status: 1
-    PaymentGatewayInput:
-      type: object
-      description: Input for updating a payment gateway.
-      properties:
-        enabled:
-          type: boolean
-          description: Whether to enable the gateway.
-          example: true
-        settings:
-          type: object
-          description: Gateway settings to update.
-          additionalProperties: true
-          example: {}
     PaymentGateway:
       type: object
       description: A payment gateway installed in the WooCommerce store.
@@ -222,25 +241,6 @@ components:
       required: true
       schema:
         type: integer
-  responses:
-    BadRequest:
-      description: The request body contains invalid or missing parameters.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
-    Unauthorized:
-      description: Authentication credentials are missing or invalid.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
-    NotFound:
-      description: The requested resource was not found.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
   securitySchemes:
     basicAuth:
       type: http

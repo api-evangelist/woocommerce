@@ -154,33 +154,6 @@ paths:
         delay: 0
         dispatcher: FALLBACK
 components:
-  parameters:
-    page:
-      name: page
-      in: query
-      description: Current page of the collection.
-      required: false
-      schema:
-        type: integer
-        minimum: 1
-        default: 1
-    per_page:
-      name: per_page
-      in: query
-      description: Maximum number of items per page (maximum 100).
-      required: false
-      schema:
-        type: integer
-        minimum: 1
-        maximum: 100
-        default: 10
-    id:
-      name: id
-      in: path
-      description: Unique identifier for the resource.
-      required: true
-      schema:
-        type: integer
   schemas:
     StoreProductImage:
       type: object
@@ -216,27 +189,6 @@ components:
           type: string
           description: Image alternative text.
           example: string-value
-    Error:
-      type: object
-      description: Error response returned when a request fails.
-      properties:
-        code:
-          type: string
-          description: Machine-readable error code.
-          example: string-value
-        message:
-          type: string
-          description: Human-readable error message.
-          example: string-value
-        data:
-          type: object
-          description: Additional context including HTTP status.
-          properties:
-            status:
-              type: integer
-              description: HTTP status code.
-          example:
-            status: 1
     StoreBrand:
       type: object
       description: A product brand.
@@ -311,6 +263,54 @@ components:
           type: integer
           description: Number of products using this term.
           example: 1
+    Error:
+      type: object
+      description: Error response returned when a request fails.
+      properties:
+        code:
+          type: string
+          description: Machine-readable error code.
+          example: string-value
+        message:
+          type: string
+          description: Human-readable error message.
+          example: string-value
+        data:
+          type: object
+          description: Additional context including HTTP status.
+          properties:
+            status:
+              type: integer
+              description: HTTP status code.
+          example:
+            status: 1
+  parameters:
+    id:
+      name: id
+      in: path
+      description: Unique identifier for the resource.
+      required: true
+      schema:
+        type: integer
+    page:
+      name: page
+      in: query
+      description: Current page of the collection.
+      required: false
+      schema:
+        type: integer
+        minimum: 1
+        default: 1
+    per_page:
+      name: per_page
+      in: query
+      description: Maximum number of items per page (maximum 100).
+      required: false
+      schema:
+        type: integer
+        minimum: 1
+        maximum: 100
+        default: 10
   responses:
     NotFound:
       description: The requested resource was not found.

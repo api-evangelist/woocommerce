@@ -315,76 +315,6 @@ components:
               description: HTTP status code associated with the error.
           example:
             status: 1
-    CouponInput:
-      type: object
-      description: Input for creating or updating a coupon.
-      properties:
-        code:
-          type: string
-          description: Coupon code (required for create).
-          example: string-value
-        amount:
-          type: string
-          description: Discount amount as a decimal string.
-          example: string-value
-        discount_type:
-          type: string
-          description: Discount type.
-          enum:
-          - percent
-          - fixed_cart
-          - fixed_product
-          example: percent
-        description:
-          type: string
-          description: Admin description.
-          example: A sample description
-        date_expires:
-          type: string
-          format: date-time
-          description: Expiry date.
-          example: '2026-05-03T14:30:00Z'
-        individual_use:
-          type: boolean
-          description: Whether usable alone.
-          example: true
-        product_ids:
-          type: array
-          description: Applicable product IDs.
-          items:
-            type: integer
-          example:
-          - 1
-        excluded_product_ids:
-          type: array
-          description: Excluded product IDs.
-          items:
-            type: integer
-          example:
-          - 1
-        usage_limit:
-          type: integer
-          description: Total usage limit.
-          example: 1
-        usage_limit_per_user:
-          type: integer
-          description: Per-customer usage limit.
-          example: 1
-        minimum_amount:
-          type: string
-          description: Minimum order amount.
-          example: string-value
-        maximum_amount:
-          type: string
-          description: Maximum order amount.
-          example: string-value
-        meta_data:
-          type: array
-          description: Custom metadata.
-          items:
-            $ref: '#/components/schemas/MetaData'
-          example:
-          - string-value
     Coupon:
       type: object
       description: A WooCommerce discount coupon.
@@ -476,7 +406,115 @@ components:
             $ref: '#/components/schemas/MetaData'
           example:
           - string-value
+    CouponInput:
+      type: object
+      description: Input for creating or updating a coupon.
+      properties:
+        code:
+          type: string
+          description: Coupon code (required for create).
+          example: string-value
+        amount:
+          type: string
+          description: Discount amount as a decimal string.
+          example: string-value
+        discount_type:
+          type: string
+          description: Discount type.
+          enum:
+          - percent
+          - fixed_cart
+          - fixed_product
+          example: percent
+        description:
+          type: string
+          description: Admin description.
+          example: A sample description
+        date_expires:
+          type: string
+          format: date-time
+          description: Expiry date.
+          example: '2026-05-03T14:30:00Z'
+        individual_use:
+          type: boolean
+          description: Whether usable alone.
+          example: true
+        product_ids:
+          type: array
+          description: Applicable product IDs.
+          items:
+            type: integer
+          example:
+          - 1
+        excluded_product_ids:
+          type: array
+          description: Excluded product IDs.
+          items:
+            type: integer
+          example:
+          - 1
+        usage_limit:
+          type: integer
+          description: Total usage limit.
+          example: 1
+        usage_limit_per_user:
+          type: integer
+          description: Per-customer usage limit.
+          example: 1
+        minimum_amount:
+          type: string
+          description: Minimum order amount.
+          example: string-value
+        maximum_amount:
+          type: string
+          description: Maximum order amount.
+          example: string-value
+        meta_data:
+          type: array
+          description: Custom metadata.
+          items:
+            $ref: '#/components/schemas/MetaData'
+          example:
+          - string-value
   parameters:
+    force:
+      name: force
+      in: query
+      description: Set to true to permanently delete the resource, bypassing the trash.
+      required: false
+      schema:
+        type: boolean
+        default: false
+    after:
+      name: after
+      in: query
+      description: Limit response to resources created after a given ISO8601 compliant date.
+      required: false
+      schema:
+        type: string
+        format: date-time
+    id:
+      name: id
+      in: path
+      description: Unique identifier for the resource.
+      required: true
+      schema:
+        type: integer
+    search:
+      name: search
+      in: query
+      description: Limit results to those matching a string.
+      required: false
+      schema:
+        type: string
+    before:
+      name: before
+      in: query
+      description: Limit response to resources created before a given ISO8601 compliant date.
+      required: false
+      schema:
+        type: string
+        format: date-time
     page:
       name: page
       in: query
@@ -496,51 +534,7 @@ components:
         minimum: 1
         maximum: 100
         default: 10
-    id:
-      name: id
-      in: path
-      description: Unique identifier for the resource.
-      required: true
-      schema:
-        type: integer
-    force:
-      name: force
-      in: query
-      description: Set to true to permanently delete the resource, bypassing the trash.
-      required: false
-      schema:
-        type: boolean
-        default: false
-    search:
-      name: search
-      in: query
-      description: Limit results to those matching a string.
-      required: false
-      schema:
-        type: string
-    after:
-      name: after
-      in: query
-      description: Limit response to resources created after a given ISO8601 compliant date.
-      required: false
-      schema:
-        type: string
-        format: date-time
-    before:
-      name: before
-      in: query
-      description: Limit response to resources created before a given ISO8601 compliant date.
-      required: false
-      schema:
-        type: string
-        format: date-time
   responses:
-    BadRequest:
-      description: The request body contains invalid or missing parameters.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
     Unauthorized:
       description: Authentication credentials are missing or invalid.
       content:
@@ -549,6 +543,12 @@ components:
             $ref: '#/components/schemas/Error'
     NotFound:
       description: The requested resource was not found.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    BadRequest:
+      description: The request body contains invalid or missing parameters.
       content:
         application/json:
           schema:

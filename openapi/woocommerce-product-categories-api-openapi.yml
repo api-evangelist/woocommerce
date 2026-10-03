@@ -260,6 +260,28 @@ paths:
       description: Production Server (replace example.com with your store domain)
 components:
   parameters:
+    force:
+      name: force
+      in: query
+      description: Set to true to permanently delete the resource, bypassing the trash.
+      required: false
+      schema:
+        type: boolean
+        default: false
+    id:
+      name: id
+      in: path
+      description: Unique identifier for the resource.
+      required: true
+      schema:
+        type: integer
+    search:
+      name: search
+      in: query
+      description: Limit results to those matching a string.
+      required: false
+      schema:
+        type: string
     page:
       name: page
       in: query
@@ -279,37 +301,6 @@ components:
         minimum: 1
         maximum: 100
         default: 10
-    id:
-      name: id
-      in: path
-      description: Unique identifier for the resource.
-      required: true
-      schema:
-        type: integer
-    force:
-      name: force
-      in: query
-      description: Set to true to permanently delete the resource, bypassing the trash.
-      required: false
-      schema:
-        type: boolean
-        default: false
-    search:
-      name: search
-      in: query
-      description: Limit results to those matching a string.
-      required: false
-      schema:
-        type: string
-    page_2:
-      name: page
-      in: query
-      description: Current page of the collection.
-      required: false
-      schema:
-        type: integer
-        minimum: 1
-        default: 1
     per_page_2:
       name: per_page
       in: query
@@ -320,7 +311,105 @@ components:
         minimum: 1
         maximum: 100
         default: 10
+    page_2:
+      name: page
+      in: query
+      description: Current page of the collection.
+      required: false
+      schema:
+        type: integer
+        minimum: 1
+        default: 1
+  responses:
+    Unauthorized:
+      description: Authentication credentials are missing or invalid.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    NotFound:
+      description: The requested resource was not found.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    BadRequest:
+      description: The request body contains invalid or missing parameters.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
   schemas:
+    ProductImage:
+      type: object
+      description: An image associated with a product.
+      properties:
+        id:
+          type: integer
+          description: Image unique identifier.
+          example: 1
+        src:
+          type: string
+          format: uri
+          description: Image URL.
+          example: https://example.com/path
+        name:
+          type: string
+          description: Image name.
+          example: Example Name
+        alt:
+          type: string
+          description: Image alternative text.
+          example: string-value
+    ProductCategoryInput:
+      type: object
+      description: Input for creating or updating a product category.
+      properties:
+        name:
+          type: string
+          description: Category name (required for create).
+          example: Example Name
+        slug:
+          type: string
+          description: URL-friendly category identifier.
+          example: string-value
+        parent:
+          type: integer
+          description: Parent category ID for nested categories.
+          example: 1
+        description:
+          type: string
+          description: Category description.
+          example: A sample description
+        display:
+          type: string
+          description: Category archive display type.
+          enum:
+          - default
+          - products
+          - subcategories
+          - both
+          example: default
+    Error:
+      type: object
+      properties:
+        code:
+          type: string
+          description: Machine-readable error code.
+          example: string-value
+        message:
+          type: string
+          description: Human-readable error message.
+          example: string-value
+        data:
+          type: object
+          description: Additional error context including HTTP status code.
+          properties:
+            status:
+              type: integer
+              description: HTTP status code associated with the error.
+          example:
+            status: 1
     ProductCategory:
       type: object
       description: A product category used to organize the store catalog.
@@ -359,76 +448,6 @@ components:
           type: integer
           description: Number of products in the category.
           example: 1
-    Error:
-      type: object
-      properties:
-        code:
-          type: string
-          description: Machine-readable error code.
-          example: string-value
-        message:
-          type: string
-          description: Human-readable error message.
-          example: string-value
-        data:
-          type: object
-          description: Additional error context including HTTP status code.
-          properties:
-            status:
-              type: integer
-              description: HTTP status code associated with the error.
-          example:
-            status: 1
-    ProductCategoryInput:
-      type: object
-      description: Input for creating or updating a product category.
-      properties:
-        name:
-          type: string
-          description: Category name (required for create).
-          example: Example Name
-        slug:
-          type: string
-          description: URL-friendly category identifier.
-          example: string-value
-        parent:
-          type: integer
-          description: Parent category ID for nested categories.
-          example: 1
-        description:
-          type: string
-          description: Category description.
-          example: A sample description
-        display:
-          type: string
-          description: Category archive display type.
-          enum:
-          - default
-          - products
-          - subcategories
-          - both
-          example: default
-    ProductImage:
-      type: object
-      description: An image associated with a product.
-      properties:
-        id:
-          type: integer
-          description: Image unique identifier.
-          example: 1
-        src:
-          type: string
-          format: uri
-          description: Image URL.
-          example: https://example.com/path
-        name:
-          type: string
-          description: Image name.
-          example: Example Name
-        alt:
-          type: string
-          description: Image alternative text.
-          example: string-value
     StoreProductImage:
       type: object
       description: Product image with thumbnail variants.
@@ -498,25 +517,6 @@ components:
           example: https://example.com/path
         image:
           $ref: '#/components/schemas/StoreProductImage'
-  responses:
-    BadRequest:
-      description: The request body contains invalid or missing parameters.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
-    Unauthorized:
-      description: Authentication credentials are missing or invalid.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
-    NotFound:
-      description: The requested resource was not found.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
   securitySchemes:
     basicAuth:
       type: http
