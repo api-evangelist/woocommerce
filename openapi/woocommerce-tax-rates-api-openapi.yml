@@ -64,14 +64,27 @@ paths:
         delay: 0
         dispatcher: FALLBACK
 components:
-  responses:
-    Unauthorized:
-      description: Authentication credentials are missing or invalid.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
   schemas:
+    Error:
+      type: object
+      properties:
+        code:
+          type: string
+          description: Machine-readable error code.
+          example: string-value
+        message:
+          type: string
+          description: Human-readable error message.
+          example: string-value
+        data:
+          type: object
+          description: Additional error context including HTTP status code.
+          properties:
+            status:
+              type: integer
+              description: HTTP status code associated with the error.
+          example:
+            status: 1
     TaxRate:
       type: object
       description: A configured tax rate applied at checkout.
@@ -120,26 +133,6 @@ components:
           type: string
           description: Tax class slug. Standard class is identified by an empty string.
           example: string-value
-    Error:
-      type: object
-      properties:
-        code:
-          type: string
-          description: Machine-readable error code.
-          example: string-value
-        message:
-          type: string
-          description: Human-readable error message.
-          example: string-value
-        data:
-          type: object
-          description: Additional error context including HTTP status code.
-          properties:
-            status:
-              type: integer
-              description: HTTP status code associated with the error.
-          example:
-            status: 1
   parameters:
     page:
       name: page
@@ -160,6 +153,13 @@ components:
         minimum: 1
         maximum: 100
         default: 10
+  responses:
+    Unauthorized:
+      description: Authentication credentials are missing or invalid.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
   securitySchemes:
     basicAuth:
       type: http

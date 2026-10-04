@@ -323,21 +323,6 @@ components:
           description: Date the webhook was last modified.
           example: '2026-05-03T14:30:00Z'
   parameters:
-    force:
-      name: force
-      in: query
-      description: Set to true to permanently delete the resource, bypassing the trash.
-      required: false
-      schema:
-        type: boolean
-        default: false
-    id:
-      name: id
-      in: path
-      description: Unique identifier for the resource.
-      required: true
-      schema:
-        type: integer
     page:
       name: page
       in: query
@@ -357,13 +342,22 @@ components:
         minimum: 1
         maximum: 100
         default: 10
+    force:
+      name: force
+      in: query
+      description: Set to true to permanently delete the resource, bypassing the trash.
+      required: false
+      schema:
+        type: boolean
+        default: false
+    id:
+      name: id
+      in: path
+      description: Unique identifier for the resource.
+      required: true
+      schema:
+        type: integer
   responses:
-    Unauthorized:
-      description: Authentication credentials are missing or invalid.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
     NotFound:
       description: The requested resource was not found.
       content:
@@ -372,6 +366,12 @@ components:
             $ref: '#/components/schemas/Error'
     BadRequest:
       description: The request body contains invalid or missing parameters.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    Unauthorized:
+      description: Authentication credentials are missing or invalid.
       content:
         application/json:
           schema:

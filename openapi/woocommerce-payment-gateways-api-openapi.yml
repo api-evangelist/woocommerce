@@ -136,39 +136,7 @@ paths:
         delay: 0
         dispatcher: FALLBACK
 components:
-  responses:
-    Unauthorized:
-      description: Authentication credentials are missing or invalid.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
-    NotFound:
-      description: The requested resource was not found.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
-    BadRequest:
-      description: The request body contains invalid or missing parameters.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
   schemas:
-    PaymentGatewayInput:
-      type: object
-      description: Input for updating a payment gateway.
-      properties:
-        enabled:
-          type: boolean
-          description: Whether to enable the gateway.
-          example: true
-        settings:
-          type: object
-          description: Gateway settings to update.
-          additionalProperties: true
-          example: {}
     Error:
       type: object
       properties:
@@ -233,6 +201,38 @@ components:
           description: Gateway settings as a key-value map. Each setting has id, label, description, type, value, and tip properties.
           additionalProperties: true
           example: {}
+    PaymentGatewayInput:
+      type: object
+      description: Input for updating a payment gateway.
+      properties:
+        enabled:
+          type: boolean
+          description: Whether to enable the gateway.
+          example: true
+        settings:
+          type: object
+          description: Gateway settings to update.
+          additionalProperties: true
+          example: {}
+  responses:
+    NotFound:
+      description: The requested resource was not found.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    BadRequest:
+      description: The request body contains invalid or missing parameters.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    Unauthorized:
+      description: Authentication credentials are missing or invalid.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
   parameters:
     id:
       name: id

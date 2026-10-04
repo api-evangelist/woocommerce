@@ -526,200 +526,6 @@ paths:
       description: Production Server (replace example.com with your store domain)
 components:
   schemas:
-    MetaData:
-      type: object
-      description: Custom metadata key-value entry.
-      properties:
-        id:
-          type: integer
-          description: Metadata unique identifier.
-          example: 1
-        key:
-          type: string
-          description: Metadata key.
-          example: string-value
-        value:
-          type: string
-          description: Metadata value.
-          example: string-value
-    LineItem:
-      type: object
-      description: A product line item within an order.
-      properties:
-        id:
-          type: integer
-          description: Line item unique identifier.
-          example: 1
-        name:
-          type: string
-          description: Product name at time of purchase.
-          example: Example Name
-        product_id:
-          type: integer
-          description: Product ID.
-          example: 1
-        variation_id:
-          type: integer
-          description: Variation ID (0 if not a variation).
-          example: 1
-        quantity:
-          type: integer
-          description: Quantity ordered.
-          example: 1
-        tax_class:
-          type: string
-          description: Tax class used for this line item.
-          example: string-value
-        subtotal:
-          type: string
-          description: Line subtotal (before discounts) as a decimal string.
-          example: string-value
-        subtotal_tax:
-          type: string
-          description: Line subtotal tax as a decimal string.
-          example: string-value
-        total:
-          type: string
-          description: Line total (after discounts) as a decimal string.
-          example: string-value
-        total_tax:
-          type: string
-          description: Line total tax as a decimal string.
-          example: string-value
-        sku:
-          type: string
-          description: Product SKU.
-          example: string-value
-        price:
-          type: number
-          description: Product price at time of purchase.
-          example: 10.5
-        meta_data:
-          type: array
-          description: Metadata for the line item (e.g. variation attributes).
-          items:
-            $ref: '#/components/schemas/MetaData'
-          example:
-          - string-value
-    OrderInput:
-      type: object
-      description: Input for creating or updating an order.
-      properties:
-        status:
-          type: string
-          description: Order status.
-          enum:
-          - pending
-          - processing
-          - on-hold
-          - completed
-          - cancelled
-          - refunded
-          - failed
-          example: pending
-        customer_id:
-          type: integer
-          description: Customer ID (0 for guest).
-          example: 1
-        customer_note:
-          type: string
-          description: Note from customer.
-          example: string-value
-        billing:
-          $ref: '#/components/schemas/Address'
-        shipping:
-          $ref: '#/components/schemas/Address'
-        payment_method:
-          type: string
-          description: Payment method ID.
-          example: string-value
-        payment_method_title:
-          type: string
-          description: Payment method display name.
-          example: Example Name
-        line_items:
-          type: array
-          description: Line items to include in the order.
-          items:
-            $ref: '#/components/schemas/LineItem'
-          example:
-          - string-value
-        meta_data:
-          type: array
-          description: Custom metadata.
-          items:
-            $ref: '#/components/schemas/MetaData'
-          example:
-          - string-value
-    Address:
-      type: object
-      description: Billing or shipping address associated with a customer or order.
-      properties:
-        first_name:
-          type: string
-          description: First name.
-          example: Example Name
-        last_name:
-          type: string
-          description: Last name.
-          example: Example Name
-        company:
-          type: string
-          description: Company name.
-          example: string-value
-        address_1:
-          type: string
-          description: Address line 1.
-          example: string-value
-        address_2:
-          type: string
-          description: Address line 2.
-          example: string-value
-        city:
-          type: string
-          description: City name.
-          example: string-value
-        state:
-          type: string
-          description: ISO code or name of the state, province, or district.
-          example: string-value
-        postcode:
-          type: string
-          description: Postal code.
-          example: string-value
-        country:
-          type: string
-          description: ISO 3166-1 alpha-2 country code.
-          example: string-value
-        email:
-          type: string
-          format: email
-          description: Email address (billing only).
-          example: user@example.com
-        phone:
-          type: string
-          description: Phone number (billing only).
-          example: string-value
-    Error:
-      type: object
-      properties:
-        code:
-          type: string
-          description: Machine-readable error code.
-          example: string-value
-        message:
-          type: string
-          description: Human-readable error message.
-          example: string-value
-        data:
-          type: object
-          description: Additional error context including HTTP status code.
-          properties:
-            status:
-              type: integer
-              description: HTTP status code associated with the error.
-          example:
-            status: 1
     Order:
       type: object
       description: A WooCommerce customer order.
@@ -839,9 +645,154 @@ components:
             $ref: '#/components/schemas/MetaData'
           example:
           - string-value
-    StoreAddress:
+    OrderInput:
       type: object
-      description: A customer billing or shipping address in the Store API context.
+      description: Input for creating or updating an order.
+      properties:
+        status:
+          type: string
+          description: Order status.
+          enum:
+          - pending
+          - processing
+          - on-hold
+          - completed
+          - cancelled
+          - refunded
+          - failed
+          example: pending
+        customer_id:
+          type: integer
+          description: Customer ID (0 for guest).
+          example: 1
+        customer_note:
+          type: string
+          description: Note from customer.
+          example: string-value
+        billing:
+          $ref: '#/components/schemas/Address'
+        shipping:
+          $ref: '#/components/schemas/Address'
+        payment_method:
+          type: string
+          description: Payment method ID.
+          example: string-value
+        payment_method_title:
+          type: string
+          description: Payment method display name.
+          example: Example Name
+        line_items:
+          type: array
+          description: Line items to include in the order.
+          items:
+            $ref: '#/components/schemas/LineItem'
+          example:
+          - string-value
+        meta_data:
+          type: array
+          description: Custom metadata.
+          items:
+            $ref: '#/components/schemas/MetaData'
+          example:
+          - string-value
+    Error:
+      type: object
+      properties:
+        code:
+          type: string
+          description: Machine-readable error code.
+          example: string-value
+        message:
+          type: string
+          description: Human-readable error message.
+          example: string-value
+        data:
+          type: object
+          description: Additional error context including HTTP status code.
+          properties:
+            status:
+              type: integer
+              description: HTTP status code associated with the error.
+          example:
+            status: 1
+    LineItem:
+      type: object
+      description: A product line item within an order.
+      properties:
+        id:
+          type: integer
+          description: Line item unique identifier.
+          example: 1
+        name:
+          type: string
+          description: Product name at time of purchase.
+          example: Example Name
+        product_id:
+          type: integer
+          description: Product ID.
+          example: 1
+        variation_id:
+          type: integer
+          description: Variation ID (0 if not a variation).
+          example: 1
+        quantity:
+          type: integer
+          description: Quantity ordered.
+          example: 1
+        tax_class:
+          type: string
+          description: Tax class used for this line item.
+          example: string-value
+        subtotal:
+          type: string
+          description: Line subtotal (before discounts) as a decimal string.
+          example: string-value
+        subtotal_tax:
+          type: string
+          description: Line subtotal tax as a decimal string.
+          example: string-value
+        total:
+          type: string
+          description: Line total (after discounts) as a decimal string.
+          example: string-value
+        total_tax:
+          type: string
+          description: Line total tax as a decimal string.
+          example: string-value
+        sku:
+          type: string
+          description: Product SKU.
+          example: string-value
+        price:
+          type: number
+          description: Product price at time of purchase.
+          example: 10.5
+        meta_data:
+          type: array
+          description: Metadata for the line item (e.g. variation attributes).
+          items:
+            $ref: '#/components/schemas/MetaData'
+          example:
+          - string-value
+    MetaData:
+      type: object
+      description: Custom metadata key-value entry.
+      properties:
+        id:
+          type: integer
+          description: Metadata unique identifier.
+          example: 1
+        key:
+          type: string
+          description: Metadata key.
+          example: string-value
+        value:
+          type: string
+          description: Metadata value.
+          example: string-value
+    Address:
+      type: object
+      description: Billing or shipping address associated with a customer or order.
       properties:
         first_name:
           type: string
@@ -865,11 +816,11 @@ components:
           example: string-value
         city:
           type: string
-          description: City.
+          description: City name.
           example: string-value
         state:
           type: string
-          description: State or province code.
+          description: ISO code or name of the state, province, or district.
           example: string-value
         postcode:
           type: string
@@ -886,7 +837,7 @@ components:
           example: user@example.com
         phone:
           type: string
-          description: Phone number.
+          description: Phone number (billing only).
           example: string-value
     StoreOrder:
       type: object
@@ -961,67 +912,58 @@ components:
               description: HTTP status code.
           example:
             status: 1
-  parameters:
-    force:
-      name: force
-      in: query
-      description: Set to true to permanently delete the resource, bypassing the trash.
-      required: false
-      schema:
-        type: boolean
-        default: false
-    after:
-      name: after
-      in: query
-      description: Limit response to resources created after a given ISO8601 compliant date.
-      required: false
-      schema:
-        type: string
-        format: date-time
-    id:
-      name: id
-      in: path
-      description: Unique identifier for the resource.
-      required: true
-      schema:
-        type: integer
-    search:
-      name: search
-      in: query
-      description: Limit results to those matching a string.
-      required: false
-      schema:
-        type: string
-    before:
-      name: before
-      in: query
-      description: Limit response to resources created before a given ISO8601 compliant date.
-      required: false
-      schema:
-        type: string
-        format: date-time
-    page:
-      name: page
-      in: query
-      description: Current page of the collection. Defaults to 1.
-      required: false
-      schema:
-        type: integer
-        minimum: 1
-        default: 1
-    per_page:
-      name: per_page
-      in: query
-      description: Maximum number of items per page. Defaults to 10, maximum 100.
-      required: false
-      schema:
-        type: integer
-        minimum: 1
-        maximum: 100
-        default: 10
+    StoreAddress:
+      type: object
+      description: A customer billing or shipping address in the Store API context.
+      properties:
+        first_name:
+          type: string
+          description: First name.
+          example: Example Name
+        last_name:
+          type: string
+          description: Last name.
+          example: Example Name
+        company:
+          type: string
+          description: Company name.
+          example: string-value
+        address_1:
+          type: string
+          description: Address line 1.
+          example: string-value
+        address_2:
+          type: string
+          description: Address line 2.
+          example: string-value
+        city:
+          type: string
+          description: City.
+          example: string-value
+        state:
+          type: string
+          description: State or province code.
+          example: string-value
+        postcode:
+          type: string
+          description: Postal code.
+          example: string-value
+        country:
+          type: string
+          description: ISO 3166-1 alpha-2 country code.
+          example: string-value
+        email:
+          type: string
+          format: email
+          description: Email address (billing only).
+          example: user@example.com
+        phone:
+          type: string
+          description: Phone number.
+          example: string-value
   responses:
-    Unauthorized:
-      description: Authentication credentials are missing or invalid.
+    BadRequest:
+      description: The request body contains invalid or missing parameters.
       content:
         application/json:
           schema:
@@ -1032,8 +974,8 @@ components:
         application/json:
           schema:
             $ref: '#/components/schemas/Error'
-    BadRequest:
-      description: The request body contains invalid or missing parameters.
+    Unauthorized:
+      description: Authentication credentials are missing or invalid.
       content:
         application/json:
           schema:
@@ -1044,6 +986,64 @@ components:
         application/json:
           schema:
             $ref: '#/components/schemas/Error_2'
+  parameters:
+    page:
+      name: page
+      in: query
+      description: Current page of the collection. Defaults to 1.
+      required: false
+      schema:
+        type: integer
+        minimum: 1
+        default: 1
+    before:
+      name: before
+      in: query
+      description: Limit response to resources created before a given ISO8601 compliant date.
+      required: false
+      schema:
+        type: string
+        format: date-time
+    force:
+      name: force
+      in: query
+      description: Set to true to permanently delete the resource, bypassing the trash.
+      required: false
+      schema:
+        type: boolean
+        default: false
+    per_page:
+      name: per_page
+      in: query
+      description: Maximum number of items per page. Defaults to 10, maximum 100.
+      required: false
+      schema:
+        type: integer
+        minimum: 1
+        maximum: 100
+        default: 10
+    after:
+      name: after
+      in: query
+      description: Limit response to resources created after a given ISO8601 compliant date.
+      required: false
+      schema:
+        type: string
+        format: date-time
+    search:
+      name: search
+      in: query
+      description: Limit results to those matching a string.
+      required: false
+      schema:
+        type: string
+    id:
+      name: id
+      in: path
+      description: Unique identifier for the resource.
+      required: true
+      schema:
+        type: integer
   securitySchemes:
     basicAuth:
       type: http

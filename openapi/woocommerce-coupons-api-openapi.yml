@@ -279,22 +279,6 @@ paths:
         dispatcher: FALLBACK
 components:
   schemas:
-    MetaData:
-      type: object
-      description: Custom metadata key-value entry.
-      properties:
-        id:
-          type: integer
-          description: Metadata unique identifier.
-          example: 1
-        key:
-          type: string
-          description: Metadata key.
-          example: string-value
-        value:
-          type: string
-          description: Metadata value.
-          example: string-value
     Error:
       type: object
       properties:
@@ -406,6 +390,22 @@ components:
             $ref: '#/components/schemas/MetaData'
           example:
           - string-value
+    MetaData:
+      type: object
+      description: Custom metadata key-value entry.
+      properties:
+        id:
+          type: integer
+          description: Metadata unique identifier.
+          example: 1
+        key:
+          type: string
+          description: Metadata key.
+          example: string-value
+        value:
+          type: string
+          description: Metadata value.
+          example: string-value
     CouponInput:
       type: object
       description: Input for creating or updating a coupon.
@@ -476,7 +476,53 @@ components:
             $ref: '#/components/schemas/MetaData'
           example:
           - string-value
+  responses:
+    BadRequest:
+      description: The request body contains invalid or missing parameters.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    NotFound:
+      description: The requested resource was not found.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    Unauthorized:
+      description: Authentication credentials are missing or invalid.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
   parameters:
+    page:
+      name: page
+      in: query
+      description: Current page of the collection. Defaults to 1.
+      required: false
+      schema:
+        type: integer
+        minimum: 1
+        default: 1
+    before:
+      name: before
+      in: query
+      description: Limit response to resources created before a given ISO8601 compliant date.
+      required: false
+      schema:
+        type: string
+        format: date-time
+    per_page:
+      name: per_page
+      in: query
+      description: Maximum number of items per page. Defaults to 10, maximum 100.
+      required: false
+      schema:
+        type: integer
+        minimum: 1
+        maximum: 100
+        default: 10
     force:
       name: force
       in: query
@@ -493,13 +539,6 @@ components:
       schema:
         type: string
         format: date-time
-    id:
-      name: id
-      in: path
-      description: Unique identifier for the resource.
-      required: true
-      schema:
-        type: integer
     search:
       name: search
       in: query
@@ -507,52 +546,13 @@ components:
       required: false
       schema:
         type: string
-    before:
-      name: before
-      in: query
-      description: Limit response to resources created before a given ISO8601 compliant date.
-      required: false
-      schema:
-        type: string
-        format: date-time
-    page:
-      name: page
-      in: query
-      description: Current page of the collection. Defaults to 1.
-      required: false
+    id:
+      name: id
+      in: path
+      description: Unique identifier for the resource.
+      required: true
       schema:
         type: integer
-        minimum: 1
-        default: 1
-    per_page:
-      name: per_page
-      in: query
-      description: Maximum number of items per page. Defaults to 10, maximum 100.
-      required: false
-      schema:
-        type: integer
-        minimum: 1
-        maximum: 100
-        default: 10
-  responses:
-    Unauthorized:
-      description: Authentication credentials are missing or invalid.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
-    NotFound:
-      description: The requested resource was not found.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
-    BadRequest:
-      description: The request body contains invalid or missing parameters.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
   securitySchemes:
     basicAuth:
       type: http

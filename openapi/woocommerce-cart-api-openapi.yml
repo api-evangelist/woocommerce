@@ -1060,297 +1060,14 @@ paths:
         dispatcher: FALLBACK
 components:
   schemas:
-    StoreProductImage:
+    CartCustomerInput:
       type: object
-      description: Product image with thumbnail variants.
+      description: Customer address data for cart shipping/tax calculation.
       properties:
-        id:
-          type: integer
-          description: Image attachment ID.
-          example: 1
-        src:
-          type: string
-          format: uri
-          description: Full-size image URL.
-          example: https://example.com/path
-        thumbnail:
-          type: string
-          format: uri
-          description: Thumbnail image URL.
-          example: https://example.com/path
-        srcset:
-          type: string
-          description: Responsive image srcset attribute value.
-          example: string-value
-        sizes:
-          type: string
-          description: Responsive image sizes attribute value.
-          example: string-value
-        name:
-          type: string
-          description: Image file name.
-          example: Example Name
-        alt:
-          type: string
-          description: Image alternative text.
-          example: string-value
-    StoreProductPrice:
-      type: object
-      description: Formatted price information for a product or variation.
-      properties:
-        price:
-          type: string
-          description: Current price as a formatted string with currency symbol.
-          example: string-value
-        regular_price:
-          type: string
-          description: Regular price as a formatted string.
-          example: string-value
-        sale_price:
-          type: string
-          description: Sale price as a formatted string (empty when not on sale).
-          example: string-value
-        price_range:
-          type: object
-          description: Price range for variable products.
-          nullable: true
-          properties:
-            min_amount:
-              type: string
-              description: Minimum variation price.
-            max_amount:
-              type: string
-              description: Maximum variation price.
-          example:
-            min_amount: string-value
-            max_amount: string-value
-        currency_code:
-          type: string
-          description: ISO 4217 currency code.
-          example: string-value
-        currency_symbol:
-          type: string
-          description: Currency symbol.
-          example: string-value
-        currency_decimal_separator:
-          type: string
-          description: Decimal separator character.
-          example: string-value
-        currency_thousand_separator:
-          type: string
-          description: Thousands separator character.
-          example: string-value
-        currency_prefix:
-          type: string
-          description: Currency prefix (e.g. $).
-          example: string-value
-        currency_suffix:
-          type: string
-          description: Currency suffix.
-          example: string-value
-    AddCartItemInput:
-      type: object
-      description: Input for adding an item to the cart.
-      required:
-      - id
-      - quantity
-      properties:
-        id:
-          type: integer
-          description: Product ID to add.
-          example: 1
-        quantity:
-          type: integer
-          description: Quantity to add.
-          minimum: 1
-          example: 1
-        variation_id:
-          type: integer
-          description: Variation ID for variable products.
-          example: 1
-        variation:
-          type: array
-          description: Attribute key-value pairs for the variation.
-          items:
-            type: object
-            properties:
-              attribute:
-                type: string
-                description: Attribute name.
-              value:
-                type: string
-                description: Selected attribute value.
-          example:
-          - attribute: string-value
-            value: string-value
-        item_data:
-          type: array
-          description: Additional custom item data.
-          items:
-            type: object
-            properties:
-              name:
-                type: string
-                description: Data key name.
-              value:
-                type: string
-                description: Data value.
-          example:
-          - name: Example Name
-            value: string-value
-    Cart:
-      type: object
-      description: The current customer's cart state.
-      properties:
-        items:
-          type: array
-          description: Items in the cart.
-          items:
-            $ref: '#/components/schemas/CartItem'
-          example:
-          - string-value
-        coupons:
-          type: array
-          description: Coupons applied to the cart.
-          items:
-            type: object
-            properties:
-              code:
-                type: string
-                description: Coupon code.
-              discount_type:
-                type: string
-                description: Type of discount applied.
-              totals:
-                type: object
-                description: Coupon discount totals.
-          example:
-          - code: string-value
-            discount_type: standard
-            totals: {}
-        fees:
-          type: array
-          description: Additional fees added to the cart.
-          items:
-            type: object
-            properties:
-              id:
-                type: string
-                description: Fee ID.
-              name:
-                type: string
-                description: Fee name.
-              totals:
-                type: object
-                description: Fee amount totals.
-          example:
-          - id: '500123'
-            name: Example Name
-            totals: {}
-        totals:
-          $ref: '#/components/schemas/CartTotals'
-        shipping_rates:
-          type: array
-          description: Available shipping rate packages.
-          items:
-            $ref: '#/components/schemas/CartShippingRate'
-          example:
-          - string-value
         billing_address:
           $ref: '#/components/schemas/StoreAddress'
         shipping_address:
           $ref: '#/components/schemas/StoreAddress'
-        has_calculated_shipping:
-          type: boolean
-          description: Whether shipping has been calculated for the cart.
-          example: true
-        needs_payment:
-          type: boolean
-          description: Whether the cart total requires payment.
-          example: true
-        needs_shipping:
-          type: boolean
-          description: Whether any items in the cart require shipping.
-          example: true
-        items_count:
-          type: integer
-          description: Total number of items in the cart.
-          example: 1
-        items_weight:
-          type: number
-          description: Total weight of all items in the cart.
-          example: 10.5
-        cross_sells:
-          type: array
-          description: Cross-sell product suggestions.
-          items:
-            $ref: '#/components/schemas/StoreProduct'
-          example:
-          - string-value
-        errors:
-          type: array
-          description: Cart validation errors.
-          items:
-            type: object
-            properties:
-              code:
-                type: string
-                description: Error code.
-              message:
-                type: string
-                description: Error message.
-          example:
-          - code: string-value
-            message: string-value
-    StoreAddress:
-      type: object
-      description: A customer billing or shipping address in the Store API context.
-      properties:
-        first_name:
-          type: string
-          description: First name.
-          example: Example Name
-        last_name:
-          type: string
-          description: Last name.
-          example: Example Name
-        company:
-          type: string
-          description: Company name.
-          example: string-value
-        address_1:
-          type: string
-          description: Address line 1.
-          example: string-value
-        address_2:
-          type: string
-          description: Address line 2.
-          example: string-value
-        city:
-          type: string
-          description: City.
-          example: string-value
-        state:
-          type: string
-          description: State or province code.
-          example: string-value
-        postcode:
-          type: string
-          description: Postal code.
-          example: string-value
-        country:
-          type: string
-          description: ISO 3166-1 alpha-2 country code.
-          example: string-value
-        email:
-          type: string
-          format: email
-          description: Email address (billing only).
-          example: user@example.com
-        phone:
-          type: string
-          description: Phone number.
-          example: string-value
     Error:
       type: object
       description: Error response returned when a request fails.
@@ -1372,77 +1089,6 @@ components:
               description: HTTP status code.
           example:
             status: 1
-    CartCustomerInput:
-      type: object
-      description: Customer address data for cart shipping/tax calculation.
-      properties:
-        billing_address:
-          $ref: '#/components/schemas/StoreAddress'
-        shipping_address:
-          $ref: '#/components/schemas/StoreAddress'
-    CartTotals:
-      type: object
-      description: Cart financial totals including subtotal, taxes, shipping, and grand total.
-      properties:
-        total_items:
-          type: string
-          description: Subtotal of all items before discounts.
-          example: string-value
-        total_items_tax:
-          type: string
-          description: Total item tax.
-          example: string-value
-        total_fees:
-          type: string
-          description: Total of all cart fees.
-          example: string-value
-        total_fees_tax:
-          type: string
-          description: Total tax on fees.
-          example: string-value
-        total_discount:
-          type: string
-          description: Total discount applied by coupons.
-          example: string-value
-        total_discount_tax:
-          type: string
-          description: Tax on total discount.
-          example: string-value
-        total_shipping:
-          type: string
-          description: Total shipping cost.
-          example: string-value
-        total_shipping_tax:
-          type: string
-          description: Tax on shipping.
-          example: string-value
-        total_price:
-          type: string
-          description: Grand total including tax.
-          example: string-value
-        total_tax:
-          type: string
-          description: Total tax amount.
-          example: string-value
-        tax_lines:
-          type: array
-          description: Individual tax breakdown by rate.
-          items:
-            type: object
-            properties:
-              name:
-                type: string
-                description: Tax rate label.
-              price:
-                type: string
-                description: Tax amount for this rate.
-              rate:
-                type: string
-                description: Tax rate percentage.
-          example:
-          - name: Example Name
-            price: string-value
-            rate: string-value
     StoreProduct:
       type: object
       description: A store product returned by the public Store API.
@@ -1732,6 +1378,310 @@ components:
             selected: true
             meta_data:
             - {}
+    Cart:
+      type: object
+      description: The current customer's cart state.
+      properties:
+        items:
+          type: array
+          description: Items in the cart.
+          items:
+            $ref: '#/components/schemas/CartItem'
+          example:
+          - string-value
+        coupons:
+          type: array
+          description: Coupons applied to the cart.
+          items:
+            type: object
+            properties:
+              code:
+                type: string
+                description: Coupon code.
+              discount_type:
+                type: string
+                description: Type of discount applied.
+              totals:
+                type: object
+                description: Coupon discount totals.
+          example:
+          - code: string-value
+            discount_type: standard
+            totals: {}
+        fees:
+          type: array
+          description: Additional fees added to the cart.
+          items:
+            type: object
+            properties:
+              id:
+                type: string
+                description: Fee ID.
+              name:
+                type: string
+                description: Fee name.
+              totals:
+                type: object
+                description: Fee amount totals.
+          example:
+          - id: '500123'
+            name: Example Name
+            totals: {}
+        totals:
+          $ref: '#/components/schemas/CartTotals'
+        shipping_rates:
+          type: array
+          description: Available shipping rate packages.
+          items:
+            $ref: '#/components/schemas/CartShippingRate'
+          example:
+          - string-value
+        billing_address:
+          $ref: '#/components/schemas/StoreAddress'
+        shipping_address:
+          $ref: '#/components/schemas/StoreAddress'
+        has_calculated_shipping:
+          type: boolean
+          description: Whether shipping has been calculated for the cart.
+          example: true
+        needs_payment:
+          type: boolean
+          description: Whether the cart total requires payment.
+          example: true
+        needs_shipping:
+          type: boolean
+          description: Whether any items in the cart require shipping.
+          example: true
+        items_count:
+          type: integer
+          description: Total number of items in the cart.
+          example: 1
+        items_weight:
+          type: number
+          description: Total weight of all items in the cart.
+          example: 10.5
+        cross_sells:
+          type: array
+          description: Cross-sell product suggestions.
+          items:
+            $ref: '#/components/schemas/StoreProduct'
+          example:
+          - string-value
+        errors:
+          type: array
+          description: Cart validation errors.
+          items:
+            type: object
+            properties:
+              code:
+                type: string
+                description: Error code.
+              message:
+                type: string
+                description: Error message.
+          example:
+          - code: string-value
+            message: string-value
+    StoreProductImage:
+      type: object
+      description: Product image with thumbnail variants.
+      properties:
+        id:
+          type: integer
+          description: Image attachment ID.
+          example: 1
+        src:
+          type: string
+          format: uri
+          description: Full-size image URL.
+          example: https://example.com/path
+        thumbnail:
+          type: string
+          format: uri
+          description: Thumbnail image URL.
+          example: https://example.com/path
+        srcset:
+          type: string
+          description: Responsive image srcset attribute value.
+          example: string-value
+        sizes:
+          type: string
+          description: Responsive image sizes attribute value.
+          example: string-value
+        name:
+          type: string
+          description: Image file name.
+          example: Example Name
+        alt:
+          type: string
+          description: Image alternative text.
+          example: string-value
+    StoreAddress:
+      type: object
+      description: A customer billing or shipping address in the Store API context.
+      properties:
+        first_name:
+          type: string
+          description: First name.
+          example: Example Name
+        last_name:
+          type: string
+          description: Last name.
+          example: Example Name
+        company:
+          type: string
+          description: Company name.
+          example: string-value
+        address_1:
+          type: string
+          description: Address line 1.
+          example: string-value
+        address_2:
+          type: string
+          description: Address line 2.
+          example: string-value
+        city:
+          type: string
+          description: City.
+          example: string-value
+        state:
+          type: string
+          description: State or province code.
+          example: string-value
+        postcode:
+          type: string
+          description: Postal code.
+          example: string-value
+        country:
+          type: string
+          description: ISO 3166-1 alpha-2 country code.
+          example: string-value
+        email:
+          type: string
+          format: email
+          description: Email address (billing only).
+          example: user@example.com
+        phone:
+          type: string
+          description: Phone number.
+          example: string-value
+    CartTotals:
+      type: object
+      description: Cart financial totals including subtotal, taxes, shipping, and grand total.
+      properties:
+        total_items:
+          type: string
+          description: Subtotal of all items before discounts.
+          example: string-value
+        total_items_tax:
+          type: string
+          description: Total item tax.
+          example: string-value
+        total_fees:
+          type: string
+          description: Total of all cart fees.
+          example: string-value
+        total_fees_tax:
+          type: string
+          description: Total tax on fees.
+          example: string-value
+        total_discount:
+          type: string
+          description: Total discount applied by coupons.
+          example: string-value
+        total_discount_tax:
+          type: string
+          description: Tax on total discount.
+          example: string-value
+        total_shipping:
+          type: string
+          description: Total shipping cost.
+          example: string-value
+        total_shipping_tax:
+          type: string
+          description: Tax on shipping.
+          example: string-value
+        total_price:
+          type: string
+          description: Grand total including tax.
+          example: string-value
+        total_tax:
+          type: string
+          description: Total tax amount.
+          example: string-value
+        tax_lines:
+          type: array
+          description: Individual tax breakdown by rate.
+          items:
+            type: object
+            properties:
+              name:
+                type: string
+                description: Tax rate label.
+              price:
+                type: string
+                description: Tax amount for this rate.
+              rate:
+                type: string
+                description: Tax rate percentage.
+          example:
+          - name: Example Name
+            price: string-value
+            rate: string-value
+    StoreProductPrice:
+      type: object
+      description: Formatted price information for a product or variation.
+      properties:
+        price:
+          type: string
+          description: Current price as a formatted string with currency symbol.
+          example: string-value
+        regular_price:
+          type: string
+          description: Regular price as a formatted string.
+          example: string-value
+        sale_price:
+          type: string
+          description: Sale price as a formatted string (empty when not on sale).
+          example: string-value
+        price_range:
+          type: object
+          description: Price range for variable products.
+          nullable: true
+          properties:
+            min_amount:
+              type: string
+              description: Minimum variation price.
+            max_amount:
+              type: string
+              description: Maximum variation price.
+          example:
+            min_amount: string-value
+            max_amount: string-value
+        currency_code:
+          type: string
+          description: ISO 4217 currency code.
+          example: string-value
+        currency_symbol:
+          type: string
+          description: Currency symbol.
+          example: string-value
+        currency_decimal_separator:
+          type: string
+          description: Decimal separator character.
+          example: string-value
+        currency_thousand_separator:
+          type: string
+          description: Thousands separator character.
+          example: string-value
+        currency_prefix:
+          type: string
+          description: Currency prefix (e.g. $).
+          example: string-value
+        currency_suffix:
+          type: string
+          description: Currency suffix.
+          example: string-value
     CartItem:
       type: object
       description: A product item in the cart.
@@ -1797,14 +1747,57 @@ components:
           type: boolean
           description: Whether the product can only be purchased once per order.
           example: true
+    AddCartItemInput:
+      type: object
+      description: Input for adding an item to the cart.
+      required:
+      - id
+      - quantity
+      properties:
+        id:
+          type: integer
+          description: Product ID to add.
+          example: 1
+        quantity:
+          type: integer
+          description: Quantity to add.
+          minimum: 1
+          example: 1
+        variation_id:
+          type: integer
+          description: Variation ID for variable products.
+          example: 1
+        variation:
+          type: array
+          description: Attribute key-value pairs for the variation.
+          items:
+            type: object
+            properties:
+              attribute:
+                type: string
+                description: Attribute name.
+              value:
+                type: string
+                description: Selected attribute value.
+          example:
+          - attribute: string-value
+            value: string-value
+        item_data:
+          type: array
+          description: Additional custom item data.
+          items:
+            type: object
+            properties:
+              name:
+                type: string
+                description: Data key name.
+              value:
+                type: string
+                description: Data value.
+          example:
+          - name: Example Name
+            value: string-value
   parameters:
-    key:
-      name: key
-      in: path
-      description: Unique cart item key.
-      required: true
-      schema:
-        type: string
     nonce:
       name: Nonce
       in: header
@@ -1812,15 +1805,22 @@ components:
       required: true
       schema:
         type: string
+    key:
+      name: key
+      in: path
+      description: Unique cart item key.
+      required: true
+      schema:
+        type: string
   responses:
-    NotFound:
-      description: The requested resource was not found.
+    BadRequest:
+      description: The request contains invalid or missing parameters.
       content:
         application/json:
           schema:
             $ref: '#/components/schemas/Error'
-    BadRequest:
-      description: The request contains invalid or missing parameters.
+    NotFound:
+      description: The requested resource was not found.
       content:
         application/json:
           schema:

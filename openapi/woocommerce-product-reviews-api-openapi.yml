@@ -66,6 +66,15 @@ paths:
         dispatcher: FALLBACK
 components:
   parameters:
+    page:
+      name: page
+      in: query
+      description: Current page of the collection.
+      required: false
+      schema:
+        type: integer
+        minimum: 1
+        default: 1
     per_page:
       name: per_page
       in: query
@@ -76,15 +85,6 @@ components:
         minimum: 1
         maximum: 100
         default: 10
-    page:
-      name: page
-      in: query
-      description: Current page of the collection.
-      required: false
-      schema:
-        type: integer
-        minimum: 1
-        default: 1
   schemas:
     StoreReview:
       type: object

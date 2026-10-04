@@ -277,7 +277,43 @@ paths:
         delay: 0
         dispatcher: FALLBACK
 components:
+  parameters:
+    nonce:
+      name: Nonce
+      in: header
+      description: Store API nonce token obtained from the X-WC-Store-API-Nonce response header of a prior cart GET request. Required for all cart and checkout write operations to prevent CSRF.
+      required: true
+      schema:
+        type: string
+    id:
+      name: id
+      in: path
+      description: Unique identifier for the resource.
+      required: true
+      schema:
+        type: integer
   schemas:
+    Error:
+      type: object
+      description: Error response returned when a request fails.
+      properties:
+        code:
+          type: string
+          description: Machine-readable error code.
+          example: string-value
+        message:
+          type: string
+          description: Human-readable error message.
+          example: string-value
+        data:
+          type: object
+          description: Additional context including HTTP status.
+          properties:
+            status:
+              type: integer
+              description: HTTP status code.
+          example:
+            status: 1
     CheckoutOrder:
       type: object
       description: An order created or retrieved via the Store API checkout flow.
@@ -331,37 +367,6 @@ components:
             payment_details:
             - {}
             redirect_url: https://example.com/path
-    Checkout:
-      type: object
-      description: Current checkout state.
-      properties:
-        order_id:
-          type: integer
-          description: Pending order ID if one exists.
-          example: 1
-        billing_address:
-          $ref: '#/components/schemas/StoreAddress'
-        shipping_address:
-          $ref: '#/components/schemas/StoreAddress'
-        payment_methods:
-          type: array
-          description: Available payment methods at checkout.
-          items:
-            type: object
-            properties:
-              id:
-                type: string
-                description: Payment method ID.
-              title:
-                type: string
-                description: Payment method display title.
-              description:
-                type: string
-                description: Payment method description shown at checkout.
-          example:
-          - id: '500123'
-            title: Example Name
-            description: A sample description
     StoreAddress:
       type: object
       description: A customer billing or shipping address in the Store API context.
@@ -411,27 +416,37 @@ components:
           type: string
           description: Phone number.
           example: string-value
-    Error:
+    Checkout:
       type: object
-      description: Error response returned when a request fails.
+      description: Current checkout state.
       properties:
-        code:
-          type: string
-          description: Machine-readable error code.
-          example: string-value
-        message:
-          type: string
-          description: Human-readable error message.
-          example: string-value
-        data:
-          type: object
-          description: Additional context including HTTP status.
-          properties:
-            status:
-              type: integer
-              description: HTTP status code.
+        order_id:
+          type: integer
+          description: Pending order ID if one exists.
+          example: 1
+        billing_address:
+          $ref: '#/components/schemas/StoreAddress'
+        shipping_address:
+          $ref: '#/components/schemas/StoreAddress'
+        payment_methods:
+          type: array
+          description: Available payment methods at checkout.
+          items:
+            type: object
+            properties:
+              id:
+                type: string
+                description: Payment method ID.
+              title:
+                type: string
+                description: Payment method display title.
+              description:
+                type: string
+                description: Payment method description shown at checkout.
           example:
-            status: 1
+          - id: '500123'
+            title: Example Name
+            description: A sample description
     CheckoutInput:
       type: object
       description: Input payload for submitting or updating a checkout.
@@ -470,21 +485,6 @@ components:
           example:
           - key: string-value
             value: string-value
-  parameters:
-    id:
-      name: id
-      in: path
-      description: Unique identifier for the resource.
-      required: true
-      schema:
-        type: integer
-    nonce:
-      name: Nonce
-      in: header
-      description: Store API nonce token obtained from the X-WC-Store-API-Nonce response header of a prior cart GET request. Required for all cart and checkout write operations to prevent CSRF.
-      required: true
-      schema:
-        type: string
   responses:
     NotFound:
       description: The requested resource was not found.

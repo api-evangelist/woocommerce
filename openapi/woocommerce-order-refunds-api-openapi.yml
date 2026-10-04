@@ -177,22 +177,54 @@ paths:
         dispatcher: FALLBACK
 components:
   schemas:
-    MetaData:
+    OrderRefundInput:
       type: object
-      description: Custom metadata key-value entry.
+      description: Input for creating an order refund.
       properties:
-        id:
+        amount:
+          type: string
+          description: Refund amount as a decimal string.
+          example: string-value
+        reason:
+          type: string
+          description: Reason for the refund.
+          example: string-value
+        refunded_by:
           type: integer
-          description: Metadata unique identifier.
+          description: User ID issuing the refund.
           example: 1
-        key:
+        api_refund:
+          type: boolean
+          description: Whether to attempt an automatic payment gateway refund.
+          default: true
+          example: true
+        line_items:
+          type: array
+          description: Line items to refund with quantities and amounts.
+          items:
+            $ref: '#/components/schemas/LineItem'
+          example:
+          - string-value
+    Error:
+      type: object
+      properties:
+        code:
           type: string
-          description: Metadata key.
+          description: Machine-readable error code.
           example: string-value
-        value:
+        message:
           type: string
-          description: Metadata value.
+          description: Human-readable error message.
           example: string-value
+        data:
+          type: object
+          description: Additional error context including HTTP status code.
+          properties:
+            status:
+              type: integer
+              description: HTTP status code associated with the error.
+          example:
+            status: 1
     OrderRefund:
       type: object
       description: A refund associated with an order.
@@ -291,77 +323,23 @@ components:
             $ref: '#/components/schemas/MetaData'
           example:
           - string-value
-    Error:
+    MetaData:
       type: object
+      description: Custom metadata key-value entry.
       properties:
-        code:
-          type: string
-          description: Machine-readable error code.
-          example: string-value
-        message:
-          type: string
-          description: Human-readable error message.
-          example: string-value
-        data:
-          type: object
-          description: Additional error context including HTTP status code.
-          properties:
-            status:
-              type: integer
-              description: HTTP status code associated with the error.
-          example:
-            status: 1
-    OrderRefundInput:
-      type: object
-      description: Input for creating an order refund.
-      properties:
-        amount:
-          type: string
-          description: Refund amount as a decimal string.
-          example: string-value
-        reason:
-          type: string
-          description: Reason for the refund.
-          example: string-value
-        refunded_by:
+        id:
           type: integer
-          description: User ID issuing the refund.
+          description: Metadata unique identifier.
           example: 1
-        api_refund:
-          type: boolean
-          description: Whether to attempt an automatic payment gateway refund.
-          default: true
-          example: true
-        line_items:
-          type: array
-          description: Line items to refund with quantities and amounts.
-          items:
-            $ref: '#/components/schemas/LineItem'
-          example:
-          - string-value
+        key:
+          type: string
+          description: Metadata key.
+          example: string-value
+        value:
+          type: string
+          description: Metadata value.
+          example: string-value
   parameters:
-    force:
-      name: force
-      in: query
-      description: Set to true to permanently delete the resource, bypassing the trash.
-      required: false
-      schema:
-        type: boolean
-        default: false
-    order_id:
-      name: order_id
-      in: path
-      description: Unique identifier of the parent order.
-      required: true
-      schema:
-        type: integer
-    id:
-      name: id
-      in: path
-      description: Unique identifier for the resource.
-      required: true
-      schema:
-        type: integer
     page:
       name: page
       in: query
@@ -381,13 +359,29 @@ components:
         minimum: 1
         maximum: 100
         default: 10
+    force:
+      name: force
+      in: query
+      description: Set to true to permanently delete the resource, bypassing the trash.
+      required: false
+      schema:
+        type: boolean
+        default: false
+    id:
+      name: id
+      in: path
+      description: Unique identifier for the resource.
+      required: true
+      schema:
+        type: integer
+    order_id:
+      name: order_id
+      in: path
+      description: Unique identifier of the parent order.
+      required: true
+      schema:
+        type: integer
   responses:
-    Unauthorized:
-      description: Authentication credentials are missing or invalid.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
     NotFound:
       description: The requested resource was not found.
       content:
@@ -396,6 +390,12 @@ components:
             $ref: '#/components/schemas/Error'
     BadRequest:
       description: The request body contains invalid or missing parameters.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    Unauthorized:
+      description: Authentication credentials are missing or invalid.
       content:
         application/json:
           schema:

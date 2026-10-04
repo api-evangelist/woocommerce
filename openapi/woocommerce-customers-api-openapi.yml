@@ -424,184 +424,6 @@ paths:
         dispatcher: FALLBACK
 components:
   schemas:
-    MetaData:
-      type: object
-      description: Custom metadata key-value entry.
-      properties:
-        id:
-          type: integer
-          description: Metadata unique identifier.
-          example: 1
-        key:
-          type: string
-          description: Metadata key.
-          example: string-value
-        value:
-          type: string
-          description: Metadata value.
-          example: string-value
-    CustomerDownload:
-      type: object
-      description: A downloadable file accessible to a customer.
-      properties:
-        download_id:
-          type: string
-          description: Download unique identifier.
-          example: '500123'
-        download_url:
-          type: string
-          format: uri
-          description: URL where the customer can download the file.
-          example: https://example.com/path
-        product_id:
-          type: integer
-          description: Product ID associated with this download.
-          example: 1
-        product_name:
-          type: string
-          description: Product name at time of purchase.
-          example: Example Name
-        download_name:
-          type: string
-          description: Name of the downloadable file.
-          example: Example Name
-        order_id:
-          type: integer
-          description: Order ID for this download.
-          example: 1
-        order_key:
-          type: string
-          description: Order key for verification.
-          example: string-value
-        downloads_remaining:
-          type: string
-          description: Number of downloads remaining (empty string for unlimited).
-          example: string-value
-        access_expires:
-          type: string
-          format: date-time
-          description: Date and time when download access expires.
-          nullable: true
-          example: '2026-05-03T14:30:00Z'
-        file:
-          type: object
-          description: File information.
-          properties:
-            name:
-              type: string
-              description: File name.
-            file:
-              type: string
-              format: uri
-              description: File URL.
-          example:
-            name: Example Name
-            file: https://example.com/path
-    Address:
-      type: object
-      description: Billing or shipping address associated with a customer or order.
-      properties:
-        first_name:
-          type: string
-          description: First name.
-          example: Example Name
-        last_name:
-          type: string
-          description: Last name.
-          example: Example Name
-        company:
-          type: string
-          description: Company name.
-          example: string-value
-        address_1:
-          type: string
-          description: Address line 1.
-          example: string-value
-        address_2:
-          type: string
-          description: Address line 2.
-          example: string-value
-        city:
-          type: string
-          description: City name.
-          example: string-value
-        state:
-          type: string
-          description: ISO code or name of the state, province, or district.
-          example: string-value
-        postcode:
-          type: string
-          description: Postal code.
-          example: string-value
-        country:
-          type: string
-          description: ISO 3166-1 alpha-2 country code.
-          example: string-value
-        email:
-          type: string
-          format: email
-          description: Email address (billing only).
-          example: user@example.com
-        phone:
-          type: string
-          description: Phone number (billing only).
-          example: string-value
-    Error:
-      type: object
-      properties:
-        code:
-          type: string
-          description: Machine-readable error code.
-          example: string-value
-        message:
-          type: string
-          description: Human-readable error message.
-          example: string-value
-        data:
-          type: object
-          description: Additional error context including HTTP status code.
-          properties:
-            status:
-              type: integer
-              description: HTTP status code associated with the error.
-          example:
-            status: 1
-    CustomerInput:
-      type: object
-      description: Input for creating or updating a customer.
-      properties:
-        email:
-          type: string
-          format: email
-          description: Customer email address.
-          example: user@example.com
-        first_name:
-          type: string
-          description: Customer first name.
-          example: Example Name
-        last_name:
-          type: string
-          description: Customer last name.
-          example: Example Name
-        username:
-          type: string
-          description: Customer login username.
-          example: Example Name
-        password:
-          type: string
-          description: Customer account password (write only, not returned).
-          example: string-value
-        billing:
-          $ref: '#/components/schemas/Address'
-        shipping:
-          $ref: '#/components/schemas/Address'
-        meta_data:
-          type: array
-          description: Custom metadata.
-          items:
-            $ref: '#/components/schemas/MetaData'
-          example:
-          - string-value
     Customer:
       type: object
       description: A WooCommerce customer account.
@@ -669,29 +491,204 @@ components:
             $ref: '#/components/schemas/MetaData'
           example:
           - string-value
+    Error:
+      type: object
+      properties:
+        code:
+          type: string
+          description: Machine-readable error code.
+          example: string-value
+        message:
+          type: string
+          description: Human-readable error message.
+          example: string-value
+        data:
+          type: object
+          description: Additional error context including HTTP status code.
+          properties:
+            status:
+              type: integer
+              description: HTTP status code associated with the error.
+          example:
+            status: 1
+    CustomerDownload:
+      type: object
+      description: A downloadable file accessible to a customer.
+      properties:
+        download_id:
+          type: string
+          description: Download unique identifier.
+          example: '500123'
+        download_url:
+          type: string
+          format: uri
+          description: URL where the customer can download the file.
+          example: https://example.com/path
+        product_id:
+          type: integer
+          description: Product ID associated with this download.
+          example: 1
+        product_name:
+          type: string
+          description: Product name at time of purchase.
+          example: Example Name
+        download_name:
+          type: string
+          description: Name of the downloadable file.
+          example: Example Name
+        order_id:
+          type: integer
+          description: Order ID for this download.
+          example: 1
+        order_key:
+          type: string
+          description: Order key for verification.
+          example: string-value
+        downloads_remaining:
+          type: string
+          description: Number of downloads remaining (empty string for unlimited).
+          example: string-value
+        access_expires:
+          type: string
+          format: date-time
+          description: Date and time when download access expires.
+          nullable: true
+          example: '2026-05-03T14:30:00Z'
+        file:
+          type: object
+          description: File information.
+          properties:
+            name:
+              type: string
+              description: File name.
+            file:
+              type: string
+              format: uri
+              description: File URL.
+          example:
+            name: Example Name
+            file: https://example.com/path
+    CustomerInput:
+      type: object
+      description: Input for creating or updating a customer.
+      properties:
+        email:
+          type: string
+          format: email
+          description: Customer email address.
+          example: user@example.com
+        first_name:
+          type: string
+          description: Customer first name.
+          example: Example Name
+        last_name:
+          type: string
+          description: Customer last name.
+          example: Example Name
+        username:
+          type: string
+          description: Customer login username.
+          example: Example Name
+        password:
+          type: string
+          description: Customer account password (write only, not returned).
+          example: string-value
+        billing:
+          $ref: '#/components/schemas/Address'
+        shipping:
+          $ref: '#/components/schemas/Address'
+        meta_data:
+          type: array
+          description: Custom metadata.
+          items:
+            $ref: '#/components/schemas/MetaData'
+          example:
+          - string-value
+    MetaData:
+      type: object
+      description: Custom metadata key-value entry.
+      properties:
+        id:
+          type: integer
+          description: Metadata unique identifier.
+          example: 1
+        key:
+          type: string
+          description: Metadata key.
+          example: string-value
+        value:
+          type: string
+          description: Metadata value.
+          example: string-value
+    Address:
+      type: object
+      description: Billing or shipping address associated with a customer or order.
+      properties:
+        first_name:
+          type: string
+          description: First name.
+          example: Example Name
+        last_name:
+          type: string
+          description: Last name.
+          example: Example Name
+        company:
+          type: string
+          description: Company name.
+          example: string-value
+        address_1:
+          type: string
+          description: Address line 1.
+          example: string-value
+        address_2:
+          type: string
+          description: Address line 2.
+          example: string-value
+        city:
+          type: string
+          description: City name.
+          example: string-value
+        state:
+          type: string
+          description: ISO code or name of the state, province, or district.
+          example: string-value
+        postcode:
+          type: string
+          description: Postal code.
+          example: string-value
+        country:
+          type: string
+          description: ISO 3166-1 alpha-2 country code.
+          example: string-value
+        email:
+          type: string
+          format: email
+          description: Email address (billing only).
+          example: user@example.com
+        phone:
+          type: string
+          description: Phone number (billing only).
+          example: string-value
+  responses:
+    BadRequest:
+      description: The request body contains invalid or missing parameters.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    NotFound:
+      description: The requested resource was not found.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    Unauthorized:
+      description: Authentication credentials are missing or invalid.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
   parameters:
-    force:
-      name: force
-      in: query
-      description: Set to true to permanently delete the resource, bypassing the trash.
-      required: false
-      schema:
-        type: boolean
-        default: false
-    id:
-      name: id
-      in: path
-      description: Unique identifier for the resource.
-      required: true
-      schema:
-        type: integer
-    search:
-      name: search
-      in: query
-      description: Limit results to those matching a string.
-      required: false
-      schema:
-        type: string
     page:
       name: page
       in: query
@@ -711,25 +708,28 @@ components:
         minimum: 1
         maximum: 100
         default: 10
-  responses:
-    Unauthorized:
-      description: Authentication credentials are missing or invalid.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
-    NotFound:
-      description: The requested resource was not found.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
-    BadRequest:
-      description: The request body contains invalid or missing parameters.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
+    force:
+      name: force
+      in: query
+      description: Set to true to permanently delete the resource, bypassing the trash.
+      required: false
+      schema:
+        type: boolean
+        default: false
+    search:
+      name: search
+      in: query
+      description: Limit results to those matching a string.
+      required: false
+      schema:
+        type: string
+    id:
+      name: id
+      in: path
+      description: Unique identifier for the resource.
+      required: true
+      schema:
+        type: integer
   securitySchemes:
     basicAuth:
       type: http
