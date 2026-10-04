@@ -725,6 +725,9 @@ apis:
   - type: JSONSchema
     url: json-schema/woocommerce-store-api-checkout-schema.json
 common:
+- type: CapabilityMap
+  url: capabilities/woocommerce-capability-edges.yml
+  name: WooCommerce Business Capability Map
 - type: AgenticAccess
   url: agentic-access/woocommerce-agentic-access.yml
 - type: VulnerabilityDisclosure
