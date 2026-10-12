@@ -202,7 +202,6 @@
   arazzo: null
 - slug: woocommerce-monday-com
   label: monday.com
-  partner: monday-com
   partner_name: monday.com
   category: Project Management
   type: marketplace
@@ -210,7 +209,7 @@
   channel: ipaas-usage
   evidence: https://zapier.com/apps/woocommerce/integrations/monday
   source: edge
-  status: pending-generation
+  status: pending-partner-spec
   arazzo: null
 - slug: woocommerce-leadconnector
   label: LeadConnector
@@ -402,7 +401,6 @@
   arazzo: null
 - slug: woocommerce-microsoft-excel
   label: Microsoft Excel
-  partner: microsoft-excel
   partner_name: Microsoft Excel
   category: Microsoft
   type: marketplace
@@ -410,7 +408,7 @@
   channel: ipaas-usage
   evidence: https://zapier.com/apps/woocommerce/integrations/excel
   source: edge
-  status: pending-generation
+  status: pending-partner-spec
   arazzo: null
 - slug: woocommerce-mailerlite-classic
   label: MailerLite Classic
