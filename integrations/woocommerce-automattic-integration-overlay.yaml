@@ -1,0 +1,41 @@
+# DERIVED by build-integration-preconfigs.py (roadmap#949). Overlay on the PARTNER's contract:
+# where automattic's enum names woocommerce, and what that value is.
+overlay: 1.0.0
+info:
+  title: woocommerce as a processor-connection in automattic's contract
+  version: 1.0.0
+extends: https://raw.githubusercontent.com/api-evangelist/automattic/refs/heads/main/openapi/automattic-experiments-api-openapi.yml
+actions:
+- target: $.paths['/wpcom/v2/experiments/0.1.0/experiments'].post.requestBody.content['application/json'].schema.properties.platform
+  update:
+    x-apievangelist-integration:
+      values:
+        woocommerce:
+          provider: woocommerce
+          relationship: processor-connection
+          evidence: https://github.com/api-evangelist/automattic/blob/main/openapi/automattic-experiments-api-openapi.yml
+      method: derived
+      generated: '2026-10-12'
+      generator: build-integration-preconfigs.py
+- target: $.paths['/wpcom/v2/experiments/0.1.0/experiments/preset'].post.requestBody.content['application/json'].schema.properties.platform
+  update:
+    x-apievangelist-integration:
+      values:
+        woocommerce:
+          provider: woocommerce
+          relationship: processor-connection
+          evidence: https://github.com/api-evangelist/automattic/blob/main/openapi/automattic-experiments-api-openapi.yml
+      method: derived
+      generated: '2026-10-12'
+      generator: build-integration-preconfigs.py
+- target: $.paths['/wpcom/v2/experiments/0.1.0/experiments/{experiment_id}'].put.requestBody.content['application/json'].schema.properties.platform
+  update:
+    x-apievangelist-integration:
+      values:
+        woocommerce:
+          provider: woocommerce
+          relationship: processor-connection
+          evidence: https://github.com/api-evangelist/automattic/blob/main/openapi/automattic-experiments-api-openapi.yml
+      method: derived
+      generated: '2026-10-12'
+      generator: build-integration-preconfigs.py
