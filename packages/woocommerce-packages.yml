@@ -1,0 +1,44 @@
+name: WooCommerce Packages
+generated: '2026-10-12'
+method: searched
+source:
+- https://registry.npmjs.org/@woocommerce/woocommerce-rest-api
+- https://repo.packagist.org/p2/automattic/woocommerce.json
+- https://pypi.org/pypi/WooCommerce/json
+- https://rubygems.org/api/v1/gems/woocommerce_api.json
+packages:
+- name: '@woocommerce/woocommerce-rest-api'
+  registry: npm
+  url: https://www.npmjs.com/package/@woocommerce/woocommerce-rest-api
+  language: JavaScript
+  official: true
+  version: 1.0.2
+  published: '2025-07-10'
+  ownership_audit: metadata names npmjs.com
+- name: automattic/woocommerce
+  registry: packagist
+  url: https://packagist.org/packages/automattic/woocommerce
+  language: PHP
+  official: false
+  version: 3.1.1
+  published: '2026-01-30'
+  note: A PHP wrapper for the WooCommerce REST API (github.com/woocommerce/wc-api-php)
+  ownership_audit: 'registry metadata names neither the provider''s domain nor its GitHub org: official downgraded (harvest-packages.py --audit)'
+- name: WooCommerce
+  registry: pypi
+  url: https://pypi.org/project/WooCommerce/
+  language: Python
+  official: false
+  version: 3.0.0
+  published: '2021-03-13'
+  note: Author Claudio Sanches @ Automattic; github.com/woocommerce/wc-api-python
+  ownership_audit: 'registry metadata names neither the provider''s domain nor its GitHub org: official downgraded (harvest-packages.py --audit)'
+- name: woocommerce_api
+  registry: rubygems
+  url: https://rubygems.org/gems/woocommerce_api
+  language: Ruby
+  official: false
+  version: 1.4.0
+  published: '2016-12-14'
+  note: github.com/woocommerce/wc-api-ruby; last release 2016
+  ownership_audit: 'registry metadata names neither the provider''s domain nor its GitHub org: official downgraded (harvest-packages.py --audit)'

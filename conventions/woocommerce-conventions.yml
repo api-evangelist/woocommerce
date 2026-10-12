@@ -1,0 +1,45 @@
+name: WooCommerce API Conventions
+generated: '2026-10-12'
+method: searched
+source:
+- https://developer.woocommerce.com/docs/apis/rest-api/
+- https://developer.woocommerce.com/docs/apis/store-api/rate-limiting/
+- https://woocommerce.github.io/woocommerce-rest-api-docs/
+auth:
+  style: WooCommerce REST API consumer key/secret over HTTP Basic (HTTPS) or OAuth 1.0a one-legged (HTTP); Store API uses Nonce and Cart tokens
+  see: authentication/woocommerce-authentication.yml
+base_url: https://{store-domain}/wp-json/wc/v3 (REST API), https://{store-domain}/wp-json/wc/store/v1 (Store API) — self-hosted, per store
+pagination:
+  style: page-number
+  params:
+  - page
+  - per_page
+  - offset
+  response_headers:
+  - X-WP-Total
+  - X-WP-TotalPages
+  - Link
+versioning:
+  style: URL path namespace (wc/v1, wc/v2, wc/v3; wc/store/v1)
+rate_limit_signaling:
+  headers:
+  - RateLimit-Limit
+  - RateLimit-Remaining
+  - RateLimit-Reset
+  - RateLimit-Retry-After
+  scope: Store API only, optional
+  see: rate-limits/woocommerce-rate-limits.yml
+idempotency:
+  coverage: none
+  note: No idempotency key header is documented for the REST or Store APIs.
+reversibility:
+  status: documented
+  surfaces:
+  - surface: orders
+    reversal: refund
+    operationId: createOrderRefund
+    window: null
+    note: Refund an order via POST /orders/{id}/refunds; the docs state no time window (gateway refund windows depend on the payment processor).
+  - surface: resources
+    reversal: trash/restore
+    note: DELETE without force=true moves products/orders to trash where supported; force=true deletes permanently. No restore operation in the contract.

@@ -1,0 +1,72 @@
+arazzo: 1.0.1
+info:
+  title: 'WooCommerce to Trello: Create Trello cards from new WooCommerce orders'
+  summary: Create Trello cards from new WooCommerce orders
+  description: Reads the order WooCommerce reports through its REST API and hands it to Trello. Recreates the Zapier template "Create Trello cards from new WooCommerce orders" as a forkable workflow; the trigger is the WooCommerce order.created webhook, which supplies the id.
+  version: 1.0.0
+sourceDescriptions:
+- name: woocommerceApi
+  url: https://raw.githubusercontent.com/api-evangelist/woocommerce/refs/heads/main/openapi/woocommerce-orders-api-openapi.yml
+  type: openapi
+- name: trelloApi
+  url: https://raw.githubusercontent.com/api-evangelist/trello/refs/heads/main/openapi/trello-cards-api-openapi.yml
+  type: openapi
+workflows:
+- workflowId: woocommerce-trello-cards-from-orders
+  summary: Create Trello cards from new WooCommerce orders
+  description: Create Trello cards from new WooCommerce orders
+  inputs:
+    type: object
+    properties:
+      id:
+        type: integer
+        description: The WooCommerce order id delivered by the order.created webhook
+      idList:
+        type: string
+    required:
+    - id
+  steps:
+  - stepId: get-order
+    description: Retrieve the WooCommerce order
+    operationId: $sourceDescriptions.woocommerceApi.getOrder
+    parameters:
+    - name: id
+      in: path
+      value: $inputs.id
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      orderId: $response.body#/id
+      status: $response.body#/status
+      total: $response.body#/total
+      email: $response.body#/billing/email
+      firstName: $response.body#/billing/first_name
+      lastName: $response.body#/billing/last_name
+  - stepId: trello-createcard
+    description: Create Trello cards from new WooCommerce orders
+    operationId: $sourceDescriptions.trelloApi.createCard
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      result: $response.body
+    parameters:
+    - name: idList
+      in: query
+      value: $inputs.idList
+    - name: name
+      in: query
+      value: $steps.get-order.outputs.orderId
+  outputs:
+    result: $steps.trello-createcard.outputs.result
+x-integration:
+  partner: trello
+  template: https://zapier.com/apps/trello/integrations/woocommerce/3341/create-trello-cards-from-new-woocommerce-orders
+  edge_evidence: https://zapier.com/apps/trello/integrations/woocommerce/3341/create-trello-cards-from-new-woocommerce-orders
+  edge_type: marketplace
+  method: generated
+  generated: '2026-10-12'
+  generator: pipeline-enrich local-v5
+  guessed_steps:
+  - step: trello-createcard
+    cause: partner-contract
+    why: Field mapping from the WooCommerce record into the partner payload is our choice; the Zapier template does not publish its mapping.

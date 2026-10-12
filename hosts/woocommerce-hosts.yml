@@ -1,0 +1,100 @@
+generated: '2026-10-12'
+method: derived
+source: the pre-flight dossier, apis.yml pointers, spec servers, well-known, vendors -- nothing fetched here
+generator: derive-hosts.py
+summary:
+  hosts: 8
+  own: 2
+  other_domain: 2
+  platform: 4
+  roles:
+  - other
+  - portal
+  - source
+  - website
+hosts:
+- host: developer.woocommerce.com
+  found_by:
+  - pointer
+  - apis[]
+  types:
+  - DeveloperPortal
+  - Documentation
+  - GettingStarted
+  - Blog
+  - ReleaseNotes
+  - LlmsText
+  serves:
+  - docs
+  registrable_domain: woocommerce.com
+  role: portal
+  relation: own
+- host: github.com
+  found_by:
+  - pointer
+  types:
+  - GitHub
+  - GitHubOrganization
+  - Tools
+  - MCPServer
+  serves: []
+  registrable_domain: github.com
+  role: source
+  relation: platform
+- host: woocommerce.com
+  found_by:
+  - pointer
+  - apis[]
+  types:
+  - Website
+  - Support
+  serves:
+  - docs
+  registrable_domain: woocommerce.com
+  role: website
+  relation: own
+- host: woographql.com
+  found_by:
+  - apis[]
+  types: []
+  serves:
+  - docs
+  registrable_domain: woographql.com
+  role: other
+  relation: other-domain
+- host: wordpress.org
+  found_by:
+  - pointer
+  types:
+  - Forums
+  serves: []
+  registrable_domain: wordpress.org
+  role: other
+  relation: other-domain
+- host: www.linkedin.com
+  found_by:
+  - pointer
+  types:
+  - LinkedIn
+  serves: []
+  registrable_domain: linkedin.com
+  role: other
+  relation: platform
+- host: www.npmjs.com
+  found_by:
+  - pointer
+  types:
+  - SDKs
+  serves: []
+  registrable_domain: npmjs.com
+  role: other
+  relation: platform
+- host: www.postman.com
+  found_by:
+  - pointer
+  types:
+  - PostmanWorkspace
+  serves: []
+  registrable_domain: postman.com
+  role: other
+  relation: platform

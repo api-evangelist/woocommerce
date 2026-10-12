@@ -1,0 +1,380 @@
+generated: '2026-10-12'
+method: derived
+generator: derive-vocabulary.py
+source:
+- openapi/woocommerce-cart-api-openapi.yml
+- openapi/woocommerce-checkout-api-openapi.yml
+- openapi/woocommerce-coupons-api-openapi.yml
+- openapi/woocommerce-customers-api-openapi.yml
+- openapi/woocommerce-order-notes-api-openapi.yml
+vocabulary:
+  name: WooCommerce Domain Vocabulary
+  description: 'Terms declared by WooCommerce''s own API contract: its resource groups, objects and enumerations, with the contract''s definitions.
+    Derived, not authored.'
+  version: '2026-10-12'
+  terms:
+  - term: Cart
+    definition: Manage the current shopper's cart session including items, coupons, and shipping
+    tags:
+    - Resource Group
+    source: openapi/woocommerce-cart-api-openapi.yml
+  - term: Checkout
+    definition: Submit and manage the checkout process for the current shopper
+    tags:
+    - Resource Group
+    source: openapi/woocommerce-checkout-api-openapi.yml
+  - term: Coupons
+    definition: Create, retrieve, update, and delete discount coupons
+    tags:
+    - Resource Group
+    source: openapi/woocommerce-coupons-api-openapi.yml
+  - term: Customers
+    definition: Create, retrieve, update, and delete customer accounts
+    tags:
+    - Resource Group
+    source: openapi/woocommerce-customers-api-openapi.yml
+  - term: Order Notes
+    definition: Manage private and customer-facing notes on orders
+    tags:
+    - Resource Group
+    source: openapi/woocommerce-order-notes-api-openapi.yml
+  - term: Order Refunds
+    definition: Create and retrieve refunds associated with orders
+    tags:
+    - Resource Group
+    source: openapi/woocommerce-order-refunds-api-openapi.yml
+  - term: Orders
+    definition: Create, retrieve, update, and delete customer orders
+    tags:
+    - Resource Group
+    source: openapi/woocommerce-orders-api-openapi.yml
+  - term: Payment Gateways
+    definition: Retrieve and configure available payment gateways
+    tags:
+    - Resource Group
+    source: openapi/woocommerce-payment-gateways-api-openapi.yml
+  - term: Product Attributes
+    definition: Retrieve global product attributes and their terms for filtering
+    tags:
+    - Resource Group
+    source: openapi/woocommerce-product-attributes-api-openapi.yml
+  - term: Product Categories
+    definition: Manage product categories used to organize the store catalog
+    tags:
+    - Resource Group
+    source: openapi/woocommerce-product-categories-api-openapi.yml
+  - term: Product Reviews
+    definition: Retrieve customer reviews on products
+    tags:
+    - Resource Group
+    source: openapi/woocommerce-product-reviews-api-openapi.yml
+  - term: Product Tags
+    definition: Retrieve product tags for filtering
+    tags:
+    - Resource Group
+    source: openapi/woocommerce-product-tags-api-openapi.yml
+  - term: Product Variations
+    definition: Manage variations of variable products including price, stock, and attributes
+    tags:
+    - Resource Group
+    source: openapi/woocommerce-product-variations-api-openapi.yml
+  - term: Products
+    definition: Create, retrieve, update, and delete store products and their variations
+    tags:
+    - Resource Group
+    source: openapi/woocommerce-products-api-openapi.yml
+  - term: Reports
+    definition: Retrieve aggregated sales, product, and customer report data
+    tags:
+    - Resource Group
+    source: openapi/woocommerce-reports-api-openapi.yml
+  - term: Shipping Zones
+    definition: Manage shipping zones, their locations, and shipping methods
+    tags:
+    - Resource Group
+    source: openapi/woocommerce-shipping-zones-api-openapi.yml
+  - term: System Status
+    definition: Retrieve system environment, active plugins, and store configuration status
+    tags:
+    - Resource Group
+    source: openapi/woocommerce-system-status-api-openapi.yml
+  - term: Tax Rates
+    definition: Manage tax rates and tax classes applied at checkout
+    tags:
+    - Resource Group
+    source: openapi/woocommerce-tax-rates-api-openapi.yml
+  - term: Webhooks
+    definition: Create and manage webhooks that deliver event notifications to URLs
+    tags:
+    - Resource Group
+    source: openapi/woocommerce-webhooks-api-openapi.yml
+  - term: CartCustomerInput
+    definition: Customer address data for cart shipping/tax calculation.
+    tags:
+    - Object
+    source: openapi/woocommerce-cart-api-openapi.yml#/components/schemas/CartCustomerInput
+  - term: Error
+    definition: Error response returned when a request fails.
+    tags:
+    - Object
+    source: openapi/woocommerce-cart-api-openapi.yml#/components/schemas/Error
+  - term: StoreProduct
+    definition: A store product returned by the public Store API.
+    tags:
+    - Object
+    source: openapi/woocommerce-cart-api-openapi.yml#/components/schemas/StoreProduct
+  - term: CartShippingRate
+    definition: A shipping rate option available for the cart.
+    tags:
+    - Object
+    source: openapi/woocommerce-cart-api-openapi.yml#/components/schemas/CartShippingRate
+  - term: StoreProductImage
+    definition: Product image with thumbnail variants.
+    tags:
+    - Object
+    source: openapi/woocommerce-cart-api-openapi.yml#/components/schemas/StoreProductImage
+  - term: StoreAddress
+    definition: A customer billing or shipping address in the Store API context.
+    tags:
+    - Object
+    source: openapi/woocommerce-cart-api-openapi.yml#/components/schemas/StoreAddress
+  - term: CartTotals
+    definition: Cart financial totals including subtotal, taxes, shipping, and grand total.
+    tags:
+    - Object
+    source: openapi/woocommerce-cart-api-openapi.yml#/components/schemas/CartTotals
+  - term: StoreProductPrice
+    definition: Formatted price information for a product or variation.
+    tags:
+    - Object
+    source: openapi/woocommerce-cart-api-openapi.yml#/components/schemas/StoreProductPrice
+  - term: CartItem
+    definition: A product item in the cart.
+    tags:
+    - Object
+    source: openapi/woocommerce-cart-api-openapi.yml#/components/schemas/CartItem
+  - term: AddCartItemInput
+    definition: Input for adding an item to the cart.
+    tags:
+    - Object
+    source: openapi/woocommerce-cart-api-openapi.yml#/components/schemas/AddCartItemInput
+  - term: CheckoutOrder
+    definition: An order created or retrieved via the Store API checkout flow.
+    tags:
+    - Object
+    source: openapi/woocommerce-checkout-api-openapi.yml#/components/schemas/CheckoutOrder
+  - term: CheckoutInput
+    definition: Input payload for submitting or updating a checkout.
+    tags:
+    - Object
+    source: openapi/woocommerce-checkout-api-openapi.yml#/components/schemas/CheckoutInput
+  - term: Coupon
+    definition: A WooCommerce discount coupon.
+    tags:
+    - Object
+    source: openapi/woocommerce-coupons-api-openapi.yml#/components/schemas/Coupon
+  - term: MetaData
+    definition: Custom metadata key-value entry.
+    tags:
+    - Object
+    source: openapi/woocommerce-coupons-api-openapi.yml#/components/schemas/MetaData
+  - term: CouponInput
+    definition: Input for creating or updating a coupon.
+    tags:
+    - Object
+    source: openapi/woocommerce-coupons-api-openapi.yml#/components/schemas/CouponInput
+  - term: Customer
+    definition: A WooCommerce customer account.
+    tags:
+    - Object
+    source: openapi/woocommerce-customers-api-openapi.yml#/components/schemas/Customer
+  - term: CustomerDownload
+    definition: A downloadable file accessible to a customer.
+    tags:
+    - Object
+    source: openapi/woocommerce-customers-api-openapi.yml#/components/schemas/CustomerDownload
+  - term: CustomerInput
+    definition: Input for creating or updating a customer.
+    tags:
+    - Object
+    source: openapi/woocommerce-customers-api-openapi.yml#/components/schemas/CustomerInput
+  - term: Address
+    definition: Billing or shipping address associated with a customer or order.
+    tags:
+    - Object
+    source: openapi/woocommerce-customers-api-openapi.yml#/components/schemas/Address
+  - term: OrderNoteInput
+    definition: Input for creating an order note.
+    tags:
+    - Object
+    source: openapi/woocommerce-order-notes-api-openapi.yml#/components/schemas/OrderNoteInput
+  - term: OrderNote
+    definition: A note attached to an order.
+    tags:
+    - Object
+    source: openapi/woocommerce-order-notes-api-openapi.yml#/components/schemas/OrderNote
+  - term: OrderRefundInput
+    definition: Input for creating an order refund.
+    tags:
+    - Object
+    source: openapi/woocommerce-order-refunds-api-openapi.yml#/components/schemas/OrderRefundInput
+  - term: OrderRefund
+    definition: A refund associated with an order.
+    tags:
+    - Object
+    source: openapi/woocommerce-order-refunds-api-openapi.yml#/components/schemas/OrderRefund
+  - term: LineItem
+    definition: A product line item within an order.
+    tags:
+    - Object
+    source: openapi/woocommerce-order-refunds-api-openapi.yml#/components/schemas/LineItem
+  - term: Order
+    definition: A WooCommerce customer order.
+    tags:
+    - Object
+    source: openapi/woocommerce-orders-api-openapi.yml#/components/schemas/Order
+  - term: OrderInput
+    definition: Input for creating or updating an order.
+    tags:
+    - Object
+    source: openapi/woocommerce-orders-api-openapi.yml#/components/schemas/OrderInput
+  - term: StoreOrder
+    definition: A customer order retrieved via the Store API.
+    tags:
+    - Object
+    source: openapi/woocommerce-orders-api-openapi.yml#/components/schemas/StoreOrder
+  - term: Error_2
+    definition: Error response returned when a request fails.
+    tags:
+    - Object
+    source: openapi/woocommerce-orders-api-openapi.yml#/components/schemas/Error_2
+  - term: PaymentGateway
+    definition: A payment gateway installed in the WooCommerce store.
+    tags:
+    - Object
+    source: openapi/woocommerce-payment-gateways-api-openapi.yml#/components/schemas/PaymentGateway
+  - term: PaymentGatewayInput
+    definition: Input for updating a payment gateway.
+    tags:
+    - Object
+    source: openapi/woocommerce-payment-gateways-api-openapi.yml#/components/schemas/PaymentGatewayInput
+  - term: StoreProductAttribute
+    definition: A global product attribute for filtering and variation selection.
+    tags:
+    - Object
+    source: openapi/woocommerce-product-attributes-api-openapi.yml#/components/schemas/StoreProductAttribute
+  - term: StoreBrand
+    definition: A product brand.
+    tags:
+    - Object
+    source: openapi/woocommerce-product-attributes-api-openapi.yml#/components/schemas/StoreBrand
+  - term: AttributeTerm
+    definition: A term (option value) for a product attribute.
+    tags:
+    - Object
+    source: openapi/woocommerce-product-attributes-api-openapi.yml#/components/schemas/AttributeTerm
+  - term: ProductImage
+    definition: An image associated with a product.
+    tags:
+    - Object
+    source: openapi/woocommerce-product-categories-api-openapi.yml#/components/schemas/ProductImage
+  - term: ProductCategory
+    definition: A product category used to organize the store catalog.
+    tags:
+    - Object
+    source: openapi/woocommerce-product-categories-api-openapi.yml#/components/schemas/ProductCategory
+  - term: ProductCategoryInput
+    definition: Input for creating or updating a product category.
+    tags:
+    - Object
+    source: openapi/woocommerce-product-categories-api-openapi.yml#/components/schemas/ProductCategoryInput
+  - term: StoreProductCategory
+    definition: A product category for storefront display.
+    tags:
+    - Object
+    source: openapi/woocommerce-product-categories-api-openapi.yml#/components/schemas/StoreProductCategory
+  - term: StoreReview
+    definition: A customer review on a product.
+    tags:
+    - Object
+    source: openapi/woocommerce-product-reviews-api-openapi.yml#/components/schemas/StoreReview
+  - term: StoreProductTag
+    definition: A product tag used for labeling and filtering.
+    tags:
+    - Object
+    source: openapi/woocommerce-product-tags-api-openapi.yml#/components/schemas/StoreProductTag
+  - term: ProductVariation
+    definition: A variation of a variable product with its own pricing and stock.
+    tags:
+    - Object
+    source: openapi/woocommerce-product-variations-api-openapi.yml#/components/schemas/ProductVariation
+  - term: ProductVariationInput
+    definition: Input for creating or updating a product variation.
+    tags:
+    - Object
+    source: openapi/woocommerce-product-variations-api-openapi.yml#/components/schemas/ProductVariationInput
+  - term: Product
+    definition: A WooCommerce product in the store catalog.
+    tags:
+    - Object
+    source: openapi/woocommerce-products-api-openapi.yml#/components/schemas/Product
+  - term: BatchProductRequest
+    definition: Batch request for creating, updating, and deleting products.
+    tags:
+    - Object
+    source: openapi/woocommerce-products-api-openapi.yml#/components/schemas/BatchProductRequest
+  - term: BatchProductResponse
+    definition: Response from a batch product operation.
+    tags:
+    - Object
+    source: openapi/woocommerce-products-api-openapi.yml#/components/schemas/BatchProductResponse
+  - term: ProductInput
+    definition: Input payload for creating or updating a product.
+    tags:
+    - Object
+    source: openapi/woocommerce-products-api-openapi.yml#/components/schemas/ProductInput
+  - term: ProductAttribute
+    definition: A product attribute with option values.
+    tags:
+    - Object
+    source: openapi/woocommerce-products-api-openapi.yml#/components/schemas/ProductAttribute
+  - term: ProductCollectionData
+    definition: Aggregate data about a filtered product collection.
+    tags:
+    - Object
+    source: openapi/woocommerce-products-api-openapi.yml#/components/schemas/ProductCollectionData
+  - term: SalesReport
+    definition: Aggregated sales report data for a time period.
+    tags:
+    - Object
+    source: openapi/woocommerce-reports-api-openapi.yml#/components/schemas/SalesReport
+  - term: ShippingMethod
+    definition: A shipping method configured within a shipping zone.
+    tags:
+    - Object
+    source: openapi/woocommerce-shipping-zones-api-openapi.yml#/components/schemas/ShippingMethod
+  - term: ShippingZone
+    definition: A shipping zone defining geographic regions with specific shipping methods.
+    tags:
+    - Object
+    source: openapi/woocommerce-shipping-zones-api-openapi.yml#/components/schemas/ShippingZone
+  - term: SystemStatus
+    definition: WooCommerce store system status and environment information.
+    tags:
+    - Object
+    source: openapi/woocommerce-system-status-api-openapi.yml#/components/schemas/SystemStatus
+  - term: TaxRate
+    definition: A configured tax rate applied at checkout.
+    tags:
+    - Object
+    source: openapi/woocommerce-tax-rates-api-openapi.yml#/components/schemas/TaxRate
+  - term: WebhookInput
+    definition: Input for creating or updating a webhook.
+    tags:
+    - Object
+    source: openapi/woocommerce-webhooks-api-openapi.yml#/components/schemas/WebhookInput
+  - term: Webhook
+    definition: A WooCommerce webhook configuration.
+    tags:
+    - Object
+    source: openapi/woocommerce-webhooks-api-openapi.yml#/components/schemas/Webhook

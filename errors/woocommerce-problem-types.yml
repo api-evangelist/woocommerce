@@ -1,0 +1,52 @@
+generated: '2026-10-12'
+method: derived
+generator: derive-problem-types.py
+source:
+- openapi/woocommerce-cart-api-openapi.yml
+- openapi/woocommerce-checkout-api-openapi.yml
+- openapi/woocommerce-coupons-api-openapi.yml
+- openapi/woocommerce-customers-api-openapi.yml
+- openapi/woocommerce-order-notes-api-openapi.yml
+- openapi/woocommerce-order-refunds-api-openapi.yml
+- openapi/woocommerce-orders-api-openapi.yml
+- openapi/woocommerce-payment-gateways-api-openapi.yml
+- openapi/woocommerce-product-attributes-api-openapi.yml
+- openapi/woocommerce-product-categories-api-openapi.yml
+- openapi/woocommerce-product-reviews-api-openapi.yml
+- openapi/woocommerce-product-tags-api-openapi.yml
+format: custom
+envelope:
+  media_type: application/json
+  schema: Error
+coverage:
+  operations: 78
+  statuses_declared: 4
+problems:
+- status: 400
+  title: Bad Request
+  description: The request body contains invalid or missing parameters.
+  operations: 26
+  media_types:
+  - application/json
+  schema: Error
+- status: 401
+  title: Unauthorized
+  description: Authentication credentials are missing or invalid.
+  operations: 54
+  media_types:
+  - application/json
+  schema: Error
+- status: 402
+  title: Payment Required
+  description: Payment required or payment processing failed.
+  operations: 1
+  media_types:
+  - application/json
+  schema: Error
+- status: 404
+  title: Not Found
+  description: The requested resource was not found.
+  operations: 40
+  media_types:
+  - application/json
+  schema: Error

@@ -1,0 +1,70 @@
+arazzo: 1.0.1
+info:
+  title: 'WooCommerce to ActiveCampaign: Update contacts in ActiveCampaign from new WooCommerce orders'
+  summary: Update contacts in ActiveCampaign from new WooCommerce orders
+  description: Reads the order WooCommerce reports through its REST API and hands it to ActiveCampaign. Recreates the Zapier template "Update contacts in ActiveCampaign from new WooCommerce orders" as a forkable workflow; the trigger is the WooCommerce order.created webhook, which supplies the id.
+  version: 1.0.0
+sourceDescriptions:
+- name: woocommerceApi
+  url: https://raw.githubusercontent.com/api-evangelist/woocommerce/refs/heads/main/openapi/woocommerce-orders-api-openapi.yml
+  type: openapi
+- name: activecampaignApi
+  url: https://raw.githubusercontent.com/api-evangelist/activecampaign/refs/heads/main/openapi/activecampaign-contacts-api-openapi.yml
+  type: openapi
+workflows:
+- workflowId: woocommerce-activecampaign-contacts-from-orders
+  summary: Update contacts in ActiveCampaign from new WooCommerce orders
+  description: Update contacts in ActiveCampaign from new WooCommerce orders
+  inputs:
+    type: object
+    properties:
+      id:
+        type: integer
+        description: The WooCommerce order id delivered by the order.created webhook
+    required:
+    - id
+  steps:
+  - stepId: get-order
+    description: Retrieve the WooCommerce order
+    operationId: $sourceDescriptions.woocommerceApi.getOrder
+    parameters:
+    - name: id
+      in: path
+      value: $inputs.id
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      orderId: $response.body#/id
+      status: $response.body#/status
+      total: $response.body#/total
+      email: $response.body#/billing/email
+      firstName: $response.body#/billing/first_name
+      lastName: $response.body#/billing/last_name
+  - stepId: activecampaign-sync-a-contacts-data
+    description: Update contacts in ActiveCampaign from new WooCommerce orders
+    operationId: $sourceDescriptions.activecampaignApi.sync-a-contacts-data
+    successCriteria:
+    - condition: $statusCode == 201
+    outputs:
+      result: $response.body
+    requestBody:
+      contentType: application/json
+      payload:
+        contact:
+          email: $steps.get-order.outputs.email
+          firstName: $steps.get-order.outputs.firstName
+          lastName: $steps.get-order.outputs.lastName
+  outputs:
+    result: $steps.activecampaign-sync-a-contacts-data.outputs.result
+x-integration:
+  partner: activecampaign
+  template: https://zapier.com/apps/activecampaign/integrations/woocommerce/9204/update-contacts-in-activecampaign-from-new-woocommerce-orders
+  edge_evidence: https://zapier.com/apps/activecampaign/integrations/woocommerce/9204/update-contacts-in-activecampaign-from-new-woocommerce-orders
+  edge_type: marketplace
+  method: generated
+  generated: '2026-10-12'
+  generator: pipeline-enrich local-v5
+  guessed_steps:
+  - step: activecampaign-sync-a-contacts-data
+    cause: partner-contract
+    why: Field mapping from the WooCommerce record into the partner payload is our choice; the Zapier template does not publish its mapping.

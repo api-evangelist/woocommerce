@@ -1,0 +1,455 @@
+generated: '2026-10-12'
+method: derived
+generator: derive-data-model.py
+source:
+- openapi/woocommerce-cart-api-openapi.yml
+- openapi/woocommerce-checkout-api-openapi.yml
+- openapi/woocommerce-coupons-api-openapi.yml
+- openapi/woocommerce-customers-api-openapi.yml
+- openapi/woocommerce-order-notes-api-openapi.yml
+- openapi/woocommerce-order-refunds-api-openapi.yml
+- openapi/woocommerce-orders-api-openapi.yml
+- openapi/woocommerce-payment-gateways-api-openapi.yml
+- openapi/woocommerce-product-attributes-api-openapi.yml
+- openapi/woocommerce-product-categories-api-openapi.yml
+- openapi/woocommerce-product-reviews-api-openapi.yml
+- openapi/woocommerce-product-tags-api-openapi.yml
+notation: has_one = property $ref; has_many = array of $ref; belongs_to = <entity>_id field
+summary:
+  entities: 56
+  entities_in_spec: 56
+  relationships: 66
+entities:
+- name: AddCartItemInput
+  fields: 5
+  description: Input for adding an item to the cart.
+- name: Address
+  fields: 11
+  description: Billing or shipping address associated with a customer or order.
+- name: AttributeTerm
+  fields: 5
+  description: A term (option value) for a product attribute.
+- name: BatchProductRequest
+  fields: 3
+  description: Batch request for creating, updating, and deleting products.
+- name: BatchProductResponse
+  fields: 3
+  description: Response from a batch product operation.
+- name: Cart
+  fields: 14
+  description: The current customer's cart state.
+- name: CartCustomerInput
+  fields: 2
+  description: Customer address data for cart shipping/tax calculation.
+- name: CartItem
+  fields: 11
+  description: A product item in the cart.
+- name: CartShippingRate
+  fields: 5
+  description: A shipping rate option available for the cart.
+- name: CartTotals
+  fields: 11
+  description: Cart financial totals including subtotal, taxes, shipping, and grand total.
+- name: Checkout
+  fields: 4
+  description: Current checkout state.
+- name: CheckoutInput
+  fields: 6
+  description: Input payload for submitting or updating a checkout.
+- name: CheckoutOrder
+  fields: 9
+  description: An order created or retrieved via the Store API checkout flow.
+- name: Coupon
+  fields: 17
+  description: A WooCommerce discount coupon.
+- name: CouponInput
+  fields: 13
+  description: Input for creating or updating a coupon.
+- name: Customer
+  fields: 15
+  description: A WooCommerce customer account.
+- name: CustomerDownload
+  fields: 10
+  description: A downloadable file accessible to a customer.
+- name: CustomerInput
+  fields: 8
+  description: Input for creating or updating a customer.
+- name: Error
+  fields: 3
+  description: Error response returned when a request fails.
+- name: Error_2
+  fields: 3
+  description: Error response returned when a request fails.
+- name: LineItem
+  fields: 13
+  description: A product line item within an order.
+- name: MetaData
+  fields: 3
+  description: Custom metadata key-value entry.
+- name: Order
+  fields: 25
+  description: A WooCommerce customer order.
+- name: OrderInput
+  fields: 9
+  description: Input for creating or updating an order.
+- name: OrderNote
+  fields: 5
+  description: A note attached to an order.
+- name: OrderNoteInput
+  fields: 3
+  description: Input for creating an order note.
+- name: OrderRefund
+  fields: 7
+  description: A refund associated with an order.
+- name: OrderRefundInput
+  fields: 5
+  description: Input for creating an order refund.
+- name: PaymentGateway
+  fields: 9
+  description: A payment gateway installed in the WooCommerce store.
+- name: PaymentGatewayInput
+  fields: 2
+  description: Input for updating a payment gateway.
+- name: Product
+  fields: 30
+  description: A WooCommerce product in the store catalog.
+- name: ProductAttribute
+  fields: 6
+  description: A product attribute with option values.
+- name: ProductCategory
+  fields: 9
+  description: A product category used to organize the store catalog.
+- name: ProductCategoryInput
+  fields: 5
+  description: Input for creating or updating a product category.
+- name: ProductCollectionData
+  fields: 3
+  description: Aggregate data about a filtered product collection.
+- name: ProductImage
+  fields: 4
+  description: An image associated with a product.
+- name: ProductInput
+  fields: 20
+  description: Input payload for creating or updating a product.
+- name: ProductVariation
+  fields: 13
+  description: A variation of a variable product with its own pricing and stock.
+- name: ProductVariationInput
+  fields: 9
+  description: Input for creating or updating a product variation.
+- name: SalesReport
+  fields: 11
+  description: Aggregated sales report data for a time period.
+- name: ShippingMethod
+  fields: 8
+  description: A shipping method configured within a shipping zone.
+- name: ShippingZone
+  fields: 3
+  description: A shipping zone defining geographic regions with specific shipping methods.
+- name: StoreAddress
+  fields: 11
+  description: A customer billing or shipping address in the Store API context.
+- name: StoreBrand
+  fields: 5
+  description: A product brand.
+- name: StoreOrder
+  fields: 8
+  description: A customer order retrieved via the Store API.
+- name: StoreProduct
+  fields: 23
+  description: A store product returned by the public Store API.
+- name: StoreProductAttribute
+  fields: 6
+  description: A global product attribute for filtering and variation selection.
+- name: StoreProductCategory
+  fields: 8
+  description: A product category for storefront display.
+- name: StoreProductImage
+  fields: 7
+  description: Product image with thumbnail variants.
+- name: StoreProductPrice
+  fields: 10
+  description: Formatted price information for a product or variation.
+- name: StoreProductTag
+  fields: 6
+  description: A product tag used for labeling and filtering.
+- name: StoreReview
+  fields: 7
+  description: A customer review on a product.
+- name: SystemStatus
+  fields: 3
+  description: WooCommerce store system status and environment information.
+- name: TaxRate
+  fields: 11
+  description: A configured tax rate applied at checkout.
+- name: Webhook
+  fields: 9
+  description: A WooCommerce webhook configuration.
+- name: WebhookInput
+  fields: 5
+  description: Input for creating or updating a webhook.
+relationships:
+- from: CartCustomerInput
+  to: StoreAddress
+  type: has_one
+  via: billing_address
+- from: CartCustomerInput
+  to: StoreAddress
+  type: has_one
+  via: shipping_address
+- from: StoreProduct
+  to: StoreProductPrice
+  type: has_one
+  via: prices
+- from: StoreProduct
+  to: StoreProductImage
+  type: has_many
+  via: images
+- from: Cart
+  to: CartItem
+  type: has_many
+  via: items
+- from: Cart
+  to: CartTotals
+  type: has_one
+  via: totals
+- from: Cart
+  to: CartShippingRate
+  type: has_many
+  via: shipping_rates
+- from: Cart
+  to: StoreAddress
+  type: has_one
+  via: billing_address
+- from: Cart
+  to: StoreAddress
+  type: has_one
+  via: shipping_address
+- from: Cart
+  to: StoreProduct
+  type: has_many
+  via: cross_sells
+- from: CartItem
+  to: StoreProductPrice
+  type: has_one
+  via: prices
+- from: CartItem
+  to: StoreProductImage
+  type: has_many
+  via: images
+- from: CheckoutOrder
+  to: StoreAddress
+  type: has_one
+  via: billing_address
+- from: CheckoutOrder
+  to: StoreAddress
+  type: has_one
+  via: shipping_address
+- from: Checkout
+  to: Order
+  type: belongs_to
+  via: order_id
+- from: Checkout
+  to: StoreAddress
+  type: has_one
+  via: billing_address
+- from: Checkout
+  to: StoreAddress
+  type: has_one
+  via: shipping_address
+- from: CheckoutInput
+  to: StoreAddress
+  type: has_one
+  via: billing_address
+- from: CheckoutInput
+  to: StoreAddress
+  type: has_one
+  via: shipping_address
+- from: Coupon
+  to: Product
+  type: belongs_to
+  via: product_ids
+- from: Coupon
+  to: MetaData
+  type: has_many
+  via: meta_data
+- from: CouponInput
+  to: Product
+  type: belongs_to
+  via: product_ids
+- from: CouponInput
+  to: MetaData
+  type: has_many
+  via: meta_data
+- from: Customer
+  to: Address
+  type: has_one
+  via: billing
+- from: Customer
+  to: Address
+  type: has_one
+  via: shipping
+- from: Customer
+  to: MetaData
+  type: has_many
+  via: meta_data
+- from: CustomerDownload
+  to: Product
+  type: belongs_to
+  via: product_id
+- from: CustomerDownload
+  to: Order
+  type: belongs_to
+  via: order_id
+- from: CustomerInput
+  to: Address
+  type: has_one
+  via: billing
+- from: CustomerInput
+  to: Address
+  type: has_one
+  via: shipping
+- from: CustomerInput
+  to: MetaData
+  type: has_many
+  via: meta_data
+- from: OrderRefundInput
+  to: LineItem
+  type: has_many
+  via: line_items
+- from: OrderRefund
+  to: LineItem
+  type: has_many
+  via: line_items
+- from: OrderRefund
+  to: MetaData
+  type: has_many
+  via: meta_data
+- from: LineItem
+  to: Product
+  type: belongs_to
+  via: product_id
+- from: LineItem
+  to: MetaData
+  type: has_many
+  via: meta_data
+- from: Order
+  to: Customer
+  type: belongs_to
+  via: customer_id
+- from: Order
+  to: Address
+  type: has_one
+  via: billing
+- from: Order
+  to: Address
+  type: has_one
+  via: shipping
+- from: Order
+  to: LineItem
+  type: has_many
+  via: line_items
+- from: Order
+  to: MetaData
+  type: has_many
+  via: meta_data
+- from: OrderInput
+  to: Customer
+  type: belongs_to
+  via: customer_id
+- from: OrderInput
+  to: Address
+  type: has_one
+  via: billing
+- from: OrderInput
+  to: Address
+  type: has_one
+  via: shipping
+- from: OrderInput
+  to: LineItem
+  type: has_many
+  via: line_items
+- from: OrderInput
+  to: MetaData
+  type: has_many
+  via: meta_data
+- from: StoreOrder
+  to: StoreAddress
+  type: has_one
+  via: billing
+- from: StoreOrder
+  to: StoreAddress
+  type: has_one
+  via: shipping
+- from: StoreBrand
+  to: StoreProductImage
+  type: has_one
+  via: image
+- from: ProductCategory
+  to: ProductImage
+  type: has_one
+  via: image
+- from: StoreProductCategory
+  to: StoreProductImage
+  type: has_one
+  via: image
+- from: StoreReview
+  to: Product
+  type: belongs_to
+  via: product_id
+- from: ProductVariation
+  to: ProductImage
+  type: has_one
+  via: image
+- from: ProductVariation
+  to: MetaData
+  type: has_many
+  via: meta_data
+- from: ProductVariationInput
+  to: ProductImage
+  type: has_one
+  via: image
+- from: Product
+  to: ProductImage
+  type: has_many
+  via: images
+- from: Product
+  to: ProductAttribute
+  type: has_many
+  via: attributes
+- from: Product
+  to: MetaData
+  type: has_many
+  via: meta_data
+- from: BatchProductRequest
+  to: ProductInput
+  type: has_many
+  via: create
+- from: BatchProductRequest
+  to: ProductInput
+  type: has_many
+  via: update
+- from: BatchProductResponse
+  to: Product
+  type: has_many
+  via: create
+- from: BatchProductResponse
+  to: Product
+  type: has_many
+  via: update
+- from: BatchProductResponse
+  to: Product
+  type: has_many
+  via: delete
+- from: ProductInput
+  to: ProductImage
+  type: has_many
+  via: images
+- from: ProductInput
+  to: ProductAttribute
+  type: has_many
+  via: attributes
+- from: ProductInput
+  to: MetaData
+  type: has_many
+  via: meta_data

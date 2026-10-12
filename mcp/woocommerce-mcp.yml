@@ -1,0 +1,25 @@
+name: WooCommerce MCP Integration
+generated: '2026-10-12'
+method: searched
+source: https://developer.woocommerce.com/docs/features/mcp/
+status: developer-preview
+deployment:
+  mode: both
+  endpoint: https://{store-domain}/wp-json/woocommerce/mcp
+  install: mcp-wordpress-remote (local Node.js proxy)
+  package: https://github.com/woocommerce/wc-mcp-ability
+  auth: api-key
+  verified: searched
+  note: 'Self-hosted: every store serves its own MCP endpoint (deprecated /wp-json/woocommerce/mcp, created by the bundled WordPress MCP adapter when the mcp_integration feature flag is on). Docs describe clients reaching it through the local mcp-wordpress-remote stdio proxy. Endpoint is templated per store; not probed.'
+documented_abilities:
+  l3: list
+  products:
+  - Query products with filtering and pagination
+  - Create new products
+  - Update existing products
+  - Delete products
+  orders:
+  - Query orders with filtering and pagination
+  - Update order status
+  - Add order notes
+  note: Abilities are described in prose; the docs publish no tool-name table. The deprecated endpoint also exposes REST-derived product list/retrieve/create/update/delete and order list/retrieve/create/update.

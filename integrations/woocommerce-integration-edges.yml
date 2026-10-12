@@ -1,0 +1,520 @@
+generated: '2026-10-12'
+method: searched
+source:
+- https://zapier.com/apps/woocommerce/integrations
+- https://n8n.io/integrations/woocommerce/
+checked:
+- https://composio.dev/toolkits/woocommerce
+- https://monid.ai/tools/woocommerce
+- https://n8n.io/integrations/woocommerce/
+- https://zapier.com/apps/woocommerce/integrations
+summary: null
+marketplace_apps:
+- marketplace: zapier
+  channel: ipaas-listing
+  app: woocommerce
+  url: https://zapier.com/apps/woocommerce/integrations
+  external_url: https://woocommerce.com/products/woocommerce-zapier/?utm_source=zapier&utm_medium=website&utm_campaign=integration
+  partner_tier: PLATINUM
+  triggers:
+  - key: booking
+    label: Booking
+  - key: couponHook
+    label: Coupon
+  - key: customerHook
+    label: Customer
+  - key: membershipPlanHook
+    label: Membership Plan
+  - key: orderHook
+    label: Order
+  - key: orderLine
+    label: Line Item in an Order
+  - key: orderNoteHook
+    label: Order Note
+  - key: productHook
+    label: Product
+  - key: subscriptionHook
+    label: Subscription
+  - key: subscriptionNoteHook
+    label: Subscription Note
+  - key: userMembershipHook
+    label: User Membership
+  actions:
+  - key: couponCreate
+    label: Create Coupon
+  - key: couponUpdate
+    label: Update Coupon
+  - key: customerCreate
+    label: Create Customer
+  - key: customerUpdate
+    label: Update Customer
+  - key: orderCreate
+    label: Create Order
+  - key: orderNoteCreate
+    label: Create Order Note
+  - key: orderUpdate
+    label: Update Order
+  - key: productCreate
+    label: Create Product
+  - key: productPriceUpdate
+    label: Update Product Price
+  - key: productStockUpdate
+    label: Update Product Stock Quantity
+  - key: productUpdate
+    label: Update Product
+  - key: subscriptionCreate
+    label: Create Subscription
+  - key: subscriptionNoteCreate
+    label: Create Subscription Note
+  - key: subscriptionUpdate
+    label: Update Subscription
+  - key: userMembershipCreate
+    label: Create User Membership
+  - key: userMembershipUpdate
+    label: Update User Membership
+  - key: _zap_raw_request
+    label: API Request (Beta)
+  searches:
+  - key: couponSearch
+    label: Find Coupon
+  - key: customerSearch
+    label: Find Customer
+  - key: membershipPlanSearch
+    label: Find Membership Plan
+  - key: orderNoteSearch
+    label: Find Order Note
+  - key: orderSearch
+    label: Find Order
+  - key: productSearch
+    label: Find Product
+  - key: subscriptionNoteSearch
+    label: Find Subscription Note
+  - key: subscriptionSearch
+    label: Find Subscription
+  - key: userMembershipSearch
+    label: Find User Membership
+- marketplace: n8n
+  channel: open-source-node
+  app: woocommerce
+  url: https://n8n.io/integrations/woocommerce/
+  identity: title
+  pair_pages: 25
+  pairs:
+  - woodpeckerco
+  - wordpress
+  - workast
+  - workboard
+  - woxo
+  - writesonic
+  - wubook-ratechecker
+  - xero
+  - xtractly
+  - ybug
+  - ycode
+  - yodiz
+  - yourls
+  - youtube
+  - zabbix
+  - zammad
+  - zendesk
+  - zenrows
+  - zoho-books
+  - zoho-crm
+  - zoho-desk
+  - zonka-feedback
+  - zoom
+  - zscaler-zia
+  - zulip
+edges:
+- partner_name: HubSpot
+  partner: hubspot
+  partner_match: domain
+  partner_candidate: null
+  type: marketplace
+  marketplace: zapier
+  channel: ipaas-usage
+  evidence: https://zapier.com/apps/woocommerce/integrations/hubspot
+  direction: third-party
+  category: Marketing Automation
+  partner_url: http://www.hubspot.com/
+- partner_name: ActiveCampaign
+  partner: activecampaign
+  partner_match: domain
+  partner_candidate: null
+  type: marketplace
+  marketplace: zapier
+  channel: ipaas-usage
+  evidence: https://zapier.com/apps/woocommerce/integrations/activecampaign
+  direction: third-party
+  category: Marketing Automation
+  partner_url: https://www.activecampaign.com/?utm_source=unpaid_syndication_website&utm_medium=referral&utm_campaign=zapier_listing
+- partner_name: Mailchimp
+  partner: mailchimp
+  partner_match: name-exact
+  partner_candidate: null
+  type: marketplace
+  marketplace: zapier
+  channel: ipaas-usage
+  evidence: https://zapier.com/apps/woocommerce/integrations/mailchimp
+  direction: third-party
+  category: Marketing Automation
+  partner_url: https://mailchimp.com/
+- partner_name: Pipedrive
+  partner: pipedrive
+  partner_match: domain
+  partner_candidate: null
+  type: marketplace
+  marketplace: zapier
+  channel: ipaas-usage
+  evidence: https://zapier.com/apps/woocommerce/integrations/pipedrive
+  direction: third-party
+  category: CRM (Customer Relationship Management)
+  partner_url: https://pipedrive.com/
+- partner_name: Kajabi
+  partner: kajabi
+  partner_match: domain
+  partner_candidate: null
+  type: marketplace
+  marketplace: zapier
+  channel: ipaas-usage
+  evidence: https://zapier.com/apps/woocommerce/integrations/kajabi
+  direction: third-party
+  category: eCommerce
+  partner_url: http://kajabi.com/
+- partner_name: Google Ads
+  partner: google-ads
+  partner_match: name-exact
+  partner_candidate: null
+  type: marketplace
+  marketplace: zapier
+  channel: ipaas-usage
+  evidence: https://zapier.com/apps/woocommerce/integrations/google-ads
+  direction: third-party
+  category: Ads & Conversion
+  partner_url: https://ads.google.com/
+- partner_name: Airtable
+  partner: airtable
+  partner_match: domain
+  partner_candidate: null
+  type: marketplace
+  marketplace: zapier
+  channel: ipaas-usage
+  evidence: https://zapier.com/apps/woocommerce/integrations/airtable
+  direction: third-party
+  category: Databases
+  partner_url: https://airtable.com/
+- partner_name: Flodesk
+  partner: null
+  partner_match: null
+  partner_candidate: null
+  type: marketplace
+  marketplace: zapier
+  channel: ipaas-usage
+  evidence: https://zapier.com/apps/woocommerce/integrations/flodesk
+  direction: third-party
+  category: Email Newsletters
+  partner_url: https://flodesk.com/
+- partner_name: monday.com
+  partner: null
+  partner_match: null
+  partner_candidate: null
+  type: marketplace
+  marketplace: zapier
+  channel: ipaas-usage
+  evidence: https://zapier.com/apps/woocommerce/integrations/monday
+  direction: third-party
+  category: Project Management
+  partner_url: https://monday.com/
+- partner_name: LeadConnector
+  partner: null
+  partner_match: null
+  partner_candidate: null
+  type: marketplace
+  marketplace: zapier
+  channel: ipaas-usage
+  evidence: https://zapier.com/apps/woocommerce/integrations/leadconnector
+  direction: third-party
+  category: Marketing Automation
+  partner_url: https://www.leadconnectorhq.com/
+- partner_name: Xero
+  partner: xero
+  partner_match: name-exact
+  partner_candidate: null
+  type: marketplace
+  marketplace: zapier
+  channel: ipaas-usage
+  evidence: https://zapier.com/apps/woocommerce/integrations/xero
+  direction: third-party
+  category: Accounting
+  partner_url: https://xero5440.partnerlinks.io/uvwuuwrxyoi8
+- partner_name: Brevo
+  partner: brevo
+  partner_match: name-exact
+  partner_candidate: null
+  type: marketplace
+  marketplace: zapier
+  channel: ipaas-usage
+  evidence: https://zapier.com/apps/woocommerce/integrations/brevo
+  direction: third-party
+  category: Email Newsletters
+  partner_url: https://www.sendinblue.com/?utm_medium=plugin&utm_source=zapier
+- partner_name: Teachable
+  partner: teachable
+  partner_match: domain
+  partner_candidate: null
+  type: marketplace
+  marketplace: zapier
+  channel: ipaas-usage
+  evidence: https://zapier.com/apps/woocommerce/integrations/teachable
+  direction: third-party
+  category: Online Courses
+  partner_url: https://teachable.com/
+- partner_name: Zoom
+  partner: zoom
+  partner_match: domain
+  partner_candidate: null
+  type: marketplace
+  marketplace: zapier
+  channel: ipaas-usage
+  evidence: https://zapier.com/apps/woocommerce/integrations/zoom
+  direction: third-party
+  category: Video Conferencing
+  partner_url: https://www.zoom.us/
+- partner_name: Gmail
+  partner: gmail
+  partner_match: name-exact
+  partner_candidate: null
+  type: marketplace
+  marketplace: zapier
+  channel: ipaas-usage
+  evidence: https://zapier.com/apps/woocommerce/integrations/gmail
+  direction: third-party
+  category: Email
+  partner_url: https://mail.google.com/
+- partner_name: WPForms
+  partner: null
+  partner_match: null
+  partner_candidate: null
+  type: marketplace
+  marketplace: zapier
+  channel: ipaas-usage
+  evidence: https://zapier.com/apps/woocommerce/integrations/wpforms
+  direction: third-party
+  category: Forms & Surveys
+  partner_url: https://wpforms.com/
+- partner_name: Gravity Forms
+  partner: gravity-forms
+  partner_match: domain
+  partner_candidate: null
+  type: marketplace
+  marketplace: zapier
+  channel: ipaas-usage
+  evidence: https://zapier.com/apps/woocommerce/integrations/gravity-forms
+  direction: third-party
+  category: Forms & Surveys
+  partner_url: https://www.gravityforms.com/?utm_campaign=partners&utm_source=zapier-listing-learn-more&utm_medium=free-placement
+- partner_name: MailerLite
+  partner: mailerlite
+  partner_match: domain
+  partner_candidate: null
+  type: marketplace
+  marketplace: zapier
+  channel: ipaas-usage
+  evidence: https://zapier.com/apps/woocommerce/integrations/mailerlite
+  direction: third-party
+  category: Marketing Automation
+  partner_url: https://www.mailerlite.com/?utm_source=zapier&utm_medium=partner&utm_campaign=profile&utm_term=learn_more&utm_content=integrations
+- partner_name: Kartra
+  partner: kartra
+  partner_match: domain
+  partner_candidate: null
+  type: marketplace
+  marketplace: zapier
+  channel: ipaas-usage
+  evidence: https://zapier.com/apps/woocommerce/integrations/kartra
+  direction: third-party
+  category: Marketing Automation
+  partner_url: https://home.kartra.com/
+- partner_name: LearnDash
+  partner: null
+  partner_match: null
+  partner_candidate: null
+  type: marketplace
+  marketplace: zapier
+  channel: ipaas-usage
+  evidence: https://zapier.com/apps/woocommerce/integrations/learndash
+  direction: third-party
+  category: Online Courses
+  partner_url: https://www.learndash.com/
+- partner_name: Twilio
+  partner: twilio
+  partner_match: domain
+  partner_candidate: null
+  type: marketplace
+  marketplace: zapier
+  channel: ipaas-usage
+  evidence: https://zapier.com/apps/woocommerce/integrations/twilio
+  direction: third-party
+  category: Phone & SMS
+  partner_url: https://www.twilio.com/
+- partner_name: ClickFunnels Classic
+  partner: clickfunnels
+  partner_match: domain
+  partner_candidate: null
+  type: marketplace
+  marketplace: zapier
+  channel: ipaas-usage
+  evidence: https://zapier.com/apps/woocommerce/integrations/clickfunnels-classic
+  direction: third-party
+  category: Marketing Automation
+  partner_url: https://www.clickfunnels.com/
+- partner_name: Circle
+  partner: circle-community
+  partner_match: domain
+  partner_candidate: null
+  type: marketplace
+  marketplace: zapier
+  channel: ipaas-usage
+  evidence: https://zapier.com/apps/woocommerce/integrations/circle
+  direction: third-party
+  category: CRM (Customer Relationship Management)
+  partner_url: https://circle.so/
+- partner_name: WordPress
+  partner: wordpress
+  partner_match: domain
+  partner_candidate: null
+  type: marketplace
+  marketplace: zapier
+  channel: ipaas-usage
+  evidence: https://zapier.com/apps/woocommerce/integrations/wordpress
+  direction: third-party
+  category: Website Builders
+  partner_url: https://wordpress.org/
+- partner_name: Google Sheets
+  partner: google-sheets
+  partner_match: name-exact
+  partner_candidate: null
+  type: marketplace
+  marketplace: zapier
+  channel: ipaas-usage
+  evidence: https://zapier.com/apps/woocommerce/integrations/google-sheets
+  direction: third-party
+  category: Google
+  partner_url: http://sheets.google.com/
+- partner_name: ClickUp
+  partner: clickup
+  partner_match: domain
+  partner_candidate: null
+  type: marketplace
+  marketplace: zapier
+  channel: ipaas-usage
+  evidence: https://zapier.com/apps/woocommerce/integrations/clickup
+  direction: third-party
+  category: Project Management
+  partner_url: https://clickup.com/zapier
+- partner_name: Trello
+  partner: trello
+  partner_match: domain
+  partner_candidate: null
+  type: marketplace
+  marketplace: zapier
+  channel: ipaas-usage
+  evidence: https://zapier.com/apps/woocommerce/integrations/trello
+  direction: third-party
+  category: Project Management
+  partner_url: https://trello.com/
+- partner_name: WhatsApp Notifications
+  partner: null
+  partner_match: null
+  partner_candidate: null
+  type: marketplace
+  marketplace: zapier
+  channel: ipaas-usage
+  evidence: https://zapier.com/apps/woocommerce/integrations/whatsapp-notifications
+  direction: third-party
+  category: Communication
+  partner_url: null
+- partner_name: Microsoft Excel
+  partner: null
+  partner_match: null
+  partner_candidate: zapier
+  type: marketplace
+  marketplace: zapier
+  channel: ipaas-usage
+  evidence: https://zapier.com/apps/woocommerce/integrations/excel
+  direction: third-party
+  category: Microsoft
+  partner_url: https://zapier.com/office.com
+- partner_name: MailerLite Classic
+  partner: mailerlite
+  partner_match: domain
+  partner_candidate: null
+  type: marketplace
+  marketplace: zapier
+  channel: ipaas-usage
+  evidence: https://zapier.com/apps/woocommerce/integrations/mailerlite-classic
+  direction: third-party
+  category: Email Newsletters
+  partner_url: https://www.mailerlite.com/
+templates:
+- title: Save new WooCommerce orders to Google Sheets rows
+  url: https://zapier.com/apps/google-sheets/integrations/woocommerce/3142/save-new-woocommerce-orders-to-google-sheets-rows
+  apps:
+  - woocommerce
+  - google-sheets
+- title: Add WooCommerce orders to Google Sheets rows
+  url: https://zapier.com/apps/google-sheets/integrations/woocommerce/3139/add-woocommerce-orders-to-google-sheets-rows
+  apps:
+  - woocommerce
+  - google-sheets
+- title: Create Xero invoices for new WooCommerce orders
+  url: https://zapier.com/apps/woocommerce/integrations/xero/2121/create-xero-invoices-for-new-woocommerce-orders
+  apps:
+  - woocommerce
+  - xero
+- title: Add new WooCommerce customers to Google Ads Custom Lists
+  url: https://zapier.com/apps/google-ads/integrations/woocommerce/78030/add-new-woocommerce-customers-to-google-ads-custom-lists
+  apps:
+  - woocommerce
+  - google-ads
+- title: Update contacts in ActiveCampaign from new WooCommerce orders
+  url: https://zapier.com/apps/activecampaign/integrations/woocommerce/9204/update-contacts-in-activecampaign-from-new-woocommerce-orders
+  apps:
+  - woocommerce
+  - activecampaign
+- title: Update contacts in Flodesk from new WooCommerce orders
+  url: https://zapier.com/apps/flodesk/integrations/woocommerce/112430/update-contacts-in-flodesk-from-new-woocommerce-orders
+  apps:
+  - woocommerce
+  - flodesk
+- title: Create FacturaDirecta invoices from new WooCommerce orders
+  url: https://zapier.com/apps/facturadirecta/integrations/woocommerce/21357/create-facturadirecta-invoices-from-new-woocommerce-orders
+  apps:
+  - woocommerce
+  - facturadirecta
+- title: Add new WooCommerce customers to ActiveCampaign
+  url: https://zapier.com/apps/activecampaign/integrations/woocommerce/1830/add-new-woocommerce-customers-to-activecampaign
+  apps:
+  - woocommerce
+  - activecampaign
+- title: Add new WooCommerce customers to Google Ads customer lists
+  url: https://zapier.com/apps/google-ads/integrations/woocommerce/88826/add-new-woocommerce-customers-to-google-ads-customer-lists
+  apps:
+  - woocommerce
+  - google-ads
+- title: Post new WooCommerce orders to Slack messages
+  url: https://zapier.com/apps/slack/integrations/woocommerce/1490/post-new-woocommerce-orders-to-slack-messages
+  apps:
+  - woocommerce
+  - slack
+- title: Save new WooCommerce clients to HubSpot contacts
+  url: https://zapier.com/apps/hubspot/integrations/woocommerce/3144/save-new-woocommerce-clients-to-hubspot-contacts
+  apps:
+  - woocommerce
+  - hubspot
+- title: Create Trello cards from new WooCommerce orders
+  url: https://zapier.com/apps/trello/integrations/woocommerce/3341/create-trello-cards-from-new-woocommerce-orders
+  apps:
+  - woocommerce
+  - trello
+template_total: 2476

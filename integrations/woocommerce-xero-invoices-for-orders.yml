@@ -1,0 +1,81 @@
+arazzo: 1.0.1
+info:
+  title: 'WooCommerce to Xero: Create Xero invoices for new WooCommerce orders'
+  summary: Create Xero invoices for new WooCommerce orders
+  description: Reads the order WooCommerce reports through its REST API and hands it to Xero. Recreates the Zapier template "Create Xero invoices for new WooCommerce orders" as a forkable workflow; the trigger is the WooCommerce order.created webhook, which supplies the id.
+  version: 1.0.0
+sourceDescriptions:
+- name: woocommerceApi
+  url: https://raw.githubusercontent.com/api-evangelist/woocommerce/refs/heads/main/openapi/woocommerce-orders-api-openapi.yml
+  type: openapi
+- name: xeroApi
+  url: https://raw.githubusercontent.com/api-evangelist/xero/refs/heads/main/openapi/xero-accounting-api-openapi.yml
+  type: openapi
+workflows:
+- workflowId: woocommerce-xero-invoices-for-orders
+  summary: Create Xero invoices for new WooCommerce orders
+  description: Create Xero invoices for new WooCommerce orders
+  inputs:
+    type: object
+    properties:
+      id:
+        type: integer
+        description: The WooCommerce order id delivered by the order.created webhook
+      xeroTenantId:
+        type: string
+    required:
+    - id
+  steps:
+  - stepId: get-order
+    description: Retrieve the WooCommerce order
+    operationId: $sourceDescriptions.woocommerceApi.getOrder
+    parameters:
+    - name: id
+      in: path
+      value: $inputs.id
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      orderId: $response.body#/id
+      status: $response.body#/status
+      total: $response.body#/total
+      email: $response.body#/billing/email
+      firstName: $response.body#/billing/first_name
+      lastName: $response.body#/billing/last_name
+  - stepId: xero-createinvoices
+    description: Create Xero invoices for new WooCommerce orders
+    operationId: $sourceDescriptions.xeroApi.createInvoices
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      result: $response.body
+    parameters:
+    - name: xero-tenant-id
+      in: header
+      value: $inputs.xeroTenantId
+    requestBody:
+      contentType: application/json
+      payload:
+        Invoices:
+        - Type: ACCREC
+          Contact:
+            EmailAddress: $steps.get-order.outputs.email
+          Reference: $steps.get-order.outputs.orderId
+          LineItems:
+          - Description: WooCommerce order
+            Quantity: 1
+            UnitAmount: $steps.get-order.outputs.total
+  outputs:
+    result: $steps.xero-createinvoices.outputs.result
+x-integration:
+  partner: xero
+  template: https://zapier.com/apps/woocommerce/integrations/xero/2121/create-xero-invoices-for-new-woocommerce-orders
+  edge_evidence: https://zapier.com/apps/woocommerce/integrations/xero/2121/create-xero-invoices-for-new-woocommerce-orders
+  edge_type: marketplace
+  method: generated
+  generated: '2026-10-12'
+  generator: pipeline-enrich local-v5
+  guessed_steps:
+  - step: xero-createinvoices
+    cause: partner-contract
+    why: Field mapping from the WooCommerce record into the partner payload is our choice; the Zapier template does not publish its mapping.

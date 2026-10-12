@@ -1,0 +1,12 @@
+name: WooCommerce Lifecycle
+generated: '2026-10-12'
+method: searched
+source:
+- https://developer.woocommerce.com/changelog/
+- https://developer.woocommerce.com/docs/features/mcp/
+versioning: REST API versions by URL namespace (wc/v3 current; legacy v1/v2 remain); WooCommerce core ships monthly releases (e.g. 10.8, 10.9) announced on the developer changelog.
+deprecation: https://developer.woocommerce.com/docs/features/mcp/
+deprecation_note: The WooCommerce MCP endpoint /wp-json/woocommerce/mcp is documented as deprecated in favour of the shared WordPress MCP adapter.
+status_page: null
+changelog: https://developer.woocommerce.com/changelog/
+status_page_note: status.woocommerce.com returns NXDOMAIN (2026-10-12); no status page found.

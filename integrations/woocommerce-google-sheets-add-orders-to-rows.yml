@@ -1,0 +1,84 @@
+arazzo: 1.0.1
+info:
+  title: 'WooCommerce to Google Sheets: Add WooCommerce orders to Google Sheets rows'
+  summary: Add WooCommerce orders to Google Sheets rows
+  description: Reads the order WooCommerce reports through its REST API and hands it to Google Sheets. Recreates the Zapier template "Add WooCommerce orders to Google Sheets rows" as a forkable workflow; the trigger is the WooCommerce order.created webhook, which supplies the id.
+  version: 1.0.0
+sourceDescriptions:
+- name: woocommerceApi
+  url: https://raw.githubusercontent.com/api-evangelist/woocommerce/refs/heads/main/openapi/woocommerce-orders-api-openapi.yml
+  type: openapi
+- name: googlesheetsApi
+  url: https://raw.githubusercontent.com/api-evangelist/google-sheets/refs/heads/main/openapi/google-sheets-values-api-openapi.yml
+  type: openapi
+workflows:
+- workflowId: woocommerce-google-sheets-add-orders-to-rows
+  summary: Add WooCommerce orders to Google Sheets rows
+  description: Add WooCommerce orders to Google Sheets rows
+  inputs:
+    type: object
+    properties:
+      id:
+        type: integer
+        description: The WooCommerce order id delivered by the order.created webhook
+      spreadsheetId:
+        type: string
+      range:
+        type: string
+    required:
+    - id
+  steps:
+  - stepId: get-order
+    description: Retrieve the WooCommerce order
+    operationId: $sourceDescriptions.woocommerceApi.getOrder
+    parameters:
+    - name: id
+      in: path
+      value: $inputs.id
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      orderId: $response.body#/id
+      status: $response.body#/status
+      total: $response.body#/total
+      email: $response.body#/billing/email
+      firstName: $response.body#/billing/first_name
+      lastName: $response.body#/billing/last_name
+  - stepId: google-sheets-appendvalues
+    description: Add WooCommerce orders to Google Sheets rows
+    operationId: $sourceDescriptions.googlesheetsApi.appendValues
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      result: $response.body
+    parameters:
+    - name: spreadsheetId
+      in: path
+      value: $inputs.spreadsheetId
+    - name: range
+      in: path
+      value: $inputs.range
+    - name: valueInputOption
+      in: query
+      value: RAW
+    requestBody:
+      contentType: application/json
+      payload:
+        values:
+        - - $steps.get-order.outputs.orderId
+          - $steps.get-order.outputs.status
+          - $steps.get-order.outputs.total
+  outputs:
+    result: $steps.google-sheets-appendvalues.outputs.result
+x-integration:
+  partner: google-sheets
+  template: https://zapier.com/apps/google-sheets/integrations/woocommerce/3139/add-woocommerce-orders-to-google-sheets-rows
+  edge_evidence: https://zapier.com/apps/google-sheets/integrations/woocommerce/3139/add-woocommerce-orders-to-google-sheets-rows
+  edge_type: marketplace
+  method: generated
+  generated: '2026-10-12'
+  generator: pipeline-enrich local-v5
+  guessed_steps:
+  - step: google-sheets-appendvalues
+    cause: partner-contract
+    why: Field mapping from the WooCommerce record into the partner payload is our choice; the Zapier template does not publish its mapping.

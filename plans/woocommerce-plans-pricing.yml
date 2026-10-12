@@ -1,139 +1,25 @@
-specification: API Commons Plans
-specificationVersion: '0.1'
-schema: https://raw.githubusercontent.com/api-evangelist/interface-research/main/schema/api-commons.yml#/$defs/Plans
-provider: WooCommerce
-providerId: woocommerce
-created: '2026-05-04'
-# Provenance stamped 2026-08-11: this artifact was written by the API Evangelist
-# bulk sweep dated 2026-05-04, not harvested from the provider. See roadmap#35.
-method: generated
-modified: '2026-05-04'
-reconciled: true
-tags:
-  - E-Commerce
-  - WordPress
-description: WooCommerce free open-source plugin + pay-as-you-grow extensions and hosting.
-sources:
-  - https://woocommerce.com/pricing/
+name: WooCommerce Pricing
+generated: '2026-10-12'
+method: searched
+source: https://woocommerce.com/pricing/
+audience: business-product
+pricing_basis: free
+published: true
+delivery:
+  delivery: self-hosted
+  evidence: WooCommerce is the free, open-source ecommerce platform for WordPress.
+  free_edition: WooCommerce
 plans:
-  - id: woocommerce-core
-    name: Core Platform
-    type: freemium
-    description: Free open-source WordPress plugin.
-    entries:
-      - label: Per install
-        name: install
-        type: subscription
-        metric: month
-        limit: -1
-        timeFrame: month
-        geo: global
-        unit: 1
-        price: '0.00'
-        userMultiplied: false
-    elements:
-      - name: Free download and use
-      - name: No monthly subscription
-      - name: 0% revenue share
-      - name: Unlimited products/orders/APIs
-      - name: No platform fees
-  - id: woocommerce-hosting
-    name: Hosting (Choose Your Own)
-    type: subscription
-    description: $25-$350/month from chosen WordPress host.
-    entries:
-      - label: Hosting per month
-        name: hosting
-        type: subscription
-        metric: month
-        limit: -1
-        timeFrame: month
-        geo: global
-        unit: 1
-        price: 25.00-350.00
-        userMultiplied: false
-    elements:
-      - name: Choose your own provider (WP Engine, Pressable, Bluehost, etc.)
-      - name: Scales with traffic
-      - name: No forced bundles
-  - id: woocommerce-payments
-    name: Payment Processing
-    type: usage-based
-    description: ~2.50%-2.90% + $0.30 per transaction (gateway-dependent).
-    entries:
-      - label: Per transaction
-        name: tx
-        type: metered
-        metric: transaction
-        limit: -1
-        timeFrame: usage
-        geo: global
-        unit: 1
-        price: 2.50-2.90% + $0.30
-        userMultiplied: false
-    elements:
-      - name: No platform penalty fees
-      - name: Choose any processor or BNPL
-      - name: Run multiple gateways
-      - name: Negotiate rates directly
-  - id: woocommerce-extensions
-    name: Extensions
-    type: subscription
-    description: $29-$299/year per extension.
-    entries:
-      - label: Per extension per year
-        name: extension
-        type: subscription
-        metric: year
-        limit: -1
-        timeFrame: year
-        geo: global
-        unit: 1
-        price: 29.00-299.00
-        userMultiplied: false
-    elements:
-      - name: Optional add-ons
-      - name: À la carte pricing
-      - name: Marketplace and 3rd-party
-x-canonical:
-  generated: '2026-10-08'
-  vocabulary: all/0-working/economics/plans-canonical.yml
-  models:
-  - metered
-  - subscription
-  units:
-  - period
-  - transaction
-  plans:
-  - name: Core Platform
-    access: freemium
-    model: subscription
-    model_how: derived
-    units:
-    - period
-    periods:
-    - month
-  - name: Hosting (Choose Your Own)
-    access: other
-    model: subscription
-    model_how: stated
-    units:
-    - period
-    periods:
-    - month
-  - name: Payment Processing
-    access: other
-    model: metered
-    model_how: stated
-    units:
-    - transaction
-    periods:
-    - per-use
-  - name: Extensions
-    access: other
-    model: subscription
-    model_how: stated
-    units:
-    - period
-    periods:
-    - year
+- name: Core platform
+  description: WooCommerce core plugin, which includes the REST API and Store API.
+  price: 0
+  price_text: Free, with no monthly subscription.
+  features:
+  - 0 % revenue share
+  limits: []
+- name: Extensions
+  description: Optional paid extensions from the WooCommerce Marketplace.
+  price_text: $29 – $299/year per extension to enhance your store.
+  features:
+  - Add à la carte
+  limits: []

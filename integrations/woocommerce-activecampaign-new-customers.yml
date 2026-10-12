@@ -1,0 +1,68 @@
+arazzo: 1.0.1
+info:
+  title: 'WooCommerce to ActiveCampaign: Add new WooCommerce customers to ActiveCampaign'
+  summary: Add new WooCommerce customers to ActiveCampaign
+  description: Reads the customer WooCommerce reports through its REST API and hands it to ActiveCampaign. Recreates the Zapier template "Add new WooCommerce customers to ActiveCampaign" as a forkable workflow; the trigger is the WooCommerce customer.created webhook, which supplies the id.
+  version: 1.0.0
+sourceDescriptions:
+- name: woocommerceApi
+  url: https://raw.githubusercontent.com/api-evangelist/woocommerce/refs/heads/main/openapi/woocommerce-customers-api-openapi.yml
+  type: openapi
+- name: activecampaignApi
+  url: https://raw.githubusercontent.com/api-evangelist/activecampaign/refs/heads/main/openapi/activecampaign-contacts-api-openapi.yml
+  type: openapi
+workflows:
+- workflowId: woocommerce-activecampaign-new-customers
+  summary: Add new WooCommerce customers to ActiveCampaign
+  description: Add new WooCommerce customers to ActiveCampaign
+  inputs:
+    type: object
+    properties:
+      id:
+        type: integer
+        description: The WooCommerce customer id delivered by the customer.created webhook
+    required:
+    - id
+  steps:
+  - stepId: get-customer
+    description: Retrieve the WooCommerce customer
+    operationId: $sourceDescriptions.woocommerceApi.getCustomer
+    parameters:
+    - name: id
+      in: path
+      value: $inputs.id
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      customerId: $response.body#/id
+      email: $response.body#/email
+      firstName: $response.body#/first_name
+      lastName: $response.body#/last_name
+  - stepId: activecampaign-create-a-new-contact
+    description: Add new WooCommerce customers to ActiveCampaign
+    operationId: $sourceDescriptions.activecampaignApi.create-a-new-contact
+    successCriteria:
+    - condition: $statusCode == 201
+    outputs:
+      result: $response.body
+    requestBody:
+      contentType: application/json
+      payload:
+        contact:
+          email: $steps.get-customer.outputs.email
+          firstName: $steps.get-customer.outputs.firstName
+          lastName: $steps.get-customer.outputs.lastName
+  outputs:
+    result: $steps.activecampaign-create-a-new-contact.outputs.result
+x-integration:
+  partner: activecampaign
+  template: https://zapier.com/apps/activecampaign/integrations/woocommerce/1830/add-new-woocommerce-customers-to-activecampaign
+  edge_evidence: https://zapier.com/apps/activecampaign/integrations/woocommerce/1830/add-new-woocommerce-customers-to-activecampaign
+  edge_type: marketplace
+  method: generated
+  generated: '2026-10-12'
+  generator: pipeline-enrich local-v5
+  guessed_steps:
+  - step: activecampaign-create-a-new-contact
+    cause: partner-contract
+    why: Field mapping from the WooCommerce record into the partner payload is our choice; the Zapier template does not publish its mapping.
