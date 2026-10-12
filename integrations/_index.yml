@@ -424,3 +424,405 @@
   source: edge
   status: pending-generation
   arazzo: null
+- slug: woocommerce-mastercard
+  label: Mastercard
+  partner: mastercard
+  partner_name: Mastercard
+  category: Official payments
+  use_case: 'Mastercard Merchant Cloud: A seamless checkout with 35+ payment methods for global needs. Enjoy built-in
+    security and simple integration for a smooth experience.'
+  type: marketplace
+  marketplace: own
+  channel: partner-built
+  evidence: https://woocommerce.com/products/mastercard-merchant-cloud/
+  source: edge
+  relationship: platform-app
+  status: not-a-workflow
+  arazzo: null
+- slug: woocommerce-woo
+  label: Woo
+  partner_name: Woo
+  category: Shipping, delivery and fulfillment
+  use_case: 'ShipStation: Ship your WooCommerce orders with confidence, save on top carriers, and automate your
+    processes with ShipStation.'
+  type: marketplace
+  marketplace: own
+  channel: partner-built
+  evidence: https://woocommerce.com/products/shipstation-integration/
+  source: edge
+  relationship: platform-app
+  status: not-a-workflow
+  arazzo: null
+- slug: woocommerce-klaviyo
+  label: Klaviyo
+  partner: klaviyo
+  partner_name: Klaviyo
+  category: Conversion
+  use_case: 'Klaviyo: As Woo’s preferred marketing automation platform, Klaviyo unifies email and SMS marketing,
+    customer analytics, and product reviews to help your brand achieve better marketing ROI.'
+  type: marketplace
+  marketplace: own
+  channel: partner-built
+  evidence: https://woocommerce.com/products/klaviyo-for-woocommerce/
+  source: edge
+  relationship: platform-app
+  status: not-a-workflow
+  arazzo: null
+- slug: woocommerce-skyverge
+  label: SkyVerge
+  partner_name: SkyVerge
+  category: Merchandising
+  use_case: 'WooCommerce Memberships: Create a membership site using WordPress and WooCommerce. You can restrict
+    your content to members, but you can also “drip” that content over time to schedule when members have access.'
+  type: marketplace
+  marketplace: own
+  channel: partner-built
+  evidence: https://woocommerce.com/products/woocommerce-memberships/
+  source: edge
+  relationship: platform-app
+  status: not-a-workflow
+  arazzo: null
+- slug: woocommerce-storeapps
+  label: StoreApps
+  partner_name: StoreApps
+  category: Conversion
+  use_case: 'Smart Coupons: Advanced Smart Coupons for WooCommerce plugin. Gift cards, discount rules, store credits,
+    BOGO, coupon code generator, URL coupons…everything to grow sales.'
+  type: marketplace
+  marketplace: own
+  channel: partner-built
+  evidence: https://woocommerce.com/products/smart-coupons/
+  source: edge
+  relationship: platform-app
+  status: not-a-workflow
+  arazzo: null
+- slug: woocommerce-elextensions
+  label: ELEXtensions
+  partner_name: ELEXtensions
+  category: Store management
+  use_case: 'Bulk Edit Products, Prices, and Attributes: Bulk edit any WooCommerce products instantly with WooCommerce
+    Bulk Edit Products, Prices, and Attributes! Faster, easier, efficient management awaits!'
+  type: marketplace
+  marketplace: own
+  channel: partner-built
+  evidence: https://woocommerce.com/products/bulk-edit-products-prices-and-attributes/
+  source: edge
+  relationship: platform-app
+  status: not-a-workflow
+  arazzo: null
+- slug: woocommerce-addify
+  label: Addify
+  partner_name: Addify
+  category: Store content and customizations
+  use_case: 'Advanced Product Quantity: WooCommerce Quantity plugin empowers you to control product & cart quantities.
+    Configure minimum, maximum, fixed, decimal, incremental and quantities dropdown.'
+  type: marketplace
+  marketplace: own
+  channel: partner-built
+  evidence: https://woocommerce.com/products/advanced-product-quantity/
+  source: edge
+  relationship: platform-app
+  status: not-a-workflow
+  arazzo: null
+- slug: woocommerce-flintop
+  label: Flintop
+  partner_name: Flintop
+  category: Conversion
+  use_case: 'Credit Line or Credits: Offer a Line of Credit to your users for purchasing in your shop. Your users
+    can buy now and pay later using the Credit Line.'
+  type: marketplace
+  marketplace: own
+  channel: partner-built
+  evidence: https://woocommerce.com/products/credits-for-woocommerce/
+  source: edge
+  relationship: platform-app
+  status: not-a-workflow
+  arazzo: null
+- slug: woocommerce-rapyd
+  label: Rapyd
+  partner: rapyd
+  partner_name: Rapyd
+  category: Official payments
+  use_case: 'Rapyd Payments: The fastest way to send and accept payments, worldwide, Rapyd offers payment Solutions
+    that Power Local and Cross-Border Commerce.'
+  type: marketplace
+  marketplace: own
+  channel: partner-built
+  evidence: https://woocommerce.com/products/rapyd-payments-for-woocommerce/
+  source: edge
+  relationship: platform-app
+  status: not-a-workflow
+  arazzo: null
+- slug: woocommerce-u2code-kolya-lukin
+  label: u2code - Kolya Lukin
+  partner_name: u2code - Kolya Lukin
+  category: Customer service
+  use_case: 'Order Chatroom: A private chat on every order. Customers and your team message, attach files and get
+    notified, right inside WooCommerce.'
+  type: marketplace
+  marketplace: own
+  channel: partner-built
+  evidence: https://woocommerce.com/products/order-messenger-for-woocommerce/
+  source: edge
+  relationship: platform-app
+  status: not-a-workflow
+  arazzo: null
+- slug: woocommerce-fmeaddons
+  label: FmeAddons
+  partner_name: FmeAddons
+  category: Merchandising
+  use_case: 'Product Variations Table: Display product variations in a single table using the product variation
+    table for the WooCommerce plugin and help users easily find the product they need.'
+  type: marketplace
+  marketplace: own
+  channel: partner-built
+  evidence: https://woocommerce.com/products/product-variations-table-for-woocommerce/
+  source: edge
+  relationship: platform-app
+  status: not-a-workflow
+  arazzo: null
+- slug: woocommerce-aicoso
+  label: AICOSO
+  partner_name: AICOSO
+  category: Marketing
+  use_case: 'Share Cart URL: Let WooCommerce customers share pre-filled cart links via Facebook, WhatsApp & Email
+    with AICOSO | Build fully customizable carts at $29/yr'
+  type: marketplace
+  marketplace: own
+  channel: partner-built
+  evidence: https://woocommerce.com/products/share-cart-url-for-woocommerce/
+  source: edge
+  relationship: platform-app
+  status: not-a-workflow
+  arazzo: null
+- slug: woocommerce-thedotstore
+  label: theDotstore
+  partner_name: theDotstore
+  category: Store content and customizations
+  use_case: 'Salsify Integration: Automate omnichannel commerce by syncing Salsify product data to WooCommerce with
+    intelligent, real-time updates.'
+  type: marketplace
+  marketplace: own
+  channel: partner-built
+  evidence: https://woocommerce.com/products/salsify-integration/
+  source: edge
+  relationship: platform-app
+  status: not-a-workflow
+  arazzo: null
+- slug: woocommerce-livesmart
+  label: LiveSmart
+  partner_name: LiveSmart
+  category: Customer service
+  use_case: 'AI Shopping Assistant: Transform your store with a ChatGPT-powered AI agent that guides customers from
+    discovery to checkout. Let your shoppers find, compare, and buy products through natural conversation, voice
+    commands, and image search.'
+  type: marketplace
+  marketplace: own
+  channel: partner-built
+  evidence: https://woocommerce.com/products/livesmart-ai-assistant/
+  source: edge
+  relationship: platform-app
+  status: not-a-workflow
+  arazzo: null
+- slug: woocommerce-toplayer-creative
+  label: TopLayer Creative
+  partner_name: TopLayer Creative
+  category: Merchandising
+  use_case: 'TopLayer/LEO – Variation Generator: Create, convert, and rebuild WooCommerce variable products from
+    one focused screen. Generate every selected attribute combination with predictable SKUs, prices, images, stock
+    settings, and optional catalo'
+  type: marketplace
+  marketplace: own
+  channel: partner-built
+  evidence: https://woocommerce.com/products/toplayer-leo-variation-generator/
+  source: edge
+  relationship: platform-app
+  status: not-a-workflow
+  arazzo: null
+- slug: woocommerce-roundborders
+  label: RoundBorders
+  partner_name: RoundBorders
+  category: Marketing
+  use_case: 'Elite Balance: Customer wallets and store credit for WooCommerce. Refund to the wallet, reward with
+    cashback, and let customers pay with their balance.'
+  type: marketplace
+  marketplace: own
+  channel: partner-built
+  evidence: https://woocommerce.com/products/elite-balance/
+  source: edge
+  relationship: platform-app
+  status: not-a-workflow
+  arazzo: null
+- slug: woocommerce-komoju
+  label: KOMOJU
+  partner: komoju
+  partner_name: KOMOJU
+  category: Official payments
+  use_case: 'KOMOJU Payments: Easily add popular Japanese payment methods like konbini, PayPay, and more with KOMOJU''s
+    secure extension to optimize checkout.'
+  type: marketplace
+  marketplace: own
+  channel: partner-built
+  evidence: https://woocommerce.com/products/komoju-japanese-payments/
+  source: edge
+  relationship: platform-app
+  status: not-a-workflow
+  arazzo: null
+- slug: woocommerce-andale-technolgies-sarl
+  label: Andale Technolgies, SARL
+  partner_name: Andale Technolgies, SARL
+  category: Merchandising
+  use_case: 'Box Contents: Show shoppers exactly what’s included with each product and help them understand the
+    full value of your offer.'
+  type: marketplace
+  marketplace: own
+  channel: partner-built
+  evidence: https://woocommerce.com/products/box-contents/
+  source: edge
+  relationship: platform-app
+  status: not-a-workflow
+  arazzo: null
+- slug: woocommerce-helcim
+  label: Helcim
+  partner: helcim
+  partner_name: Helcim
+  category: Official payments
+  use_case: 'Helcim: Accept credit cards and Google Pay directly on your store with zero monthly fees. Save up to
+    25% using Helcim’s transparent interchange-plus pricing, and lower your PCI compliance scope with a secure,
+    brand-customized checkout.'
+  type: marketplace
+  marketplace: own
+  channel: partner-built
+  evidence: https://woocommerce.com/products/helcim-commerce-for-woocommerce/
+  source: edge
+  relationship: platform-app
+  status: not-a-workflow
+  arazzo: null
+- slug: woocommerce-state-report-pro-for-woocommerce
+  label: State Report Pro for WooCommerce
+  partner_name: State Report Pro for WooCommerce
+  category: Store management
+  use_case: 'Sales by State Report Pro: See where your customers buy, which states bring in the most revenue, and
+    get warned before a state''s sales tax threshold.'
+  type: marketplace
+  marketplace: own
+  channel: partner-built
+  evidence: https://woocommerce.com/products/sales-by-state-report-pro/
+  source: edge
+  relationship: platform-app
+  status: not-a-workflow
+  arazzo: null
+- slug: woocommerce-stripe
+  label: Stripe
+  partner: stripe
+  partner_name: Stripe
+  category: Official payments
+  use_case: 'Stripe: Maximize revenue with the new checkout from Stripe.'
+  type: marketplace
+  marketplace: own
+  channel: partner-built
+  evidence: https://woocommerce.com/products/stripe/
+  source: edge
+  relationship: platform-app
+  status: not-a-workflow
+  arazzo: null
+- slug: woocommerce-paypal
+  label: PayPal
+  partner: paypal
+  partner_name: PayPal
+  category: Official payments
+  use_case: 'PayPal Payments: The official, all-in-one checkout solution that allows you to offer PayPal, Venmo
+    (US), Pay Later, credit and debit cards, country-specific payment options, and more.'
+  type: marketplace
+  marketplace: own
+  channel: partner-built
+  evidence: https://woocommerce.com/products/woocommerce-paypal-payments/
+  source: edge
+  relationship: platform-app
+  status: not-a-workflow
+  arazzo: null
+- slug: woocommerce-mollie
+  label: Mollie
+  partner: mollie
+  partner_name: Mollie
+  category: Official payments
+  use_case: 'Mollie Payments: Offer global and local payment methods and get onboarded in minutes, with support
+    in your language.'
+  type: marketplace
+  marketplace: own
+  channel: partner-built
+  evidence: https://woocommerce.com/products/mollie-payments-for-woocommerce/
+  source: edge
+  relationship: platform-app
+  status: not-a-workflow
+  arazzo: null
+- slug: woocommerce-qodevault-for-woocommerce
+  label: QodeVault for WooCommerce
+  partner_name: QodeVault for WooCommerce
+  category: Marketing
+  use_case: 'QR Code by QodeVault: Create branded QR codes for your products, change where they point after printing,
+    and track scans, all from your WooCommerce admin.'
+  type: marketplace
+  marketplace: own
+  channel: partner-built
+  evidence: https://woocommerce.com/products/qr-code-by-qodevault/
+  source: edge
+  relationship: platform-app
+  status: not-a-workflow
+  arazzo: null
+- slug: woocommerce-tiktok-for-business
+  label: TikTok for Business
+  partner: tiktok
+  partner_name: TikTok for Business
+  category: Marketing
+  use_case: 'TikTok: Create TikTok ads, install the Pixel & Events API, and launch campaigns from your dashboard
+    to reach 1B+ global users and sell faster!'
+  type: marketplace
+  marketplace: own
+  channel: partner-built
+  evidence: https://woocommerce.com/products/tiktok-for-woocommerce/
+  source: edge
+  relationship: platform-app
+  status: not-a-workflow
+  arazzo: null
+- slug: woocommerce-kliken
+  label: Kliken
+  partner_name: Kliken
+  category: Marketing
+  use_case: 'Google, Social, Retargeting all-in-one Marketing: Reach beyond your competition and grow your store
+    sales in 5 Minutes'
+  type: marketplace
+  marketplace: own
+  channel: partner-built
+  evidence: https://woocommerce.com/products/google-ads-and-marketing/
+  source: edge
+  relationship: platform-app
+  status: not-a-workflow
+  arazzo: null
+- slug: woocommerce-wpextend
+  label: WPExtend
+  partner_name: WPExtend
+  category: Store content and customizations
+  use_case: 'Elementor Connector: Add Elementor widgets to customize popular free and premium WooCommerce extensions.'
+  type: marketplace
+  marketplace: own
+  channel: partner-built
+  evidence: https://woocommerce.com/products/elementor-connector/
+  source: edge
+  relationship: platform-app
+  status: not-a-workflow
+  arazzo: null
+- slug: woocommerce-appalify
+  label: Appalify
+  partner_name: Appalify
+  category: Store content and customizations
+  use_case: 'Checkout Rules and Validation: Restrict customers from checkout using custom conditional rules that
+    validate your cart.'
+  type: marketplace
+  marketplace: own
+  channel: partner-built
+  evidence: https://woocommerce.com/products/checkout-rules-and-validation/
+  source: edge
+  relationship: platform-app
+  status: not-a-workflow
+  arazzo: null

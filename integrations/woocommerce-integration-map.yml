@@ -1,0 +1,293 @@
+# DERIVED by derive-integration-map.py (roadmap#949): each integration workflow, step by step,
+# resolved to spec file -> tag -> business capability (Turbo EA, CC BY 4.0) and the operation's
+# phrasing intent. Read from our own files; an unmapped link says why.
+slug: woocommerce
+workflows:
+- file: woocommerce-activecampaign-contacts-from-orders.yml
+  title: 'WooCommerce to ActiveCampaign: Update contacts in ActiveCampaign from new WooCommerce orders'
+  partner: activecampaign
+  template: https://zapier.com/apps/activecampaign/integrations/woocommerce/9204/update-contacts-in-activecampaign-from-new-woocommerce-orders
+  repos:
+  - woocommerce
+  - activecampaign
+  steps:
+  - step: get-order
+    repo: woocommerce
+    spec_file: woocommerce-orders-api-openapi.yml
+    operationId: getOrder
+    tag: Orders
+    capability_id: null
+    capability: null
+    capability_l1: null
+    intent: null
+    effect: null
+    unmapped: no capability edge for this spec file
+  - step: activecampaign-sync-a-contacts-data
+    repo: activecampaign
+    spec_file: activecampaign-contacts-api-openapi.yml
+    operationId: sync-a-contacts-data
+    tag: Contacts
+    capability_id: null
+    capability: null
+    capability_l1: null
+    intent: Create or update a contact by email
+    effect: write
+    unmapped: no capability edge for this spec file
+  connects:
+    woocommerce:
+      capabilities: []
+      tags:
+      - Orders
+    activecampaign:
+      capabilities: []
+      tags:
+      - Contacts
+  intents:
+  - Create or update a contact by email
+- file: woocommerce-activecampaign-new-customers.yml
+  title: 'WooCommerce to ActiveCampaign: Add new WooCommerce customers to ActiveCampaign'
+  partner: activecampaign
+  template: https://zapier.com/apps/activecampaign/integrations/woocommerce/1830/add-new-woocommerce-customers-to-activecampaign
+  repos:
+  - woocommerce
+  - activecampaign
+  steps:
+  - step: get-customer
+    repo: woocommerce
+    spec_file: woocommerce-customers-api-openapi.yml
+    operationId: getCustomer
+    tag: Customers
+    capability_id: BC-420.10
+    capability: Customer Data Management
+    capability_l1: BC-420
+    intent: null
+    effect: null
+    unmapped: null
+  - step: activecampaign-create-a-new-contact
+    repo: activecampaign
+    spec_file: activecampaign-contacts-api-openapi.yml
+    operationId: create-a-new-contact
+    tag: Contacts
+    capability_id: null
+    capability: null
+    capability_l1: null
+    intent: Create a new contact
+    effect: write
+    unmapped: no capability edge for this spec file
+  connects:
+    woocommerce:
+      capabilities:
+      - BC-420.10
+      tags:
+      - Customers
+    activecampaign:
+      capabilities: []
+      tags:
+      - Contacts
+  intents:
+  - Create a new contact
+- file: woocommerce-google-ads-customers-to-customer-lists.yml
+  title: 'WooCommerce to Google Ads: Add new WooCommerce customers to Google Ads customer lists'
+  partner: google-ads
+  template: https://zapier.com/apps/google-ads/integrations/woocommerce/88826/add-new-woocommerce-customers-to-google-ads-customer-lists
+  repos:
+  - woocommerce
+  - google-ads
+  steps:
+  - step: get-customer
+    repo: woocommerce
+    spec_file: woocommerce-customers-api-openapi.yml
+    operationId: getCustomer
+    tag: Customers
+    capability_id: BC-420.10
+    capability: Customer Data Management
+    capability_l1: BC-420
+    intent: null
+    effect: null
+    unmapped: null
+  - step: google-ads-googleads-customers-offlineuserdatajobs-addoperat
+    repo: google-ads
+    spec_file: google-ads-customers-offlineuserdatajobs-api-openapi.yml
+    operationId: googleads_customers_offlineUserDataJobs_addOperations
+    tag: customers.offlineUserDataJobs
+    capability_id: null
+    capability: null
+    capability_l1: null
+    intent: Add user data to an offline job
+    effect: write
+    unmapped: no capability edge for this spec file
+  connects:
+    woocommerce:
+      capabilities:
+      - BC-420.10
+      tags:
+      - Customers
+    google-ads:
+      capabilities: []
+      tags:
+      - customers.offlineUserDataJobs
+  intents:
+  - Add user data to an offline job
+- file: woocommerce-google-sheets-add-orders-to-rows.yml
+  title: 'WooCommerce to Google Sheets: Add WooCommerce orders to Google Sheets rows'
+  partner: google-sheets
+  template: https://zapier.com/apps/google-sheets/integrations/woocommerce/3139/add-woocommerce-orders-to-google-sheets-rows
+  repos:
+  - woocommerce
+  - google-sheets
+  steps:
+  - step: get-order
+    repo: woocommerce
+    spec_file: woocommerce-orders-api-openapi.yml
+    operationId: getOrder
+    tag: Orders
+    capability_id: null
+    capability: null
+    capability_l1: null
+    intent: null
+    effect: null
+    unmapped: no capability edge for this spec file
+  - step: google-sheets-appendvalues
+    repo: google-sheets
+    spec_file: google-sheets-values-api-openapi.yml
+    operationId: appendValues
+    tag: Values
+    capability_id: null
+    capability: null
+    capability_l1: null
+    intent: null
+    effect: null
+    unmapped: no capability edge for this spec file
+  connects:
+    woocommerce:
+      capabilities: []
+      tags:
+      - Orders
+    google-sheets:
+      capabilities: []
+      tags:
+      - Values
+  intents: []
+- file: woocommerce-google-sheets-save-orders-to-rows.yml
+  title: 'WooCommerce to Google Sheets: Save new WooCommerce orders to Google Sheets rows'
+  partner: google-sheets
+  template: https://zapier.com/apps/google-sheets/integrations/woocommerce/3142/save-new-woocommerce-orders-to-google-sheets-rows
+  repos:
+  - woocommerce
+  - google-sheets
+  steps:
+  - step: get-order
+    repo: woocommerce
+    spec_file: woocommerce-orders-api-openapi.yml
+    operationId: getOrder
+    tag: Orders
+    capability_id: null
+    capability: null
+    capability_l1: null
+    intent: null
+    effect: null
+    unmapped: no capability edge for this spec file
+  - step: google-sheets-appendvalues
+    repo: google-sheets
+    spec_file: google-sheets-values-api-openapi.yml
+    operationId: appendValues
+    tag: Values
+    capability_id: null
+    capability: null
+    capability_l1: null
+    intent: null
+    effect: null
+    unmapped: no capability edge for this spec file
+  connects:
+    woocommerce:
+      capabilities: []
+      tags:
+      - Orders
+    google-sheets:
+      capabilities: []
+      tags:
+      - Values
+  intents: []
+- file: woocommerce-trello-cards-from-orders.yml
+  title: 'WooCommerce to Trello: Create Trello cards from new WooCommerce orders'
+  partner: trello
+  template: https://zapier.com/apps/trello/integrations/woocommerce/3341/create-trello-cards-from-new-woocommerce-orders
+  repos:
+  - woocommerce
+  - trello
+  steps:
+  - step: get-order
+    repo: woocommerce
+    spec_file: woocommerce-orders-api-openapi.yml
+    operationId: getOrder
+    tag: Orders
+    capability_id: null
+    capability: null
+    capability_l1: null
+    intent: null
+    effect: null
+    unmapped: no capability edge for this spec file
+  - step: trello-createcard
+    repo: trello
+    spec_file: trello-cards-api-openapi.yml
+    operationId: createCard
+    tag: Cards
+    capability_id: BC-900.30
+    capability: Project Management
+    capability_l1: BC-900
+    intent: Create a card on a list
+    effect: write
+    unmapped: null
+  connects:
+    woocommerce:
+      capabilities: []
+      tags:
+      - Orders
+    trello:
+      capabilities:
+      - BC-900.30
+      tags:
+      - Cards
+  intents:
+  - Create a card on a list
+- file: woocommerce-xero-invoices-for-orders.yml
+  title: 'WooCommerce to Xero: Create Xero invoices for new WooCommerce orders'
+  partner: xero
+  template: https://zapier.com/apps/woocommerce/integrations/xero/2121/create-xero-invoices-for-new-woocommerce-orders
+  repos:
+  - woocommerce
+  - xero
+  steps:
+  - step: get-order
+    repo: woocommerce
+    spec_file: woocommerce-orders-api-openapi.yml
+    operationId: getOrder
+    tag: Orders
+    capability_id: null
+    capability: null
+    capability_l1: null
+    intent: null
+    effect: null
+    unmapped: no capability edge for this spec file
+  - step: xero-createinvoices
+    repo: xero
+    spec_file: xero-accounting-api-openapi.yml
+    operationId: createInvoices
+    tag: Accounting
+    capability_id: BC-200
+    capability: Financial Management
+    capability_l1: BC-200
+    intent: null
+    effect: null
+    unmapped: null
+  connects:
+    woocommerce:
+      capabilities: []
+      tags:
+      - Orders
+    xero:
+      capabilities:
+      - BC-200
+      tags:
+      - Accounting
+  intents: []

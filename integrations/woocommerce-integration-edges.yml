@@ -8,6 +8,7 @@ checked:
 - https://monid.ai/tools/woocommerce
 - https://n8n.io/integrations/woocommerce/
 - https://zapier.com/apps/woocommerce/integrations
+- https://woocommerce.com/products/
 summary: null
 marketplace_apps:
 - marketplace: zapier
@@ -125,6 +126,20 @@ marketplace_apps:
   - zoom
   - zscaler-zia
   - zulip
+- marketplace: own
+  channel: partner-built
+  app: woocommerce
+  url: https://woocommerce.com/products/
+  app_count: null
+  categories:
+  - Conversion
+  - Customer service
+  - Marketing
+  - Merchandising
+  - Official payments
+  - Shipping, delivery and fulfillment
+  - Store content and customizations
+  - Store management
 edges:
 - partner_name: HubSpot
   partner: hubspot
@@ -456,6 +471,496 @@ edges:
   direction: third-party
   category: Email Newsletters
   partner_url: https://www.mailerlite.com/
+- partner_name: Mastercard
+  partner: mastercard
+  type: marketplace
+  marketplace: own
+  channel: partner-built
+  relationship: platform-app
+  direction: partner-built
+  evidence: https://woocommerce.com/products/mastercard-merchant-cloud/
+  category: Official payments
+  use_case: 'Mastercard Merchant Cloud: A seamless checkout with 35+ payment methods for global needs. Enjoy built-in security and simple integration for a smooth experience.'
+- partner_name: Woo
+  partner: null
+  type: marketplace
+  marketplace: own
+  channel: partner-built
+  relationship: platform-app
+  direction: partner-built
+  evidence: https://woocommerce.com/products/shipstation-integration/
+  category: Shipping, delivery and fulfillment
+  use_case: 'ShipStation: Ship your WooCommerce orders with confidence, save on top carriers, and automate your processes with ShipStation.'
+- partner_name: Klaviyo
+  partner: klaviyo
+  type: marketplace
+  marketplace: own
+  channel: partner-built
+  relationship: platform-app
+  direction: partner-built
+  evidence: https://woocommerce.com/products/klaviyo-for-woocommerce/
+  category: Conversion
+  use_case: 'Klaviyo: As Woo’s preferred marketing automation platform, Klaviyo unifies email and SMS marketing, customer analytics, and product reviews to help your brand achieve better marketing ROI.'
+- partner_name: Woo
+  partner: null
+  type: marketplace
+  marketplace: own
+  channel: partner-built
+  relationship: platform-app
+  direction: partner-built
+  evidence: https://woocommerce.com/products/product-add-ons/
+  category: Conversion
+  use_case: 'Product Add-Ons: Allow your customers to customize your products by adding new options such as input boxes, dropdowns or checkboxes. With the Product Add-Ons extension, gift messages, donations, laser engraving and any other product that re'
+- partner_name: SkyVerge
+  partner: null
+  type: marketplace
+  marketplace: own
+  channel: partner-built
+  relationship: platform-app
+  direction: partner-built
+  evidence: https://woocommerce.com/products/woocommerce-memberships/
+  category: Merchandising
+  use_case: 'WooCommerce Memberships: Create a membership site using WordPress and WooCommerce. You can restrict your content to members, but you can also “drip” that content over time to schedule when members have access.'
+- partner_name: Woo
+  partner: null
+  type: marketplace
+  marketplace: own
+  channel: partner-built
+  relationship: platform-app
+  direction: partner-built
+  evidence: https://woocommerce.com/products/gift-cards/
+  category: Merchandising
+  use_case: 'Gift Cards: Offer digital prepaid gift cards and e-gift certificates that customers can redeem at your WooCommerce store.'
+- partner_name: Woo
+  partner: null
+  type: marketplace
+  marketplace: own
+  channel: partner-built
+  relationship: platform-app
+  direction: partner-built
+  evidence: https://woocommerce.com/products/shipment-tracking/
+  category: Shipping, delivery and fulfillment
+  use_case: 'Shipment Tracking: Add shipment tracking information to your orders.'
+- partner_name: StoreApps
+  partner: null
+  type: marketplace
+  marketplace: own
+  channel: partner-built
+  relationship: platform-app
+  direction: partner-built
+  evidence: https://woocommerce.com/products/smart-coupons/
+  category: Conversion
+  use_case: 'Smart Coupons: Advanced Smart Coupons for WooCommerce plugin. Gift cards, discount rules, store credits, BOGO, coupon code generator, URL coupons…everything to grow sales.'
+- partner_name: Woo
+  partner: null
+  type: marketplace
+  marketplace: own
+  channel: partner-built
+  relationship: platform-app
+  direction: partner-built
+  evidence: https://woocommerce.com/products/google-listings-and-ads/
+  category: Conversion
+  use_case: 'Google for WooCommerce: Promote your products and services across Google — from Search to YouTube and beyond — supported by AI features that help you create ads and optimize budgets so you can reach the right customers.'
+- partner_name: ELEXtensions
+  partner: null
+  type: marketplace
+  marketplace: own
+  channel: partner-built
+  relationship: platform-app
+  direction: partner-built
+  evidence: https://woocommerce.com/products/bulk-edit-products-prices-and-attributes/
+  category: Store management
+  use_case: 'Bulk Edit Products, Prices, and Attributes: Bulk edit any WooCommerce products instantly with WooCommerce Bulk Edit Products, Prices, and Attributes! Faster, easier, efficient management awaits!'
+- partner_name: Addify
+  partner: null
+  type: marketplace
+  marketplace: own
+  channel: partner-built
+  relationship: platform-app
+  direction: partner-built
+  evidence: https://woocommerce.com/products/advanced-product-quantity/
+  category: Store content and customizations
+  use_case: 'Advanced Product Quantity: WooCommerce Quantity plugin empowers you to control product & cart quantities. Configure minimum, maximum, fixed, decimal, incremental and quantities dropdown.'
+- partner_name: Flintop
+  partner: null
+  type: marketplace
+  marketplace: own
+  channel: partner-built
+  relationship: platform-app
+  direction: partner-built
+  evidence: https://woocommerce.com/products/credits-for-woocommerce/
+  category: Conversion
+  use_case: 'Credit Line or Credits: Offer a Line of Credit to your users for purchasing in your shop. Your users can buy now and pay later using the Credit Line.'
+- partner_name: Flintop
+  partner: null
+  type: marketplace
+  marketplace: own
+  channel: partner-built
+  relationship: platform-app
+  direction: partner-built
+  evidence: https://woocommerce.com/products/free-gifts-for-woocommerce/
+  category: Conversion
+  use_case: 'Free Gifts: Free Gifts for WooCommerce helps you to offer Automatic Free Gifts, Buy X Get Y, Coupon Based Free Gifts and Manual Free Gifts in your WooCommerce Shop.'
+- partner_name: Rapyd
+  partner: rapyd
+  type: marketplace
+  marketplace: own
+  channel: partner-built
+  relationship: platform-app
+  direction: partner-built
+  evidence: https://woocommerce.com/products/rapyd-payments-for-woocommerce/
+  category: Official payments
+  use_case: 'Rapyd Payments: The fastest way to send and accept payments, worldwide, Rapyd offers payment Solutions that Power Local and Cross-Border Commerce.'
+- partner_name: u2code - Kolya Lukin
+  partner: null
+  type: marketplace
+  marketplace: own
+  channel: partner-built
+  relationship: platform-app
+  direction: partner-built
+  evidence: https://woocommerce.com/products/order-messenger-for-woocommerce/
+  category: Customer service
+  use_case: 'Order Chatroom: A private chat on every order. Customers and your team message, attach files and get notified, right inside WooCommerce.'
+- partner_name: FmeAddons
+  partner: null
+  type: marketplace
+  marketplace: own
+  channel: partner-built
+  relationship: platform-app
+  direction: partner-built
+  evidence: https://woocommerce.com/products/product-variations-table-for-woocommerce/
+  category: Merchandising
+  use_case: 'Product Variations Table: Display product variations in a single table using the product variation table for the WooCommerce plugin and help users easily find the product they need.'
+- partner_name: FmeAddons
+  partner: null
+  type: marketplace
+  marketplace: own
+  channel: partner-built
+  relationship: platform-app
+  direction: partner-built
+  evidence: https://woocommerce.com/products/shop-as-a-customer-for-woocommerce/
+  category: Store management
+  use_case: 'Shop as a Customer: Login and shop as a customer to create orders on behalf of customers by easily switching from admin to customer using the shop as customer plugin.'
+- partner_name: AICOSO
+  partner: null
+  type: marketplace
+  marketplace: own
+  channel: partner-built
+  relationship: platform-app
+  direction: partner-built
+  evidence: https://woocommerce.com/products/share-cart-url-for-woocommerce/
+  category: Marketing
+  use_case: 'Share Cart URL: Let WooCommerce customers share pre-filled cart links via Facebook, WhatsApp & Email with AICOSO | Build fully customizable carts at $29/yr'
+- partner_name: Woo
+  partner: null
+  type: marketplace
+  marketplace: own
+  channel: partner-built
+  relationship: platform-app
+  direction: partner-built
+  evidence: https://woocommerce.com/products/automatewoo/
+  category: Conversion
+  use_case: 'AutomateWoo: Powerful marketing automation for WooCommerce. AutomateWoo has the tools you need to grow your store and make more money.'
+- partner_name: Woo
+  partner: null
+  type: marketplace
+  marketplace: own
+  channel: partner-built
+  relationship: platform-app
+  direction: partner-built
+  evidence: https://woocommerce.com/products/product-bundles/
+  category: Conversion
+  use_case: 'Product Bundles: WooCommerce Product Bundles is a complete product grouping toolkit for offering personalized bundles, bulk discount packages, and assembled products.'
+- partner_name: Woo
+  partner: null
+  type: marketplace
+  marketplace: own
+  channel: partner-built
+  relationship: platform-app
+  direction: partner-built
+  evidence: https://woocommerce.com/products/woocommerce-subscriptions/
+  category: Merchandising
+  use_case: 'WooCommerce Subscriptions: WooCommerce Subscriptions is a WooCommerce extension that lets customers subscribe to your products or services and pay on a weekly, monthly, or annual basis. It integrates with over 25 payment gateways for automa'
+- partner_name: Woo
+  partner: null
+  type: marketplace
+  marketplace: own
+  channel: partner-built
+  relationship: platform-app
+  direction: partner-built
+  evidence: https://woocommerce.com/products/composite-products/
+  category: Merchandising
+  use_case: 'Composite Products: The definitive product builder plugin for WooCommerce. Create and offer personalized product kits and custom product configurators.'
+- partner_name: Woo
+  partner: null
+  type: marketplace
+  marketplace: own
+  channel: partner-built
+  relationship: platform-app
+  direction: partner-built
+  evidence: https://woocommerce.com/products/woocommerce-bookings/
+  category: Merchandising
+  use_case: 'WooCommerce Bookings: Sell your time or date based bookings using WordPress and WooCommerce Bookings. Perfect for those wanting to offer appointments, reservations, services, or rentals.'
+- partner_name: Woo
+  partner: null
+  type: marketplace
+  marketplace: own
+  channel: partner-built
+  relationship: platform-app
+  direction: partner-built
+  evidence: https://woocommerce.com/products/woocommerce-google-analytics/
+  category: Marketing
+  use_case: 'Google Analytics for WooCommerce: Understand your customers and increase revenue with the world’s leading analytics platform — integrated with WooCommerce for free.'
+- partner_name: Woo
+  partner: null
+  type: marketplace
+  marketplace: own
+  channel: partner-built
+  relationship: platform-app
+  direction: partner-built
+  evidence: https://woocommerce.com/products/conditional-shipping-and-payments/
+  category: Shipping, delivery and fulfillment
+  use_case: 'Conditional Shipping and Payments: Use conditional logic to restrict the shipping methods, payment gateways and shipping countries or states available to customers at checkout.'
+- partner_name: Woo
+  partner: null
+  type: marketplace
+  marketplace: own
+  channel: partner-built
+  relationship: platform-app
+  direction: partner-built
+  evidence: https://woocommerce.com/products/minmax-quantities/
+  category: null
+  use_case: 'Min/Max Quantities: Set minimum and maximum quantity rules for products, orders, and categories.'
+- partner_name: Woo
+  partner: null
+  type: marketplace
+  marketplace: own
+  channel: partner-built
+  relationship: platform-app
+  direction: partner-built
+  evidence: https://woocommerce.com/products/table-rate-shipping/
+  category: Shipping, delivery and fulfillment
+  use_case: 'Table Rate Shipping: The Table Rate shipping module extends WooCommerce''s default shipping options giving you highly customisable shipping options.'
+- partner_name: theDotstore
+  partner: null
+  type: marketplace
+  marketplace: own
+  channel: partner-built
+  relationship: platform-app
+  direction: partner-built
+  evidence: https://woocommerce.com/products/salsify-integration/
+  category: Store content and customizations
+  use_case: 'Salsify Integration: Automate omnichannel commerce by syncing Salsify product data to WooCommerce with intelligent, real-time updates.'
+- partner_name: LiveSmart
+  partner: null
+  type: marketplace
+  marketplace: own
+  channel: partner-built
+  relationship: platform-app
+  direction: partner-built
+  evidence: https://woocommerce.com/products/livesmart-ai-assistant/
+  category: Customer service
+  use_case: 'AI Shopping Assistant: Transform your store with a ChatGPT-powered AI agent that guides customers from discovery to checkout. Let your shoppers find, compare, and buy products through natural conversation, voice commands, and image search.'
+- partner_name: TopLayer Creative
+  partner: null
+  type: marketplace
+  marketplace: own
+  channel: partner-built
+  relationship: platform-app
+  direction: partner-built
+  evidence: https://woocommerce.com/products/toplayer-leo-variation-generator/
+  category: Merchandising
+  use_case: 'TopLayer/LEO – Variation Generator: Create, convert, and rebuild WooCommerce variable products from one focused screen. Generate every selected attribute combination with predictable SKUs, prices, images, stock settings, and optional catalo'
+- partner_name: RoundBorders
+  partner: null
+  type: marketplace
+  marketplace: own
+  channel: partner-built
+  relationship: platform-app
+  direction: partner-built
+  evidence: https://woocommerce.com/products/elite-balance/
+  category: Marketing
+  use_case: 'Elite Balance: Customer wallets and store credit for WooCommerce. Refund to the wallet, reward with cashback, and let customers pay with their balance.'
+- partner_name: KOMOJU
+  partner: komoju
+  type: marketplace
+  marketplace: own
+  channel: partner-built
+  relationship: platform-app
+  direction: partner-built
+  evidence: https://woocommerce.com/products/komoju-japanese-payments/
+  category: Official payments
+  use_case: 'KOMOJU Payments: Easily add popular Japanese payment methods like konbini, PayPay, and more with KOMOJU''s secure extension to optimize checkout.'
+- partner_name: Andale Technolgies, SARL
+  partner: null
+  type: marketplace
+  marketplace: own
+  channel: partner-built
+  relationship: platform-app
+  direction: partner-built
+  evidence: https://woocommerce.com/products/box-contents/
+  category: Merchandising
+  use_case: 'Box Contents: Show shoppers exactly what’s included with each product and help them understand the full value of your offer.'
+- partner_name: theDotstore
+  partner: null
+  type: marketplace
+  marketplace: own
+  channel: partner-built
+  relationship: platform-app
+  direction: partner-built
+  evidence: https://woocommerce.com/products/smart-dynamic-pricing/
+  category: Merchandising
+  use_case: 'Smart Dynamic Pricing: Create powerful, rule-based pricing strategies for your WooCommerce store — without writing a single line of code. Adjust prices automatically based on product, stock level, customer location, date, time, device, and '
+- partner_name: Helcim
+  partner: helcim
+  type: marketplace
+  marketplace: own
+  channel: partner-built
+  relationship: platform-app
+  direction: partner-built
+  evidence: https://woocommerce.com/products/helcim-commerce-for-woocommerce/
+  category: Official payments
+  use_case: 'Helcim: Accept credit cards and Google Pay directly on your store with zero monthly fees. Save up to 25% using Helcim’s transparent interchange-plus pricing, and lower your PCI compliance scope with a secure, brand-customized checkout.'
+- partner_name: State Report Pro for WooCommerce
+  partner: null
+  type: marketplace
+  marketplace: own
+  channel: partner-built
+  relationship: platform-app
+  direction: partner-built
+  evidence: https://woocommerce.com/products/sales-by-state-report-pro/
+  category: Store management
+  use_case: 'Sales by State Report Pro: See where your customers buy, which states bring in the most revenue, and get warned before a state''s sales tax threshold.'
+- partner_name: Woo
+  partner: null
+  type: marketplace
+  marketplace: own
+  channel: partner-built
+  relationship: platform-app
+  direction: partner-built
+  evidence: https://woocommerce.com/products/woopayments/
+  category: Official payments
+  use_case: 'WooPayments: Payments made simple, with no monthly fees — designed exclusively for WooCommerce stores. Manage transactions from the comfort of your store.'
+- partner_name: Stripe
+  partner: stripe
+  type: marketplace
+  marketplace: own
+  channel: partner-built
+  relationship: platform-app
+  direction: partner-built
+  evidence: https://woocommerce.com/products/stripe/
+  category: Official payments
+  use_case: 'Stripe: Maximize revenue with the new checkout from Stripe.'
+- partner_name: PayPal
+  partner: paypal
+  type: marketplace
+  marketplace: own
+  channel: partner-built
+  relationship: platform-app
+  direction: partner-built
+  evidence: https://woocommerce.com/products/woocommerce-paypal-payments/
+  category: Official payments
+  use_case: 'PayPal Payments: The official, all-in-one checkout solution that allows you to offer PayPal, Venmo (US), Pay Later, credit and debit cards, country-specific payment options, and more.'
+- partner_name: Woo
+  partner: null
+  type: marketplace
+  marketplace: own
+  channel: partner-built
+  relationship: platform-app
+  direction: partner-built
+  evidence: https://woocommerce.com/products/square/
+  category: Official payments
+  use_case: 'Square: Connect your offline and online stores with one integration - sync inventory between the two and product updates in to Square. Take payments through Square.'
+- partner_name: Mollie
+  partner: mollie
+  type: marketplace
+  marketplace: own
+  channel: partner-built
+  relationship: platform-app
+  direction: partner-built
+  evidence: https://woocommerce.com/products/mollie-payments-for-woocommerce/
+  category: Official payments
+  use_case: 'Mollie Payments: Offer global and local payment methods and get onboarded in minutes, with support in your language.'
+- partner_name: QodeVault for WooCommerce
+  partner: null
+  type: marketplace
+  marketplace: own
+  channel: partner-built
+  relationship: platform-app
+  direction: partner-built
+  evidence: https://woocommerce.com/products/qr-code-by-qodevault/
+  category: Marketing
+  use_case: 'QR Code by QodeVault: Create branded QR codes for your products, change where they point after printing, and track scans, all from your WooCommerce admin.'
+- partner_name: TikTok for Business
+  partner: tiktok
+  type: marketplace
+  marketplace: own
+  channel: partner-built
+  relationship: platform-app
+  direction: partner-built
+  evidence: https://woocommerce.com/products/tiktok-for-woocommerce/
+  category: Marketing
+  use_case: 'TikTok: Create TikTok ads, install the Pixel & Events API, and launch campaigns from your dashboard to reach 1B+ global users and sell faster!'
+- partner_name: Kliken
+  partner: null
+  type: marketplace
+  marketplace: own
+  channel: partner-built
+  relationship: platform-app
+  direction: partner-built
+  evidence: https://woocommerce.com/products/google-ads-and-marketing/
+  category: Marketing
+  use_case: 'Google, Social, Retargeting all-in-one Marketing: Reach beyond your competition and grow your store sales in 5 Minutes'
+- partner_name: SkyVerge
+  partner: null
+  type: marketplace
+  marketplace: own
+  channel: partner-built
+  relationship: platform-app
+  direction: partner-built
+  evidence: https://woocommerce.com/products/woocommerce-product-reviews-pro/
+  category: Store content and customizations
+  use_case: 'Product Reviews Pro: Accept text, photo, and video as part of product reviews on your store, and enable "review qualifiers".'
+- partner_name: WPExtend
+  partner: null
+  type: marketplace
+  marketplace: own
+  channel: partner-built
+  relationship: platform-app
+  direction: partner-built
+  evidence: https://woocommerce.com/products/elementor-connector/
+  category: Store content and customizations
+  use_case: 'Elementor Connector: Add Elementor widgets to customize popular free and premium WooCommerce extensions.'
+- partner_name: Appalify
+  partner: null
+  type: marketplace
+  marketplace: own
+  channel: partner-built
+  relationship: platform-app
+  direction: partner-built
+  evidence: https://woocommerce.com/products/checkout-rules-and-validation/
+  category: Store content and customizations
+  use_case: 'Checkout Rules and Validation: Restrict customers from checkout using custom conditional rules that validate your cart.'
+- partner_name: Woo
+  partner: null
+  type: marketplace
+  marketplace: own
+  channel: partner-built
+  relationship: platform-app
+  direction: partner-built
+  evidence: https://woocommerce.com/products/back-in-stock-notifications/
+  category: Conversion
+  use_case: 'Back In Stock Notifications: Notify customers when your out-of-stock products become available. Recover lost sales, build customer loyalty, and gain deeper insights into your inventory.'
+- partner_name: Flintop
+  partner: null
+  type: marketplace
+  marketplace: own
+  channel: partner-built
+  relationship: platform-app
+  direction: partner-built
+  evidence: https://woocommerce.com/products/buy-again-for-woocommerce/
+  category: Conversion
+  use_case: 'Buy Again: Using Buy Again for WooCommerce your users can quickly re-purchase the products which they had purchased earlier in your site.'
 templates:
 - title: Save new WooCommerce orders to Google Sheets rows
   url: https://zapier.com/apps/google-sheets/integrations/woocommerce/3142/save-new-woocommerce-orders-to-google-sheets-rows
