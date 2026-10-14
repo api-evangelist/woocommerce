@@ -4,11 +4,12 @@ source:
 - https://zapier.com/apps/woocommerce/integrations
 - https://n8n.io/integrations/woocommerce/
 checked:
+- freshbooks/integrations/freshbooks-integration-edges.yml
 - https://composio.dev/toolkits/woocommerce
 - https://monid.ai/tools/woocommerce
 - https://n8n.io/integrations/woocommerce/
-- https://zapier.com/apps/woocommerce/integrations
 - https://woocommerce.com/products/
+- https://zapier.com/apps/woocommerce/integrations
 summary: null
 marketplace_apps:
 - marketplace: zapier
@@ -1117,6 +1118,23 @@ edges:
     property: schemas.RetailerPlatform.provider
     detected_by: detect-payment-method-edges.py
     detected: '2026-10-12'
+- partner_name: FreshBooks (own)
+  partner: freshbooks
+  partner_match: mirror
+  mirror_match: domain
+  type: marketplace
+  relationship: platform-app
+  direction: third-party
+  channel: partner-built
+  marketplace: own
+  evidence: https://appstore.freshbooks.com/apps/woocommerce
+  mirror_of: freshbooks/integrations/freshbooks-integration-edges.yml
+  apps:
+  - WooCommerce
+  listing_count: 1
+  detected: '2026-10-14'
+  detected_by: mirror-platform-listings.py
+  category: Track Sale Orders
 templates:
 - title: Save new WooCommerce orders to Google Sheets rows
   url: https://zapier.com/apps/google-sheets/integrations/woocommerce/3142/save-new-woocommerce-orders-to-google-sheets-rows
