@@ -84,27 +84,15 @@ paths:
         delay: 0
         dispatcher: FALLBACK
 components:
+  parameters:
+    id:
+      name: id
+      in: path
+      description: Unique identifier for the resource.
+      required: true
+      schema:
+        type: integer
   schemas:
-    Error:
-      type: object
-      properties:
-        code:
-          type: string
-          description: Machine-readable error code.
-          example: string-value
-        message:
-          type: string
-          description: Human-readable error message.
-          example: string-value
-        data:
-          type: object
-          description: Additional error context including HTTP status code.
-          properties:
-            status:
-              type: integer
-              description: HTTP status code associated with the error.
-          example:
-            status: 1
     ShippingMethod:
       type: object
       description: A shipping method configured within a shipping zone.
@@ -141,6 +129,26 @@ components:
           type: string
           description: Shipping method type description.
           example: A sample description
+    Error:
+      type: object
+      properties:
+        code:
+          type: string
+          description: Machine-readable error code.
+          example: string-value
+        message:
+          type: string
+          description: Human-readable error message.
+          example: string-value
+        data:
+          type: object
+          description: Additional error context including HTTP status code.
+          properties:
+            status:
+              type: integer
+              description: HTTP status code associated with the error.
+          example:
+            status: 1
     ShippingZone:
       type: object
       description: A shipping zone defining geographic regions with specific shipping methods.
@@ -158,26 +166,18 @@ components:
           description: Shipping zone display order.
           example: 1
   responses:
-    NotFound:
-      description: The requested resource was not found.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
     Unauthorized:
       description: Authentication credentials are missing or invalid.
       content:
         application/json:
           schema:
             $ref: '#/components/schemas/Error'
-  parameters:
-    id:
-      name: id
-      in: path
-      description: Unique identifier for the resource.
-      required: true
-      schema:
-        type: integer
+    NotFound:
+      description: The requested resource was not found.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
   securitySchemes:
     basicAuth:
       type: http

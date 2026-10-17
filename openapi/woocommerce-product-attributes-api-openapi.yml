@@ -155,6 +155,80 @@ paths:
         dispatcher: FALLBACK
 components:
   schemas:
+    StoreBrand:
+      type: object
+      description: A product brand.
+      properties:
+        id:
+          type: integer
+          description: Brand unique identifier.
+          example: 1
+        name:
+          type: string
+          description: Brand display name.
+          example: Example Name
+        slug:
+          type: string
+          description: URL-friendly brand slug.
+          example: string-value
+        description:
+          type: string
+          description: Brand description.
+          example: A sample description
+        image:
+          $ref: '#/components/schemas/StoreProductImage'
+    StoreProductAttribute:
+      type: object
+      description: A global product attribute for filtering and variation selection.
+      properties:
+        id:
+          type: integer
+          description: Attribute unique identifier.
+          example: 1
+        name:
+          type: string
+          description: Attribute label.
+          example: Example Name
+        taxonomy:
+          type: string
+          description: Attribute taxonomy slug (e.g. pa_color).
+          example: string-value
+        has_archives:
+          type: boolean
+          description: Whether the attribute has archive pages.
+          example: true
+        order:
+          type: string
+          description: How terms in this attribute are ordered (menu_order, name, name_num, id).
+          example: string-value
+        count:
+          type: integer
+          description: Number of terms in this attribute.
+          example: 1
+    AttributeTerm:
+      type: object
+      description: A term (option value) for a product attribute.
+      properties:
+        id:
+          type: integer
+          description: Term unique identifier.
+          example: 1
+        name:
+          type: string
+          description: Term display name.
+          example: Example Name
+        slug:
+          type: string
+          description: URL-friendly term slug.
+          example: string-value
+        description:
+          type: string
+          description: Term description.
+          example: A sample description
+        count:
+          type: integer
+          description: Number of products using this term.
+          example: 1
     Error:
       type: object
       description: Error response returned when a request fails.
@@ -210,81 +284,14 @@ components:
           type: string
           description: Image alternative text.
           example: string-value
-    StoreProductAttribute:
-      type: object
-      description: A global product attribute for filtering and variation selection.
-      properties:
-        id:
-          type: integer
-          description: Attribute unique identifier.
-          example: 1
-        name:
-          type: string
-          description: Attribute label.
-          example: Example Name
-        taxonomy:
-          type: string
-          description: Attribute taxonomy slug (e.g. pa_color).
-          example: string-value
-        has_archives:
-          type: boolean
-          description: Whether the attribute has archive pages.
-          example: true
-        order:
-          type: string
-          description: How terms in this attribute are ordered (menu_order, name, name_num, id).
-          example: string-value
-        count:
-          type: integer
-          description: Number of terms in this attribute.
-          example: 1
-    StoreBrand:
-      type: object
-      description: A product brand.
-      properties:
-        id:
-          type: integer
-          description: Brand unique identifier.
-          example: 1
-        name:
-          type: string
-          description: Brand display name.
-          example: Example Name
-        slug:
-          type: string
-          description: URL-friendly brand slug.
-          example: string-value
-        description:
-          type: string
-          description: Brand description.
-          example: A sample description
-        image:
-          $ref: '#/components/schemas/StoreProductImage'
-    AttributeTerm:
-      type: object
-      description: A term (option value) for a product attribute.
-      properties:
-        id:
-          type: integer
-          description: Term unique identifier.
-          example: 1
-        name:
-          type: string
-          description: Term display name.
-          example: Example Name
-        slug:
-          type: string
-          description: URL-friendly term slug.
-          example: string-value
-        description:
-          type: string
-          description: Term description.
-          example: A sample description
-        count:
-          type: integer
-          description: Number of products using this term.
-          example: 1
   parameters:
+    id:
+      name: id
+      in: path
+      description: Unique identifier for the resource.
+      required: true
+      schema:
+        type: integer
     page:
       name: page
       in: query
@@ -304,13 +311,6 @@ components:
         minimum: 1
         maximum: 100
         default: 10
-    id:
-      name: id
-      in: path
-      description: Unique identifier for the resource.
-      required: true
-      schema:
-        type: integer
   responses:
     NotFound:
       description: The requested resource was not found.
