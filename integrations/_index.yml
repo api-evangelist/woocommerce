@@ -5444,3 +5444,34 @@
     builder: unknown (not in the directory record)
   status: not-a-workflow
   arazzo: null
+- slug: woocommerce-npm-registry
+  label: npm registry
+  partner: npm
+  partner_name: npm registry
+  category: official SDK (JavaScript/TypeScript)
+  type: register
+  channel: package-registry
+  evidence: https://www.npmjs.com/package/@woocommerce/woocommerce-rest-api
+  source: edge
+  relationship: distribution-channel
+  contract_reference:
+    register: npm registry (public registry JSON)
+    spec_file: null
+    language: JavaScript/TypeScript
+    packages:
+    - name: '@woocommerce/woocommerce-rest-api'
+      version: 1.0.2
+      released: '2026-06-17'
+      released_field: modified
+      lapsed: false
+      page: https://www.npmjs.com/package/@woocommerce/woocommerce-rest-api
+      repo_leg: github-org:woocommerce
+      publisher_leg: org:woocommerce
+      matched_by: github-org
+    current: true
+    signal_note: 'an official package on the registry: distribution, not an integration; lapsed = no release in
+      24 months'
+    detected_by: sweep-official-sdks.py
+    detected: '2026-10-18'
+  status: not-a-workflow
+  arazzo: null

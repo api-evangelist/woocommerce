@@ -5,9 +5,16 @@ source:
 - https://n8n.io/integrations/woocommerce/
 checked:
 - freshbooks/integrations/freshbooks-integration-edges.yml
+- https://api.nuget.org/v3
 - https://composio.dev/toolkits/woocommerce
+- https://crates.io/api/v1
 - https://monid.ai/tools/woocommerce
 - https://n8n.io/integrations/woocommerce/
+- https://proxy.golang.org
+- https://pypi.org/pypi
+- https://registry.npmjs.org
+- https://repo1.maven.org/maven2
+- https://rubygems.org/api/v1
 - https://woocommerce.com/products/
 - https://zapier.com/api/v4/apps/
 - https://zapier.com/apps/woocommerce/integrations
@@ -21843,6 +21850,36 @@ edges:
     builder: unknown (not in the directory record)
   detected_by: sweep-workflow-automation.py
   first_seen: '2026-10-15'
+- partner_name: npm registry
+  partner: npm
+  partner_match: register
+  type: register
+  direction: provider-built
+  category: official SDK (JavaScript/TypeScript)
+  evidence: https://www.npmjs.com/package/@woocommerce/woocommerce-rest-api
+  channel: package-registry
+  relationship: distribution-channel
+  contract_reference:
+    register: npm registry (public registry JSON)
+    spec_file: null
+    language: JavaScript/TypeScript
+    packages:
+    - name: '@woocommerce/woocommerce-rest-api'
+      version: 1.0.2
+      released: '2026-06-17'
+      released_field: modified
+      lapsed: false
+      page: https://www.npmjs.com/package/@woocommerce/woocommerce-rest-api
+      repo_leg: github-org:woocommerce
+      publisher_leg: org:woocommerce
+      matched_by: github-org
+    current: true
+    signal_note: 'an official package on the registry: distribution, not an integration; lapsed = no release in
+      24 months'
+    detected_by: sweep-official-sdks.py
+    detected: '2026-10-18'
+  detected_by: sweep-official-sdks.py
+  first_seen: '2026-10-18'
 templates:
 - title: Save new WooCommerce orders to Google Sheets rows
   url: https://zapier.com/apps/google-sheets/integrations/woocommerce/3142/save-new-woocommerce-orders-to-google-sheets-rows
