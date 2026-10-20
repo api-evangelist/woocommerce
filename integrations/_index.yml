@@ -5509,3 +5509,73 @@
   relationship: ipaas-bridge
   status: pending-generation
   arazzo: null
+- slug: woocommerce-skills-sh
+  label: skills.sh
+  partner_name: skills.sh
+  category: Agent Skills register
+  type: register
+  channel: standard-directory
+  evidence: https://www.skills.sh/woocommerce/woocommerce
+  source: edge
+  relationship: compatible
+  contract_reference:
+    register: skills.sh (public sitemap / list)
+    spec_file: null
+    standard: Agent Skills (agentskills.io)
+    role: agent-skills-listing
+    matched_org: woocommerce
+    matched_by: org-profile-domain:woocommerce.com
+    sample_skills:
+    - woocommerce-backend-dev
+    - woocommerce-code-review
+    detected_by: sweep-agent-skills.py
+    detected: '2026-10-20'
+  status: not-a-workflow
+  arazzo: null
+- slug: woocommerce-claude-plugins-dev
+  label: claude-plugins.dev
+  partner_name: claude-plugins.dev
+  category: Agent Skills register
+  type: register
+  channel: standard-directory
+  evidence: https://claude-plugins.dev/skills/@woocommerce/woocommerce
+  source: edge
+  relationship: compatible
+  contract_reference:
+    register: claude-plugins.dev (public sitemap / list)
+    spec_file: null
+    standard: Agent Skills (agentskills.io)
+    role: agent-skills-listing
+    matched_org: woocommerce
+    matched_by: org-profile-domain:woocommerce.com
+    sample_skills:
+    - woocommerce-backend-dev
+    - woocommerce-code-review
+    - woocommerce-copy-guidelines
+    - woocommerce-dev-cycle
+    - woocommerce-markdown
+    detected_by: sweep-agent-skills.py
+    detected: '2026-10-20'
+  status: not-a-workflow
+  arazzo: null
+- slug: woocommerce-skillsmp-skillsmp-com
+  label: SkillsMP (skillsmp.com)
+  partner_name: SkillsMP (skillsmp.com)
+  category: Agent Skills register
+  type: register
+  channel: standard-directory
+  evidence: https://skillsmp.com/creators/woocommerce
+  source: edge
+  relationship: compatible
+  contract_reference:
+    register: SkillsMP (skillsmp.com) (public sitemap / list)
+    spec_file: null
+    standard: Agent Skills (agentskills.io)
+    role: agent-skills-listing
+    matched_org: woocommerce
+    matched_by: org-profile-domain:woocommerce.com
+    sample_skills: []
+    detected_by: sweep-agent-skills.py
+    detected: '2026-10-20'
+  status: not-a-workflow
+  arazzo: null

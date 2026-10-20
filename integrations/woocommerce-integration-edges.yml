@@ -19,6 +19,12 @@ checked:
 - https://woocommerce.com/products/
 - https://zapier.com/api/v4/apps/
 - https://zapier.com/apps/woocommerce/integrations
+- https://api.github.com
+- https://claude-plugins.dev/sitemap.xml
+- https://github.com/VoltAgent/awesome-agent-skills
+- https://officialskills.sh/sitemap.xml
+- https://skillsmp.com/sitemap.xml
+- https://www.skills.sh/sitemap.xml
 summary: null
 marketplace_apps:
 - marketplace: own
@@ -21886,6 +21892,103 @@ edges:
   direction: third-party
   category: Email Newsletters
   partner_url: https://www.mailerlite.com/
+- partner_name: skills.sh
+  partner: null
+  partner_match: register
+  type: register
+  direction: partner-built
+  category: Agent Skills register
+  evidence: https://www.skills.sh/woocommerce/woocommerce
+  channel: standard-directory
+  relationship: compatible
+  shape: agent-skills
+  evidence_kind: register-listing
+  degree: listed
+  report_only: true
+  agent_skills_register:
+    repos:
+    - woocommerce/woocommerce
+    repo_verified: false
+    signal_note: the provider's own-org repos the register lists; skill / install counts never read
+  contract_reference:
+    register: skills.sh (public sitemap / list)
+    spec_file: null
+    standard: Agent Skills (agentskills.io)
+    role: agent-skills-listing
+    matched_org: woocommerce
+    matched_by: org-profile-domain:woocommerce.com
+    sample_skills:
+    - woocommerce-backend-dev
+    - woocommerce-code-review
+    detected_by: sweep-agent-skills.py
+    detected: '2026-10-20'
+  detected_by: sweep-agent-skills.py
+  first_seen: '2026-10-20'
+- partner_name: claude-plugins.dev
+  partner: null
+  partner_match: register
+  type: register
+  direction: partner-built
+  category: Agent Skills register
+  evidence: https://claude-plugins.dev/skills/@woocommerce/woocommerce
+  channel: standard-directory
+  relationship: compatible
+  shape: agent-skills
+  evidence_kind: register-listing
+  degree: listed
+  report_only: true
+  agent_skills_register:
+    repos:
+    - woocommerce/woocommerce
+    repo_verified: false
+    signal_note: the provider's own-org repos the register lists; skill / install counts never read
+  contract_reference:
+    register: claude-plugins.dev (public sitemap / list)
+    spec_file: null
+    standard: Agent Skills (agentskills.io)
+    role: agent-skills-listing
+    matched_org: woocommerce
+    matched_by: org-profile-domain:woocommerce.com
+    sample_skills:
+    - woocommerce-backend-dev
+    - woocommerce-code-review
+    - woocommerce-copy-guidelines
+    - woocommerce-dev-cycle
+    - woocommerce-markdown
+    detected_by: sweep-agent-skills.py
+    detected: '2026-10-20'
+  detected_by: sweep-agent-skills.py
+  first_seen: '2026-10-20'
+- partner_name: SkillsMP (skillsmp.com)
+  partner: null
+  partner_match: register
+  type: register
+  direction: partner-built
+  category: Agent Skills register
+  evidence: https://skillsmp.com/creators/woocommerce
+  channel: standard-directory
+  relationship: compatible
+  shape: agent-skills
+  evidence_kind: register-listing
+  degree: listed
+  report_only: true
+  agent_skills_register:
+    repos:
+    - woocommerce
+    repo_verified: false
+    signal_note: the provider's own-org repos the register lists; skill / install counts never read
+  contract_reference:
+    register: SkillsMP (skillsmp.com) (public sitemap / list)
+    spec_file: null
+    standard: Agent Skills (agentskills.io)
+    role: agent-skills-listing
+    matched_org: woocommerce
+    matched_by: org-profile-domain:woocommerce.com
+    sample_skills: []
+    detected_by: sweep-agent-skills.py
+    detected: '2026-10-20'
+  detected_by: sweep-agent-skills.py
+  first_seen: '2026-10-20'
 templates:
 - title: Save new WooCommerce orders to Google Sheets rows
   url: https://zapier.com/apps/google-sheets/integrations/woocommerce/3142/save-new-woocommerce-orders-to-google-sheets-rows
