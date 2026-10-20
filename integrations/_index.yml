@@ -17,6 +17,7 @@
   source: template
   related_arazzo:
   - woocommerce-google-sheets-add-orders-to-rows.yml
+  relationship: ipaas-bridge
   arazzo: woocommerce-google-sheets-save-orders-to-rows.yml
   status: arazzo
 - slug: woocommerce-add-woocommerce-orders-to-google-sheets-rows
@@ -33,6 +34,7 @@
   source: template
   related_arazzo:
   - woocommerce-google-sheets-save-orders-to-rows.yml
+  relationship: ipaas-bridge
   arazzo: woocommerce-google-sheets-add-orders-to-rows.yml
   status: arazzo
 - slug: woocommerce-create-xero-invoices-for-new-woocommerce-orders
@@ -47,6 +49,7 @@
   evidence: https://zapier.com/apps/woocommerce/integrations/xero/2121/create-xero-invoices-for-new-woocommerce-orders
   template: https://zapier.com/apps/woocommerce/integrations/xero/2121/create-xero-invoices-for-new-woocommerce-orders
   source: template
+  relationship: ipaas-bridge
   arazzo: woocommerce-xero-invoices-for-orders.yml
   status: arazzo
 - slug: woocommerce-add-new-woocommerce-customers-to-google-ads-custom-lists
@@ -63,6 +66,7 @@
   source: template
   related_arazzo:
   - woocommerce-google-ads-customers-to-customer-lists.yml
+  relationship: ipaas-bridge
   status: pending-generation
   arazzo: null
 - slug: woocommerce-update-contacts-in-activecampaign-from-new-woocommerce-orders
@@ -79,6 +83,7 @@
   source: template
   related_arazzo:
   - woocommerce-activecampaign-new-customers.yml
+  relationship: ipaas-bridge
   arazzo: woocommerce-activecampaign-contacts-from-orders.yml
   status: arazzo
 - slug: woocommerce-update-contacts-in-flodesk-from-new-woocommerce-orders
@@ -92,6 +97,7 @@
   evidence: https://zapier.com/apps/flodesk/integrations/woocommerce/112430/update-contacts-in-flodesk-from-new-woocommerce-orders
   template: https://zapier.com/apps/flodesk/integrations/woocommerce/112430/update-contacts-in-flodesk-from-new-woocommerce-orders
   source: template
+  relationship: ipaas-bridge
   status: pending-partner-spec
   arazzo: null
 - slug: woocommerce-add-new-woocommerce-customers-to-activecampaign
@@ -108,6 +114,7 @@
   source: template
   related_arazzo:
   - woocommerce-activecampaign-contacts-from-orders.yml
+  relationship: ipaas-bridge
   arazzo: woocommerce-activecampaign-new-customers.yml
   status: arazzo
 - slug: woocommerce-add-new-woocommerce-customers-to-google-ads-customer-lists
@@ -122,6 +129,7 @@
   evidence: https://zapier.com/apps/google-ads/integrations/woocommerce/88826/add-new-woocommerce-customers-to-google-ads-customer-lists
   template: https://zapier.com/apps/google-ads/integrations/woocommerce/88826/add-new-woocommerce-customers-to-google-ads-customer-lists
   source: template
+  relationship: ipaas-bridge
   arazzo: woocommerce-google-ads-customers-to-customer-lists.yml
   status: arazzo
 - slug: woocommerce-save-new-woocommerce-clients-to-hubspot-contacts
@@ -136,6 +144,7 @@
   evidence: https://zapier.com/apps/hubspot/integrations/woocommerce/3144/save-new-woocommerce-clients-to-hubspot-contacts
   template: https://zapier.com/apps/hubspot/integrations/woocommerce/3144/save-new-woocommerce-clients-to-hubspot-contacts
   source: template
+  relationship: ipaas-bridge
   status: pending-generation
   arazzo: null
 - slug: woocommerce-create-trello-cards-from-new-woocommerce-orders
@@ -150,278 +159,9 @@
   evidence: https://zapier.com/apps/trello/integrations/woocommerce/3341/create-trello-cards-from-new-woocommerce-orders
   template: https://zapier.com/apps/trello/integrations/woocommerce/3341/create-trello-cards-from-new-woocommerce-orders
   source: template
+  relationship: ipaas-bridge
   arazzo: woocommerce-trello-cards-from-orders.yml
   status: arazzo
-- slug: woocommerce-mailchimp
-  label: Mailchimp
-  partner: mailchimp
-  partner_name: Mailchimp
-  category: Marketing Automation
-  type: marketplace
-  marketplace: zapier
-  channel: ipaas-usage
-  evidence: https://zapier.com/apps/woocommerce/integrations/mailchimp
-  source: edge
-  status: pending-generation
-  arazzo: null
-- slug: woocommerce-pipedrive
-  label: Pipedrive
-  partner: pipedrive
-  partner_name: Pipedrive
-  category: CRM (Customer Relationship Management)
-  type: marketplace
-  marketplace: zapier
-  channel: ipaas-usage
-  evidence: https://zapier.com/apps/woocommerce/integrations/pipedrive
-  source: edge
-  status: pending-generation
-  arazzo: null
-- slug: woocommerce-kajabi
-  label: Kajabi
-  partner: kajabi
-  partner_name: Kajabi
-  category: eCommerce
-  type: marketplace
-  marketplace: zapier
-  channel: ipaas-usage
-  evidence: https://zapier.com/apps/woocommerce/integrations/kajabi
-  source: edge
-  status: pending-generation
-  arazzo: null
-- slug: woocommerce-airtable
-  label: Airtable
-  partner: airtable
-  partner_name: Airtable
-  category: Databases
-  type: marketplace
-  marketplace: zapier
-  channel: ipaas-usage
-  evidence: https://zapier.com/apps/woocommerce/integrations/airtable
-  source: edge
-  status: pending-generation
-  arazzo: null
-- slug: woocommerce-monday-com
-  label: monday.com
-  partner_name: monday.com
-  category: Project Management
-  type: marketplace
-  marketplace: zapier
-  channel: ipaas-usage
-  evidence: https://zapier.com/apps/woocommerce/integrations/monday
-  source: edge
-  status: pending-partner-spec
-  arazzo: null
-- slug: woocommerce-leadconnector
-  label: LeadConnector
-  partner_name: LeadConnector
-  category: Marketing Automation
-  type: marketplace
-  marketplace: zapier
-  channel: ipaas-usage
-  evidence: https://zapier.com/apps/woocommerce/integrations/leadconnector
-  source: edge
-  status: pending-partner-spec
-  arazzo: null
-- slug: woocommerce-brevo
-  label: Brevo
-  partner: brevo
-  partner_name: Brevo
-  category: Email Newsletters
-  type: marketplace
-  marketplace: zapier
-  channel: ipaas-usage
-  evidence: https://zapier.com/apps/woocommerce/integrations/brevo
-  source: edge
-  status: pending-generation
-  arazzo: null
-- slug: woocommerce-teachable
-  label: Teachable
-  partner: teachable
-  partner_name: Teachable
-  category: Online Courses
-  type: marketplace
-  marketplace: zapier
-  channel: ipaas-usage
-  evidence: https://zapier.com/apps/woocommerce/integrations/teachable
-  source: edge
-  status: pending-generation
-  arazzo: null
-- slug: woocommerce-zoom
-  label: Zoom
-  partner: zoom
-  partner_name: Zoom
-  category: Video Conferencing
-  type: marketplace
-  marketplace: zapier
-  channel: ipaas-usage
-  evidence: https://zapier.com/apps/woocommerce/integrations/zoom
-  source: edge
-  status: pending-generation
-  arazzo: null
-- slug: woocommerce-gmail
-  label: Gmail
-  partner: gmail
-  partner_name: Gmail
-  category: Email
-  type: marketplace
-  marketplace: zapier
-  channel: ipaas-usage
-  evidence: https://zapier.com/apps/woocommerce/integrations/gmail
-  source: edge
-  status: pending-partner-spec
-  arazzo: null
-- slug: woocommerce-wpforms
-  label: WPForms
-  partner_name: WPForms
-  category: Forms & Surveys
-  type: marketplace
-  marketplace: zapier
-  channel: ipaas-usage
-  evidence: https://zapier.com/apps/woocommerce/integrations/wpforms
-  source: edge
-  status: pending-partner-spec
-  arazzo: null
-- slug: woocommerce-gravity-forms
-  label: Gravity Forms
-  partner: gravity-forms
-  partner_name: Gravity Forms
-  category: Forms & Surveys
-  type: marketplace
-  marketplace: zapier
-  channel: ipaas-usage
-  evidence: https://zapier.com/apps/woocommerce/integrations/gravity-forms
-  source: edge
-  status: pending-generation
-  arazzo: null
-- slug: woocommerce-mailerlite
-  label: MailerLite
-  partner: mailerlite
-  partner_name: MailerLite
-  category: Marketing Automation
-  type: marketplace
-  marketplace: zapier
-  channel: ipaas-usage
-  evidence: https://zapier.com/apps/woocommerce/integrations/mailerlite
-  source: edge
-  status: pending-generation
-  arazzo: null
-- slug: woocommerce-kartra
-  label: Kartra
-  partner: kartra
-  partner_name: Kartra
-  category: Marketing Automation
-  type: marketplace
-  marketplace: zapier
-  channel: ipaas-usage
-  evidence: https://zapier.com/apps/woocommerce/integrations/kartra
-  source: edge
-  status: pending-partner-spec
-  arazzo: null
-- slug: woocommerce-learndash
-  label: LearnDash
-  partner_name: LearnDash
-  category: Online Courses
-  type: marketplace
-  marketplace: zapier
-  channel: ipaas-usage
-  evidence: https://zapier.com/apps/woocommerce/integrations/learndash
-  source: edge
-  status: pending-partner-spec
-  arazzo: null
-- slug: woocommerce-twilio
-  label: Twilio
-  partner: twilio
-  partner_name: Twilio
-  category: Phone & SMS
-  type: marketplace
-  marketplace: zapier
-  channel: ipaas-usage
-  evidence: https://zapier.com/apps/woocommerce/integrations/twilio
-  source: edge
-  status: pending-generation
-  arazzo: null
-- slug: woocommerce-clickfunnels-classic
-  label: ClickFunnels Classic
-  partner: clickfunnels
-  partner_name: ClickFunnels Classic
-  category: Marketing Automation
-  type: marketplace
-  marketplace: zapier
-  channel: ipaas-usage
-  evidence: https://zapier.com/apps/woocommerce/integrations/clickfunnels-classic
-  source: edge
-  status: pending-generation
-  arazzo: null
-- slug: woocommerce-circle
-  label: Circle
-  partner: circle-community
-  partner_name: Circle
-  category: CRM (Customer Relationship Management)
-  type: marketplace
-  marketplace: zapier
-  channel: ipaas-usage
-  evidence: https://zapier.com/apps/woocommerce/integrations/circle
-  source: edge
-  status: pending-generation
-  arazzo: null
-- slug: woocommerce-wordpress
-  label: WordPress
-  partner: wordpress
-  partner_name: WordPress
-  category: Website Builders
-  type: marketplace
-  marketplace: zapier
-  channel: ipaas-usage
-  evidence: https://zapier.com/apps/woocommerce/integrations/wordpress
-  source: edge
-  status: pending-generation
-  arazzo: null
-- slug: woocommerce-clickup
-  label: ClickUp
-  partner: clickup
-  partner_name: ClickUp
-  category: Project Management
-  type: marketplace
-  marketplace: zapier
-  channel: ipaas-usage
-  evidence: https://zapier.com/apps/woocommerce/integrations/clickup
-  source: edge
-  status: pending-generation
-  arazzo: null
-- slug: woocommerce-whatsapp-notifications
-  label: WhatsApp Notifications
-  partner_name: WhatsApp Notifications
-  category: Communication
-  type: marketplace
-  marketplace: zapier
-  channel: ipaas-usage
-  evidence: https://zapier.com/apps/woocommerce/integrations/whatsapp-notifications
-  source: edge
-  status: pending-partner-spec
-  arazzo: null
-- slug: woocommerce-microsoft-excel
-  label: Microsoft Excel
-  partner_name: Microsoft Excel
-  category: Microsoft
-  type: marketplace
-  marketplace: zapier
-  channel: ipaas-usage
-  evidence: https://zapier.com/apps/woocommerce/integrations/excel
-  source: edge
-  status: pending-partner-spec
-  arazzo: null
-- slug: woocommerce-mailerlite-classic
-  label: MailerLite Classic
-  partner: mailerlite
-  partner_name: MailerLite Classic
-  category: Email Newsletters
-  type: marketplace
-  marketplace: zapier
-  channel: ipaas-usage
-  evidence: https://zapier.com/apps/woocommerce/integrations/mailerlite-classic
-  source: edge
-  status: pending-generation
-  arazzo: null
 - slug: woocommerce-appalify
   label: Appalify
   partner_name: Appalify
@@ -560,6 +300,75 @@
     property: schemas.RetailerPlatform.provider
     detected_by: detect-payment-method-edges.py
     detected: '2026-10-12'
+  status: not-a-workflow
+  arazzo: null
+- slug: woocommerce-freshbooks-own
+  label: FreshBooks (own)
+  partner: freshbooks
+  partner_name: FreshBooks (own)
+  category: Track Sale Orders
+  type: marketplace
+  marketplace: own
+  channel: partner-built
+  evidence: https://appstore.freshbooks.com/apps/woocommerce
+  source: edge
+  relationship: platform-app
+  status: not-a-workflow
+  arazzo: null
+- slug: woocommerce-zapier
+  label: Zapier
+  partner: zapier
+  partner_name: Zapier
+  type: marketplace
+  marketplace: zapier-directory
+  channel: ipaas-listing
+  evidence: https://zapier.com/apps/woocommerce/integrations
+  source: edge
+  relationship: ipaas-bridge
+  contract_reference:
+    register: Zapier app directory (zapier.com/api/v4/apps)
+    spec_file: null
+    role: ipaas-connector:zapier
+    registered_name: WooCommerce
+    matched_domain: woocommerce.com
+    matched_by: domain
+    detected_by: sweep-workflow-automation.py
+    detected: '2026-10-15'
+    signal_note: one edge per (provider, platform); actions, triggers and usage counts are context, never read
+    app_slug: woocommerce
+    beta: false
+    builder: unknown (not in the directory record)
+  status: not-a-workflow
+  arazzo: null
+- slug: woocommerce-npm-registry
+  label: npm registry
+  partner: npm
+  partner_name: npm registry
+  category: official SDK (JavaScript/TypeScript)
+  type: register
+  channel: package-registry
+  evidence: https://www.npmjs.com/package/@woocommerce/woocommerce-rest-api
+  source: edge
+  relationship: distribution-channel
+  contract_reference:
+    register: npm registry (public registry JSON)
+    spec_file: null
+    language: JavaScript/TypeScript
+    packages:
+    - name: '@woocommerce/woocommerce-rest-api'
+      version: 1.0.2
+      released: '2026-06-17'
+      released_field: modified
+      lapsed: false
+      page: https://www.npmjs.com/package/@woocommerce/woocommerce-rest-api
+      repo_leg: github-org:woocommerce
+      publisher_leg: org:woocommerce
+      matched_by: github-org
+    current: true
+    signal_note: 'an official package on the registry: distribution, not an integration; lapsed = no release in
+      24 months'
+    detected_by: sweep-official-sdks.py
+    detected: '2026-10-18'
   status: not-a-workflow
   arazzo: null
 - slug: woocommerce-google-analytics-for-woocommerce
@@ -1327,6 +1136,19 @@
   marketplace: own
   channel: partner-built
   evidence: https://woocommerce.com/products/klaviyo-for-woocommerce/
+  source: edge
+  relationship: platform-app
+  status: not-a-workflow
+  arazzo: null
+- slug: woocommerce-mailchimp
+  label: Mailchimp
+  partner: mailchimp
+  partner_name: Mailchimp
+  category: extension
+  type: marketplace
+  marketplace: own
+  channel: partner-built
+  evidence: https://woocommerce.com/products/mailchimp-for-woocommerce/
   source: edge
   relationship: platform-app
   status: not-a-workflow
@@ -5406,72 +5228,284 @@
   relationship: platform-app
   status: not-a-workflow
   arazzo: null
-- slug: woocommerce-freshbooks-own
-  label: FreshBooks (own)
-  partner: freshbooks
-  partner_name: FreshBooks (own)
-  category: Track Sale Orders
+- slug: woocommerce-kajabi
+  label: Kajabi
+  partner: kajabi
+  partner_name: Kajabi
+  category: eCommerce
   type: marketplace
-  marketplace: own
-  channel: partner-built
-  evidence: https://appstore.freshbooks.com/apps/woocommerce
-  source: edge
-  relationship: platform-app
-  status: not-a-workflow
-  arazzo: null
-- slug: woocommerce-zapier
-  label: Zapier
-  partner: zapier
-  partner_name: Zapier
-  type: marketplace
-  marketplace: zapier-directory
-  channel: ipaas-listing
-  evidence: https://zapier.com/apps/woocommerce/integrations
+  marketplace: zapier
+  channel: ipaas-usage
+  evidence: https://zapier.com/apps/woocommerce/integrations/kajabi
   source: edge
   relationship: ipaas-bridge
-  contract_reference:
-    register: Zapier app directory (zapier.com/api/v4/apps)
-    spec_file: null
-    role: ipaas-connector:zapier
-    registered_name: WooCommerce
-    matched_domain: woocommerce.com
-    matched_by: domain
-    detected_by: sweep-workflow-automation.py
-    detected: '2026-10-15'
-    signal_note: one edge per (provider, platform); actions, triggers and usage counts are context, never read
-    app_slug: woocommerce
-    beta: false
-    builder: unknown (not in the directory record)
-  status: not-a-workflow
+  status: pending-generation
   arazzo: null
-- slug: woocommerce-npm-registry
-  label: npm registry
-  partner: npm
-  partner_name: npm registry
-  category: official SDK (JavaScript/TypeScript)
-  type: register
-  channel: package-registry
-  evidence: https://www.npmjs.com/package/@woocommerce/woocommerce-rest-api
+- slug: woocommerce-airtable
+  label: Airtable
+  partner: airtable
+  partner_name: Airtable
+  category: Databases
+  type: marketplace
+  marketplace: zapier
+  channel: ipaas-usage
+  evidence: https://zapier.com/apps/woocommerce/integrations/airtable
   source: edge
-  relationship: distribution-channel
-  contract_reference:
-    register: npm registry (public registry JSON)
-    spec_file: null
-    language: JavaScript/TypeScript
-    packages:
-    - name: '@woocommerce/woocommerce-rest-api'
-      version: 1.0.2
-      released: '2026-06-17'
-      released_field: modified
-      lapsed: false
-      page: https://www.npmjs.com/package/@woocommerce/woocommerce-rest-api
-      repo_leg: github-org:woocommerce
-      publisher_leg: org:woocommerce
-      matched_by: github-org
-    current: true
-    signal_note: 'an official package on the registry: distribution, not an integration; lapsed = no release in
-      24 months'
-    detected_by: sweep-official-sdks.py
-    detected: '2026-10-18'
-  status: not-a-workflow
+  relationship: ipaas-bridge
+  status: pending-generation
+  arazzo: null
+- slug: woocommerce-monday-com
+  label: monday.com
+  partner: monday-com
+  partner_name: monday.com
+  category: Project Management
+  type: marketplace
+  marketplace: zapier
+  channel: ipaas-usage
+  evidence: https://zapier.com/apps/woocommerce/integrations/monday
+  source: edge
+  relationship: ipaas-bridge
+  status: pending-generation
+  arazzo: null
+- slug: woocommerce-leadconnector
+  label: LeadConnector
+  partner_name: LeadConnector
+  category: Marketing Automation
+  type: marketplace
+  marketplace: zapier
+  channel: ipaas-usage
+  evidence: https://zapier.com/apps/woocommerce/integrations/leadconnector
+  source: edge
+  relationship: ipaas-bridge
+  status: pending-partner-spec
+  arazzo: null
+- slug: woocommerce-brevo
+  label: Brevo
+  partner: brevo
+  partner_name: Brevo
+  category: Email Newsletters
+  type: marketplace
+  marketplace: zapier
+  channel: ipaas-usage
+  evidence: https://zapier.com/apps/woocommerce/integrations/brevo
+  source: edge
+  relationship: ipaas-bridge
+  status: pending-generation
+  arazzo: null
+- slug: woocommerce-teachable
+  label: Teachable
+  partner: teachable
+  partner_name: Teachable
+  category: Online Courses
+  type: marketplace
+  marketplace: zapier
+  channel: ipaas-usage
+  evidence: https://zapier.com/apps/woocommerce/integrations/teachable
+  source: edge
+  relationship: ipaas-bridge
+  status: pending-generation
+  arazzo: null
+- slug: woocommerce-zoom
+  label: Zoom
+  partner: zoom
+  partner_name: Zoom
+  category: Video Conferencing
+  type: marketplace
+  marketplace: zapier
+  channel: ipaas-usage
+  evidence: https://zapier.com/apps/woocommerce/integrations/zoom
+  source: edge
+  relationship: ipaas-bridge
+  status: pending-generation
+  arazzo: null
+- slug: woocommerce-gmail
+  label: Gmail
+  partner: gmail
+  partner_name: Gmail
+  category: Email
+  type: marketplace
+  marketplace: zapier
+  channel: ipaas-usage
+  evidence: https://zapier.com/apps/woocommerce/integrations/gmail
+  source: edge
+  relationship: ipaas-bridge
+  status: pending-partner-spec
+  arazzo: null
+- slug: woocommerce-wpforms
+  label: WPForms
+  partner_name: WPForms
+  category: Forms & Surveys
+  type: marketplace
+  marketplace: zapier
+  channel: ipaas-usage
+  evidence: https://zapier.com/apps/woocommerce/integrations/wpforms
+  source: edge
+  relationship: ipaas-bridge
+  status: pending-partner-spec
+  arazzo: null
+- slug: woocommerce-gravity-forms
+  label: Gravity Forms
+  partner: gravity-forms
+  partner_name: Gravity Forms
+  category: Forms & Surveys
+  type: marketplace
+  marketplace: zapier
+  channel: ipaas-usage
+  evidence: https://zapier.com/apps/woocommerce/integrations/gravity-forms
+  source: edge
+  relationship: ipaas-bridge
+  status: pending-generation
+  arazzo: null
+- slug: woocommerce-mailerlite
+  label: MailerLite
+  partner: mailerlite
+  partner_name: MailerLite
+  category: Marketing Automation
+  type: marketplace
+  marketplace: zapier
+  channel: ipaas-usage
+  evidence: https://zapier.com/apps/woocommerce/integrations/mailerlite
+  source: edge
+  relationship: ipaas-bridge
+  status: pending-generation
+  arazzo: null
+- slug: woocommerce-kartra
+  label: Kartra
+  partner: kartra
+  partner_name: Kartra
+  category: Marketing Automation
+  type: marketplace
+  marketplace: zapier
+  channel: ipaas-usage
+  evidence: https://zapier.com/apps/woocommerce/integrations/kartra
+  source: edge
+  relationship: ipaas-bridge
+  status: pending-partner-spec
+  arazzo: null
+- slug: woocommerce-learndash
+  label: LearnDash
+  partner_name: LearnDash
+  category: Online Courses
+  type: marketplace
+  marketplace: zapier
+  channel: ipaas-usage
+  evidence: https://zapier.com/apps/woocommerce/integrations/learndash
+  source: edge
+  relationship: ipaas-bridge
+  status: pending-partner-spec
+  arazzo: null
+- slug: woocommerce-twilio
+  label: Twilio
+  partner: twilio
+  partner_name: Twilio
+  category: Phone & SMS
+  type: marketplace
+  marketplace: zapier
+  channel: ipaas-usage
+  evidence: https://zapier.com/apps/woocommerce/integrations/twilio
+  source: edge
+  relationship: ipaas-bridge
+  status: pending-generation
+  arazzo: null
+- slug: woocommerce-clickfunnels-classic
+  label: ClickFunnels Classic
+  partner: clickfunnels
+  partner_name: ClickFunnels Classic
+  category: Marketing Automation
+  type: marketplace
+  marketplace: zapier
+  channel: ipaas-usage
+  evidence: https://zapier.com/apps/woocommerce/integrations/clickfunnels-classic
+  source: edge
+  relationship: ipaas-bridge
+  status: pending-generation
+  arazzo: null
+- slug: woocommerce-pipedrive
+  label: Pipedrive
+  partner: pipedrive
+  partner_name: Pipedrive
+  category: CRM (Customer Relationship Management)
+  type: marketplace
+  marketplace: zapier
+  channel: ipaas-usage
+  evidence: https://zapier.com/apps/woocommerce/integrations/pipedrive
+  source: edge
+  relationship: ipaas-bridge
+  status: pending-generation
+  arazzo: null
+- slug: woocommerce-circle
+  label: Circle
+  partner: circle-community
+  partner_name: Circle
+  category: CRM (Customer Relationship Management)
+  type: marketplace
+  marketplace: zapier
+  channel: ipaas-usage
+  evidence: https://zapier.com/apps/woocommerce/integrations/circle
+  source: edge
+  relationship: ipaas-bridge
+  status: pending-generation
+  arazzo: null
+- slug: woocommerce-wordpress
+  label: WordPress
+  partner: wordpress
+  partner_name: WordPress
+  category: Website Builders
+  type: marketplace
+  marketplace: zapier
+  channel: ipaas-usage
+  evidence: https://zapier.com/apps/woocommerce/integrations/wordpress
+  source: edge
+  relationship: ipaas-bridge
+  status: pending-generation
+  arazzo: null
+- slug: woocommerce-clickup
+  label: ClickUp
+  partner: clickup
+  partner_name: ClickUp
+  category: Project Management
+  type: marketplace
+  marketplace: zapier
+  channel: ipaas-usage
+  evidence: https://zapier.com/apps/woocommerce/integrations/clickup
+  source: edge
+  relationship: ipaas-bridge
+  status: pending-generation
+  arazzo: null
+- slug: woocommerce-whatsapp-notifications
+  label: WhatsApp Notifications
+  partner_name: WhatsApp Notifications
+  category: Communication
+  type: marketplace
+  marketplace: zapier
+  channel: ipaas-usage
+  evidence: https://zapier.com/apps/woocommerce/integrations/whatsapp-notifications
+  source: edge
+  relationship: ipaas-bridge
+  status: pending-partner-spec
+  arazzo: null
+- slug: woocommerce-microsoft-excel
+  label: Microsoft Excel
+  partner_name: Microsoft Excel
+  category: Microsoft
+  type: marketplace
+  marketplace: zapier
+  channel: ipaas-usage
+  evidence: https://zapier.com/apps/woocommerce/integrations/excel
+  source: edge
+  relationship: ipaas-bridge
+  status: pending-partner-spec
+  arazzo: null
+- slug: woocommerce-mailerlite-classic
+  label: MailerLite Classic
+  partner: mailerlite
+  partner_name: MailerLite Classic
+  category: Email Newsletters
+  type: marketplace
+  marketplace: zapier
+  channel: ipaas-usage
+  evidence: https://zapier.com/apps/woocommerce/integrations/mailerlite-classic
+  source: edge
+  relationship: ipaas-bridge
+  status: pending-generation
   arazzo: null
