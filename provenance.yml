@@ -1012,13 +1012,11 @@ artifacts:
     method: searched
     evidence: 'derive-llms-provenance.py: harvested'
   openapi/_original/woocommerce-rest-api-openapi.yml:
-    method: harvested
-    evidence: found in openapi/_original/; the fetch URL and bytes were not recorded, so byte-identity
-      to the provider's source is unverified
+    method: generated
+    evidence: AE-authored from the vendor documentation (see info.x-sources); a documentation-derived summary, not a vendor-published contract
   openapi/_original/woocommerce-store-api-openapi.yml:
-    method: harvested
-    evidence: found in openapi/_original/; the fetch URL and bytes were not recorded, so byte-identity
-      to the provider's source is unverified
+    method: generated
+    evidence: AE-authored from the vendor documentation (see info.x-sources); a documentation-derived summary, not a vendor-published contract
   openapi/woocommerce-cart-api-openapi.yml:
     method: derived
     evidence: paths are a subset of openapi/_original/ (split from the harvested spec)

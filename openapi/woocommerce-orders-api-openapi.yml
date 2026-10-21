@@ -1,5 +1,11 @@
 openapi: 3.2.0
 info:
+  x-generated-from: documentation
+  x-provenance: generated
+  x-authored-by: API Evangelist
+  x-derived-by: API Evangelist (split from an AE-authored, documentation-derived spec in openapi/_original/)
+  x-sources:
+  - https://woocommerce.github.io/woocommerce-rest-api-docs/
   title: Woocommerce Orders API
   termsOfService: https://woocommerce.com/terms-conditions/
   version: '1.0'
