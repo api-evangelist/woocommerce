@@ -5579,3 +5579,16 @@
     detected: '2026-10-20'
   status: not-a-workflow
   arazzo: null
+- slug: woocommerce-printify
+  label: Printify
+  partner: printify
+  partner_name: Printify
+  category: print-on-demand fulfilment integration
+  type: marketplace
+  marketplace: builder-directory
+  channel: partner-built
+  evidence: https://printify.com/woocommerce/
+  source: edge
+  relationship: platform-app
+  status: not-a-workflow
+  arazzo: null
