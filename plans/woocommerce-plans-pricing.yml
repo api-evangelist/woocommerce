@@ -1,0 +1,44 @@
+name: WooCommerce Pricing
+generated: '2026-10-12'
+method: searched
+source: https://woocommerce.com/pricing/
+audience: business-product
+pricing_basis: free
+published: true
+delivery:
+  delivery: self-hosted
+  evidence: WooCommerce is the free, open-source ecommerce platform for WordPress.
+  free_edition: WooCommerce
+plans:
+- name: Core platform
+  description: WooCommerce core plugin, which includes the REST API and Store API.
+  price: 0
+  price_text: Free, with no monthly subscription.
+  features:
+  - 0 % revenue share
+  limits: []
+- name: Extensions
+  description: Optional paid extensions from the WooCommerce Marketplace.
+  price_text: $29 – $299/year per extension to enhance your store.
+  features:
+  - Add à la carte
+  limits: []
+x-canonical:
+  generated: '2026-11-01'
+  vocabulary: engine/economics/plans-canonical.yml
+  models:
+  - free
+  units: []
+  plans:
+  - name: Core platform
+    access: other
+    model: free
+    model_how: derived
+    units: []
+    periods: []
+  - name: Extensions
+    access: other
+    model: unstated
+    model_how: derived
+    units: []
+    periods: []
