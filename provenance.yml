@@ -395,6 +395,9 @@ artifacts:
   heartbeat/2026-11-13.yml:
     method: unknown
     evidence: no authorship recorded
+  heartbeat/2026-11-20.yml:
+    method: unknown
+    evidence: no authorship recorded
   hosts/woocommerce-hosts.yml:
     method: derived
     evidence: declared in the artifact
@@ -977,7 +980,7 @@ artifacts:
   kin/checks-2026-10-23T222754.yml:
     method: generated
     evidence: Kin Score snapshot written by score.rb
-  kin/checks-2026-11-06T143934.yml:
+  kin/checks-2026-11-13T214628.yml:
     method: generated
     evidence: Kin Score snapshot written by score.rb
   kin/score-2026-09-23T000603.yml:
@@ -1044,6 +1047,9 @@ artifacts:
     method: generated
     evidence: Kin Score snapshot written by score.rb
   kin/score-2026-11-06T143934.yml:
+    method: generated
+    evidence: Kin Score snapshot written by score.rb
+  kin/score-2026-11-13T214628.yml:
     method: generated
     evidence: Kin Score snapshot written by score.rb
   lifecycle/woocommerce-lifecycle.yml:
@@ -1123,6 +1129,63 @@ artifacts:
   openapi/woocommerce-webhooks-api-openapi.yml:
     method: derived
     evidence: paths are a subset of openapi/_original/ (split from the harvested spec)
+  overlays/woocommerce-cart-api-phrasing-overlay.yaml:
+    method: generated
+    evidence: declared in the artifact
+  overlays/woocommerce-checkout-api-phrasing-overlay.yaml:
+    method: generated
+    evidence: declared in the artifact
+  overlays/woocommerce-coupons-api-phrasing-overlay.yaml:
+    method: generated
+    evidence: declared in the artifact
+  overlays/woocommerce-customers-api-phrasing-overlay.yaml:
+    method: generated
+    evidence: declared in the artifact
+  overlays/woocommerce-order-notes-api-phrasing-overlay.yaml:
+    method: generated
+    evidence: declared in the artifact
+  overlays/woocommerce-order-refunds-api-phrasing-overlay.yaml:
+    method: generated
+    evidence: declared in the artifact
+  overlays/woocommerce-orders-api-phrasing-overlay.yaml:
+    method: generated
+    evidence: declared in the artifact
+  overlays/woocommerce-payment-gateways-api-phrasing-overlay.yaml:
+    method: generated
+    evidence: declared in the artifact
+  overlays/woocommerce-product-attributes-api-phrasing-overlay.yaml:
+    method: generated
+    evidence: declared in the artifact
+  overlays/woocommerce-product-categories-api-phrasing-overlay.yaml:
+    method: generated
+    evidence: declared in the artifact
+  overlays/woocommerce-product-reviews-api-phrasing-overlay.yaml:
+    method: generated
+    evidence: declared in the artifact
+  overlays/woocommerce-product-tags-api-phrasing-overlay.yaml:
+    method: generated
+    evidence: declared in the artifact
+  overlays/woocommerce-product-variations-api-phrasing-overlay.yaml:
+    method: generated
+    evidence: declared in the artifact
+  overlays/woocommerce-products-api-phrasing-overlay.yaml:
+    method: generated
+    evidence: declared in the artifact
+  overlays/woocommerce-reports-api-phrasing-overlay.yaml:
+    method: generated
+    evidence: declared in the artifact
+  overlays/woocommerce-shipping-zones-api-phrasing-overlay.yaml:
+    method: generated
+    evidence: declared in the artifact
+  overlays/woocommerce-system-status-api-phrasing-overlay.yaml:
+    method: generated
+    evidence: declared in the artifact
+  overlays/woocommerce-tax-rates-api-phrasing-overlay.yaml:
+    method: generated
+    evidence: declared in the artifact
+  overlays/woocommerce-webhooks-api-phrasing-overlay.yaml:
+    method: generated
+    evidence: declared in the artifact
   packages/woocommerce-packages.yml:
     method: searched
     evidence: declared in the artifact
@@ -1161,9 +1224,6 @@ artifacts:
     evidence: no authorship recorded
   security/woocommerce-vulnerability-disclosure.yml:
     method: searched
-    evidence: declared in the artifact
-  sla/woocommerce-sla.yml:
-    method: generated
     evidence: declared in the artifact
   terms/woocommerce-terms-of-service.yml:
     method: harvested
